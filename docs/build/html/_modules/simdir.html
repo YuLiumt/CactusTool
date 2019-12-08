@@ -1,14 +1,14 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>simdir &mdash; CactusTool 0.0.1 文档</title>
+  <title>simdir &mdash; CactusTool 0.0.1 documentation</title>
   
 
   
@@ -25,7 +25,6 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script type="text/javascript" src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -35,8 +34,8 @@
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
-    <link rel="index" title="索引" href="../genindex.html" />
-    <link rel="search" title="搜索" href="../search.html" /> 
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -82,6 +81,8 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../Note/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Note/start.html">Get Start</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../API/modules.html">src</a></li>
 </ul>
 
@@ -128,7 +129,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="index.html">模块代码</a> &raquo;</li>
+          <li><a href="index.html">Module code</a> &raquo;</li>
         
       <li>simdir</li>
     
@@ -145,12 +146,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <h1>simdir 源代码</h1><div class="highlight"><pre>
+  <h1>Source code for simdir</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">CactusTool.parfile</span> <span class="k">import</span> <span class="n">load_parfile</span>
 <span class="kn">from</span> <span class="nn">CactusTool.CarpetScalars</span> <span class="k">import</span> <span class="n">ScalarsDir</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
-<div class="viewcode-block" id="lazy_property"><a class="viewcode-back" href="../API/simdir.html#simdir.lazy_property">[文档]</a><span class="k">def</span> <span class="nf">lazy_property</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
+<div class="viewcode-block" id="lazy_property"><a class="viewcode-back" href="../API/simdir.html#simdir.lazy_property">[docs]</a><span class="k">def</span> <span class="nf">lazy_property</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
     <span class="n">attr_name</span> <span class="o">=</span> <span class="s1">&#39;_lazy_&#39;</span> <span class="o">+</span> <span class="n">fn</span><span class="o">.</span><span class="vm">__name__</span>
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_lazy_property</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -159,7 +160,7 @@
         <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr_name</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">_lazy_property</span></div>
 
-<div class="viewcode-block" id="SimDir"><a class="viewcode-back" href="../API/simdir.html#simdir.SimDir">[文档]</a><span class="k">class</span> <span class="nc">SimDir</span><span class="p">:</span>
+<div class="viewcode-block" id="SimDir"><a class="viewcode-back" href="../API/simdir.html#simdir.SimDir">[docs]</a><span class="k">class</span> <span class="nc">SimDir</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class represents a CACTUS simulation directory.</span>
 <span class="sd">    &quot;&quot;&quot;</span>

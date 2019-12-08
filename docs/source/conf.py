@@ -12,7 +12,7 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../../src'))
+sys.path.insert(0, os.path.abspath('../../CactusTool'))
 
 
 import sphinx_rtd_theme
@@ -50,7 +50,7 @@ templates_path = ['_templates']
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = []
 
-language = 'zh_CN'
+language = 'en'
 
 master_doc = 'index'
 source_suffix = '.rst'

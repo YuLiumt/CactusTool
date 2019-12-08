@@ -1,0 +1,7 @@
+outputdir module
+================
+
+.. automodule:: outputdir
+   :members:
+   :undoc-members:
+   :show-inheritance:

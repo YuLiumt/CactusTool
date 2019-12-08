@@ -5,14 +5,18 @@
 
 Welcome to CactusTool's documentation!
 ======================================
-Base on PostCactus and CactusPy, but run in python3
+CactusTool pack package provides tools to work with `CACTUS <http://www.cactuscode.org>`_ data. Our code is base on PostCactus and PyCactus, but run in python3. It also provides some specialized functions.
 
-Cactus in Prepare
+.. note::
+
+    Still in Prepare
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
+   Note/introduction
+   Note/start
    API/modules
 
 

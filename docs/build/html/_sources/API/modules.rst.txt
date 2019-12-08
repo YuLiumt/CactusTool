@@ -4,5 +4,8 @@ src
 .. toctree::
    :maxdepth: 4
 
+   carpetscalar
+   function
+   outputdir
    parfile
-   simdir
+   simulation
