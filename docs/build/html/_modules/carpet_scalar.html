@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>carpetscalar &mdash; CactusTool 0.0.1 documentation</title>
+  <title>carpet_scalar &mdash; CactusTool 0.0.1 documentation</title>
   
 
   
@@ -130,7 +130,7 @@
         
           <li><a href="index.html">Module code</a> &raquo;</li>
         
-      <li>carpetscalar</li>
+      <li>carpet_scalar</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -145,7 +145,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <h1>Source code for carpetscalar</h1><div class="highlight"><pre>
+  <h1>Source code for carpet_scalar</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">The :py:mod:`~.cactus_scalars` module provides functions to load </span>
 <span class="sd">timeseries in Cactus formats and a class :py:class:`ScalarsDir` for easy </span>
@@ -155,13 +155,12 @@
 <span class="sd">:py:class:`~.TimeSeries` objects.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">function</span> <span class="k">import</span> <span class="n">read</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">re</span>
 
-<div class="viewcode-block" id="AllVars"><a class="viewcode-back" href="../API/carpetscalar.html#carpetscalar.AllVars">[docs]</a><span class="k">def</span> <span class="nf">AllVars</span><span class="p">(</span><span class="n">files</span><span class="p">):</span>
+<div class="viewcode-block" id="AllVars"><a class="viewcode-back" href="../API/carpet_scalar.html#carpet_scalar.AllVars">[docs]</a><span class="k">def</span> <span class="nf">AllVars</span><span class="p">(</span><span class="n">files</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Args:</span>
 <span class="sd">        files (list): A list of file in absolute path</span>
@@ -173,10 +172,10 @@
         <span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">file</span><span class="p">))</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">column_header</span><span class="p">(</span><span class="n">file</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="column_header"><a class="viewcode-back" href="../API/carpetscalar.html#carpetscalar.column_header">[docs]</a><span class="k">def</span> <span class="nf">column_header</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
+<div class="viewcode-block" id="column_header"><a class="viewcode-back" href="../API/carpet_scalar.html#carpet_scalar.column_header">[docs]</a><span class="k">def</span> <span class="nf">column_header</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
     <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="variables"><a class="viewcode-back" href="../API/carpetscalar.html#carpetscalar.variables">[docs]</a><span class="k">def</span> <span class="nf">variables</span><span class="p">(</span><span class="n">files</span><span class="p">):</span>
+<div class="viewcode-block" id="variables"><a class="viewcode-back" href="../API/carpet_scalar.html#carpet_scalar.variables">[docs]</a><span class="k">def</span> <span class="nf">variables</span><span class="p">(</span><span class="n">files</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Args:</span>
 <span class="sd">        files (list): A list of file in absolute path</span>
@@ -194,7 +193,7 @@
             <span class="nb">vars</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">var</span><span class="p">:</span> <span class="p">{</span><span class="nb">type</span><span class="p">:</span> <span class="n">file</span><span class="p">}})</span>
     <span class="k">return</span> <span class="nb">vars</span></div>
 
-<div class="viewcode-block" id="Column"><a class="viewcode-back" href="../API/carpetscalar.html#carpetscalar.Column">[docs]</a><span class="k">def</span> <span class="nf">Column</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
+<div class="viewcode-block" id="Column"><a class="viewcode-back" href="../API/carpet_scalar.html#carpet_scalar.Column">[docs]</a><span class="k">def</span> <span class="nf">Column</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get the columns name in Scalar file.</span>
 
@@ -220,7 +219,7 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;File: </span><span class="si">{}</span><span class="s2"> Header fail to identify.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">file</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="Data"><a class="viewcode-back" href="../API/carpetscalar.html#carpetscalar.Data">[docs]</a><span class="k">def</span> <span class="nf">Data</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
+<div class="viewcode-block" id="Data"><a class="viewcode-back" href="../API/carpet_scalar.html#carpet_scalar.Data">[docs]</a><span class="k">def</span> <span class="nf">Data</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get the data in Scalar file.</span>
 
@@ -232,7 +231,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">comments</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">,</span> <span class="n">unpack</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="merge_components"><a class="viewcode-back" href="../API/carpetscalar.html#carpetscalar.merge_components">[docs]</a><span class="k">def</span> <span class="nf">merge_components</span><span class="p">(</span><span class="n">filelist</span><span class="p">):</span>
+<div class="viewcode-block" id="merge_components"><a class="viewcode-back" href="../API/carpet_scalar.html#carpet_scalar.merge_components">[docs]</a><span class="k">def</span> <span class="nf">merge_components</span><span class="p">(</span><span class="n">filelist</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Some Variable data locate in different components.</span>
 
@@ -252,13 +251,13 @@
     <span class="k">return</span> <span class="n">data</span></div>
 
 
-<div class="viewcode-block" id="VarReader"><a class="viewcode-back" href="../API/carpetscalar.html#carpetscalar.VarReader">[docs]</a><span class="k">class</span> <span class="nc">VarReader</span><span class="p">:</span>
+<div class="viewcode-block" id="VarReader"><a class="viewcode-back" href="../API/carpet_scalar.html#carpet_scalar.VarReader">[docs]</a><span class="k">class</span> <span class="nc">VarReader</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">var</span> <span class="o">=</span> <span class="n">var</span>
         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">,</span> <span class="s1">&#39;No&#39;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="Scalar"><a class="viewcode-back" href="../API/carpetscalar.html#carpetscalar.Scalar">[docs]</a><span class="k">class</span> <span class="nc">Scalar</span><span class="p">:</span>
+<div class="viewcode-block" id="Scalar"><a class="viewcode-back" href="../API/carpet_scalar.html#carpet_scalar.Scalar">[docs]</a><span class="k">class</span> <span class="nc">Scalar</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Operation in Carpet Scalar file.</span>
 
@@ -270,9 +269,10 @@
 
 <span class="sd">    .. note::</span>
 <span class="sd">        infnorm is reconstructed from min and max if infnorm itself is not available.</span>
-
+<span class="sd">    </span>
 <span class="sd">    :param sd:  Simulation directory.</span>
 <span class="sd">    :type sd:   :py:class:`~.SimDir` instance.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Sim</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">files</span> <span class="o">=</span> <span class="n">Sim</span><span class="o">.</span><span class="n">scafiles</span>

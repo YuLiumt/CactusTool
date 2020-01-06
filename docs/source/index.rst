@@ -5,7 +5,7 @@
 
 Welcome to CactusTool's documentation!
 ======================================
-CactusTool pack package provides tools to work with `CACTUS <http://www.cactuscode.org>`_ data. Our code is base on PostCactus and PyCactus, but run in python3. It also provides some specialized functions.
+CactusTool pack package provides tools to work with `CACTUS <http://www.cactuscode.org>`_ data. CactusTool code benefits from the publicly available PostCactus and PyCactus code, but run in python3. It also provides some specialized functions.
 
 .. note::
 
@@ -18,8 +18,6 @@ CactusTool pack package provides tools to work with `CACTUS <http://www.cactusco
    Note/introduction
    Note/start
    API/modules
-
-
 
 Indices and tables
 ==================

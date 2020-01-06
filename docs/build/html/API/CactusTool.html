@@ -1,0 +1,497 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CactusTool package &mdash; CactusTool 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="CactusTool" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> CactusTool
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Note/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Note/start.html">Get Start</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">CactusTool</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">CactusTool package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-CactusTool.carpet_h5">CactusTool.carpet_h5 module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-CactusTool.carpet_scalar">CactusTool.carpet_scalar module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-CactusTool.outputdir">CactusTool.outputdir module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-CactusTool.outputfile">CactusTool.outputfile module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-CactusTool.parfile">CactusTool.parfile module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-CactusTool.simulation">CactusTool.simulation module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-CactusTool.unit">CactusTool.unit module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-CactusTool.visualize">CactusTool.visualize module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-CactusTool">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CactusTool</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">CactusTool</a> &raquo;</li>
+        
+      <li>CactusTool package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/API/CactusTool.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cactustool-package">
+<h1>CactusTool package<a class="headerlink" href="#cactustool-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-CactusTool.carpet_h5">
+<span id="cactustool-carpet-h5-module"></span><h2>CactusTool.carpet_h5 module<a class="headerlink" href="#module-CactusTool.carpet_h5" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="CactusTool.carpet_h5.Griddim">
+<em class="property">class </em><code class="sig-prename descclassname">CactusTool.carpet_h5.</code><code class="sig-name descname">Griddim</code><span class="sig-paren">(</span><em class="sig-param">files</em>, <em class="sig-param">dim</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/carpet_h5.html#Griddim"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.carpet_h5.Griddim" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="CactusTool.carpet_h5.H5Base">
+<em class="property">class </em><code class="sig-prename descclassname">CactusTool.carpet_h5.</code><code class="sig-name descname">H5Base</code><span class="sig-paren">(</span><em class="sig-param">Sim</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/carpet_h5.html#H5Base"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.carpet_h5.H5Base" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="CactusTool.carpet_h5.Variable">
+<em class="property">class </em><code class="sig-prename descclassname">CactusTool.carpet_h5.</code><code class="sig-name descname">Variable</code><span class="sig-paren">(</span><em class="sig-param">files</em>, <em class="sig-param">var</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/carpet_h5.html#Variable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.carpet_h5.Variable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="CactusTool.carpet_h5.Variable.read">
+<code class="sig-name descname">read</code><span class="sig-paren">(</span><em class="sig-param">meshgrid='HYDROBASE::press it=0 tl=0 rl=0 c=10'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/carpet_h5.html#Variable.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.carpet_h5.Variable.read" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.carpet_h5.iteration">
+<code class="sig-prename descclassname">CactusTool.carpet_h5.</code><code class="sig-name descname">iteration</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/carpet_h5.html#iteration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.carpet_h5.iteration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.carpet_h5.merge_filedata">
+<code class="sig-prename descclassname">CactusTool.carpet_h5.</code><code class="sig-name descname">merge_filedata</code><span class="sig-paren">(</span><em class="sig-param">filelist</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/carpet_h5.html#merge_filedata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.carpet_h5.merge_filedata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.carpet_h5.var_header">
+<code class="sig-prename descclassname">CactusTool.carpet_h5.</code><code class="sig-name descname">var_header</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/carpet_h5.html#var_header"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.carpet_h5.var_header" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-CactusTool.carpet_scalar">
+<span id="cactustool-carpet-scalar-module"></span><h2>CactusTool.carpet_scalar module<a class="headerlink" href="#module-CactusTool.carpet_scalar" title="Permalink to this headline">¶</a></h2>
+<p>The <cite>cactus_scalars</cite> module provides functions to load 
+timeseries in Cactus formats and a class <cite>ScalarsDir</cite> for easy 
+access to all timeseries in a Cactus simulation directory. This module 
+is normally not used directly, but from the <cite>simdir</cite> module. 
+The data loaded by this module is represented as <cite>TimeSeries</cite> objects.</p>
+<dl class="class">
+<dt id="CactusTool.carpet_scalar.ScalarBase">
+<em class="property">class </em><code class="sig-prename descclassname">CactusTool.carpet_scalar.</code><code class="sig-name descname">ScalarBase</code><span class="sig-paren">(</span><em class="sig-param">Sim</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/carpet_scalar.html#ScalarBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.carpet_scalar.ScalarBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Operation in Carpet Scalar file.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="CactusTool.carpet_scalar.ScalarReduction">
+<em class="property">class </em><code class="sig-prename descclassname">CactusTool.carpet_scalar.</code><code class="sig-name descname">ScalarReduction</code><span class="sig-paren">(</span><em class="sig-param">files</em>, <em class="sig-param">kind</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/carpet_scalar.html#ScalarReduction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.carpet_scalar.ScalarReduction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="CactusTool.carpet_scalar.Variable">
+<em class="property">class </em><code class="sig-prename descclassname">CactusTool.carpet_scalar.</code><code class="sig-name descname">Variable</code><span class="sig-paren">(</span><em class="sig-param">files</em>, <em class="sig-param">var</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/carpet_scalar.html#Variable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.carpet_scalar.Variable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="CactusTool.carpet_scalar.Variable.t">
+<em class="property">property </em><code class="sig-name descname">t</code><a class="headerlink" href="#CactusTool.carpet_scalar.Variable.t" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.carpet_scalar.Variable.y">
+<em class="property">property </em><code class="sig-name descname">y</code><a class="headerlink" href="#CactusTool.carpet_scalar.Variable.y" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.carpet_scalar.column_header">
+<code class="sig-prename descclassname">CactusTool.carpet_scalar.</code><code class="sig-name descname">column_header</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/carpet_scalar.html#column_header"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.carpet_scalar.column_header" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.carpet_scalar.iteration">
+<code class="sig-prename descclassname">CactusTool.carpet_scalar.</code><code class="sig-name descname">iteration</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/carpet_scalar.html#iteration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.carpet_scalar.iteration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.carpet_scalar.merge_filedata">
+<code class="sig-prename descclassname">CactusTool.carpet_scalar.</code><code class="sig-name descname">merge_filedata</code><span class="sig-paren">(</span><em class="sig-param">filelist</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/carpet_scalar.html#merge_filedata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.carpet_scalar.merge_filedata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Some Variable data locate in different components.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>file (list): a list of scalar file with different components.</p>
+</dd>
+<dt>Return:</dt><dd><p>data contain all components.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.carpet_scalar.remove_duplicate_iters">
+<code class="sig-prename descclassname">CactusTool.carpet_scalar.</code><code class="sig-name descname">remove_duplicate_iters</code><span class="sig-paren">(</span><em class="sig-param">data</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/carpet_scalar.html#remove_duplicate_iters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.carpet_scalar.remove_duplicate_iters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove overlapping segments from a time series. According to the first column</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.carpet_scalar.var_header">
+<code class="sig-prename descclassname">CactusTool.carpet_scalar.</code><code class="sig-name descname">var_header</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/carpet_scalar.html#var_header"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.carpet_scalar.var_header" title="Permalink to this definition">¶</a></dt>
+<dd><p>All Scalar variable.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-CactusTool.outputdir">
+<span id="cactustool-outputdir-module"></span><h2>CactusTool.outputdir module<a class="headerlink" href="#module-CactusTool.outputdir" title="Permalink to this headline">¶</a></h2>
+<p><cite>outputdir</cite> get all data file in a simulation directory.</p>
+<dl class="function">
+<dt id="CactusTool.outputdir.fetch_all_datafile">
+<code class="sig-prename descclassname">CactusTool.outputdir.</code><code class="sig-name descname">fetch_all_datafile</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/outputdir.html#fetch_all_datafile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.outputdir.fetch_all_datafile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Only fetch the absolute path of .par, .asc, and .h5 file.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>path (str): absolute path</p>
+</dd>
+<dt>Return:</dt><dd><p>list: All file in path.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.outputdir.filter_file">
+<code class="sig-prename descclassname">CactusTool.outputdir.</code><code class="sig-name descname">filter_file</code><span class="sig-paren">(</span><em class="sig-param">files</em>, <em class="sig-param">file_style</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/outputdir.html#filter_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.outputdir.filter_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Choose some file end with file_style</p>
+<ul class="simple">
+<li><p>par: parameter file</p></li>
+<li><p>scalar file</p></li>
+<li><p>ASCII file</p></li>
+<li><p>HDF5 file</p></li>
+<li><p>checkpoints</p></li>
+</ul>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.outputdir.rm_output_active">
+<code class="sig-prename descclassname">CactusTool.outputdir.</code><code class="sig-name descname">rm_output_active</code><span class="sig-paren">(</span><em class="sig-param">files</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/outputdir.html#rm_output_active"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.outputdir.rm_output_active" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Args:</dt><dd><p>files (list): A list of file in absolute path</p>
+</dd>
+<dt>Return:</dt><dd><p>A list of file, not contain output-dddd-active</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-CactusTool.outputfile">
+<span id="cactustool-outputfile-module"></span><h2>CactusTool.outputfile module<a class="headerlink" href="#module-CactusTool.outputfile" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="CactusTool.outputfile.HDF5">
+<code class="sig-prename descclassname">CactusTool.outputfile.</code><code class="sig-name descname">HDF5</code><span class="sig-paren">(</span><em class="sig-param">fileList</em>, <em class="sig-param">var</em>, <em class="sig-param">it</em>, <em class="sig-param">tl</em>, <em class="sig-param">rl</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/outputfile.html#HDF5"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.outputfile.HDF5" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetch data in .h5 file Given var, it and rl</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.outputfile.read">
+<code class="sig-prename descclassname">CactusTool.outputfile.</code><code class="sig-name descname">read</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/outputfile.html#read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.outputfile.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use different way to open data file.</p>
+<dl class="field-list">
+<dt class="field-odd">Usage</dt>
+<dd class="field-odd"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">read</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-CactusTool.parfile">
+<span id="cactustool-parfile-module"></span><h2>CactusTool.parfile module<a class="headerlink" href="#module-CactusTool.parfile" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="CactusTool.parfile.ParFile">
+<em class="property">class </em><code class="sig-prename descclassname">CactusTool.parfile.</code><code class="sig-name descname">ParFile</code><span class="sig-paren">(</span><em class="sig-param">parfiles</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/parfile.html#ParFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.parfile.ParFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="CactusTool.parfile.ParFile.activethorn">
+<em class="property">property </em><code class="sig-name descname">activethorn</code><a class="headerlink" href="#CactusTool.parfile.ParFile.activethorn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="CactusTool.parfile.Thorn">
+<em class="property">class </em><code class="sig-prename descclassname">CactusTool.parfile.</code><code class="sig-name descname">Thorn</code><span class="sig-paren">(</span><em class="sig-param">parameter</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/parfile.html#Thorn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.parfile.Thorn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class represents the parameters of a given Cactus thorn.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.parfile.add_three_key">
+<code class="sig-prename descclassname">CactusTool.parfile.</code><code class="sig-name descname">add_three_key</code><span class="sig-paren">(</span><em class="sig-param">par</em>, <em class="sig-param">key_a</em>, <em class="sig-param">key_b</em>, <em class="sig-param">key_c</em>, <em class="sig-param">val</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/parfile.html#add_three_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.parfile.add_three_key" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.parfile.add_two_key">
+<code class="sig-prename descclassname">CactusTool.parfile.</code><code class="sig-name descname">add_two_key</code><span class="sig-paren">(</span><em class="sig-param">par</em>, <em class="sig-param">key_a</em>, <em class="sig-param">key_b</em>, <em class="sig-param">val</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/parfile.html#add_two_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.parfile.add_two_key" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.parfile.guess_par_type">
+<code class="sig-prename descclassname">CactusTool.parfile.</code><code class="sig-name descname">guess_par_type</code><span class="sig-paren">(</span><em class="sig-param">varstr</em>, <em class="sig-param">filters</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/parfile.html#guess_par_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.parfile.guess_par_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.parfile.load_parfile">
+<code class="sig-prename descclassname">CactusTool.parfile.</code><code class="sig-name descname">load_parfile</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/parfile.html#load_parfile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.parfile.load_parfile" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Return:</dt><dd><p>A dict about key value</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.parfile.par_to_bool">
+<code class="sig-prename descclassname">CactusTool.parfile.</code><code class="sig-name descname">par_to_bool</code><span class="sig-paren">(</span><em class="sig-param">v</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/parfile.html#par_to_bool"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.parfile.par_to_bool" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.parfile.par_to_str">
+<code class="sig-prename descclassname">CactusTool.parfile.</code><code class="sig-name descname">par_to_str</code><span class="sig-paren">(</span><em class="sig-param">v</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/parfile.html#par_to_str"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.parfile.par_to_str" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.parfile.par_to_varlist">
+<code class="sig-prename descclassname">CactusTool.parfile.</code><code class="sig-name descname">par_to_varlist</code><span class="sig-paren">(</span><em class="sig-param">v</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/parfile.html#par_to_varlist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.parfile.par_to_varlist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-CactusTool.simulation">
+<span id="cactustool-simulation-module"></span><h2>CactusTool.simulation module<a class="headerlink" href="#module-CactusTool.simulation" title="Permalink to this headline">¶</a></h2>
+<p><cite>simulation</cite> provides easy access to CACTUS data files.</p>
+<p>A simulation directory is represented by an instance of the <cite>Sim</cite> class, which provides access to all supported data types.</p>
+<dl class="class">
+<dt id="CactusTool.simulation.Sim">
+<em class="property">class </em><code class="sig-prename descclassname">CactusTool.simulation.</code><code class="sig-name descname">Sim</code><span class="sig-paren">(</span><em class="sig-param">simpath</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/simulation.html#Sim"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.simulation.Sim" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Basis class of CactusTool, anything start from it. Please use it attributes.</p>
+<dl class="method">
+<dt id="CactusTool.simulation.Sim.H5">
+<em class="property">property </em><code class="sig-name descname">H5</code><a class="headerlink" href="#CactusTool.simulation.Sim.H5" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.simulation.Sim.Par">
+<em class="property">property </em><code class="sig-name descname">Par</code><a class="headerlink" href="#CactusTool.simulation.Sim.Par" title="Permalink to this definition">¶</a></dt>
+<dd><p>It first read parameter file if it exist.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.simulation.Sim.Scalar">
+<em class="property">property </em><code class="sig-name descname">Scalar</code><a class="headerlink" href="#CactusTool.simulation.Sim.Scalar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-CactusTool.unit">
+<span id="cactustool-unit-module"></span><h2>CactusTool.unit module<a class="headerlink" href="#module-CactusTool.unit" title="Permalink to this headline">¶</a></h2>
+<p>This module provides a class Units representing unit systems or unit 
+conversions. All expressed in SI units.</p>
+</div>
+<div class="section" id="module-CactusTool.visualize">
+<span id="cactustool-visualize-module"></span><h2>CactusTool.visualize module<a class="headerlink" href="#module-CactusTool.visualize" title="Permalink to this headline">¶</a></h2>
+<p>This module provides functions to plot various Cactus data types.</p>
+</div>
+<div class="section" id="module-CactusTool">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-CactusTool" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="modules.html" class="btn btn-neutral float-left" title="CactusTool" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Yu Liu
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

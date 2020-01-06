@@ -1,0 +1,351 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CactusTool.carpet_scalar &mdash; CactusTool 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> CactusTool
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Note/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Note/start.html">Get Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../API/modules.html">CactusTool</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">CactusTool</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>CactusTool.carpet_scalar</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for CactusTool.carpet_scalar</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">The `cactus_scalars` module provides functions to load </span>
+<span class="sd">timeseries in Cactus formats and a class `ScalarsDir` for easy </span>
+<span class="sd">access to all timeseries in a Cactus simulation directory. This module </span>
+<span class="sd">is normally not used directly, but from the `simdir` module. </span>
+<span class="sd">The data loaded by this module is represented as `TimeSeries` objects.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">.outputfile</span> <span class="k">import</span> <span class="n">read</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+
+<span class="c1"># def Data(file):</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     Get the data in Scalar file.</span>
+
+<span class="c1">#     Args:</span>
+<span class="c1">#         file (str): open file</span>
+    
+<span class="c1">#     Return:</span>
+<span class="c1">#         data</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     return np.loadtxt(file, comments=&quot;#&quot;, unpack=True)</span>
+
+<div class="viewcode-block" id="remove_duplicate_iters"><a class="viewcode-back" href="../../API/CactusTool.html#CactusTool.carpet_scalar.remove_duplicate_iters">[docs]</a><span class="k">def</span> <span class="nf">remove_duplicate_iters</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Remove overlapping segments from a time series. According to the first column</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">u</span><span class="p">,</span> <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">,:],</span> <span class="n">return_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data</span><span class="p">[:,</span> <span class="n">indices</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="merge_filedata"><a class="viewcode-back" href="../../API/CactusTool.html#CactusTool.carpet_scalar.merge_filedata">[docs]</a><span class="k">def</span> <span class="nf">merge_filedata</span><span class="p">(</span><span class="n">filelist</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Some Variable data locate in different components.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        file (list): a list of scalar file with different components.</span>
+<span class="sd">    </span>
+<span class="sd">    Return:</span>
+<span class="sd">        data contain all components.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Get the data from the first file</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">filelist</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">comments</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">,</span> <span class="n">unpack</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">filelist</span><span class="p">)):</span>
+        <span class="k">try</span><span class="p">:</span> 
+            <span class="n">tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">filelist</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">comments</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">,</span> <span class="n">unpack</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">tmp</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[ERROR] Unable to load file:&quot;</span><span class="p">,</span> <span class="n">filelist</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">data</span></div>
+
+<div class="viewcode-block" id="column_header"><a class="viewcode-back" href="../../API/CactusTool.html#CactusTool.carpet_scalar.column_header">[docs]</a><span class="k">def</span> <span class="nf">column_header</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">read</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">columns</span><span class="o">=</span><span class="p">[]</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">():</span>
+            <span class="k">if</span> <span class="s2">&quot;# 1:iteration 2:time 3:data&quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                <span class="n">columns</span> <span class="o">=</span> <span class="n">columns</span> <span class="o">+</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="k">if</span> <span class="s2">&quot;# column format:&quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                <span class="n">columns</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">3</span><span class="p">:]</span>
+            <span class="k">if</span> <span class="s2">&quot;# data columns: &quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                <span class="k">del</span> <span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">columns</span> <span class="o">=</span> <span class="n">columns</span> <span class="o">+</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">3</span><span class="p">:]</span>
+                <span class="k">break</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">columns</span><span class="p">)]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;File: </span><span class="si">{}</span><span class="s2"> Header fail to identify.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">file</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="iteration"><a class="viewcode-back" href="../../API/CactusTool.html#CactusTool.carpet_scalar.iteration">[docs]</a><span class="k">def</span> <span class="nf">iteration</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
+    <span class="n">scalar_pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;\S*/(output-\d\d\d\d)/\S*\.(minimum|maximum|norm1|norm2|norm_inf|average)?\.asc(\.(gz|bz2))?$&quot;</span><span class="p">)</span>
+    <span class="n">iteration</span> <span class="o">=</span> <span class="n">scalar_pat</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">iteration</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">iteration</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;output-0000&quot;</span></div>
+
+
+<div class="viewcode-block" id="Variable"><a class="viewcode-back" href="../../API/CactusTool.html#CactusTool.carpet_scalar.Variable">[docs]</a><span class="k">class</span> <span class="nc">Variable</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">var</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">files</span> <span class="o">=</span> <span class="n">files</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">var</span> <span class="o">=</span> <span class="n">var</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">iteration</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">iteration</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">iteration</span><span class="p">(</span><span class="n">file</span><span class="p">),</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">column</span> <span class="o">=</span> <span class="n">column_header</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">Alldata</span> <span class="o">=</span> <span class="n">merge_filedata</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">remove_duplicate_iters</span><span class="p">(</span><span class="n">Alldata</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">t</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">column</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">column</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">iteration</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="var_header"><a class="viewcode-back" href="../../API/CactusTool.html#CactusTool.carpet_scalar.var_header">[docs]</a><span class="k">def</span> <span class="nf">var_header</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    All Scalar variable.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">read</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="nb">vars</span><span class="o">=</span><span class="p">[]</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">():</span>
+            <span class="k">if</span> <span class="s2">&quot;# data columns: &quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                <span class="nb">vars</span> <span class="o">=</span> <span class="nb">vars</span> <span class="o">+</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">3</span><span class="p">:]</span>
+                <span class="k">break</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">vars</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">vars</span><span class="p">)]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;File: </span><span class="si">{}</span><span class="s2"> Header fail to identify.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">file</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="ScalarReduction"><a class="viewcode-back" href="../../API/CactusTool.html#CactusTool.carpet_scalar.ScalarReduction">[docs]</a><span class="k">class</span> <span class="nc">ScalarReduction</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">kind</span><span class="p">):</span>
+        <span class="n">pat_fn</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;\S*\.(minimum|maximum|norm1|norm2|average)?\.asc(\.(gz|bz2))?$&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">=</span> <span class="n">kind</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">files</span> <span class="o">=</span> <span class="p">[</span><span class="n">file</span> <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span> <span class="k">if</span> <span class="n">pat_fn</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">file</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">kind</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vars</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">var_header</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">vars</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">vars</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Variable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vars</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="n">key</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> is not exist in reduction </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kind</span><span class="p">))</span>
+    
+    <span class="k">def</span> <span class="nf">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">vars</span>
+        
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;Available </span><span class="si">%s</span><span class="s2"> timeseries:</span><span class="se">\n</span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kind</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vars</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span></div>
+
+
+<div class="viewcode-block" id="ScalarBase"><a class="viewcode-back" href="../../API/CactusTool.html#CactusTool.carpet_scalar.ScalarBase">[docs]</a><span class="k">class</span> <span class="nc">ScalarBase</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Operation in Carpet Scalar file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Sim</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">files</span>    <span class="o">=</span> <span class="n">Sim</span><span class="o">.</span><span class="n">scafiles</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">min</span>      <span class="o">=</span> <span class="n">ScalarReduction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">,</span> <span class="s1">&#39;minimum&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max</span>      <span class="o">=</span> <span class="n">ScalarReduction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">,</span> <span class="s1">&#39;maximum&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">norm1</span>    <span class="o">=</span> <span class="n">ScalarReduction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">,</span> <span class="s1">&#39;norm1&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">norm2</span>    <span class="o">=</span> <span class="n">ScalarReduction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">,</span> <span class="s1">&#39;norm2&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">average</span>  <span class="o">=</span> <span class="n">ScalarReduction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">,</span> <span class="s1">&#39;average&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">none</span>     <span class="o">=</span> <span class="n">ScalarReduction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="se">\n</span><span class="si">%s</span><span class="se">\n</span><span class="si">%s</span><span class="se">\n</span><span class="si">%s</span><span class="se">\n</span><span class="si">%s</span><span class="se">\n</span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">min</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">norm1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">norm2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">average</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">none</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Yu Liu
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

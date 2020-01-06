@@ -83,7 +83,6 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../Note/introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Note/start.html">Get Start</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../API/modules.html">src</a></li>
 </ul>
 
             
@@ -147,38 +146,17 @@
            <div itemprop="articleBody">
             
   <h1>Source code for function</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">bz2</span>
-<span class="kn">import</span> <span class="nn">gzip</span>
-
-
-<span class="c1"># def decompression(file):</span>
-<span class="c1">#     &quot;&quot;&quot;</span>
-<span class="c1">#     Decompression a file endwith .bz2 or .gz</span>
-
-<span class="c1">#     Args:</span>
-<span class="c1">#         file (str): file need decompression</span>
-<span class="c1">#     &quot;&quot;&quot;</span>
-<span class="c1">#     if file.endswith(&#39;.bz2&#39;):</span>
-<span class="c1">#         file = bz2.BZ2File(file)</span>
-<span class="c1">#     if file.endswith(&#39;.gz&#39;):</span>
-<span class="c1">#         file = gzip.GzipFile(file)</span>
-
-<div class="viewcode-block" id="read"><a class="viewcode-back" href="../API/function.html#function.read">[docs]</a><span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
+<div class="viewcode-block" id="read"><a class="viewcode-back" href="../API/function.html#function.read">[docs]</a><span></span><span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Some file may be compression, can not open directly.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        file (str): open file</span>
-<span class="sd">    </span>
+
 <span class="sd">    Return:</span>
 <span class="sd">        The content of the file</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.bz2&#39;</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">bz2</span><span class="o">.</span><span class="n">BZ2File</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.gz&#39;</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">gzip</span><span class="o">.</span><span class="n">GzipFile</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="kc">None</span></div>
 </pre></div>
 
            </div>

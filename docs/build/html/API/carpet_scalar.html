@@ -1,0 +1,317 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>carpet_scalar module &mdash; CactusTool 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="function module" href="function.html" />
+    <link rel="prev" title="CactusTool" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> CactusTool
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Note/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Note/start.html">Get Start</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">CactusTool</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">carpet_scalar module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="function.html">function module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="outputdir.html">outputdir module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parfile.html">parfile module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="simulation.html">simulation module</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CactusTool</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">CactusTool</a> &raquo;</li>
+        
+      <li>carpet_scalar module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/API/carpet_scalar.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-carpet_scalar">
+<span id="carpet-scalar-module"></span><h1>carpet_scalar module<a class="headerlink" href="#module-carpet_scalar" title="Permalink to this headline">¶</a></h1>
+<p>The <code class="xref py py-mod docutils literal notranslate"><span class="pre">cactus_scalars</span></code> module provides functions to load 
+timeseries in Cactus formats and a class <code class="xref py py-class docutils literal notranslate"><span class="pre">ScalarsDir</span></code> for easy 
+access to all timeseries in a Cactus simulation directory. This module 
+is normally not used directly, but from the <code class="xref py py-mod docutils literal notranslate"><span class="pre">simdir</span></code> module. 
+The data loaded by this module is represented as 
+<code class="xref py py-class docutils literal notranslate"><span class="pre">TimeSeries</span></code> objects.</p>
+<dl class="function">
+<dt id="carpet_scalar.AllVars">
+<code class="sig-prename descclassname">carpet_scalar.</code><code class="sig-name descname">AllVars</code><span class="sig-paren">(</span><em class="sig-param">files</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/carpet_scalar.html#AllVars"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#carpet_scalar.AllVars" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Args:</dt><dd><p>files (list): A list of file in absolute path</p>
+</dd>
+<dt>Return:</dt><dd><p>A disc contain Useful infomation</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="carpet_scalar.Column">
+<code class="sig-prename descclassname">carpet_scalar.</code><code class="sig-name descname">Column</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/carpet_scalar.html#Column"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#carpet_scalar.Column" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the columns name in Scalar file.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>file (str): open file</p>
+</dd>
+<dt>Return:</dt><dd><p>A list of column name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="carpet_scalar.Data">
+<code class="sig-prename descclassname">carpet_scalar.</code><code class="sig-name descname">Data</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/carpet_scalar.html#Data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#carpet_scalar.Data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the data in Scalar file.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>file (str): open file</p>
+</dd>
+<dt>Return:</dt><dd><p>data</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="carpet_scalar.Scalar">
+<em class="property">class </em><code class="sig-prename descclassname">carpet_scalar.</code><code class="sig-name descname">Scalar</code><span class="sig-paren">(</span><em class="sig-param">Sim</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/carpet_scalar.html#Scalar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#carpet_scalar.Scalar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Operation in Carpet Scalar file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>min</strong> – access to minimum reduction.</p></li>
+<li><p><strong>max</strong> – access to maximum reduction.</p></li>
+<li><p><strong>norm1</strong> – access to norm1 reduction.</p></li>
+<li><p><strong>norm2</strong> – access to norm2 reduction.</p></li>
+<li><p><strong>average</strong> – access to average reduction.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>infnorm is reconstructed from min and max if infnorm itself is not available.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>sd</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">SimDir</span></code> instance.) – Simulation directory.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="carpet_scalar.VarReader">
+<em class="property">class </em><code class="sig-prename descclassname">carpet_scalar.</code><code class="sig-name descname">VarReader</code><span class="sig-paren">(</span><em class="sig-param">var</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/carpet_scalar.html#VarReader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#carpet_scalar.VarReader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="carpet_scalar.column_header">
+<code class="sig-prename descclassname">carpet_scalar.</code><code class="sig-name descname">column_header</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/carpet_scalar.html#column_header"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#carpet_scalar.column_header" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="carpet_scalar.merge_components">
+<code class="sig-prename descclassname">carpet_scalar.</code><code class="sig-name descname">merge_components</code><span class="sig-paren">(</span><em class="sig-param">filelist</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/carpet_scalar.html#merge_components"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#carpet_scalar.merge_components" title="Permalink to this definition">¶</a></dt>
+<dd><p>Some Variable data locate in different components.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>file (list): a list of scalar file with different components.</p>
+</dd>
+<dt>Return:</dt><dd><p>data contain all components.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="carpet_scalar.variables">
+<code class="sig-prename descclassname">carpet_scalar.</code><code class="sig-name descname">variables</code><span class="sig-paren">(</span><em class="sig-param">files</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/carpet_scalar.html#variables"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#carpet_scalar.variables" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Args:</dt><dd><p>files (list): A list of file in absolute path</p>
+</dd>
+<dt>Return:</dt><dd><p>A dict of variables from filename.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="function.html" class="btn btn-neutral float-right" title="function module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="modules.html" class="btn btn-neutral float-left" title="CactusTool" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Yu Liu
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

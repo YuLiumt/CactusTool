@@ -1,17 +1,19 @@
 """
 `simulation` provides easy access to CACTUS data files.
 
-A simulation directory is represented by an instance of the  
-`Sim` class, which provides access to all supported
-data types.
+A simulation directory is represented by an instance of the `Sim` class, which provides access to all supported data types.
 """
 
 from . import outputdir
+from .parfile import ParFile
+from .carpet_scalar import ScalarBase
+from .carpet_h5 import H5Base
+from .debug import DeBug
 import os
 
 class Sim:
     """
-    Basis class of CactusTool, anything start from it. Please use it attributes. It first read parameter file if it exist.
+    Basis class of CactusTool, anything start from it. Please use it attributes.
     """
     def __init__(self, simpath):
         """
@@ -24,22 +26,41 @@ class Sim:
         self.basedir, self.simname = os.path.split(simpath)
 
         allfiles = outputdir.fetch_all_datafile(simpath)
-        self.allfiles = outputdir.rmoutputactive(allfiles) # Exclude file in output-0000-active directory.
 
-        self.parfiles = outputdir.filter_par(self.allfiles)
-        self.scafiles = outputdir.filter_scalar(self.allfiles)
-        self.ascfiles = outputdir.filter_asc(self.allfiles)
-        self.h5files  = outputdir.filter_h5(self.allfiles)
-
-        self.has_parfile = bool(self.parfiles)
-        # if bool(self.parfiles):
-    #         self.params = load_parfile(self.parfiles[0])
-    #     else:
-    #         print("Do not find any parfile in ", self.path)
+        self.allfiles = outputdir.rm_output_active(allfiles) # Exclude file in output-0000-active directory.
+        self.parfiles = outputdir.filter_file(self.allfiles, "par")
+        self.scafiles = outputdir.filter_file(self.allfiles, "scalar")
+        self.ascfiles = outputdir.filter_file(self.allfiles, "asc")
+        self.h5files  = outputdir.filter_file(self.allfiles, "hdf5")
+        self.debugfiles = outputdir.filter_file(self.allfiles, "debug")
+ 
+    @property
+    def Par(self):
+        """
+        It first read parameter file if it exist.
+        """
+        if bool(self.parfiles):
+            return ParFile(self.parfiles)
+        else:
+            print("Do not find any parfile in ", self.path)
 
     @property
-    def Scalars(self):
+    def Scalar(self):
         if bool(self.scafiles):
-            return carpetscalar.Scalar(self)
+            return ScalarBase(self)
         else:
-            raise Exception("No Scalar variable in {}:".format(simpath))
+            raise Exception("No Scalar variable in {}:".format(self.simname))
+
+    @property
+    def H5(self):
+        if bool(self.h5files):
+            return H5Base(self)
+        else:
+            raise Exception("No H5 variable in {}:".format(self.simname))
+
+    @property
+    def Debug(self):
+        if bool(self.debugfiles):
+            return DeBug(self)
+        else:
+            raise Exception("No NaNCheck in {}:".format(self.simname))

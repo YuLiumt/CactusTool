@@ -1,0 +1,7 @@
+carpet\_scalar module
+=====================
+
+.. automodule:: carpet_scalar
+   :members:
+   :undoc-members:
+   :show-inheritance:

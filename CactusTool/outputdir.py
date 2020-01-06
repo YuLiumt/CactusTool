@@ -6,69 +6,6 @@ import os
 import re
 
 
-def filter_par(files):
-    """
-    Args:
-        files (list): A list of file in absolute path.
-
-    Return:
-        A list of parameter file in different iteration.
-        
-    Usage:
-        >>> filter_par(files)
-        ['/Users/liuyu/simulations/TOV_single_vel/output-0000/TOV_single_vel.par']
-    """
-    # par_pat = re.compile("\S*/output-(\d\d\d\d)/[^/]*\.par")
-    par_pat = re.compile("\S*\.par")
-    return [f for f in files if par_pat.match(f)]
-
-def filter_scalar(files):
-    """
-    Args: 
-        files (list): A list of file in absolute path.
-
-    Return:
-        A list of scalar data file.
-    """
-    scalar_pat = re.compile("\S*\.(minimum|maximum|norm1|norm2|norm_inf|average)?\.asc(\.(gz|bz2))?$")
-    # scalar_pat = re.compile("\S*/output-(\d\d\d\d)/\S*\.(minimum|maximum|norm1|norm2|norm_inf|average)?\.asc(\.(gz|bz2))?$")
-    return [f for f in files if scalar_pat.match(f)]
-
-def filter_asc(files):
-    """
-    Args:
-        files (list): A list of file in absolute path
-
-    Return:
-        A list of ASCII grid data file.
-    """
-    # asc_pat = re.compile("\S*/output-(\d\d\d\d)/\S*\.[xyz]*\.asc(\.(gz|bz2))?$")
-    asc_pat = re.compile("\S*\.[xyz]*\.asc(\.(gz|bz2))?$")
-    return [f for f in files if asc_pat.match(f)]
-
-def filter_h5(files):
-    """
-    Args:
-        files (list): A list of file in absolute path
-
-    Return:
-        A list of HDF5 grid data file.
-    """
-    # h5_pat = re.compile("\S*/output-(\d\d\d\d)/\S*\.[xyz]*\.h5(\.(gz|bz2))?$")
-    h5_pat = re.compile("\S*\.[xyz]*\.h5(\.(gz|bz2))?$")
-    return [f for f in files if h5_pat.match(f)]
-
-def filter_check(files):
-    """
-    Args:
-        files (list): A list of file in absolute path
-
-    Return:
-        A list of checkpoints file
-    """
-    check_pat = re.compile("\S*/checkpoints\S*")
-    return [f for f in files if check_pat.match(f)]
-
 def fetch_all_datafile(path):
     """
     Only fetch the absolute path of .par, .asc, and .h5 file.
@@ -91,7 +28,7 @@ def fetch_all_datafile(path):
 
     return filelist
 
-def rmoutputactive(files):
+def rm_output_active(files):
     """
     Args:
         files (list): A list of file in absolute path
@@ -101,3 +38,23 @@ def rmoutputactive(files):
     """
     active_pat = re.compile("\S*/output-(\d\d\d\d)-active/\S*")
     return [f for f in files if not active_pat.match(f)]
+
+def filter_file(files, file_style):
+    """
+    Choose some file end with file_style
+
+    * par: parameter file
+    * scalar file
+    * ASCII file
+    * HDF5 file
+    * checkpoints
+    """
+    re_pat = {
+        "par": "\S*\.par",
+        "scalar": "\S*\.(minimum|maximum|norm1|norm2|norm_inf|average)?\.asc(\.(gz|bz2))?$",
+        "asc": "\S*\.[xyz]*\.asc(\.(gz|bz2))?$",
+        "hdf5": "\S*\.[xyz]*\.h5(\.(gz|bz2))?$",
+        "checkpoints" : "\S*/checkpoints\S*",
+        "debug": "\S*NaNmask\.\S*\.h5"
+    }
+    return [f for f in files if re.compile(re_pat[file_style]).match(f)]
