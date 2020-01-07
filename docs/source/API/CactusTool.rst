@@ -20,6 +20,22 @@ CactusTool.carpet\_scalar module
    :undoc-members:
    :show-inheritance:
 
+CactusTool.debug module
+-----------------------
+
+.. automodule:: CactusTool.debug
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+CactusTool.dictionary module
+----------------------------
+
+.. automodule:: CactusTool.dictionary
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 CactusTool.outputdir module
 ---------------------------
 
@@ -40,6 +56,14 @@ CactusTool.parfile module
 -------------------------
 
 .. automodule:: CactusTool.parfile
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+CactusTool.preview module
+-------------------------
+
+.. automodule:: CactusTool.preview
    :members:
    :undoc-members:
    :show-inheritance:

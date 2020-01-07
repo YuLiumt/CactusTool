@@ -1,5 +1,5 @@
 """
-The :py:mod:`~.outputfile` module module provides functions to load data and header in Cactus formats.
+The :py:mod:`~CactusTool.outputfile` module provides most of the functionality of functions to deal with different type of files in Carpet format.
 """
 
 from .dictionary import *
@@ -12,9 +12,12 @@ import re
 
 def read(file):
     """
-    Use different way to open data file.
+    Carpet provides ASCII output and HDF5-based output for Carpet. These I/O methods can output any type of CCTK grid variables  (grid scalars, grid functions, and grid arrays of arbitrary dimension). However, the data structure of I/O methods is completely different
 
-    :Usage:
+    :param str file: data file
+
+    Exxample
+    ---------
 
         >>> with read(file) as f:
     """

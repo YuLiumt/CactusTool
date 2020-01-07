@@ -17,7 +17,7 @@ CactusTool pack package provides tools to work with `CACTUS <http://www.cactusco
 
    Note/introduction
    Note/start
-   API/modules
+   API/CactusTool
 
 Indices and tables
 ==================

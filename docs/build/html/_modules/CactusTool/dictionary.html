@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>CactusTool.dictionary &#8212; CactusTool 0.0.1 documentation</title>
+    <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for CactusTool.dictionary</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">json</span>
+
+
+<div class="viewcode-block" id="Format"><a class="viewcode-back" href="../../API/CactusTool.html#CactusTool.dictionary.Format">[docs]</a><span class="k">def</span> <span class="nf">Format</span><span class="p">(</span><span class="n">dicts</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">dicts</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="subkey_have_value"><a class="viewcode-back" href="../../API/CactusTool.html#CactusTool.dictionary.subkey_have_value">[docs]</a><span class="k">def</span> <span class="nf">subkey_have_value</span><span class="p">(</span><span class="n">dicts</span><span class="p">,</span> <span class="n">subkey</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">dicts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">assert</span> <span class="n">subkey</span> <span class="ow">in</span> <span class="n">v</span><span class="p">,</span> <span class="s2">&quot;dict don&#39;t have subkey: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">subkey</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">v</span><span class="p">[</span><span class="n">subkey</span><span class="p">]</span> <span class="o">==</span> <span class="n">value</span><span class="p">:</span>
+            <span class="n">p</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">dicts</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">p</span></div>
+
+<div class="viewcode-block" id="subkey_contain_element"><a class="viewcode-back" href="../../API/CactusTool.html#CactusTool.dictionary.subkey_contain_element">[docs]</a><span class="k">def</span> <span class="nf">subkey_contain_element</span><span class="p">(</span><span class="n">dicts</span><span class="p">,</span> <span class="n">subkey</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">dicts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">assert</span> <span class="n">subkey</span> <span class="ow">in</span> <span class="n">v</span><span class="p">,</span> <span class="s2">&quot;dict don&#39;t have subkey: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">subkey</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">subkey</span><span class="p">])</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;the value of subkey is not element&quot;</span> <span class="o">%</span> <span class="n">subkey</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">p</span></div>
+
+
+
+<div class="viewcode-block" id="add_two_key"><a class="viewcode-back" href="../../API/CactusTool.html#CactusTool.dictionary.add_two_key">[docs]</a><span class="k">def</span> <span class="nf">add_two_key</span><span class="p">(</span><span class="n">par</span><span class="p">,</span> <span class="n">key_a</span><span class="p">,</span> <span class="n">key_b</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">key_a</span> <span class="ow">in</span> <span class="n">par</span><span class="p">:</span>
+        <span class="n">par</span><span class="p">[</span><span class="n">key_a</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">key_b</span><span class="p">:</span> <span class="n">val</span><span class="p">})</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">par</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">key_a</span><span class="p">:</span> <span class="p">{</span><span class="n">key_b</span><span class="p">:</span> <span class="n">val</span><span class="p">}})</span></div>
+
+<div class="viewcode-block" id="add_three_key"><a class="viewcode-back" href="../../API/CactusTool.html#CactusTool.dictionary.add_three_key">[docs]</a><span class="k">def</span> <span class="nf">add_three_key</span><span class="p">(</span><span class="n">par</span><span class="p">,</span> <span class="n">key_a</span><span class="p">,</span> <span class="n">key_b</span><span class="p">,</span> <span class="n">key_c</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">key_a</span> <span class="ow">in</span> <span class="n">par</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">key_b</span> <span class="ow">in</span> <span class="n">par</span><span class="p">:</span>
+            <span class="n">par</span><span class="p">[</span><span class="n">key_a</span><span class="p">][</span><span class="n">key_b</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">key_c</span><span class="p">:</span> <span class="n">val</span><span class="p">})</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">par</span><span class="p">[</span><span class="n">key_a</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">key_b</span><span class="p">:</span> <span class="p">{</span><span class="n">key_c</span><span class="p">:</span> <span class="n">val</span><span class="p">}})</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">par</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">key_a</span><span class="p">:</span> <span class="p">{</span><span class="n">key_b</span><span class="p">:</span> <span class="p">{</span><span class="n">key_c</span><span class="p">:</span> <span class="n">val</span><span class="p">}}})</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Yu Liu.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.
+    </div>
+  </body>
+</html>

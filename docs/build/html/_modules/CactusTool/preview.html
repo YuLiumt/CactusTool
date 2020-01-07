@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>CactusTool.function &#8212; CactusTool 0.0.1 documentation</title>
+    <title>CactusTool.preview &#8212; CactusTool 0.0.1 documentation</title>
     <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
@@ -35,18 +35,17 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <h1>Source code for CactusTool.function</h1><div class="highlight"><pre>
-<div class="viewcode-block" id="read"><a class="viewcode-back" href="../../API/CactusTool.html#CactusTool.function.read">[docs]</a><span></span><span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
+  <h1>Source code for CactusTool.preview</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<div class="viewcode-block" id="hdf5_2d"><a class="viewcode-back" href="../../API/CactusTool.html#CactusTool.preview.hdf5_2d">[docs]</a><span class="k">def</span> <span class="nf">hdf5_2d</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Some file may be compression, can not open directly.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        file (str): open file</span>
-
-<span class="sd">    Return:</span>
-<span class="sd">        The content of the file</span>
+<span class="sd">    Create a pseudocolor plot</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="kc">None</span></div>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">()</span></div>
 </pre></div>
 
           </div>

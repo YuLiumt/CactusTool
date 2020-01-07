@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>CactusTool.function &#8212; CactusTool 0.0.1 documentation</title>
+    <title>CactusTool.debug &#8212; CactusTool 0.0.1 documentation</title>
     <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
@@ -35,18 +35,12 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <h1>Source code for CactusTool.function</h1><div class="highlight"><pre>
-<div class="viewcode-block" id="read"><a class="viewcode-back" href="../../API/CactusTool.html#CactusTool.function.read">[docs]</a><span></span><span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Some file may be compression, can not open directly.</span>
+  <h1>Source code for CactusTool.debug</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">.outputfile</span> <span class="k">import</span> <span class="o">*</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        file (str): open file</span>
-
-<span class="sd">    Return:</span>
-<span class="sd">        The content of the file</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="kc">None</span></div>
+<div class="viewcode-block" id="DeBug"><a class="viewcode-back" href="../../API/CactusTool.html#CactusTool.debug.DeBug">[docs]</a><span class="k">class</span> <span class="nc">DeBug</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Sim</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">files</span> <span class="o">=</span> <span class="n">Sim</span><span class="o">.</span><span class="n">debugfiles</span></div>
 </pre></div>
 
           </div>
