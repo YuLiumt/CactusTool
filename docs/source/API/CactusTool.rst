@@ -91,14 +91,6 @@ CactusTool.visualize module
    :undoc-members:
    :show-inheritance:
 
-CactusTool.viz\_yt module
--------------------------
-
-.. automodule:: CactusTool.viz_yt
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 
 Module contents
 ---------------
