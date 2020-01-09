@@ -41,14 +41,7 @@ class CarpetIOScalar:
         self.none     = ScalarReduction(self.files, None)
 
     def __str__(self):
-        output = ""
-        output += "Available min timeseries:\n{}\n".format(list(self.min.vars.keys()))
-        output += "Available max timeseries:\n{}\n".format(list(self.max.vars.keys()))
-        output += "Available norm1 timeseries:\n{}\n".format(list(self.norm1.vars.keys()))
-        output += "Available norm2 timeseries:\n{}\n".format(list(self.norm2.vars.keys()))
-        output += "Available average timeseries:\n{}\n".format(list(self.average.vars.keys()))
-        output += "Available none timeseries:\n{}\n".format(list(self.none.vars.keys()))
-        return output
+        return "%s%s%s%s%s%s%s" % (self.path, self.scalar, self.min, self.max, self.norm1, self.norm2, self.average)
 
 
 class ScalarReduction:
@@ -86,16 +79,24 @@ class ScalarReduction:
         return Vars
 
     def __getitem__(self, key):
-        if key in self.vars:
-            return Variable(self.vars[key], key)
-        else:
+        vars = [var for var in self.vars if key in var]
+        if len(vars) > 1:
+            print("Please make sure %s belong the same group" % (vars))
+        elif len(vars) == 0:
             raise Exception("{} is not exist in reduction {}".format(key, self.kind))
+        files = []
+        for var in vars:
+            files += self.vars[var]
+        return Variable(files, vars)
     
     def __contains__(self, key):
         return key in self.vars
         
     def __str__(self):
-        return "Available %s timeseries:\n%s\n" % (str(self.kind).lower(), list(self.vars.keys()))
+        if self.vars:
+            return "Available %s timeseries:\n%s\n" % (str(self.kind).lower(), list(self.vars.keys()))
+        else:
+            return None
 
 
 class Variable:

@@ -18,16 +18,16 @@
    "execution_count": 1,
    "metadata": {
     "ExecuteTime": {
-     "end_time": "2020-01-09T10:27:45.085197Z",
-     "start_time": "2020-01-09T10:27:44.018726Z"
+     "end_time": "2020-01-09T13:55:18.501139Z",
+     "start_time": "2020-01-09T13:55:17.995294Z"
     }
    },
    "outputs": [],
    "source": [
     "path = '/Users/liuyu/simulations/BH/'\n",
-    "HDF5_file = path + 'ml_admconstraints-ml_ham.xy.h5' # It also can be a list of HDF5 file\n",
-    "Scalar_file = path + 'ml_admconstraints-ml_ham.maximum.asc' # It also can be a list of Scalar file\n",
-    "ASCII_file = path + 'ml_admconstraints-ml_ham.x.asc' # It also can be a list of Scalar file\n",
+    "HDF5_file = path + 'ml_admconstraints-ml_mom.xy.h5' # It also can be a list of HDF5 file\n",
+    "Scalar_file = path + 'ml_admconstraints-ml_mom.maximum.asc' # It also can be a list of Scalar file\n",
+    "ASCII_file = path + 'ml_admconstraints-ml_mom.x.asc' # It also can be a list of Scalar file\n",
     "from CactusTool.Carpet import CarpetIOScalar\n",
     "from CactusTool.Carpet import CarpetIOHDF5\n",
     "from CactusTool.Carpet import CarpetIOASCII"
@@ -44,31 +44,24 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 6,
+   "execution_count": 2,
    "metadata": {
     "ExecuteTime": {
-     "end_time": "2020-01-09T10:29:02.567794Z",
-     "start_time": "2020-01-09T10:29:02.563981Z"
+     "end_time": "2020-01-09T13:55:18.667197Z",
+     "start_time": "2020-01-09T13:55:18.504315Z"
     }
    },
    "outputs": [
     {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "Available min timeseries:\n",
-      "[]\n",
-      "Available max timeseries:\n",
-      "['H']\n",
-      "Available norm1 timeseries:\n",
-      "[]\n",
-      "Available norm2 timeseries:\n",
-      "[]\n",
-      "Available average timeseries:\n",
-      "[]\n",
-      "Available none timeseries:\n",
-      "[]\n",
-      "\n"
+     "ename": "AttributeError",
+     "evalue": "'CarpetIOScalar' object has no attribute 'path'",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mAttributeError\u001b[0m                            Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-2-02cb2e2a6bac>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[1;32m      1\u001b[0m \u001b[0mds_scalar\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mCarpetIOScalar\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mScalar_file\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----> 2\u001b[0;31m \u001b[0mprint\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mds_scalar\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[0;32m~/Desktop/CactusTool/CactusTool/Carpet/Scalar.py\u001b[0m in \u001b[0;36m__str__\u001b[0;34m(self)\u001b[0m\n\u001b[1;32m     42\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     43\u001b[0m     \u001b[0;32mdef\u001b[0m \u001b[0m__str__\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mself\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---> 44\u001b[0;31m         \u001b[0;32mreturn\u001b[0m \u001b[0;34m\"%s%s%s%s%s%s%s\"\u001b[0m \u001b[0;34m%\u001b[0m \u001b[0;34m(\u001b[0m\u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mpath\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mscalar\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mmin\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mmax\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mnorm1\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mnorm2\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0maverage\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m     45\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     46\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;31mAttributeError\u001b[0m: 'CarpetIOScalar' object has no attribute 'path'"
      ]
     }
    ],
@@ -91,27 +84,34 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 9,
+   "execution_count": 3,
    "metadata": {
     "ExecuteTime": {
-     "end_time": "2020-01-09T11:12:34.605136Z",
-     "start_time": "2020-01-09T11:12:34.596508Z"
+     "end_time": "2020-01-09T13:55:26.089228Z",
+     "start_time": "2020-01-09T13:55:26.076799Z"
     }
    },
    "outputs": [
     {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Please make sure ['M1', 'M2', 'M3'] belong the same group\n"
+     ]
+    },
+    {
      "data": {
       "text/plain": [
-       "<CactusTool.Carpet.Scalar.Variable at 0x11c831310>"
+       "<CactusTool.Carpet.Scalar.Variable at 0x116f9f410>"
       ]
      },
-     "execution_count": 9,
+     "execution_count": 3,
      "metadata": {},
      "output_type": "execute_result"
     }
    ],
    "source": [
-    "ds_scalar.max['H']"
+    "ds_scalar.max['M']"
    ]
   },
   {
@@ -137,11 +137,11 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 4,
+   "execution_count": null,
    "metadata": {
     "ExecuteTime": {
-     "end_time": "2020-01-09T10:27:45.316467Z",
-     "start_time": "2020-01-09T10:27:45.098400Z"
+     "end_time": "2020-01-09T13:55:18.691142Z",
+     "start_time": "2020-01-09T13:55:17.998Z"
     }
    },
    "outputs": [],
@@ -151,25 +151,14 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 5,
+   "execution_count": null,
    "metadata": {
     "ExecuteTime": {
-     "end_time": "2020-01-09T10:27:45.325110Z",
-     "start_time": "2020-01-09T10:27:45.318991Z"
+     "end_time": "2020-01-09T13:55:18.692540Z",
+     "start_time": "2020-01-09T13:55:18.000Z"
     }
    },
-   "outputs": [
-    {
-     "data": {
-      "text/plain": [
-       "['/Users/liuyu/simulations/BH/ml_admconstraints-ml_ham.xy.h5']"
-      ]
-     },
-     "execution_count": 5,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
+   "outputs": [],
    "source": [
     "ds.files"
    ]
@@ -191,6 +180,20 @@
    "metadata": {},
    "source": [
     "## CarpetIOASCII"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2020-01-09T13:55:18.693876Z",
+     "start_time": "2020-01-09T13:55:18.002Z"
+    }
+   },
+   "outputs": [],
+   "source": [
+    "'M' in 'M[1]'"
    ]
   },
   {
