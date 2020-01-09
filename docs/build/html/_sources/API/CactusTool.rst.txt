@@ -27,6 +27,14 @@ CactusTool.dictionary module
    :undoc-members:
    :show-inheritance:
 
+CactusTool.funcs module
+-----------------------
+
+.. automodule:: CactusTool.funcs
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 CactusTool.grid\_data module
 ----------------------------
 
@@ -35,10 +43,10 @@ CactusTool.grid\_data module
    :undoc-members:
    :show-inheritance:
 
-CactusTool.outputdir module
----------------------------
+CactusTool.main module
+----------------------
 
-.. automodule:: CactusTool.outputdir
+.. automodule:: CactusTool.main
    :members:
    :undoc-members:
    :show-inheritance:
@@ -63,14 +71,6 @@ CactusTool.preview module
 -------------------------
 
 .. automodule:: CactusTool.preview
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-CactusTool.simulation module
-----------------------------
-
-.. automodule:: CactusTool.simulation
    :members:
    :undoc-members:
    :show-inheritance:

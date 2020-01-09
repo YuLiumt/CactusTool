@@ -4,10 +4,10 @@ CactusTool.Carpet package
 Submodules
 ----------
 
-CactusTool.Carpet.Dataset module
---------------------------------
+CactusTool.Carpet.ASCII module
+------------------------------
 
-.. automodule:: CactusTool.Carpet.Dataset
+.. automodule:: CactusTool.Carpet.ASCII
    :members:
    :undoc-members:
    :show-inheritance:

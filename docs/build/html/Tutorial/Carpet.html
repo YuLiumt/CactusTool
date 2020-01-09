@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>CactusTool &#8212; CactusTool 0.0.1 documentation</title>
+    <title>Carpet &#8212; CactusTool 0.0.1 documentation</title>
     <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -16,8 +16,8 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Carpet" href="Carpet.html" />
-    <link rel="prev" title="Tutorial" href="main.html" /> 
+    <link rel="next" title="CactusTool package" href="../API/CactusTool.html" />
+    <link rel="prev" title="CactusTool" href="CactusTool.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -29,10 +29,10 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="Carpet.html" title="Carpet"
+          <a href="../API/CactusTool.html" title="CactusTool package"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="main.html" title="Tutorial"
+          <a href="CactusTool.html" title="CactusTool"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="main.html" accesskey="U">Tutorial</a> &#187;</li> 
@@ -244,150 +244,79 @@ div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
 </style>
-<div class="section" id="CactusTool">
-<h1>CactusTool<a class="headerlink" href="#CactusTool" title="Permalink to this headline">¶</a></h1>
-<p>Basis class of CactusTool, anything start from it. * Par: parfile * Scalar * H5: HDF5 * Debug</p>
-<div class="section" id="Sim-module">
-<h2>Sim module<a class="headerlink" href="#Sim-module" title="Permalink to this headline">¶</a></h2>
-<p>You need use Sim module to load up data and make some visualizations.</p>
-<p>Acquiring the datasets</p>
-<p>For this dataset, we see that there are two particle types file</p>
+<div class="section" id="Carpet">
+<h1>Carpet<a class="headerlink" href="#Carpet" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">Carpet</span></code> is a sub-module used by <code class="docutils literal notranslate"><span class="pre">main</span></code> modular and contain three base class <code class="docutils literal notranslate"><span class="pre">CarpetIOScalar</span></code>, <code class="docutils literal notranslate"><span class="pre">CarpetIOHDF5</span></code>, and <code class="docutils literal notranslate"><span class="pre">CarpetIOASCII</span></code>. In <code class="docutils literal notranslate"><span class="pre">Carpet</span></code> we will deal with them separately, because their data structure is completely different. These class focused on the data file. Fetch all useful information from these files.</p>
+<p>In order to reduce the complexity of the code, These class does not depend on the <code class="docutils literal notranslate"><span class="pre">main</span></code> modular and can be used alone.</p>
+<p>We’re going to get started by loading up necessary modular and specify some example file in my local computer to demonstrate the function of this module.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">CactusTool</span> <span class="k">import</span> <span class="n">Simulation</span>
-<span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;/Users/liuyu/simulations/TOV_single_vel&#39;</span>
-<span class="c1"># name = &#39;/Users/liuyu/simulations/BH&#39;</span>
+<span></span><span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;/Users/liuyu/simulations/BH/&#39;</span>
+<span class="n">HDF5_file</span> <span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="s1">&#39;ml_admconstraints-ml_ham.xy.h5&#39;</span> <span class="c1"># It also can be a list of HDF5 file</span>
+<span class="n">Scalar_file</span> <span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="s1">&#39;ml_admconstraints-ml_ham.maximum.asc&#39;</span> <span class="c1"># It also can be a list of Scalar file</span>
+<span class="n">ASCII_file</span> <span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="s1">&#39;ml_admconstraints-ml_ham.x.asc&#39;</span> <span class="c1"># It also can be a list of Scalar file</span>
+<span class="kn">from</span> <span class="nn">CactusTool.Carpet</span> <span class="k">import</span> <span class="n">CarpetIOScalar</span>
+<span class="kn">from</span> <span class="nn">CactusTool.Carpet</span> <span class="k">import</span> <span class="n">CarpetIOHDF5</span>
+<span class="kn">from</span> <span class="nn">CactusTool.Carpet</span> <span class="k">import</span> <span class="n">CarpetIOASCII</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sim</span> <span class="o">=</span> <span class="n">Simulation</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="section" id="Parfile">
-<h2>Parfile<a class="headerlink" href="#Parfile" title="Permalink to this headline">¶</a></h2>
-<p>Read parameter file if it exist.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="section" id="CarpetIOScalar">
+<h2>CarpetIOScalar<a class="headerlink" href="#CarpetIOScalar" title="Permalink to this headline">¶</a></h2>
+<p>First view all available variables in a given reduction operation.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">Par</span><span class="p">)</span>
+<span></span><span class="n">ds_scalar</span> <span class="o">=</span> <span class="n">CarpetIOScalar</span><span class="p">(</span><span class="n">Scalar_file</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ds_scalar</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">Par</span><span class="o">.</span><span class="n">MoL</span><span class="p">)</span>
-</pre></div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Available min timeseries:
+[]
+Available max timeseries:
+[&#39;H&#39;]
+Available norm1 timeseries:
+[]
+Available norm2 timeseries:
+[]
+Available average timeseries:
+[]
+Available none timeseries:
+[]
+
+</pre></div></div>
 </div>
-</div>
-</div>
-<div class="section" id="Scalar">
-<h2>Scalar<a class="headerlink" href="#Scalar" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="Base-Information">
-<h3>Base Information<a class="headerlink" href="#Base-Information" title="Permalink to this headline">¶</a></h3>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">Scalar</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">Scalar</span><span class="o">.</span><span class="n">none</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">Scalar</span><span class="o">.</span><span class="n">none</span><span class="p">[</span><span class="s1">&#39;qlm_area[0]&#39;</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<p>Then specify specific variables and their corresponding operations</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">Scalar</span><span class="o">.</span><span class="n">none</span><span class="p">[</span><span class="s1">&#39;qlm_area[0]&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+<span></span><span class="n">ds_scalar</span><span class="o">.</span><span class="n">max</span><span class="p">[</span><span class="s1">&#39;H&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
-</div>
-<div class="section" id="Plot">
-<h3>Plot<a class="headerlink" href="#Plot" title="Permalink to this headline">¶</a></h3>
-</div>
-</div>
-<div class="section" id="ASCII">
-<h2>ASCII<a class="headerlink" href="#ASCII" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="Base-information">
-<h3>Base information<a class="headerlink" href="#Base-information" title="Permalink to this headline">¶</a></h3>
-</div>
-<div class="section" id="Plot">
-<h3>Plot<a class="headerlink" href="#Plot" title="Permalink to this headline">¶</a></h3>
-</div>
-</div>
-<div class="section" id="HDF5">
-<h2>HDF5<a class="headerlink" href="#HDF5" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="Base-Information">
-<h3>Base Information<a class="headerlink" href="#Base-Information" title="Permalink to this headline">¶</a></h3>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">H5</span><span class="p">)</span>
-</pre></div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;CactusTool.Carpet.Scalar.Variable at 0x11c831310&gt;
+</pre></div></div>
 </div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">H5</span><span class="o">.</span><span class="n">xy</span><span class="p">[</span><span class="s1">&#39;rho&#39;</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="s1">&#39;H&#39;</span> <span class="ow">in</span> <span class="n">sim</span><span class="o">.</span><span class="n">H5</span><span class="o">.</span><span class="n">xy</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="section" id="Debug">
-<h2>Debug<a class="headerlink" href="#Debug" title="Permalink to this headline">¶</a></h2>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">files</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">Debug</span><span class="o">.</span><span class="n">files</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="Plot">
-<h3>Plot<a class="headerlink" href="#Plot" title="Permalink to this headline">¶</a></h3>
+<p>Following are some attribute of This variable you may need:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -396,6 +325,56 @@ div.rendered_html tbody tr:hover {
 <span></span>
 </pre></div>
 </div>
+</div>
+</div>
+<div class="section" id="CarpetIOHDF5">
+<h2>CarpetIOHDF5<a class="headerlink" href="#CarpetIOHDF5" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">CarpetIOHDF5</span><span class="p">(</span><span class="n">HDF5_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">ds</span><span class="o">.</span><span class="n">files</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;/Users/liuyu/simulations/BH/ml_admconstraints-ml_ham.xy.h5&#39;]
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="CarpetIOASCII">
+<h2>CarpetIOASCII<a class="headerlink" href="#CarpetIOASCII" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
 </div>
 </div>
 </div>
@@ -409,41 +388,24 @@ div.rendered_html tbody tr:hover {
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">CactusTool</a><ul>
-<li><a class="reference internal" href="#Sim-module">Sim module</a></li>
-<li><a class="reference internal" href="#Parfile">Parfile</a></li>
-<li><a class="reference internal" href="#Scalar">Scalar</a><ul>
-<li><a class="reference internal" href="#Base-Information">Base Information</a></li>
-<li><a class="reference internal" href="#Plot">Plot</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#ASCII">ASCII</a><ul>
-<li><a class="reference internal" href="#Base-information">Base information</a></li>
-<li><a class="reference internal" href="#Plot">Plot</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#HDF5">HDF5</a><ul>
-<li><a class="reference internal" href="#Base-Information">Base Information</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#Debug">Debug</a><ul>
-<li><a class="reference internal" href="#Plot">Plot</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#">Carpet</a><ul>
+<li><a class="reference internal" href="#CarpetIOScalar">CarpetIOScalar</a></li>
+<li><a class="reference internal" href="#CarpetIOHDF5">CarpetIOHDF5</a></li>
+<li><a class="reference internal" href="#CarpetIOASCII">CarpetIOASCII</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="main.html"
-                        title="previous chapter">Tutorial</a></p>
+  <p class="topless"><a href="CactusTool.html"
+                        title="previous chapter">CactusTool</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="Carpet.html"
-                        title="next chapter">Carpet</a></p>
+  <p class="topless"><a href="../API/CactusTool.html"
+                        title="next chapter">CactusTool package</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/Tutorial/CactusTool.ipynb.txt"
+      <li><a href="../_sources/Tutorial/Carpet.ipynb.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -471,10 +433,10 @@ div.rendered_html tbody tr:hover {
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="Carpet.html" title="Carpet"
+          <a href="../API/CactusTool.html" title="CactusTool package"
              >next</a> |</li>
         <li class="right" >
-          <a href="main.html" title="Tutorial"
+          <a href="CactusTool.html" title="CactusTool"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="main.html" >Tutorial</a> &#187;</li> 

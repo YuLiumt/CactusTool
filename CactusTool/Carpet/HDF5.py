@@ -1,3 +1,8 @@
+"""
+Cactus dataset main produced by `Carpet <https://carpetcode.org>`_, which is an adaptive mesh refinement and multi-patch driver for the Cactus. This modular processes output of CarpetIOHDF5.
+"""
+
+from ..funcs import *
 from ..outputfile import *
 import numpy as np
 import json
@@ -98,33 +103,16 @@ def var_header(file):
     return vars
 
 
-class Griddim:
-    def __init__(self, files, dim):
-        self.dim = dim
-        pat_fn = re.compile("\S*\.([xyz]*)\.h5(\.(gz|bz2))?$")
-        self.files = [file for file in files if pat_fn.match(file).group(1) == self.dim]
-
-        self.vars = {}
-        for file in self.files:
-            for var in var_header(file):
-                self.vars.setdefault(var, []).append(file)
-
-    def __getitem__(self, key):
-        if key in self.vars:
-            return Variable(self.vars[key], key)
-        else:
-            raise Exception("{} is not exist in dim {}".format(key, self.dim))
-    
-    def __contains__(self, key):
-        return key in self.vars
-
-    def __str__(self):
-        return "Available grid data of dimension %s: \n%s\n" % (self.dim, list(self.vars.keys()))
 
 
 class CarpetIOHDF5:
-    def __init__(self, Sim):
-        self.files = Sim.h5files
+    """
+    This class can handle all CarpetIOHDF5 output. Read the dataset from files and return all useful information stored in these files.
+
+    :param list files: A list of file in absolute path.
+    """
+    def __init__(self, files):
+        self.files = ensure_list(files)
         self.x     = Griddim(self.files, 'x')
         self.y     = Griddim(self.files, 'y')
         self.z     = Griddim(self.files, 'z')
@@ -135,3 +123,28 @@ class CarpetIOHDF5:
 
     def __str__(self):
         return "%s\n%s\n%s\n%s\n%s\n%s\n%s\n" % (self.x, self.y, self.z, self.xy, self.xz, self.yz, self.xyz)
+
+
+class Griddim:
+    def __init__(self, files, dim):
+        self.dim = dim
+        pat_fn = re.compile("\S*\.([xyz]*)\.h5(\.(gz|bz2))?$")
+        self.files = [file for file in files if pat_fn.match(file).group(1) == self.dim]
+
+
+        self.vars = {}
+        for file in self.files:
+            for var in var_header(file):
+                self.vars.setdefault(var, []).append(file)
+
+    # def __getitem__(self, key):
+    #     if key in self.vars:
+    #         return Variable(self.vars[key], key)
+    #     else:
+    #         raise Exception("{} is not exist in dim {}".format(key, self.dim))
+    
+    # def __contains__(self, key):
+    #     return key in self.vars
+
+    def __str__(self):
+        return "Available grid function with dimension %s:\n%s\n" % (self.dim, list(self.vars.keys()))

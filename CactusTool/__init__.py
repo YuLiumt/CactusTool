@@ -1,5 +1,4 @@
-from .outputdir import *
-from .simulation import *
+from .main import Simulation
 from .parfile import *
 from .outputfile import *
 from .visualize import *

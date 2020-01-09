@@ -32,24 +32,33 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 1,
+   "execution_count": 2,
    "metadata": {
+    "ExecuteTime": {
+     "end_time": "2020-01-09T06:01:55.858679Z",
+     "start_time": "2020-01-09T06:01:55.855417Z"
+    },
     "scrolled": true
    },
    "outputs": [],
    "source": [
-    "from CactusTool.simulation import Sim\n",
+    "from CactusTool import Simulation\n",
     "name = '/Users/liuyu/simulations/TOV_single_vel'\n",
     "# name = '/Users/liuyu/simulations/BH'"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 2,
-   "metadata": {},
+   "execution_count": 4,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2020-01-09T06:02:12.081748Z",
+     "start_time": "2020-01-09T06:02:12.072042Z"
+    }
+   },
    "outputs": [],
    "source": [
-    "sim = Sim(name)"
+    "sim = Simulation(name)"
    ]
   },
   {
@@ -62,35 +71,28 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 3,
-   "metadata": {},
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "TOV_single_vel.par:\n",
-      "['ADMAnalysis', 'ADMBase', 'ADMCoupling', 'ADMMacros', 'AEILocalInterp', 'ActiveThorns', 'Cactus', 'Carpet', 'CarpetIOASCII', 'CarpetIOBasic', 'CarpetIOHDF5', 'CarpetIOScalar', 'CarpetInterp', 'CarpetInterp2', 'CarpetLib', 'CarpetReduce', 'CarpetRegrid2', 'CarpetTracker', 'CartGrid3D', 'Constants', 'CoordBase', 'CoordGauge', 'Dissipation', 'EOS_Omni', 'GRHydro', 'GenericFD', 'HydroBase', 'Hydro_Analysis', 'IO', 'IOASCII', 'IOBasic', 'IOHDF5', 'IOScalar', 'IOUtil', 'InitBase', 'LocalInterp', 'LocalReduce', 'ML_ADMConstraints', 'ML_BSSN', 'ML_BSSN_Helper', 'MoL', 'NSTracker', 'NaNChecker', 'NewRad', 'QuasiLocalMeasures', 'SpaceMask', 'SphericalSurface', 'StaticConformal', 'SummationByParts', 'SystemStatistics', 'TOVSolver', 'Time', 'TmunuBase', 'boundary', 'driver', 'symbase', 'tovsolver']\n"
-     ]
+   "execution_count": null,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2020-01-09T06:01:43.717052Z",
+     "start_time": "2020-01-09T06:01:41.845Z"
     }
-   ],
+   },
+   "outputs": [],
    "source": [
     "print(sim.Par)"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 4,
-   "metadata": {},
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "{'ODE_Method': 'rk4', 'MoL_Intermediate_Steps': 4, 'MoL_Num_Scratch_Levels': 1}\n"
-     ]
+   "execution_count": null,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2020-01-09T06:01:43.718596Z",
+     "start_time": "2020-01-09T06:01:41.848Z"
     }
-   ],
+   },
+   "outputs": [],
    "source": [
     "print(sim.Par.MoL)"
    ]
@@ -111,61 +113,29 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 5,
-   "metadata": {},
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "Available minimum timeseries:\n",
-      "[]\n",
-      "\n",
-      "Available maximum timeseries:\n",
-      "['Hydro_Analysis_rho_max_loc[0]', 'Hydro_Analysis_rho_max_loc[1]', 'Hydro_Analysis_rho_max_loc[2]', 'H', 'M1', 'M2', 'M3', 'qlm_shape[0]', 'rho', 'Hydro_Analysis_rho_max_origin_distance', 'maxrss_mb', 'majflt_mb', 'arena_mb', 'ordblks_mb', 'hblks_mb', 'hblkhd_mb', 'uordblks_mb', 'fordblks_mb', 'keepcost_mb', 'swap_used_mb']\n",
-      "\n",
-      "Available norm1 timeseries:\n",
-      "[]\n",
-      "\n",
-      "Available norm2 timeseries:\n",
-      "[]\n",
-      "\n",
-      "Available average timeseries:\n",
-      "[]\n",
-      "\n",
-      "Available none timeseries:\n",
-      "['qlm_time[0]', 'qlm_equatorial_circumference[0]', 'qlm_polar_circumference_0[0]', 'qlm_polar_circumference_pi_2[0]', 'qlm_area[0]', 'qlm_irreducible_mass[0]', 'qlm_radius[0]', 'qlm_spin_guess[0]', 'qlm_mass_guess[0]', 'qlm_killing_eigenvalue_re[0]', 'qlm_killing_eigenvalue_im[0]', 'qlm_spin[0]', 'qlm_npspin[0]', 'qlm_wsspin[0]', 'qlm_cvspin[0]', 'qlm_coordspinx[0]', 'qlm_coordspiny[0]', 'qlm_coordspinz[0]', 'qlm_mass[0]', 'qlm_adm_energy[0]', 'qlm_adm_momentum_x[0]', 'qlm_adm_momentum_y[0]', 'qlm_adm_momentum_z[0]', 'qlm_adm_angular_momentum_x[0]', 'qlm_adm_angular_momentum_y[0]', 'qlm_adm_angular_momentum_z[0]', 'qlm_w_energy[0]', 'qlm_w_momentum_x[0]', 'qlm_w_momentum_y[0]', 'qlm_w_momentum_z[0]', 'qlm_w_angular_momentum_x[0]', 'qlm_w_angular_momentum_y[0]', 'qlm_w_angular_momentum_z[0]']\n",
-      "\n",
-      "\n"
-     ]
+   "execution_count": null,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2020-01-09T06:01:43.720057Z",
+     "start_time": "2020-01-09T06:01:41.850Z"
     }
-   ],
+   },
+   "outputs": [],
    "source": [
     "print(sim.Scalar)"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 6,
+   "execution_count": null,
    "metadata": {
+    "ExecuteTime": {
+     "end_time": "2020-01-09T06:01:43.721460Z",
+     "start_time": "2020-01-09T06:01:41.853Z"
+    },
     "scrolled": true
    },
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "Available none timeseries:\n",
-      "['qlm_time[0]', 'qlm_equatorial_circumference[0]', 'qlm_polar_circumference_0[0]', 'qlm_polar_circumference_pi_2[0]', 'qlm_area[0]', 'qlm_irreducible_mass[0]', 'qlm_radius[0]', 'qlm_spin_guess[0]', 'qlm_mass_guess[0]', 'qlm_killing_eigenvalue_re[0]', 'qlm_killing_eigenvalue_im[0]', 'qlm_spin[0]', 'qlm_npspin[0]', 'qlm_wsspin[0]', 'qlm_cvspin[0]', 'qlm_coordspinx[0]', 'qlm_coordspiny[0]', 'qlm_coordspinz[0]', 'qlm_mass[0]', 'qlm_adm_energy[0]', 'qlm_adm_momentum_x[0]', 'qlm_adm_momentum_y[0]', 'qlm_adm_momentum_z[0]', 'qlm_adm_angular_momentum_x[0]', 'qlm_adm_angular_momentum_y[0]', 'qlm_adm_angular_momentum_z[0]', 'qlm_w_energy[0]', 'qlm_w_momentum_x[0]', 'qlm_w_momentum_y[0]', 'qlm_w_momentum_z[0]', 'qlm_w_angular_momentum_x[0]', 'qlm_w_angular_momentum_y[0]', 'qlm_w_angular_momentum_z[0]']\n",
-      "\n",
-      "{\n",
-      "    \"output-0000\": [\n",
-      "        \"/Users/liuyu/simulations/TOV_single_vel/output-0000/TOV_single_vel/quasilocalmeasures-qlm_scalars..asc\"\n",
-      "    ]\n",
-      "}\n"
-     ]
-    }
-   ],
+   "outputs": [],
    "source": [
     "print(sim.Scalar.none)\n",
     "print(sim.Scalar.none['qlm_area[0]'])"
@@ -173,20 +143,15 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 7,
+   "execution_count": null,
    "metadata": {
+    "ExecuteTime": {
+     "end_time": "2020-01-09T06:01:43.723014Z",
+     "start_time": "2020-01-09T06:01:41.856Z"
+    },
     "scrolled": true
    },
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "[129219.28889638 129219.27606376 129219.23624869 129219.16912215\n",
-      "             nan]\n"
-     ]
-    }
-   ],
+   "outputs": [],
    "source": [
     "print(sim.Scalar.none['qlm_area[0]'].y)"
    ]
@@ -235,82 +200,43 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 8,
+   "execution_count": null,
    "metadata": {
+    "ExecuteTime": {
+     "end_time": "2020-01-09T06:01:43.724366Z",
+     "start_time": "2020-01-09T06:01:41.859Z"
+    },
     "scrolled": false
    },
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "Available grid data of dimension x: \n",
-      "[]\n",
-      "\n",
-      "Available grid data of dimension y: \n",
-      "[]\n",
-      "\n",
-      "Available grid data of dimension z: \n",
-      "[]\n",
-      "\n",
-      "Available grid data of dimension xy: \n",
-      "['H', 'M1', 'M2', 'M3', 'press', 'eps', 'rho']\n",
-      "\n",
-      "Available grid data of dimension xz: \n",
-      "['eps', 'rho', 'press', 'M1', 'M2', 'M3', 'H']\n",
-      "\n",
-      "Available grid data of dimension yz: \n",
-      "['eps', 'rho', 'press', 'M1', 'M2', 'M3', 'H']\n",
-      "\n",
-      "Available grid data of dimension xyz: \n",
-      "[]\n",
-      "\n",
-      "\n"
-     ]
-    }
-   ],
+   "outputs": [],
    "source": [
     "print(sim.H5)"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 9,
-   "metadata": {},
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "Parameters and Global Attributes\n",
-      "{\n",
-      "    \"output-0000\": [\n",
-      "        \"/Users/liuyu/simulations/TOV_single_vel/output-0000/TOV_single_vel/hydrobase-rho.xy.h5\"\n",
-      "    ]\n",
-      "}\n"
-     ]
+   "execution_count": null,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2020-01-09T06:01:43.725581Z",
+     "start_time": "2020-01-09T06:01:41.862Z"
     }
-   ],
+   },
+   "outputs": [],
    "source": [
     "print(sim.H5.xy['rho'])"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 10,
-   "metadata": {},
-   "outputs": [
-    {
-     "data": {
-      "text/plain": [
-       "True"
-      ]
-     },
-     "execution_count": 10,
-     "metadata": {},
-     "output_type": "execute_result"
+   "execution_count": null,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2020-01-09T06:01:43.726536Z",
+     "start_time": "2020-01-09T06:01:41.864Z"
     }
-   ],
+   },
+   "outputs": [],
    "source": [
     "'H' in sim.H5.xy"
    ]
@@ -324,17 +250,14 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 13,
-   "metadata": {},
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "['/Users/liuyu/simulations/TOV_single_vel/output-0000/TOV_single_vel/NaNmask.file_10.h5', '/Users/liuyu/simulations/TOV_single_vel/output-0000/TOV_single_vel/NaNmask.file_4.h5', '/Users/liuyu/simulations/TOV_single_vel/output-0000/TOV_single_vel/NaNmask.file_14.h5', '/Users/liuyu/simulations/TOV_single_vel/output-0000/TOV_single_vel/NaNmask.file_0.h5', '/Users/liuyu/simulations/TOV_single_vel/output-0000/TOV_single_vel/NaNmask.file_15.h5', '/Users/liuyu/simulations/TOV_single_vel/output-0000/TOV_single_vel/NaNmask.file_1.h5', '/Users/liuyu/simulations/TOV_single_vel/output-0000/TOV_single_vel/NaNmask.file_11.h5', '/Users/liuyu/simulations/TOV_single_vel/output-0000/TOV_single_vel/NaNmask.file_5.h5', '/Users/liuyu/simulations/TOV_single_vel/output-0000/TOV_single_vel/NaNmask.file_16.h5', '/Users/liuyu/simulations/TOV_single_vel/output-0000/TOV_single_vel/NaNmask.file_2.h5', '/Users/liuyu/simulations/TOV_single_vel/output-0000/TOV_single_vel/NaNmask.file_12.h5', '/Users/liuyu/simulations/TOV_single_vel/output-0000/TOV_single_vel/NaNmask.file_6.h5', '/Users/liuyu/simulations/TOV_single_vel/output-0000/TOV_single_vel/NaNmask.file_13.h5', '/Users/liuyu/simulations/TOV_single_vel/output-0000/TOV_single_vel/NaNmask.file_7.h5', '/Users/liuyu/simulations/TOV_single_vel/output-0000/TOV_single_vel/NaNmask.file_17.h5', '/Users/liuyu/simulations/TOV_single_vel/output-0000/TOV_single_vel/NaNmask.file_3.h5', '/Users/liuyu/simulations/TOV_single_vel/output-0000/TOV_single_vel/NaNmask.file_8.h5', '/Users/liuyu/simulations/TOV_single_vel/output-0000/TOV_single_vel/NaNmask.file_18.h5', '/Users/liuyu/simulations/TOV_single_vel/output-0000/TOV_single_vel/NaNmask.file_19.h5', '/Users/liuyu/simulations/TOV_single_vel/output-0000/TOV_single_vel/NaNmask.file_9.h5']\n"
-     ]
+   "execution_count": null,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2020-01-09T06:01:43.727736Z",
+     "start_time": "2020-01-09T06:01:41.866Z"
     }
-   ],
+   },
+   "outputs": [],
    "source": [
     "files = sim.Debug.files\n",
     "print(files)"
