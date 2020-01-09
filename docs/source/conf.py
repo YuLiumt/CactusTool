@@ -13,7 +13,7 @@
 import os
 import sys
 sys.path.insert(0, os.path.abspath('../../CactusTool/'))
-
+autodoc_mock_imports = ['CactusTool']
 
 import sphinx_rtd_theme
 # -- Project information -----------------------------------------------------
