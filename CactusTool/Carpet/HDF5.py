@@ -1,4 +1,4 @@
-from .outputfile import *
+from ..outputfile import *
 import numpy as np
 import json
 import re
@@ -122,7 +122,7 @@ class Griddim:
         return "Available grid data of dimension %s: \n%s\n" % (self.dim, list(self.vars.keys()))
 
 
-class H5Base:
+class CarpetIOHDF5:
     def __init__(self, Sim):
         self.files = Sim.h5files
         self.x     = Griddim(self.files, 'x')

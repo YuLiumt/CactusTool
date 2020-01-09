@@ -12,14 +12,11 @@ import re
 
 def read(file):
     """
-    The data structure and file type is completely different. Need use different way to open it.
+    Carpet output file type is completely different. This function provides different way to open it.
 
-    :param str file: data file
+    :param str file: file in absolute path
 
-    Exxample
-    ---------
-
-        >>> with read(file) as f:
+    >>> with read(file) as f:
     """
     if file.endswith('.bz2'):
         f = bz2.BZ2File(file)
@@ -75,12 +72,14 @@ def HDF5_gf(file, slice):
         # for item in list(dataset.attrs):
         #     data[item] = dataset.attrs[item]
         data['plane'] = plane
-        delta  = dataset.attrs.get('delta', None)
-        origin = dataset.attrs.get('origin', None)
-        size   = dataset.shape
-        dim = len(size)
-        for i in range(dim):
-            data[plane[i]] = np.arange(0, size[(dim-1)-i])*delta[i] + origin[i]
+        # delta  = dataset.attrs.get('delta', None)
+        # origin = dataset.attrs.get('origin', None)
+        # size   = dataset.shape
+        # dim = len(size)
+        # for i in range(dim):
+        #     data[plane[i]] = np.arange(0, size[(dim-1)-i])*delta[i] + origin[i]
+        data['delta'] = dataset.attrs.get('delta', None)
+        data['origin'] = dataset.attrs.get('origin', None)
         data['varname'] = str(dataset.attrs.get('name', None)).split("'")[1]
         data['it'] = dataset.attrs.get('timestep', None)
         data['rl'] = dataset.attrs.get('level', None)

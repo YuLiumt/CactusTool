@@ -40,6 +40,7 @@ extensions = [
     'sphinx.ext.mathjax',
     "sphinx_rtd_theme",
     'sphinx.ext.autosummary',
+    'nbsphinx',
 ]
 
 autosummary_generate = True

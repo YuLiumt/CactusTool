@@ -13,6 +13,7 @@
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
   </head><body>
@@ -40,12 +41,27 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 
-<div class="viewcode-block" id="hdf5_2d"><a class="viewcode-back" href="../../API/CactusTool.html#CactusTool.preview.hdf5_2d">[docs]</a><span class="k">def</span> <span class="nf">hdf5_2d</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<div class="viewcode-block" id="hdf5_2d"><a class="viewcode-back" href="../../API/CactusTool.html#CactusTool.preview.hdf5_2d">[docs]</a><span class="k">def</span> <span class="nf">hdf5_2d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;RdBu&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create a pseudocolor plot</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        The dimensions of X and Y should be one greater than those of C. Alternatively, X, Y and C may have equal dimensions, in which case the last row and column of C will be ignored.</span>
+
+<span class="sd">    :param array X: A 1-D array. They will be expanded as needed into the appropriate 2-D arrays, making a rectangular grid.</span>
+<span class="sd">    :param array Y: A 1-D array. They will be expanded as needed into the appropriate 2-D arrays, making a rectangular grid.</span>
+<span class="sd">    :param array data: A scalar 2-D array. The values will be color-mapped.</span>
+<span class="sd">    :param str title: Set figure title.</span>
+<span class="sd">    :param str colormap: A Colormap name. The colormap maps the C values to colors. </span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">size</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span>
     <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">()</span></div>
+    <span class="n">tmpX</span><span class="p">,</span> <span class="n">tmpY</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+    <span class="n">im</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">tmpX</span><span class="p">,</span> <span class="n">tmpY</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">colormap</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
 </pre></div>
 
           </div>

@@ -13,6 +13,7 @@
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
   </head><body>
@@ -37,7 +38,7 @@
             
   <h1>Source code for CactusTool.outputfile</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">The :py:mod:`~CactusTool.outputfile` module provides most of the functionality of functions to deal with different type of files in Carpet format.</span>
+<span class="sd">Carpet provides ASCII and HDF5-based output for Carpet. These I/O methods can output any type of CCTK grid variables (grid scalars, grid functions, and grid arrays of arbitrary dimension). The :py:mod:`~CactusTool.outputfile` module provides most of the functionality of functions to deal with these different type of output file.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">.dictionary</span> <span class="k">import</span> <span class="o">*</span>
@@ -50,14 +51,11 @@
 
 <div class="viewcode-block" id="read"><a class="viewcode-back" href="../../API/CactusTool.html#CactusTool.outputfile.read">[docs]</a><span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Carpet provides ASCII output and HDF5-based output for Carpet. These I/O methods can output any type of CCTK grid variables  (grid scalars, grid functions, and grid arrays of arbitrary dimension). However, the data structure of I/O methods is completely different</span>
+<span class="sd">    Carpet output file type is completely different. This function provides different way to open it.</span>
 
-<span class="sd">    :param str file: data file</span>
+<span class="sd">    :param str file: file in absolute path</span>
 
-<span class="sd">    Exxample</span>
-<span class="sd">    ---------</span>
-
-<span class="sd">        &gt;&gt;&gt; with read(file) as f:</span>
+<span class="sd">    &gt;&gt;&gt; with read(file) as f:</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.bz2&#39;</span><span class="p">):</span>
         <span class="n">f</span> <span class="o">=</span> <span class="n">bz2</span><span class="o">.</span><span class="n">BZ2File</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
@@ -113,12 +111,14 @@
         <span class="c1"># for item in list(dataset.attrs):</span>
         <span class="c1">#     data[item] = dataset.attrs[item]</span>
         <span class="n">data</span><span class="p">[</span><span class="s1">&#39;plane&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">plane</span>
-        <span class="n">delta</span>  <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;delta&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="n">origin</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;origin&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="n">size</span>   <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">shape</span>
-        <span class="n">dim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dim</span><span class="p">):</span>
-            <span class="n">data</span><span class="p">[</span><span class="n">plane</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">size</span><span class="p">[(</span><span class="n">dim</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">-</span><span class="n">i</span><span class="p">])</span><span class="o">*</span><span class="n">delta</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">origin</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="c1"># delta  = dataset.attrs.get(&#39;delta&#39;, None)</span>
+        <span class="c1"># origin = dataset.attrs.get(&#39;origin&#39;, None)</span>
+        <span class="c1"># size   = dataset.shape</span>
+        <span class="c1"># dim = len(size)</span>
+        <span class="c1"># for i in range(dim):</span>
+        <span class="c1">#     data[plane[i]] = np.arange(0, size[(dim-1)-i])*delta[i] + origin[i]</span>
+        <span class="n">data</span><span class="p">[</span><span class="s1">&#39;delta&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;delta&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">data</span><span class="p">[</span><span class="s1">&#39;origin&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;origin&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="n">data</span><span class="p">[</span><span class="s1">&#39;varname&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">data</span><span class="p">[</span><span class="s1">&#39;it&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;timestep&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="n">data</span><span class="p">[</span><span class="s1">&#39;rl&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;level&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>

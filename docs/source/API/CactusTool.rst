@@ -1,24 +1,15 @@
 CactusTool package
 ==================
 
+Subpackages
+-----------
+
+.. toctree::
+
+   CactusTool.Carpet
+
 Submodules
 ----------
-
-CactusTool.carpet\_h5 module
-----------------------------
-
-.. automodule:: CactusTool.carpet_h5
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-CactusTool.carpet\_scalar module
---------------------------------
-
-.. automodule:: CactusTool.carpet_scalar
-   :members:
-   :undoc-members:
-   :show-inheritance:
 
 CactusTool.debug module
 -----------------------
@@ -32,6 +23,14 @@ CactusTool.dictionary module
 ----------------------------
 
 .. automodule:: CactusTool.dictionary
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+CactusTool.grid\_data module
+----------------------------
+
+.. automodule:: CactusTool.grid_data
    :members:
    :undoc-members:
    :show-inheritance:
@@ -88,6 +87,14 @@ CactusTool.visualize module
 ---------------------------
 
 .. automodule:: CactusTool.visualize
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+CactusTool.viz\_yt module
+-------------------------
+
+.. automodule:: CactusTool.viz_yt
    :members:
    :undoc-members:
    :show-inheritance:

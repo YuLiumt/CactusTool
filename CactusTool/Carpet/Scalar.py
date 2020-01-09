@@ -6,7 +6,7 @@ is normally not used directly, but from the `simdir` module.
 The data loaded by this module is represented as `TimeSeries` objects.
 """
 
-from .outputfile import read
+from ..outputfile import read
 import matplotlib.pyplot as plt
 import numpy as np
 import json
@@ -143,7 +143,7 @@ class ScalarReduction:
         return "Available %s timeseries:\n%s\n" % (str(self.kind).lower(), list(self.vars.keys()))
 
 
-class ScalarBase:
+class CarpetIOScalar:
     """
     Operation in Carpet Scalar file.
     """

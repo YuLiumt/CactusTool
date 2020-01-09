@@ -5,7 +5,11 @@
 
 Welcome to CactusTool's documentation!
 ======================================
-CactusTool pack package provides tools to work with `CACTUS <http://www.cactuscode.org>`_ data. CactusTool code benefits from the publicly available PostCactus and PyCactus code, but run in python3. It also provides some specialized functions.
+CactusTool package provides tools to analysis and visualization `CACTUS <http://www.cactuscode.org>`_ simulations. 
+
+CactusTool uses matplotlib and yt to visualize gird functions. yt supports structured, variable-resolution meshes, unstructured meshes, and discrete or sampled data such as particles.
+
+CactusTool code benefits from the publicly available `PostCactus <https://bitbucket.org/DrWhat/pycactuset>`_ and `PyCactus <https://bitbucket.org/knarrff/pycactus>`_ code. It also provides some specialized functions.
 
 .. note::
 
@@ -15,9 +19,21 @@ CactusTool pack package provides tools to work with `CACTUS <http://www.cactusco
    :maxdepth: 2
    :caption: Contents:
 
-   Note/introduction
-   Note/start
+   Note/install
+   Tutorial/main
    API/CactusTool
+
+Contributors
+-------------
+Author
+^^^^^^^
+Built by `Yu Liu <https://yuliumt.github.io>`_
+
+Direct contributions to the code base:
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Comments, corrections & suggestions:
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Indices and tables
 ==================

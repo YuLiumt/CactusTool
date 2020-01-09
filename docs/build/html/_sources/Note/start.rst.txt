@@ -1,9 +1,11 @@
-=========
-Get Start
-=========
+==========
+Quickstart
+==========
 
-First, import the most important modules:
+The first thing that we need to do is import the necessary modules:
 
 .. code:: python
 
     from CactusTool.simulation import Sim
+
+Then, we’ll specify the directory 

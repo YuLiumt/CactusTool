@@ -6,8 +6,8 @@ A simulation directory is represented by an instance of the `Sim` class, which p
 
 from . import outputdir
 from .parfile import ParFile
-from .carpet_scalar import ScalarBase
-from .carpet_h5 import H5Base
+from .Carpet.Scalar import CarpetIOScalar
+from .Carpet.HDF5 import CarpetIOHDF5
 from .debug import DeBug
 import os
 
@@ -47,14 +47,14 @@ class Sim:
     @property
     def Scalar(self):
         if bool(self.scafiles):
-            return ScalarBase(self)
+            return CarpetIOScalar(self)
         else:
             raise Exception("No Scalar variable in {}:".format(self.simname))
 
     @property
     def H5(self):
         if bool(self.h5files):
-            return H5Base(self)
+            return CarpetIOHDF5(self)
         else:
             raise Exception("No H5 variable in {}:".format(self.simname))
 

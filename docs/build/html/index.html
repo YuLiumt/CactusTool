@@ -13,9 +13,10 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Introduction" href="Note/introduction.html" /> 
+    <link rel="next" title="Installation" href="Note/install.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -27,7 +28,7 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="Note/introduction.html" title="Introduction"
+          <a href="Note/install.html" title="Installation"
              accesskey="N">next</a> |</li>
         <li class="nav-item nav-item-0"><a href="#">CactusTool 0.0.1 documentation</a> &#187;</li> 
       </ul>
@@ -40,7 +41,9 @@
             
   <div class="section" id="welcome-to-cactustool-s-documentation">
 <h1>Welcome to CactusTool’s documentation!<a class="headerlink" href="#welcome-to-cactustool-s-documentation" title="Permalink to this headline">¶</a></h1>
-<p>CactusTool pack package provides tools to work with <a class="reference external" href="http://www.cactuscode.org">CACTUS</a> data. CactusTool code benefits from the publicly available PostCactus and PyCactus code, but run in python3. It also provides some specialized functions.</p>
+<p>CactusTool package provides tools to analysis and visualization <a class="reference external" href="http://www.cactuscode.org">CACTUS</a> simulations.</p>
+<p>CactusTool uses matplotlib and yt to visualize gird functions. yt supports structured, variable-resolution meshes, unstructured meshes, and discrete or sampled data such as particles.</p>
+<p>CactusTool code benefits from the publicly available <a class="reference external" href="https://bitbucket.org/DrWhat/pycactuset">PostCactus</a> and <a class="reference external" href="https://bitbucket.org/knarrff/pycactus">PyCactus</a> code. It also provides some specialized functions.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Still in Prepare</p>
@@ -48,14 +51,22 @@
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="Note/introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Note/start.html">Get Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Note/install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Note/install.html#using-pip">Using pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Note/install.html#from-source">From source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Note/install.html#tests">Tests</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial/main.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial/CactusTool.html">CactusTool</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="API/CactusTool.html">CactusTool package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="API/CactusTool.html#subpackages">Subpackages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="API/CactusTool.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="API/CactusTool.html#module-CactusTool.carpet_h5">CactusTool.carpet_h5 module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="API/CactusTool.html#module-CactusTool.carpet_scalar">CactusTool.carpet_scalar module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="API/CactusTool.html#module-CactusTool.debug">CactusTool.debug module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="API/CactusTool.html#module-CactusTool.dictionary">CactusTool.dictionary module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="API/CactusTool.html#module-CactusTool.grid_data">CactusTool.grid_data module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="API/CactusTool.html#module-CactusTool.outputdir">CactusTool.outputdir module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="API/CactusTool.html#module-CactusTool.outputfile">CactusTool.outputfile module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="API/CactusTool.html#module-CactusTool.parfile">CactusTool.parfile module</a></li>
@@ -63,10 +74,24 @@
 <li class="toctree-l2"><a class="reference internal" href="API/CactusTool.html#module-CactusTool.simulation">CactusTool.simulation module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="API/CactusTool.html#module-CactusTool.unit">CactusTool.unit module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="API/CactusTool.html#module-CactusTool.visualize">CactusTool.visualize module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="API/CactusTool.html#module-CactusTool.viz_yt">CactusTool.viz_yt module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="API/CactusTool.html#module-CactusTool">Module contents</a></li>
 </ul>
 </li>
 </ul>
+</div>
+<div class="section" id="contributors">
+<h2>Contributors<a class="headerlink" href="#contributors" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="author">
+<h3>Author<a class="headerlink" href="#author" title="Permalink to this headline">¶</a></h3>
+<p>Built by <a class="reference external" href="https://yuliumt.github.io">Yu Liu</a></p>
+</div>
+<div class="section" id="direct-contributions-to-the-code-base">
+<h3>Direct contributions to the code base:<a class="headerlink" href="#direct-contributions-to-the-code-base" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="comments-corrections-suggestions">
+<h3>Comments, corrections &amp; suggestions:<a class="headerlink" href="#comments-corrections-suggestions" title="Permalink to this headline">¶</a></h3>
+</div>
 </div>
 </div>
 <div class="section" id="indices-and-tables">
@@ -86,13 +111,21 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="#">Table of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Welcome to CactusTool’s documentation!</a></li>
+<li><a class="reference internal" href="#">Welcome to CactusTool’s documentation!</a><ul>
+<li><a class="reference internal" href="#contributors">Contributors</a><ul>
+<li><a class="reference internal" href="#author">Author</a></li>
+<li><a class="reference internal" href="#direct-contributions-to-the-code-base">Direct contributions to the code base:</a></li>
+<li><a class="reference internal" href="#comments-corrections-suggestions">Comments, corrections &amp; suggestions:</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
 
   <h4>Next topic</h4>
-  <p class="topless"><a href="Note/introduction.html"
-                        title="next chapter">Introduction</a></p>
+  <p class="topless"><a href="Note/install.html"
+                        title="next chapter">Installation</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -124,7 +157,7 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="Note/introduction.html" title="Introduction"
+          <a href="Note/install.html" title="Installation"
              >next</a> |</li>
         <li class="nav-item nav-item-0"><a href="#">CactusTool 0.0.1 documentation</a> &#187;</li> 
       </ul>
