@@ -282,64 +282,354 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">AttributeError</span>                            Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-2-02cb2e2a6bac&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-intense-fg ansi-bold">      1</span> ds_scalar <span class="ansi-blue-fg">=</span> CarpetIOScalar<span class="ansi-blue-fg">(</span>Scalar_file<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span>print<span class="ansi-blue-fg">(</span>ds_scalar<span class="ansi-blue-fg">)</span>
+Available maximum timeseries:
+[&#39;M1&#39;, &#39;M2&#39;, &#39;M3&#39;]
 
-<span class="ansi-green-fg">~/Desktop/CactusTool/CactusTool/Carpet/Scalar.py</span> in <span class="ansi-cyan-fg">__str__</span><span class="ansi-blue-fg">(self)</span>
-<span class="ansi-green-intense-fg ansi-bold">     42</span>
-<span class="ansi-green-intense-fg ansi-bold">     43</span>     <span class="ansi-green-fg">def</span> __str__<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">---&gt; 44</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> <span class="ansi-blue-fg">&#34;%s%s%s%s%s%s%s&#34;</span> <span class="ansi-blue-fg">%</span> <span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>path<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>scalar<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>min<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>max<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>norm1<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>norm2<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>average<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     45</span>
-<span class="ansi-green-intense-fg ansi-bold">     46</span>
-
-<span class="ansi-red-fg">AttributeError</span>: &#39;CarpetIOScalar&#39; object has no attribute &#39;path&#39;
 </pre></div></div>
 </div>
-<p>Then specify specific variables and their corresponding operations</p>
+<p>Then specify variables and their corresponding operations.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">ds_scalar</span><span class="o">.</span><span class="n">max</span><span class="p">[</span><span class="s1">&#39;M&#39;</span><span class="p">]</span>
+<span></span><span class="n">var</span> <span class="o">=</span> <span class="n">ds_scalar</span><span class="o">.</span><span class="n">max</span><span class="p">[</span><span class="s1">&#39;M1&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">varfiles</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
+<div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Please make sure [&#39;M1&#39;, &#39;M2&#39;, &#39;M3&#39;] belong the same group
+{&#39;M1&#39;: [&#39;/Users/liuyu/simulations/BH/ml_admconstraints-ml_mom.maximum.asc&#39;]}
 </pre></div></div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-&lt;CactusTool.Carpet.Scalar.Variable at 0x116f9f410&gt;
-</pre></div></div>
-</div>
-<p>Following are some attribute of This variable you may need:</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<p><strong>Note: When specify variable name, we just simple filter it by use string ``in`` method in python.</strong> So you can specify a vector or tensor like following.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
+<span></span><span class="n">var</span> <span class="o">=</span> <span class="n">ds_scalar</span><span class="o">.</span><span class="n">max</span><span class="p">[</span><span class="s1">&#39;M&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">varfiles</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Please make sure dict_keys([&#39;M1&#39;, &#39;M2&#39;, &#39;M3&#39;]) belong the same group
+{&#39;M1&#39;: [&#39;/Users/liuyu/simulations/BH/ml_admconstraints-ml_mom.maximum.asc&#39;], &#39;M2&#39;: [&#39;/Users/liuyu/simulations/BH/ml_admconstraints-ml_mom.maximum.asc&#39;], &#39;M3&#39;: [&#39;/Users/liuyu/simulations/BH/ml_admconstraints-ml_mom.maximum.asc&#39;]}
+</pre></div></div>
+</div>
+<p><strong>Following are some attribute of this variable you may need:</strong></p>
+<div class="section" id="Dataset">
+<h3>Dataset<a class="headerlink" href="#Dataset" title="Permalink to this headline">¶</a></h3>
+<p>These dataset may store in different files and one file may contain many variables. Pandas DataFrame is a powerful tool to combine them and remove duplicate data.</p>
+<p><code class="docutils literal notranslate"><span class="pre">dataset</span></code> is a method, because sometime we need use different way to combine data. We use <code class="docutils literal notranslate"><span class="pre">pd.concat</span></code> to do it. Following are some example.</p>
+<ul class="simple">
+<li><p>Whether add additional key index about filename</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">var</span><span class="o">.</span><span class="n">dataset</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>iteration</th>
+      <th>time</th>
+      <th>M1</th>
+      <th>M2</th>
+      <th>M3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>6.911620</td>
+      <td>23.938131</td>
+      <td>0.730308</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>256.0</td>
+      <td>1.0</td>
+      <td>4.690899</td>
+      <td>6.131249</td>
+      <td>1.355362</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>512.0</td>
+      <td>2.0</td>
+      <td>8.159930</td>
+      <td>8.806923</td>
+      <td>2.408183</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>768.0</td>
+      <td>3.0</td>
+      <td>16.974336</td>
+      <td>16.485445</td>
+      <td>2.944662</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>1024.0</td>
+      <td>4.0</td>
+      <td>19.698239</td>
+      <td>14.367274</td>
+      <td>4.194277</td>
+    </tr>
+    <tr>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <td>65</td>
+      <td>16640.0</td>
+      <td>65.0</td>
+      <td>27.362242</td>
+      <td>14.835847</td>
+      <td>10.510170</td>
+    </tr>
+    <tr>
+      <td>66</td>
+      <td>16896.0</td>
+      <td>66.0</td>
+      <td>34.752490</td>
+      <td>10.354096</td>
+      <td>8.157228</td>
+    </tr>
+    <tr>
+      <td>67</td>
+      <td>17152.0</td>
+      <td>67.0</td>
+      <td>41.331741</td>
+      <td>9.649753</td>
+      <td>7.046484</td>
+    </tr>
+    <tr>
+      <td>68</td>
+      <td>17408.0</td>
+      <td>68.0</td>
+      <td>56.774063</td>
+      <td>7.861392</td>
+      <td>8.128903</td>
+    </tr>
+    <tr>
+      <td>69</td>
+      <td>17664.0</td>
+      <td>69.0</td>
+      <td>86.641334</td>
+      <td>9.599766</td>
+      <td>10.149837</td>
+    </tr>
+  </tbody>
+</table>
+<p>70 rows × 5 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">var</span><span class="o">.</span><span class="n">dataset</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>iteration</th>
+      <th>time</th>
+      <th>M1</th>
+      <th>M2</th>
+      <th>M3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="11" valign="top">ml_admconstraints-ml_mom.maximum.asc</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>6.911620</td>
+      <td>23.938131</td>
+      <td>0.730308</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>256.0</td>
+      <td>1.0</td>
+      <td>4.690899</td>
+      <td>6.131249</td>
+      <td>1.355362</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>512.0</td>
+      <td>2.0</td>
+      <td>8.159930</td>
+      <td>8.806923</td>
+      <td>2.408183</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>768.0</td>
+      <td>3.0</td>
+      <td>16.974336</td>
+      <td>16.485445</td>
+      <td>2.944662</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>1024.0</td>
+      <td>4.0</td>
+      <td>19.698239</td>
+      <td>14.367274</td>
+      <td>4.194277</td>
+    </tr>
+    <tr>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <td>65</td>
+      <td>16640.0</td>
+      <td>65.0</td>
+      <td>27.362242</td>
+      <td>14.835847</td>
+      <td>10.510170</td>
+    </tr>
+    <tr>
+      <td>66</td>
+      <td>16896.0</td>
+      <td>66.0</td>
+      <td>34.752490</td>
+      <td>10.354096</td>
+      <td>8.157228</td>
+    </tr>
+    <tr>
+      <td>67</td>
+      <td>17152.0</td>
+      <td>67.0</td>
+      <td>41.331741</td>
+      <td>9.649753</td>
+      <td>7.046484</td>
+    </tr>
+    <tr>
+      <td>68</td>
+      <td>17408.0</td>
+      <td>68.0</td>
+      <td>56.774063</td>
+      <td>7.861392</td>
+      <td>8.128903</td>
+    </tr>
+    <tr>
+      <td>69</td>
+      <td>17664.0</td>
+      <td>69.0</td>
+      <td>86.641334</td>
+      <td>9.599766</td>
+      <td>10.149837</td>
+    </tr>
+  </tbody>
+</table>
+<p>70 rows × 5 columns</p>
+</div></div>
+</div>
+<p>For more <code class="docutils literal notranslate"><span class="pre">pd.concat</span></code> parameter you can see <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html">https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html</a></p>
+</div>
+<div class="section" id="Preview">
+<h3>Preview<a class="headerlink" href="#Preview" title="Permalink to this headline">¶</a></h3>
+<p>It is best to run <code class="docutils literal notranslate"><span class="pre">var.dataset</span></code> and check the dataset by eye before executing the following command. We use <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame.plot()</span></code> to do it. Following are some example.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">var</span><span class="o">.</span><span class="n">preview</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/Tutorial_Carpet_16_0.png" src="../_images/Tutorial_Carpet_16_0.png" />
+</div>
+</div>
+<p>For more <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame.plot()</span></code> parameter you can see <a class="reference external" href="https://pandas.pydata.org/pandas-docs/version/0.23.4/generated/pandas.DataFrame.plot.html">https://pandas.pydata.org/pandas-docs/version/0.23.4/generated/pandas.DataFrame.plot.html</a></p>
 </div>
 </div>
 <div class="section" id="CarpetIOHDF5">
 <h2>CarpetIOHDF5<a class="headerlink" href="#CarpetIOHDF5" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -347,14 +637,23 @@ Please make sure [&#39;M1&#39;, &#39;M2&#39;, &#39;M3&#39;] belong the same grou
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">ds</span><span class="o">.</span><span class="n">files</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;/Users/liuyu/simulations/BH/ml_admconstraints-ml_mom.xy.h5&#39;]
+</pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -368,14 +667,23 @@ Please make sure [&#39;M1&#39;, &#39;M2&#39;, &#39;M3&#39;] belong the same grou
 </div>
 <div class="section" id="CarpetIOASCII">
 <h2>CarpetIOASCII<a class="headerlink" href="#CarpetIOASCII" title="Permalink to this headline">¶</a></h2>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="s1">&#39;M&#39;</span> <span class="ow">in</span> <span class="s1">&#39;M[1]&#39;</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+True
+</pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -398,7 +706,11 @@ Please make sure [&#39;M1&#39;, &#39;M2&#39;, &#39;M3&#39;] belong the same grou
   <h3><a href="../index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Carpet</a><ul>
-<li><a class="reference internal" href="#CarpetIOScalar">CarpetIOScalar</a></li>
+<li><a class="reference internal" href="#CarpetIOScalar">CarpetIOScalar</a><ul>
+<li><a class="reference internal" href="#Dataset">Dataset</a></li>
+<li><a class="reference internal" href="#Preview">Preview</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#CarpetIOHDF5">CarpetIOHDF5</a></li>
 <li><a class="reference internal" href="#CarpetIOASCII">CarpetIOASCII</a></li>
 </ul>

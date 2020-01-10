@@ -24,3 +24,8 @@ class Griddim:
         self.dim = dim
         pat_fn = re.compile("\S*\.([xyz]*)\.asc(\.(gz|bz2))?$")
         self.files = [file for file in files if pat_fn.match(file).group(1) == self.dim]
+
+# class Variables:
+    """
+    In most case, the variable data have refined grid hirachies and may store in different files. We need combine them as needed. Sometimes you want to process a vector or a tensor. :py:class:`Variable` can also handel it.
+    """

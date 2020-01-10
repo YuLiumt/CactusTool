@@ -151,7 +151,7 @@
 <dt id="CactusTool.Carpet.Scalar.ScalarReduction">
 <em class="property">class </em><code class="sig-prename descclassname">CactusTool.Carpet.Scalar.</code><code class="sig-name descname">ScalarReduction</code><span class="sig-paren">(</span><em class="sig-param">files</em>, <em class="sig-param">kind</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/Scalar.html#ScalarReduction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.Scalar.ScalarReduction" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>For gird function, We need choose which type of reduction operations.</p>
+<p>For gird function, We need choose which type of reduction operations. Then choose the variable we want to processes, this will pointer to <a class="reference internal" href="#CactusTool.Carpet.Scalar.Variable" title="CactusTool.Carpet.Scalar.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -175,55 +175,51 @@
 
 <dl class="class">
 <dt id="CactusTool.Carpet.Scalar.Variable">
-<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Carpet.Scalar.</code><code class="sig-name descname">Variable</code><span class="sig-paren">(</span><em class="sig-param">files</em>, <em class="sig-param">vars</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/Scalar.html#Variable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.Scalar.Variable" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Carpet.Scalar.</code><code class="sig-name descname">Variable</code><span class="sig-paren">(</span><em class="sig-param">varfiles</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/Scalar.html#Variable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.Scalar.Variable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>In most case, the variable data have refined grid hirachies and may store in different files. We need combine them as needed. Sometimes you want to process a vector or a tensor. <a class="reference internal" href="#CactusTool.Carpet.Scalar.Variable" title="CactusTool.Carpet.Scalar.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a> can also handel it.</p>
+<p>For scalar, we don’t need consider grid structure. These data may store in different files, we just simple combine them and remove duplicate data. This will done by pandas DataFrame. Sometimes you want to process a vector or a tensor. <a class="reference internal" href="#CactusTool.Carpet.Scalar.Variable" title="CactusTool.Carpet.Scalar.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a> can also handel it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>files</strong> (<em>list</em>) – A list of file in absolute path.</p></li>
-<li><p><strong>var</strong> (<em>list</em>) – The variable you want to deal with, may be a vector or tensor.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>varfiles</strong> (<em>list</em>) – A dict about variable and its file, this variable may be a vector or tensor.</p>
 </dd>
 </dl>
 <dl class="method">
-<dt id="CactusTool.Carpet.Scalar.Variable.t">
-<em class="property">property </em><code class="sig-name descname">t</code><a class="headerlink" href="#CactusTool.Carpet.Scalar.Variable.t" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="CactusTool.Carpet.Scalar.Variable.y">
-<em class="property">property </em><code class="sig-name descname">y</code><a class="headerlink" href="#CactusTool.Carpet.Scalar.Variable.y" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="function">
-<dt id="CactusTool.Carpet.Scalar.column_header">
-<code class="sig-prename descclassname">CactusTool.Carpet.Scalar.</code><code class="sig-name descname">column_header</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/Scalar.html#column_header"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.Scalar.column_header" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="CactusTool.Carpet.Scalar.iteration">
-<code class="sig-prename descclassname">CactusTool.Carpet.Scalar.</code><code class="sig-name descname">iteration</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/Scalar.html#iteration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.Scalar.iteration" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="CactusTool.Carpet.Scalar.merge_filedata">
-<code class="sig-prename descclassname">CactusTool.Carpet.Scalar.</code><code class="sig-name descname">merge_filedata</code><span class="sig-paren">(</span><em class="sig-param">filelist</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/Scalar.html#merge_filedata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.Scalar.merge_filedata" title="Permalink to this definition">¶</a></dt>
-<dd><p>Some Variable data locate in different components.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>file (list): a list of scalar file with different components.</p>
-</dd>
-<dt>Return:</dt><dd><p>data contain all components.</p>
+<dt id="CactusTool.Carpet.Scalar.Variable.dataset">
+<code class="sig-name descname">dataset</code><span class="sig-paren">(</span><em class="sig-param">key=True</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/Scalar.html#Variable.dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.Scalar.Variable.dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>CarpetIOScalar Dataset will store in pandas dataframe. Because the ASCII data structure more like a table.
+:param kwargs: Unknown keyword arguments are passed to <code class="xref py py-func docutils literal notranslate"><span class="pre">pd.concat()</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>DataFrame</p>
 </dd>
 </dl>
 </dd></dl>
 
+<dl class="method">
+<dt id="CactusTool.Carpet.Scalar.Variable.preview">
+<code class="sig-name descname">preview</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/Scalar.html#Variable.preview"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.Scalar.Variable.preview" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="#CactusTool.Carpet.Scalar.Variable.preview" title="CactusTool.Carpet.Scalar.Variable.preview"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Variable.preview()</span></code></a> just simple preview. We will use <code class="xref py py-func docutils literal notranslate"><span class="pre">pandas.DataFrame.plot()</span></code> to do it. It is best to run <a class="reference internal" href="#CactusTool.Carpet.Scalar.Variable.dataset" title="CactusTool.Carpet.Scalar.Variable.dataset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Variable.dataset()</span></code></a> and check the dataset by eye before executing it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>kwargs</strong> – Unknown keyword arguments are passed to <code class="xref py py-func docutils literal notranslate"><span class="pre">pandas.DataFrame.plot()</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 <dl class="function">
-<dt id="CactusTool.Carpet.Scalar.remove_duplicate_iters">
-<code class="sig-prename descclassname">CactusTool.Carpet.Scalar.</code><code class="sig-name descname">remove_duplicate_iters</code><span class="sig-paren">(</span><em class="sig-param">data</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/Scalar.html#remove_duplicate_iters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.Scalar.remove_duplicate_iters" title="Permalink to this definition">¶</a></dt>
-<dd><p>Remove overlapping segments from a time series. According to the first column</p>
+<dt id="CactusTool.Carpet.Scalar.columns">
+<code class="sig-prename descclassname">CactusTool.Carpet.Scalar.</code><code class="sig-name descname">columns</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/Scalar.html#columns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.Scalar.columns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetch CarpetIOScalar header information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>file</strong> (<em>str</em>) – file in absolute path</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The column in given file.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>

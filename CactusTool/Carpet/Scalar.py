@@ -4,6 +4,7 @@ Cactus dataset main produced by `Carpet <https://carpetcode.org>`_, which is an 
 
 from ..funcs import *
 import matplotlib.pyplot as plt
+import pandas as pd
 import numpy as np
 import os
 import re
@@ -41,12 +42,12 @@ class CarpetIOScalar:
         self.none     = ScalarReduction(self.files, None)
 
     def __str__(self):
-        return "%s%s%s%s%s%s%s" % (self.path, self.scalar, self.min, self.max, self.norm1, self.norm2, self.average)
+        return "%s%s%s%s%s%s" % (self.min, self.max, self.norm1, self.norm2, self.average, self.none)
 
 
 class ScalarReduction:
     """
-    For gird function, We need choose which type of reduction operations.
+    For gird function, We need choose which type of reduction operations. Then choose the variable we want to processes, this will pointer to :py:class:`Variable`.
 
     :param list files: A list of file in absolute path.
     :param str kind: Type of reduction operations.
@@ -79,15 +80,15 @@ class ScalarReduction:
         return Vars
 
     def __getitem__(self, key):
-        vars = [var for var in self.vars if key in var]
-        if len(vars) > 1:
-            print("Please make sure %s belong the same group" % (vars))
-        elif len(vars) == 0:
+        p = {}
+        for k, v in self.vars.items():
+            if key in k:
+                p[k] = v
+        if len(p) > 1:
+            print("Please make sure %s belong the same group" % (p.keys()))
+        elif len(p) == 0:
             raise Exception("{} is not exist in reduction {}".format(key, self.kind))
-        files = []
-        for var in vars:
-            files += self.vars[var]
-        return Variable(files, vars)
+        return Variable(p)
     
     def __contains__(self, key):
         return key in self.vars
@@ -96,82 +97,64 @@ class ScalarReduction:
         if self.vars:
             return "Available %s timeseries:\n%s\n" % (str(self.kind).lower(), list(self.vars.keys()))
         else:
-            return None
+            return ""
 
 
 class Variable:
     """
-    In most case, the variable data have refined grid hirachies and may store in different files. We need combine them as needed. Sometimes you want to process a vector or a tensor. :py:class:`Variable` can also handel it.
+    For scalar, we don't need consider grid structure. These data may store in different files, we just simple combine them and remove duplicate data. This will done by pandas DataFrame. Sometimes you want to process a vector or a tensor. :py:class:`Variable` can also handel it.
 
-    :param list files: A list of file in absolute path.
-    :param list var: The variable you want to deal with, may be a vector or tensor.
+    :param list varfiles: A dict about variable and its file, this variable may be a vector or tensor.
     """
-    def __init__(self, files, vars):
-        self.files = ensure_list(files)
-        self.var = ensure_list(vars)
+    def __init__(self, varfiles):
+        self.varfiles = varfiles
+        self.Table = None
 
+    def dataset(self, key=True, **kwargs):
+        """
+        CarpetIOScalar Dataset will store in pandas dataframe. Because the ASCII data structure more like a table.
+        :param kwargs: Unknown keyword arguments are passed to :py:func:`pd.concat()`.
 
-        self.iteration = {}
-        for file in self.files:
-            self.iteration.setdefault(iteration(file), []).append(file)
-        self.column = column_header(self.files[0])
-        Alldata = merge_filedata(self.files)
-        self.data = remove_duplicate_iters(Alldata)
+        :return: DataFrame
+        """
+        files = []
+        p = []
+        for var in self.varfiles.keys():
+            for file in self.varfiles[var]:
+                filename = os.path.basename(file)
+                if filename in files:
+                    continue
+                files.append(filename)
+                data = np.loadtxt(file, comments="#")
+                column = columns(file)
+                p.append(pd.DataFrame(data, columns=column)) 
 
-    @property
-    def t(self):
-        i = self.column.index('time')
-        return self.data[i, :]
-    
-    @property
-    def y(self):
-        i = self.column.index(self.var)
-        return self.data[i, :]
+        if key:
+            self.Table = pd.concat(p, keys=files)
+        else:
+            self.Table = pd.concat(p, **kwargs)
 
-    def __str__(self):
-        return "{}".format(json.dumps(self.iteration, sort_keys=True, indent=4))
+        return self.Table
 
+    def preview(self, **kwargs):
+        """
+        :py:meth:`Variable.preview` just simple preview. We will use :py:func:`pandas.DataFrame.plot()` to do it. It is best to run :py:meth:`Variable.dataset` and check the dataset by eye before executing it.
 
-# def Data(file):
-#     """
-#     Get the data in Scalar file.
+        :param kwargs: Unknown keyword arguments are passed to :py:func:`pandas.DataFrame.plot()`.
+        """
+        if self.Table.empty:
+            print("Use default method combine multi data file.")
+            self.dataset()
+        assert 'time' in self.Table, "Dataset don't have time column"
+        self.Table.plot(x='time', **kwargs)
 
-#     Args:
-#         file (str): open file
-    
-#     Return:
-#         data
-#     """
-#     return np.loadtxt(file, comments="#", unpack=True)
-
-def remove_duplicate_iters(data):
+def columns(file):
     """
-    Remove overlapping segments from a time series. According to the first column
-    """
-    u, indices = np.unique(data[0,:], return_index=True)
-    return data[:, indices]
+    Fetch CarpetIOScalar header information.
 
-def merge_filedata(filelist):
+    :param str file: file in absolute path
+    :return: The column in given file.
     """
-    Some Variable data locate in different components.
-
-    Args:
-        file (list): a list of scalar file with different components.
-    
-    Return:
-        data contain all components.
-    """
-    # Get the data from the first file
-    data = np.loadtxt(filelist[0], comments="#", unpack=True)
-    for i in range(1, len(filelist)):
-        try: 
-            tmp = np.loadtxt(filelist[i], comments="#", unpack=True)
-            data = np.append(data, tmp, axis=1)
-        except:
-            print("[ERROR] Unable to load file:", filelist[i])
-    return data
-
-def column_header(file):
     with read(file) as f:
         columns=[]
         for line in f.readlines():
@@ -187,13 +170,3 @@ def column_header(file):
         return [name.split(":")[1] for c, name in enumerate(columns)]
     else:
         raise Exception("File: {} Header fail to identify.".format(file))
-
-def iteration(file):
-    scalar_pat = re.compile("\S*/(output-\d\d\d\d)/\S*\.(minimum|maximum|norm1|norm2|norm_inf|average)?\.asc(\.(gz|bz2))?$")
-    iteration = scalar_pat.match(file)
-    if iteration is not None:
-        return iteration.group(1)
-    else:
-        return "output-0000"
-
-
