@@ -3,7 +3,6 @@ Cactus dataset main produced by `Carpet <https://carpetcode.org>`_, which is an 
 """
 
 from ..funcs import *
-import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 import os
@@ -147,6 +146,19 @@ class Variable:
             self.dataset()
         assert 'time' in self.Table, "Dataset don't have time column"
         self.Table.plot(x='time', **kwargs)
+
+    def __str__(self):
+        if self.Table.empty:
+            self.dataset()
+
+        columns = self.Table.columns
+        min = self.Table.min()
+        max = self.Table.max()
+        mean = self.Table.mean()
+        output = "Time: [{}, {}] with dt={}\n".format(min['time'], max['time'], self.Table['time'][1]-min['time'])
+        for column in columns[2:]:
+            output += "{}: Min is {:.4e};\tMean is {:.4e};\tMax is {:.4e}\n".format(column, min[column], mean[column], max[column])
+        return output
 
 def columns(file):
     """
