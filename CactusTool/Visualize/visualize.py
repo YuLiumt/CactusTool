@@ -171,3 +171,4 @@ def grid_struct():
     """
     im = None
     return im
+

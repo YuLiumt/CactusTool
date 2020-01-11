@@ -8,12 +8,18 @@
     <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/jupyter-sphinx.css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <script type="text/javascript" src="../../_static/language_data.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
   </head><body>
@@ -42,9 +48,10 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">h5py</span>
-<span class="kn">import</span> <span class="nn">bz2</span>
 <span class="kn">import</span> <span class="nn">gzip</span>
+<span class="kn">import</span> <span class="nn">bz2</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
@@ -168,6 +175,46 @@
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="n">obj</span><span class="p">])</span></div>
+
+<span class="c1">###################    json    ###################</span>
+
+<div class="viewcode-block" id="Format"><a class="viewcode-back" href="../../API/CactusTool.html#CactusTool.funcs.Format">[docs]</a><span class="k">def</span> <span class="nf">Format</span><span class="p">(</span><span class="n">dicts</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">dicts</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="subkey_have_value"><a class="viewcode-back" href="../../API/CactusTool.html#CactusTool.funcs.subkey_have_value">[docs]</a><span class="k">def</span> <span class="nf">subkey_have_value</span><span class="p">(</span><span class="n">dicts</span><span class="p">,</span> <span class="n">subkey</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">dicts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">assert</span> <span class="n">subkey</span> <span class="ow">in</span> <span class="n">v</span><span class="p">,</span> <span class="s2">&quot;dict don&#39;t have subkey: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">subkey</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">v</span><span class="p">[</span><span class="n">subkey</span><span class="p">]</span> <span class="o">==</span> <span class="n">value</span><span class="p">:</span>
+            <span class="n">p</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">dicts</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">p</span></div>
+
+<div class="viewcode-block" id="subkey_contain_element"><a class="viewcode-back" href="../../API/CactusTool.html#CactusTool.funcs.subkey_contain_element">[docs]</a><span class="k">def</span> <span class="nf">subkey_contain_element</span><span class="p">(</span><span class="n">dicts</span><span class="p">,</span> <span class="n">subkey</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">dicts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">assert</span> <span class="n">subkey</span> <span class="ow">in</span> <span class="n">v</span><span class="p">,</span> <span class="s2">&quot;dict don&#39;t have subkey: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">subkey</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">subkey</span><span class="p">])</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;the value of subkey is not element&quot;</span> <span class="o">%</span> <span class="n">subkey</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">p</span></div>
+
+
+
+<div class="viewcode-block" id="add_two_key"><a class="viewcode-back" href="../../API/CactusTool.html#CactusTool.funcs.add_two_key">[docs]</a><span class="k">def</span> <span class="nf">add_two_key</span><span class="p">(</span><span class="n">par</span><span class="p">,</span> <span class="n">key_a</span><span class="p">,</span> <span class="n">key_b</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">key_a</span> <span class="ow">in</span> <span class="n">par</span><span class="p">:</span>
+        <span class="n">par</span><span class="p">[</span><span class="n">key_a</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">key_b</span><span class="p">:</span> <span class="n">val</span><span class="p">})</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">par</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">key_a</span><span class="p">:</span> <span class="p">{</span><span class="n">key_b</span><span class="p">:</span> <span class="n">val</span><span class="p">}})</span></div>
+
+<div class="viewcode-block" id="add_three_key"><a class="viewcode-back" href="../../API/CactusTool.html#CactusTool.funcs.add_three_key">[docs]</a><span class="k">def</span> <span class="nf">add_three_key</span><span class="p">(</span><span class="n">par</span><span class="p">,</span> <span class="n">key_a</span><span class="p">,</span> <span class="n">key_b</span><span class="p">,</span> <span class="n">key_c</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">key_a</span> <span class="ow">in</span> <span class="n">par</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">key_b</span> <span class="ow">in</span> <span class="n">par</span><span class="p">:</span>
+            <span class="n">par</span><span class="p">[</span><span class="n">key_a</span><span class="p">][</span><span class="n">key_b</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">key_c</span><span class="p">:</span> <span class="n">val</span><span class="p">})</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">par</span><span class="p">[</span><span class="n">key_a</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">key_b</span><span class="p">:</span> <span class="p">{</span><span class="n">key_c</span><span class="p">:</span> <span class="n">val</span><span class="p">}})</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">par</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">key_a</span><span class="p">:</span> <span class="p">{</span><span class="n">key_b</span><span class="p">:</span> <span class="p">{</span><span class="n">key_c</span><span class="p">:</span> <span class="n">val</span><span class="p">}}})</span></div>
 </pre></div>
 
           </div>

@@ -41,7 +41,12 @@ extensions = [
     "sphinx_rtd_theme",
     'sphinx.ext.autosummary',
     'nbsphinx',
+    'IPython.sphinxext.ipython_console_highlighting',
+    'recommonmark',
+    'jupyter_sphinx.execute',
 ]
+
+nbsphinx_execute = 'always'
 
 autosummary_generate = True
 
@@ -52,7 +57,10 @@ templates_path = ['_templates']
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = ['_build']
+exclude_patterns = [
+    '_build',
+    '**.ipynb_checkpoints',
+]
 
 language = 'en'
 

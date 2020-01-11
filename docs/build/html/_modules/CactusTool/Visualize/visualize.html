@@ -1,0 +1,259 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>CactusTool.Visualize.visualize &#8212; CactusTool 0.0.1 documentation</title>
+    <link rel="stylesheet" href="../../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for CactusTool.Visualize.visualize</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module provides functions to plot different type of figure.</span>
+
+<span class="sd">* color_bar: :py:func:`color_bar`</span>
+<span class="sd">* 2-D scalar plot: :py:func:`imshow`, :py:func:`pcolormesh`, :py:func:`contour`, :py:func:`surface`</span>
+<span class="sd">* 2-D vector plot: :py:func:`vectors`</span>
+<span class="sd">* grid struct: :py:func:`grid_struct`</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="k">import</span> <span class="n">Axes3D</span>
+<span class="kn">import</span> <span class="nn">matplotlib.ticker</span> <span class="k">as</span> <span class="nn">ticker</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<div class="viewcode-block" id="color_bar"><a class="viewcode-back" href="../../../API/CactusTool.Visualize.html#CactusTool.Visualize.visualize.color_bar">[docs]</a><span class="k">def</span> <span class="nf">color_bar</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Adds a colorbar with given axes. </span>
+
+<span class="sd">    :param im: Which image object to use for the colorbar.</span>
+<span class="sd">    :param kwargs: Unknown keyword arguments are passed to :py:func:`plt.colorbar()`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="imshow"><a class="viewcode-back" href="../../../API/CactusTool.Visualize.html#CactusTool.Visualize.visualize.imshow">[docs]</a><span class="k">def</span> <span class="nf">imshow</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">axis_ticks</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot an array as an image. Loss coordinate information. This function return image object, you can add colorbar use :py:func:`color_bar`.</span>
+
+<span class="sd">    If X and Y are each equidistant, imshow can be more convenient.</span>
+
+<span class="sd">    :param ax: Which axes to use for the plot.</span>
+<span class="sd">    :param array Z: 2D data to plot.</span>
+<span class="sd">    :param bool axis_ticks: Whether turn on axis lines and labels.</span>
+<span class="sd">    :param kwargs: Unknown keyword arguments are passed to :py:func:`ax.imshow()`</span>
+<span class="sd">    :return: image object</span>
+
+<span class="sd">    Supported interpolation are [&#39;none&#39;, &#39;nearest&#39;, &#39;bilinear&#39;, &#39;bicubic&#39;, &#39;spline16&#39;, &#39;spline36&#39;, &#39;hanning&#39;, &#39;hamming&#39;, &#39;hermite&#39;, &#39;kaiser&#39;, &#39;quadric&#39;, &#39;catrom&#39;, &#39;gaussian&#39;, &#39;bessel&#39;, &#39;mitchell&#39;, &#39;sinc&#39;, &#39;lanczos&#39;].</span>
+
+<span class="sd">    &gt;&gt;&gt; im = imshow(ax, Z, axis_ticks=True)</span>
+<span class="sd">    turn on axis lines and labels.</span>
+<span class="sd">    &gt;&gt;&gt; im = imshow(ax, Z, cmap=&#39;RdBu&#39;)</span>
+<span class="sd">    colormap name used to map scalar data to colors.</span>
+<span class="sd">    &gt;&gt;&gt; im = imshow(ax, Z, alpha=0.5)</span>
+<span class="sd">    The alpha blending value, between 0 (transparent) and 1 (opaque).</span>
+<span class="sd">    &gt;&gt;&gt; im = imshow(ax, Z, interpolation=&#39;nearest&#39;)</span>
+<span class="sd">    Interpolation method.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">axis_ticks</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+    <span class="k">return</span> <span class="n">im</span></div>
+
+<div class="viewcode-block" id="pcolormesh"><a class="viewcode-back" href="../../../API/CactusTool.Visualize.html#CactusTool.Visualize.visualize.pcolormesh">[docs]</a><span class="k">def</span> <span class="nf">pcolormesh</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a pseudocolor 2-D plot.</span>
+
+<span class="sd">    :param ax: Which axes to use for the plot.</span>
+<span class="sd">    :param array X, Y: The coordinates of X and Y are bounds.</span>
+<span class="sd">    :param array Z: 2D data to plot. </span>
+<span class="sd">    :param kwargs: Unknown keyword arguments are passed to :py:func:`ax.pcolormesh()`.</span>
+<span class="sd">    :return: image object</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        If X, Y and Z have equal dimensions, the last value from the z array may be removed.</span>
+
+<span class="sd">    &gt;&gt;&gt; im = pcolormesh(ax, x, y, Z)</span>
+<span class="sd">    Create a pseudocolor 2-D plot.</span>
+<span class="sd">    &gt;&gt;&gt; Zm = np.ma.masked_where(np.abs(Z) &lt; 0.0001, Z)</span>
+<span class="sd">    &gt;&gt;&gt; im = pcolormesh(ax, x, y, Zm, shading=&#39;gouraud&#39;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">Z</span><span class="o">.</span><span class="n">shape</span> <span class="ow">and</span> <span class="n">Y</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">Z</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: The last value from the z array was removed.&quot;</span><span class="p">)</span> 
+    <span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">im</span></div>
+
+<div class="viewcode-block" id="contour"><a class="viewcode-back" href="../../../API/CactusTool.Visualize.html#CactusTool.Visualize.visualize.contour">[docs]</a><span class="k">def</span> <span class="nf">contour</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">contour_levels</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">line_levels</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">line_color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Draw contour lines or filled contours.</span>
+
+<span class="sd">    :param ax: Which axes to use for the plot.</span>
+<span class="sd">    :param array X, Y: The coordinates of the values in Z. X and Y must both be 2-D with the same shape as Z (e.g. created via :py:func:`numpy.meshgrid`)</span>
+<span class="sd">    :param array Z: 2D data to plot. </span>
+<span class="sd">    :param bool fill: draw contour lines or filled contours</span>
+<span class="sd">    :param contour_levels: if fill is True; contour_levels determines the number of the filled contours.</span>
+<span class="sd">    :param line_levels: if fill is True; line_levels determines the number of the lines.</span>
+<span class="sd">    :param line_color: if fill is True; line_color determines the color of the lines.</span>
+<span class="sd">    :param kwargs: Unknown keyword arguments are passed to :py:func:`ax.contour()` or :py:func:`ax.contourf()`.</span>
+<span class="sd">    :return: image object</span>
+
+<span class="sd">    &gt;&gt;&gt; im = imshow(ax, X, Y, Z)</span>
+<span class="sd">    Only draw contour lines.</span>
+<span class="sd">    &gt;&gt;&gt; im = contour(ax, x, y, Z, fill=True)</span>
+<span class="sd">    Draw contour lines and filled contours,</span>
+<span class="sd">    &gt;&gt;&gt; im = contour(ax, x, y, Z, fill=True, contour_levels=10, line_levels=5)</span>
+<span class="sd">    Draw contour lines and filled contours, filled levels determined by contour_levels and line number determined by line_levels</span>
+<span class="sd">    &gt;&gt;&gt; im = contour(ax, x, y, Z, fill=True, line_color=&#39;r&#39;)</span>
+<span class="sd">    line color determined by line_color</span>
+<span class="sd">    &gt;&gt;&gt; im = contour(ax, x, y, Z, fill=True, cmap=plt.cm.bone)</span>
+<span class="sd">    filled color determined by cmap</span>
+<span class="sd">    &gt;&gt;&gt; im = contour(ax, X, Y, Z, fill=True, alpha=0.5)</span>
+<span class="sd">    The alpha blending value, between 0 (transparent) and 1 (opaque).</span>
+<span class="sd">    &gt;&gt;&gt; Zm = np.ma.masked_where(np.abs(Z) &lt; 0.000001, Z)</span>
+<span class="sd">    &gt;&gt;&gt; im = contour(ax, x, y, Zm, fill=False)</span>
+<span class="sd">    control the masked region.</span>
+<span class="sd">    &gt;&gt;&gt; from matplotlib import ticker</span>
+<span class="sd">    &gt;&gt;&gt; im = contour(ax, x, y, Z, locator=ticker.LogLocator(), fill=True)</span>
+<span class="sd">    log locator tells contourf to use a log scale</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">Z</span><span class="o">.</span><span class="n">shape</span> <span class="ow">and</span> <span class="n">Y</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">Z</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="s2">&quot;The coordinates of X and Y must have the same shape as Z&quot;</span>
+    <span class="k">if</span> <span class="n">fill</span><span class="p">:</span>
+        <span class="n">line_factor</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">contour_levels</span><span class="p">)</span><span class="o">//</span><span class="nb">int</span><span class="p">(</span><span class="n">line_levels</span><span class="p">)</span>
+        <span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">contour_levels</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">im</span><span class="o">.</span><span class="n">levels</span><span class="p">[::</span><span class="n">line_factor</span><span class="p">],</span> <span class="n">colors</span><span class="o">=</span><span class="n">line_color</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">locator</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">LogLocator</span><span class="p">(),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">fmt</span> <span class="o">=</span> <span class="n">ticker</span><span class="o">.</span><span class="n">LogFormatterMathtext</span><span class="p">()</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">clabel</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">im</span><span class="o">.</span><span class="n">levels</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="n">fmt</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">im</span></div>
+
+<div class="viewcode-block" id="surface"><a class="viewcode-back" href="../../../API/CactusTool.Visualize.html#CactusTool.Visualize.visualize.surface">[docs]</a><span class="k">def</span> <span class="nf">surface</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">mesh</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a surface plot.</span>
+
+<span class="sd">    :param ax: Which axes to use for the plot. ax is the 3D projection.</span>
+<span class="sd">    :param array X, Y: The coordinates of the values in Z. X and Y must both be 2-D with the same shape as Z (e.g. created via :py:func:`numpy.meshgrid`)</span>
+<span class="sd">    :param array Z: 2D data to plot.  </span>
+<span class="sd">    :param bool mesh: A mesh plot</span>
+<span class="sd">    :param kwargs: Unknown keyword arguments are passed to :py:func:`ax.contour()` or :py:func:`ax.contourf()`.</span>
+<span class="sd">    :return: image object</span>
+
+<span class="sd">    &gt;&gt;&gt; fig = plt.figure()</span>
+<span class="sd">    &gt;&gt;&gt; ax = fig.add_subplot(111, projection=&#39;3d&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; im = surface(ax, x, y, Z)</span>
+<span class="sd">    Create a surface plot.</span>
+<span class="sd">    &gt;&gt;&gt; im = surface(ax, x, y, Z, cmap=plt.cm.YlGnBu_r)</span>
+<span class="sd">    A colormap for the surface patches.</span>
+<span class="sd">    &gt;&gt;&gt; im = surface(ax, x, y, Z, mesh=True)</span>
+<span class="sd">    A mesh plot.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">mesh</span><span class="p">:</span>
+        <span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot_wireframe</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">im</span></div>
+
+<div class="viewcode-block" id="vectors"><a class="viewcode-back" href="../../../API/CactusTool.Visualize.html#CactusTool.Visualize.visualize.vectors">[docs]</a><span class="k">def</span> <span class="nf">vectors</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">W</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot vectors in 2-D plot. The color of the arrows is its mod. :py:func:`ax.quiverkey()` auto-scales the length of the arrows to a reasonable size. </span>
+
+<span class="sd">    :param ax: Which axes to use for the plot.</span>
+<span class="sd">    :param array X, Y: X, Y define the arrow locations.</span>
+<span class="sd">    :param array U, V, W: 3-D vector have component (U, V, W). Default is 2-D vector (U,V)</span>
+<span class="sd">    :param kwargs: Unknown keyword arguments are passed to :py:func:`ax.quiverkey()`.</span>
+<span class="sd">    :return: image object</span>
+
+<span class="sd">    &gt;&gt;&gt; im = vectors(ax, x, y, U, V)</span>
+<span class="sd">    Plot a 2D field of vectors.</span>
+<span class="sd">    &gt;&gt;&gt; im = vectors(ax, x, y, U, V, W)</span>
+<span class="sd">    Plot a 3D field of vectors in 2D plot.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hypot</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span>
+    <span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">im</span></div>
+
+<div class="viewcode-block" id="grid_struct"><a class="viewcode-back" href="../../../API/CactusTool.Visualize.html#CactusTool.Visualize.visualize.grid_struct">[docs]</a><span class="k">def</span> <span class="nf">grid_struct</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plots grid structure.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">im</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="n">im</span></div>
+
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Yu Liu.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.
+    </div>
+  </body>
+</html>

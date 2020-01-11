@@ -81,23 +81,29 @@ class Griddim:
             print("Please make sure %s belong the same group" % (p.keys()))
         elif len(p) == 0:
             raise Exception("{} is not exist in reduction {}".format(key, self.kind))
-        return Variable(p)
+        return Variable(p, self.dim)
     
     def __contains__(self, key):
         return key in self.vars
 
     def __str__(self):
         if self.vars:
-            return "Available %s timeseries:\n%s\n" % (str(self.dim).lower(), list(self.vars.keys()))
+            return "Available grid function with %s dimension:\n%s\n" % (str(self.dim).lower(), list(self.vars.keys()))
         else:
             return ""
 
 class Variable:
     """
     In most case, the variable data have refined grid hirachies and may store in different files. We need combine them as needed. Sometimes you want to process a vector or a tensor. :py:class:`Variable` can also handel it.
+
+    :param list varfiles: A dict about variable and its file, this variable may be a vector or tensor.
+    :param str dim: dimension
+
+    * :py:attr:`Variable.Table` source data
     """   
-    def __init__(self, varfiles):
+    def __init__(self, varfiles, dim):
         self.varfiles = varfiles
+        self.dim = dim
         self.Table = None
 
     def dataset(self, key=True, **kwargs):
@@ -126,6 +132,30 @@ class Variable:
 
         return self.Table
 
+    def grid_hierarchies(self, time=0.0):
+        """
+        Describes the geometry of the refined grid hierarchies, such as component number, ghost zones and refinement level. These all get from :py:meth:`Variable.dataset`. Grid hierarchies may change in the evolution.
+        
+        # So you need specify the time, the default is initial grid hierarchies (:math:`t = 0`).
+
+        :param float time: grid hierarchies at time
+        """
+        assert time in var_ascii.Table['time'].values, "No such time value: {}".format(time)
+        table = self.Table[self.Table['time'] == time]
+
+        p = {}
+        p['rl'] = self.Table['rl'].unique().astype(int)
+        for i in self.dim:
+            coord = self.Table[i]
+        # self.c = self.Table['c'].unique().astype(int)
+        #         column_header = columns(file)
+        # table = pd.DataFrame(data, columns=column_header)
+        # # check following column is what you want
+        # column = ['it', 'rl', 'c', 'time'] + list(self.dim) + list(self.varfiles.keys())
+        # p.append(table[column])
+
+        return p
+
     def preview(self, **kwargs):
         """
         :py:meth:`Variable.preview` just simple preview. We will use :py:func:`pandas.DataFrame.plot()` to do it. It is best to run :py:meth:`Variable.dataset` and check the dataset by eye before executing it.
@@ -137,7 +167,21 @@ class Variable:
             self.dataset()
         assert 'time' in self.Table, "Dataset don't have time column"
         self.Table.plot(x='time', **kwargs)
-        
+
+    def __str__(self):
+        if self.Table.empty:
+            self.dataset()
+
+        columns = self.Table.columns
+        min = self.Table.min()
+        max = self.Table.max()
+        mean = self.Table.mean()
+        output = "Time: [{}, {}]\n".format(min['time'], max['time'])
+        output += "refinement level: {}\n".format(self.rl)
+        output += "component: {}\n".format(self.c)
+        for column in columns[12:]:
+            output += "{}: Min is {:.4e};\tMean is {:.4e};\tMax is {:.4e}\n".format(column, min[column], mean[column], max[column])
+        return output
 
 def columns(file):
     """

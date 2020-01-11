@@ -2,7 +2,13 @@
  "cells": [
   {
    "cell_type": "markdown",
-   "metadata": {},
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "run_control": {
+     "frozen": true
+    }
+   },
    "source": [
     "# Carpet\n",
     "\n",
@@ -10,7 +16,7 @@
     "\n",
     "In order to reduce the complexity of the code, These class does not depend on the `main` modular and can be used alone.\n",
     "\n",
-    "We're going to get started by loading up necessary modular and specify some example file in my local computer to demonstrate the function of this module."
+    "We're going to get started by loading up necessary modular and specify some example file in my local computer to demonstrate the function of this module. Jupyter Notebook itself is a static documents. [ipywidgets](https://ipywidgets.readthedocs.io/en/latest/) allows us to turn it into interactive dashboards."
    ]
   },
   {
@@ -18,24 +24,51 @@
    "execution_count": 1,
    "metadata": {
     "ExecuteTime": {
-     "end_time": "2020-01-10T09:09:17.818192Z",
-     "start_time": "2020-01-10T09:09:16.944121Z"
-    }
+     "end_time": "2020-01-11T12:55:59.832171Z",
+     "start_time": "2020-01-11T12:55:59.093684Z"
+    },
+    "deletable": false,
+    "editable": false
+   },
+   "outputs": [],
+   "source": [
+    "%matplotlib inline\n",
+    "import ipywidgets as widgets\n",
+    "from ipywidgets import interact, interact_manual\n",
+    "from CactusTool.Carpet import CarpetIOScalar\n",
+    "from CactusTool.Carpet import CarpetIOHDF5\n",
+    "from CactusTool.Carpet import CarpetIOASCII\n",
+    "from CactusTool.funcs import filter_file"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2020-01-11T12:55:59.837437Z",
+     "start_time": "2020-01-11T12:55:59.834695Z"
+    },
+    "deletable": false,
+    "editable": false
    },
    "outputs": [],
    "source": [
     "path = '/Users/liuyu/simulations/BH/'\n",
     "HDF5_file = path + 'ml_admconstraints-ml_mom.xy.h5' # It also can be a list of HDF5 file\n",
     "Scalar_file = path + 'ml_admconstraints-ml_mom.maximum.asc' # It also can be a list of Scalar file\n",
-    "ASCII_file = path + 'ml_admconstraints-ml_mom.x.asc' # It also can be a list of Scalar file\n",
-    "from CactusTool.Carpet import CarpetIOScalar\n",
-    "from CactusTool.Carpet import CarpetIOHDF5\n",
-    "from CactusTool.Carpet import CarpetIOASCII"
+    "ASCII_file = path + 'ml_admconstraints-ml_mom.x.asc' # It also can be a list of Scalar file"
    ]
   },
   {
    "cell_type": "markdown",
-   "metadata": {},
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "run_control": {
+     "frozen": true
+    }
+   },
    "source": [
     "## CarpetIOScalar\n",
     "\n",
@@ -44,11 +77,11 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 2,
+   "execution_count": 3,
    "metadata": {
     "ExecuteTime": {
-     "end_time": "2020-01-10T09:09:17.824858Z",
-     "start_time": "2020-01-10T09:09:17.820964Z"
+     "end_time": "2020-01-11T12:55:59.843477Z",
+     "start_time": "2020-01-11T12:55:59.839713Z"
     },
     "scrolled": true
    },
@@ -74,6 +107,11 @@
     "ExecuteTime": {
      "end_time": "2020-01-09T10:27:45.096430Z",
      "start_time": "2020-01-09T10:27:45.092868Z"
+    },
+    "deletable": false,
+    "editable": false,
+    "run_control": {
+     "frozen": true
     }
    },
    "source": [
@@ -82,11 +120,16 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 3,
+   "execution_count": 4,
    "metadata": {
     "ExecuteTime": {
-     "end_time": "2020-01-10T09:09:17.831227Z",
-     "start_time": "2020-01-10T09:09:17.827860Z"
+     "end_time": "2020-01-11T06:22:06.476648Z",
+     "start_time": "2020-01-11T06:22:06.472611Z"
+    },
+    "deletable": false,
+    "editable": false,
+    "run_control": {
+     "frozen": true
     }
    },
    "outputs": [
@@ -99,13 +142,19 @@
     }
    ],
    "source": [
-    "var = ds_scalar.max['M1']\n",
-    "print(var.varfiles)"
+    "var_scalar = ds_scalar.max['M1']\n",
+    "print(var_scalar.varfiles)"
    ]
   },
   {
    "cell_type": "markdown",
-   "metadata": {},
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "run_control": {
+     "frozen": true
+    }
+   },
    "source": [
     "**Note: When specify variable name, we just simple filter it by use string `in` method in python.** So you can specify a vector or tensor like following."
    ]
@@ -115,8 +164,8 @@
    "execution_count": 4,
    "metadata": {
     "ExecuteTime": {
-     "end_time": "2020-01-10T09:09:17.837517Z",
-     "start_time": "2020-01-10T09:09:17.833321Z"
+     "end_time": "2020-01-11T12:55:59.848715Z",
+     "start_time": "2020-01-11T12:55:59.845407Z"
     }
    },
    "outputs": [
@@ -130,27 +179,45 @@
     }
    ],
    "source": [
-    "var = ds_scalar.max['M']\n",
-    "print(var.varfiles)"
+    "var_scalar = ds_scalar.max['M']\n",
+    "print(var_scalar.varfiles)"
    ]
   },
   {
    "cell_type": "markdown",
-   "metadata": {},
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "run_control": {
+     "frozen": true
+    }
+   },
    "source": [
     "**Following are some attribute of this variable you may need:**"
    ]
   },
   {
    "cell_type": "markdown",
-   "metadata": {},
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "run_control": {
+     "frozen": true
+    }
+   },
    "source": [
     "### Dataset"
    ]
   },
   {
    "cell_type": "markdown",
-   "metadata": {},
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "run_control": {
+     "frozen": true
+    }
+   },
    "source": [
     "These dataset may store in different files and one file may contain many variables. Pandas DataFrame is a powerful tool to combine them and remove duplicate data.\n",
     "\n",
@@ -159,7 +226,13 @@
   },
   {
    "cell_type": "markdown",
-   "metadata": {},
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "run_control": {
+     "frozen": true
+    }
+   },
    "source": [
     "* Whether add additional key index about filename"
    ]
@@ -169,8 +242,8 @@
    "execution_count": 5,
    "metadata": {
     "ExecuteTime": {
-     "end_time": "2020-01-10T09:09:17.859239Z",
-     "start_time": "2020-01-10T09:09:17.839469Z"
+     "end_time": "2020-01-11T12:55:59.865870Z",
+     "start_time": "2020-01-11T12:55:59.850415Z"
     },
     "scrolled": true
    },
@@ -320,7 +393,7 @@
     }
    ],
    "source": [
-    "var.dataset(key=False)"
+    "var_scalar.dataset(key=False)"
    ]
   },
   {
@@ -328,8 +401,8 @@
    "execution_count": 6,
    "metadata": {
     "ExecuteTime": {
-     "end_time": "2020-01-10T09:09:17.880151Z",
-     "start_time": "2020-01-10T09:09:17.861104Z"
+     "end_time": "2020-01-11T12:55:59.884331Z",
+     "start_time": "2020-01-11T12:55:59.867501Z"
     },
     "scrolled": true
    },
@@ -494,19 +567,263 @@
     }
    ],
    "source": [
-    "var.dataset()"
+    "var_scalar.dataset()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "run_control": {
+     "frozen": true
+    }
+   },
+   "source": [
+    "For more `pd.concat` parameter you can see https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html\n",
+    "\n",
+    "Now you can use `var_scalar.Table` access it in this example."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2020-01-11T12:55:59.927516Z",
+     "start_time": "2020-01-11T12:55:59.886376Z"
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "68f2e2cf9775480d8e706b54f30496cb",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "interactive(children=(Dropdown(description='var', options=('M1', 'M2', 'M3'), value='M1'), Checkbox(value=True…"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<function __main__.subtable(var, iteration=True)>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "var_item = widgets.Dropdown(options=var_scalar.Table.columns[2:])\n",
+    "iteration = widgets.Checkbox(value=True, description='iteration')\n",
+    "\n",
+    "def subtable(var, iteration=True):\n",
+    "    if iteration:\n",
+    "        column = ['time', 'iteration', var]\n",
+    "    else: \n",
+    "        column = ['time', var]\n",
+    "    return var_scalar.Table[column]\n",
+    "\n",
+    "tables = interact(subtable, var=var_item, iteration=iteration)\n",
+    "display(tables)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2020-01-10T13:23:28.943094Z",
+     "start_time": "2020-01-10T13:23:28.940393Z"
+    },
+    "deletable": false,
+    "editable": false,
+    "run_control": {
+     "frozen": true
+    }
+   },
+   "source": [
+    "### Inf\n",
+    "\n",
+    "Use `pandas.DataFrame.describe` we can quickly get some useful information."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2020-01-11T12:55:59.956374Z",
+     "start_time": "2020-01-11T12:55:59.931801Z"
+    },
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>iteration</th>\n",
+       "      <th>time</th>\n",
+       "      <th>M1</th>\n",
+       "      <th>M2</th>\n",
+       "      <th>M3</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <td>count</td>\n",
+       "      <td>70.000000</td>\n",
+       "      <td>70.000000</td>\n",
+       "      <td>70.000000</td>\n",
+       "      <td>70.000000</td>\n",
+       "      <td>70.000000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>mean</td>\n",
+       "      <td>8832.000000</td>\n",
+       "      <td>34.500000</td>\n",
+       "      <td>12.469671</td>\n",
+       "      <td>14.481853</td>\n",
+       "      <td>4.910225</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>std</td>\n",
+       "      <td>5209.877798</td>\n",
+       "      <td>20.351085</td>\n",
+       "      <td>12.480245</td>\n",
+       "      <td>16.911225</td>\n",
+       "      <td>5.304509</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>min</td>\n",
+       "      <td>0.000000</td>\n",
+       "      <td>0.000000</td>\n",
+       "      <td>4.690899</td>\n",
+       "      <td>4.395717</td>\n",
+       "      <td>0.730308</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>25%</td>\n",
+       "      <td>4416.000000</td>\n",
+       "      <td>17.250000</td>\n",
+       "      <td>7.392146</td>\n",
+       "      <td>7.589068</td>\n",
+       "      <td>1.371230</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>50%</td>\n",
+       "      <td>8832.000000</td>\n",
+       "      <td>34.500000</td>\n",
+       "      <td>8.610335</td>\n",
+       "      <td>8.667040</td>\n",
+       "      <td>3.100016</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>75%</td>\n",
+       "      <td>13248.000000</td>\n",
+       "      <td>51.750000</td>\n",
+       "      <td>10.953856</td>\n",
+       "      <td>9.967824</td>\n",
+       "      <td>6.312067</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>max</td>\n",
+       "      <td>17664.000000</td>\n",
+       "      <td>69.000000</td>\n",
+       "      <td>86.641334</td>\n",
+       "      <td>88.277753</td>\n",
+       "      <td>24.019535</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "          iteration       time         M1         M2         M3\n",
+       "count     70.000000  70.000000  70.000000  70.000000  70.000000\n",
+       "mean    8832.000000  34.500000  12.469671  14.481853   4.910225\n",
+       "std     5209.877798  20.351085  12.480245  16.911225   5.304509\n",
+       "min        0.000000   0.000000   4.690899   4.395717   0.730308\n",
+       "25%     4416.000000  17.250000   7.392146   7.589068   1.371230\n",
+       "50%     8832.000000  34.500000   8.610335   8.667040   3.100016\n",
+       "75%    13248.000000  51.750000  10.953856   9.967824   6.312067\n",
+       "max    17664.000000  69.000000  86.641334  88.277753  24.019535"
+      ]
+     },
+     "execution_count": 8,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "var_scalar.Table.describe()"
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "For more `pd.concat` parameter you can see https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html"
+    "Future we will add more information about this variable."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2020-01-11T12:55:59.963321Z",
+     "start_time": "2020-01-11T12:55:59.958763Z"
+    }
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Time: [0.0, 69.0] with dt=1.0\n",
+      "M1: Min is 4.6909e+00;\tMean is 1.2470e+01;\tMax is 8.6641e+01\n",
+      "M2: Min is 4.3957e+00;\tMean is 1.4482e+01;\tMax is 8.8278e+01\n",
+      "M3: Min is 7.3031e-01;\tMean is 4.9102e+00;\tMax is 2.4020e+01\n",
+      "\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(var_scalar)"
    ]
   },
   {
    "cell_type": "markdown",
-   "metadata": {},
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "run_control": {
+     "frozen": true
+    }
+   },
    "source": [
     "### Preview\n",
     "\n",
@@ -515,11 +832,11 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 7,
+   "execution_count": 10,
    "metadata": {
     "ExecuteTime": {
-     "end_time": "2020-01-10T09:09:18.859907Z",
-     "start_time": "2020-01-10T09:09:17.881634Z"
+     "end_time": "2020-01-11T12:56:00.984251Z",
+     "start_time": "2020-01-11T12:55:59.964871Z"
     },
     "scrolled": false
    },
@@ -538,7 +855,7 @@
     }
    ],
    "source": [
-    "var.preview(subplots=True)"
+    "var_scalar.preview(sharex=True, subplots=True)"
    ]
   },
   {
@@ -549,6 +866,1073 @@
    ]
   },
   {
+   "cell_type": "code",
+   "execution_count": 11,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2020-01-11T12:56:01.197158Z",
+     "start_time": "2020-01-11T12:56:00.986179Z"
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "9365d9d89ad64df5b039867b5925d078",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "interactive(children=(Dropdown(description='var', options=('M1', 'M2', 'M3'), value='M1'), Output()), _dom_cla…"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<function __main__.preview(var)>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "def preview(var):\n",
+    "    var_scalar.preview(y=var)\n",
+    "    \n",
+    "var_item = widgets.Dropdown(options=var_scalar.Table.columns[2:])\n",
+    "im = interact(preview, var=var_item)\n",
+    "display(im)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## CarpetIOASCII\n",
+    "\n",
+    "Mostly the same as CarpetIOScalar"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2020-01-10T09:09:19.356972Z",
+     "start_time": "2020-01-10T09:09:19.353750Z"
+    }
+   },
+   "source": [
+    "First view all available variables in a given dimensions."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2020-01-11T12:56:01.263968Z",
+     "start_time": "2020-01-11T12:56:01.198764Z"
+    },
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Available grid function with x dimension:\n",
+      "['M1', 'M2', 'M3']\n",
+      "\n"
+     ]
+    }
+   ],
+   "source": [
+    "ds_ascii = CarpetIOASCII(ASCII_file)\n",
+    "print(ds_ascii)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Then specify variables and their corresponding dim.\n",
+    "\n",
+    "**Note: When specify variable name, we just simple filter it by use string `in` method in python.** So you can specify a vector or tensor like following."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2020-01-11T12:56:01.297385Z",
+     "start_time": "2020-01-11T12:56:01.266374Z"
+    }
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Please make sure dict_keys(['M1', 'M2', 'M3']) belong the same group\n"
+     ]
+    }
+   ],
+   "source": [
+    "var_ascii = ds_ascii.x['M']"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Following are some attribute of this variable you may need:**"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Dataset"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "These dataset may store in different files and one file may contain many variables. Pandas DataFrame is a powerful tool to combine them and remove duplicate data.\n",
+    "\n",
+    "`dataset` is a method, because sometime we need use different way to combine data. We use `pd.concat` to do it. Following are some example."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "* Whether add additional key index about filename"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2020-01-11T12:56:02.426436Z",
+     "start_time": "2020-01-11T12:56:01.300045Z"
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th>it</th>\n",
+       "      <th>tl</th>\n",
+       "      <th>rl</th>\n",
+       "      <th>c</th>\n",
+       "      <th>ml</th>\n",
+       "      <th>ix</th>\n",
+       "      <th>iy</th>\n",
+       "      <th>iz</th>\n",
+       "      <th>time</th>\n",
+       "      <th>x</th>\n",
+       "      <th>y</th>\n",
+       "      <th>z</th>\n",
+       "      <th>M1</th>\n",
+       "      <th>M2</th>\n",
+       "      <th>M3</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <td rowspan=\"11\" valign=\"top\">ml_admconstraints-ml_mom.x.asc</td>\n",
+       "      <td>0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>5.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>5888.0</td>\n",
+       "      <td>768.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>-230.00000</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>-5.432486e-17</td>\n",
+       "      <td>-7.533550e-13</td>\n",
+       "      <td>0.000000e+00</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>1</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>5.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>256.0</td>\n",
+       "      <td>5888.0</td>\n",
+       "      <td>768.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>-220.00000</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>-5.432486e-17</td>\n",
+       "      <td>-7.533550e-13</td>\n",
+       "      <td>0.000000e+00</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>2</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>5.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>512.0</td>\n",
+       "      <td>5888.0</td>\n",
+       "      <td>768.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>-210.00000</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>-5.432486e-17</td>\n",
+       "      <td>-7.533550e-13</td>\n",
+       "      <td>0.000000e+00</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>3</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>5.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>768.0</td>\n",
+       "      <td>5888.0</td>\n",
+       "      <td>768.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>-200.00000</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>-5.432486e-17</td>\n",
+       "      <td>-7.533550e-13</td>\n",
+       "      <td>0.000000e+00</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>4</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>5.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1024.0</td>\n",
+       "      <td>5888.0</td>\n",
+       "      <td>768.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>-190.00000</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>3.353064e-17</td>\n",
+       "      <td>-1.138351e-12</td>\n",
+       "      <td>0.000000e+00</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>70240</td>\n",
+       "      <td>17664.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>6.0</td>\n",
+       "      <td>4.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>6036.0</td>\n",
+       "      <td>5888.0</td>\n",
+       "      <td>768.0</td>\n",
+       "      <td>69.0</td>\n",
+       "      <td>5.78125</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>3.940048e-03</td>\n",
+       "      <td>1.127827e-04</td>\n",
+       "      <td>-5.259328e-20</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>70241</td>\n",
+       "      <td>17664.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>6.0</td>\n",
+       "      <td>4.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>6040.0</td>\n",
+       "      <td>5888.0</td>\n",
+       "      <td>768.0</td>\n",
+       "      <td>69.0</td>\n",
+       "      <td>5.93750</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>4.817419e-03</td>\n",
+       "      <td>1.296465e-03</td>\n",
+       "      <td>2.584893e-19</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>70242</td>\n",
+       "      <td>17664.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>6.0</td>\n",
+       "      <td>4.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>6044.0</td>\n",
+       "      <td>5888.0</td>\n",
+       "      <td>768.0</td>\n",
+       "      <td>69.0</td>\n",
+       "      <td>6.09375</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>5.743194e-03</td>\n",
+       "      <td>2.491388e-03</td>\n",
+       "      <td>3.130308e-19</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>70243</td>\n",
+       "      <td>17664.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>6.0</td>\n",
+       "      <td>4.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>6048.0</td>\n",
+       "      <td>5888.0</td>\n",
+       "      <td>768.0</td>\n",
+       "      <td>69.0</td>\n",
+       "      <td>6.25000</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>6.663053e-03</td>\n",
+       "      <td>3.619432e-03</td>\n",
+       "      <td>2.339476e-19</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>70244</td>\n",
+       "      <td>17664.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>6.0</td>\n",
+       "      <td>4.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>6052.0</td>\n",
+       "      <td>5888.0</td>\n",
+       "      <td>768.0</td>\n",
+       "      <td>69.0</td>\n",
+       "      <td>6.40625</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>7.529135e-03</td>\n",
+       "      <td>4.600984e-03</td>\n",
+       "      <td>1.525679e-19</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "<p>70245 rows × 15 columns</p>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "                                           it   tl   rl    c   ml      ix  \\\n",
+       "ml_admconstraints-ml_mom.x.asc 0          0.0  0.0  0.0  5.0  0.0     0.0   \n",
+       "                               1          0.0  0.0  0.0  5.0  0.0   256.0   \n",
+       "                               2          0.0  0.0  0.0  5.0  0.0   512.0   \n",
+       "                               3          0.0  0.0  0.0  5.0  0.0   768.0   \n",
+       "                               4          0.0  0.0  0.0  5.0  0.0  1024.0   \n",
+       "...                                       ...  ...  ...  ...  ...     ...   \n",
+       "                               70240  17664.0  0.0  6.0  4.0  0.0  6036.0   \n",
+       "                               70241  17664.0  0.0  6.0  4.0  0.0  6040.0   \n",
+       "                               70242  17664.0  0.0  6.0  4.0  0.0  6044.0   \n",
+       "                               70243  17664.0  0.0  6.0  4.0  0.0  6048.0   \n",
+       "                               70244  17664.0  0.0  6.0  4.0  0.0  6052.0   \n",
+       "\n",
+       "                                          iy     iz  time          x    y  \\\n",
+       "ml_admconstraints-ml_mom.x.asc 0      5888.0  768.0   0.0 -230.00000  0.0   \n",
+       "                               1      5888.0  768.0   0.0 -220.00000  0.0   \n",
+       "                               2      5888.0  768.0   0.0 -210.00000  0.0   \n",
+       "                               3      5888.0  768.0   0.0 -200.00000  0.0   \n",
+       "                               4      5888.0  768.0   0.0 -190.00000  0.0   \n",
+       "...                                      ...    ...   ...        ...  ...   \n",
+       "                               70240  5888.0  768.0  69.0    5.78125  0.0   \n",
+       "                               70241  5888.0  768.0  69.0    5.93750  0.0   \n",
+       "                               70242  5888.0  768.0  69.0    6.09375  0.0   \n",
+       "                               70243  5888.0  768.0  69.0    6.25000  0.0   \n",
+       "                               70244  5888.0  768.0  69.0    6.40625  0.0   \n",
+       "\n",
+       "                                        z            M1            M2  \\\n",
+       "ml_admconstraints-ml_mom.x.asc 0      0.0 -5.432486e-17 -7.533550e-13   \n",
+       "                               1      0.0 -5.432486e-17 -7.533550e-13   \n",
+       "                               2      0.0 -5.432486e-17 -7.533550e-13   \n",
+       "                               3      0.0 -5.432486e-17 -7.533550e-13   \n",
+       "                               4      0.0  3.353064e-17 -1.138351e-12   \n",
+       "...                                   ...           ...           ...   \n",
+       "                               70240  0.0  3.940048e-03  1.127827e-04   \n",
+       "                               70241  0.0  4.817419e-03  1.296465e-03   \n",
+       "                               70242  0.0  5.743194e-03  2.491388e-03   \n",
+       "                               70243  0.0  6.663053e-03  3.619432e-03   \n",
+       "                               70244  0.0  7.529135e-03  4.600984e-03   \n",
+       "\n",
+       "                                                M3  \n",
+       "ml_admconstraints-ml_mom.x.asc 0      0.000000e+00  \n",
+       "                               1      0.000000e+00  \n",
+       "                               2      0.000000e+00  \n",
+       "                               3      0.000000e+00  \n",
+       "                               4      0.000000e+00  \n",
+       "...                                            ...  \n",
+       "                               70240 -5.259328e-20  \n",
+       "                               70241  2.584893e-19  \n",
+       "                               70242  3.130308e-19  \n",
+       "                               70243  2.339476e-19  \n",
+       "                               70244  1.525679e-19  \n",
+       "\n",
+       "[70245 rows x 15 columns]"
+      ]
+     },
+     "execution_count": 14,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "var_ascii.dataset()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "For more `pd.concat` parameter you can see https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Grid hierarchies"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2020-01-11T12:56:02.453154Z",
+     "start_time": "2020-01-11T12:56:02.428094Z"
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th>it</th>\n",
+       "      <th>tl</th>\n",
+       "      <th>rl</th>\n",
+       "      <th>c</th>\n",
+       "      <th>ml</th>\n",
+       "      <th>ix</th>\n",
+       "      <th>iy</th>\n",
+       "      <th>iz</th>\n",
+       "      <th>time</th>\n",
+       "      <th>x</th>\n",
+       "      <th>y</th>\n",
+       "      <th>z</th>\n",
+       "      <th>M1</th>\n",
+       "      <th>M2</th>\n",
+       "      <th>M3</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <td rowspan=\"11\" valign=\"top\">ml_admconstraints-ml_mom.x.asc</td>\n",
+       "      <td>0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>5.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>5888.0</td>\n",
+       "      <td>768.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>-230.00000</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>-5.432486e-17</td>\n",
+       "      <td>-7.533550e-13</td>\n",
+       "      <td>0.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>1</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>5.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>256.0</td>\n",
+       "      <td>5888.0</td>\n",
+       "      <td>768.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>-220.00000</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>-5.432486e-17</td>\n",
+       "      <td>-7.533550e-13</td>\n",
+       "      <td>0.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>2</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>5.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>512.0</td>\n",
+       "      <td>5888.0</td>\n",
+       "      <td>768.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>-210.00000</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>-5.432486e-17</td>\n",
+       "      <td>-7.533550e-13</td>\n",
+       "      <td>0.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>3</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>5.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>768.0</td>\n",
+       "      <td>5888.0</td>\n",
+       "      <td>768.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>-200.00000</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>-5.432486e-17</td>\n",
+       "      <td>-7.533550e-13</td>\n",
+       "      <td>0.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>4</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>5.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1024.0</td>\n",
+       "      <td>5888.0</td>\n",
+       "      <td>768.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>-190.00000</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>3.353064e-17</td>\n",
+       "      <td>-1.138351e-12</td>\n",
+       "      <td>0.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>977</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>6.0</td>\n",
+       "      <td>18.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>6116.0</td>\n",
+       "      <td>5888.0</td>\n",
+       "      <td>768.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>8.90625</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.837490e-09</td>\n",
+       "      <td>6.454959e-07</td>\n",
+       "      <td>0.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>978</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>6.0</td>\n",
+       "      <td>18.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>6120.0</td>\n",
+       "      <td>5888.0</td>\n",
+       "      <td>768.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>9.06250</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.451592e-09</td>\n",
+       "      <td>5.078407e-07</td>\n",
+       "      <td>0.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>979</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>6.0</td>\n",
+       "      <td>18.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>6124.0</td>\n",
+       "      <td>5888.0</td>\n",
+       "      <td>768.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>9.21875</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.155064e-09</td>\n",
+       "      <td>4.030984e-07</td>\n",
+       "      <td>0.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>980</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>6.0</td>\n",
+       "      <td>18.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>6128.0</td>\n",
+       "      <td>5888.0</td>\n",
+       "      <td>768.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>9.37500</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>9.246212e-10</td>\n",
+       "      <td>3.222013e-07</td>\n",
+       "      <td>0.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>981</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>6.0</td>\n",
+       "      <td>18.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>6132.0</td>\n",
+       "      <td>5888.0</td>\n",
+       "      <td>768.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>9.53125</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>7.449264e-10</td>\n",
+       "      <td>2.594932e-07</td>\n",
+       "      <td>0.0</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "<p>982 rows × 15 columns</p>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "                                     it   tl   rl     c   ml      ix      iy  \\\n",
+       "ml_admconstraints-ml_mom.x.asc 0    0.0  0.0  0.0   5.0  0.0     0.0  5888.0   \n",
+       "                               1    0.0  0.0  0.0   5.0  0.0   256.0  5888.0   \n",
+       "                               2    0.0  0.0  0.0   5.0  0.0   512.0  5888.0   \n",
+       "                               3    0.0  0.0  0.0   5.0  0.0   768.0  5888.0   \n",
+       "                               4    0.0  0.0  0.0   5.0  0.0  1024.0  5888.0   \n",
+       "...                                 ...  ...  ...   ...  ...     ...     ...   \n",
+       "                               977  0.0  0.0  6.0  18.0  0.0  6116.0  5888.0   \n",
+       "                               978  0.0  0.0  6.0  18.0  0.0  6120.0  5888.0   \n",
+       "                               979  0.0  0.0  6.0  18.0  0.0  6124.0  5888.0   \n",
+       "                               980  0.0  0.0  6.0  18.0  0.0  6128.0  5888.0   \n",
+       "                               981  0.0  0.0  6.0  18.0  0.0  6132.0  5888.0   \n",
+       "\n",
+       "                                       iz  time          x    y    z  \\\n",
+       "ml_admconstraints-ml_mom.x.asc 0    768.0   0.0 -230.00000  0.0  0.0   \n",
+       "                               1    768.0   0.0 -220.00000  0.0  0.0   \n",
+       "                               2    768.0   0.0 -210.00000  0.0  0.0   \n",
+       "                               3    768.0   0.0 -200.00000  0.0  0.0   \n",
+       "                               4    768.0   0.0 -190.00000  0.0  0.0   \n",
+       "...                                   ...   ...        ...  ...  ...   \n",
+       "                               977  768.0   0.0    8.90625  0.0  0.0   \n",
+       "                               978  768.0   0.0    9.06250  0.0  0.0   \n",
+       "                               979  768.0   0.0    9.21875  0.0  0.0   \n",
+       "                               980  768.0   0.0    9.37500  0.0  0.0   \n",
+       "                               981  768.0   0.0    9.53125  0.0  0.0   \n",
+       "\n",
+       "                                              M1            M2   M3  \n",
+       "ml_admconstraints-ml_mom.x.asc 0   -5.432486e-17 -7.533550e-13  0.0  \n",
+       "                               1   -5.432486e-17 -7.533550e-13  0.0  \n",
+       "                               2   -5.432486e-17 -7.533550e-13  0.0  \n",
+       "                               3   -5.432486e-17 -7.533550e-13  0.0  \n",
+       "                               4    3.353064e-17 -1.138351e-12  0.0  \n",
+       "...                                          ...           ...  ...  \n",
+       "                               977  1.837490e-09  6.454959e-07  0.0  \n",
+       "                               978  1.451592e-09  5.078407e-07  0.0  \n",
+       "                               979  1.155064e-09  4.030984e-07  0.0  \n",
+       "                               980  9.246212e-10  3.222013e-07  0.0  \n",
+       "                               981  7.449264e-10  2.594932e-07  0.0  \n",
+       "\n",
+       "[982 rows x 15 columns]"
+      ]
+     },
+     "execution_count": 15,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "time =0.0\n",
+    "var_ascii.Table[var_ascii.Table['time'] == time]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Inf\n",
+    "\n",
+    "Use `pandas.DataFrame.describe` we can quickly get some useful information."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2020-01-11T12:56:02.539091Z",
+     "start_time": "2020-01-11T12:56:02.455161Z"
+    },
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>it</th>\n",
+       "      <th>tl</th>\n",
+       "      <th>rl</th>\n",
+       "      <th>c</th>\n",
+       "      <th>ml</th>\n",
+       "      <th>ix</th>\n",
+       "      <th>iy</th>\n",
+       "      <th>iz</th>\n",
+       "      <th>time</th>\n",
+       "      <th>x</th>\n",
+       "      <th>y</th>\n",
+       "      <th>z</th>\n",
+       "      <th>M1</th>\n",
+       "      <th>M2</th>\n",
+       "      <th>M3</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <td>count</td>\n",
+       "      <td>70245.000000</td>\n",
+       "      <td>70245.0</td>\n",
+       "      <td>70245.000000</td>\n",
+       "      <td>70245.000000</td>\n",
+       "      <td>70245.0</td>\n",
+       "      <td>70245.000000</td>\n",
+       "      <td>70245.0</td>\n",
+       "      <td>70245.0</td>\n",
+       "      <td>70245.000000</td>\n",
+       "      <td>70245.000000</td>\n",
+       "      <td>70245.0</td>\n",
+       "      <td>70245.0</td>\n",
+       "      <td>7.024500e+04</td>\n",
+       "      <td>7.024500e+04</td>\n",
+       "      <td>7.024500e+04</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>mean</td>\n",
+       "      <td>8606.909873</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>3.128906</td>\n",
+       "      <td>9.211218</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>5927.528963</td>\n",
+       "      <td>5888.0</td>\n",
+       "      <td>768.0</td>\n",
+       "      <td>33.620742</td>\n",
+       "      <td>1.544100</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>8.254183e-04</td>\n",
+       "      <td>-7.006725e-04</td>\n",
+       "      <td>2.637759e-21</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>std</td>\n",
+       "      <td>5017.915173</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.978623</td>\n",
+       "      <td>4.123684</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1612.314591</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>19.601231</td>\n",
+       "      <td>62.981039</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>2.514225e-01</td>\n",
+       "      <td>2.753523e-01</td>\n",
+       "      <td>4.931443e-18</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>min</td>\n",
+       "      <td>0.000000</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.000000</td>\n",
+       "      <td>0.000000</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.000000</td>\n",
+       "      <td>5888.0</td>\n",
+       "      <td>768.0</td>\n",
+       "      <td>0.000000</td>\n",
+       "      <td>-230.000000</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>-1.563095e+01</td>\n",
+       "      <td>-1.444528e+01</td>\n",
+       "      <td>-1.495724e-16</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>25%</td>\n",
+       "      <td>4096.000000</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.000000</td>\n",
+       "      <td>7.000000</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>5520.000000</td>\n",
+       "      <td>5888.0</td>\n",
+       "      <td>768.0</td>\n",
+       "      <td>16.000000</td>\n",
+       "      <td>-14.375000</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>-2.129007e-04</td>\n",
+       "      <td>-3.779805e-04</td>\n",
+       "      <td>-1.650612e-21</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>50%</td>\n",
+       "      <td>8704.000000</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>3.000000</td>\n",
+       "      <td>9.000000</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>5888.000000</td>\n",
+       "      <td>5888.0</td>\n",
+       "      <td>768.0</td>\n",
+       "      <td>34.000000</td>\n",
+       "      <td>0.000000</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>7.249191e-11</td>\n",
+       "      <td>-2.858386e-10</td>\n",
+       "      <td>0.000000e+00</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>75%</td>\n",
+       "      <td>12800.000000</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>5.000000</td>\n",
+       "      <td>12.000000</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>6288.000000</td>\n",
+       "      <td>5888.0</td>\n",
+       "      <td>768.0</td>\n",
+       "      <td>50.000000</td>\n",
+       "      <td>15.625000</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>3.555804e-04</td>\n",
+       "      <td>6.998509e-05</td>\n",
+       "      <td>2.185712e-21</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>max</td>\n",
+       "      <td>17664.000000</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>6.000000</td>\n",
+       "      <td>18.000000</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>11520.000000</td>\n",
+       "      <td>5888.0</td>\n",
+       "      <td>768.0</td>\n",
+       "      <td>69.000000</td>\n",
+       "      <td>220.000000</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>1.697434e+01</td>\n",
+       "      <td>2.393813e+01</td>\n",
+       "      <td>1.424510e-16</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "                 it       tl            rl             c       ml  \\\n",
+       "count  70245.000000  70245.0  70245.000000  70245.000000  70245.0   \n",
+       "mean    8606.909873      0.0      3.128906      9.211218      0.0   \n",
+       "std     5017.915173      0.0      1.978623      4.123684      0.0   \n",
+       "min        0.000000      0.0      0.000000      0.000000      0.0   \n",
+       "25%     4096.000000      0.0      1.000000      7.000000      0.0   \n",
+       "50%     8704.000000      0.0      3.000000      9.000000      0.0   \n",
+       "75%    12800.000000      0.0      5.000000     12.000000      0.0   \n",
+       "max    17664.000000      0.0      6.000000     18.000000      0.0   \n",
+       "\n",
+       "                 ix       iy       iz          time             x        y  \\\n",
+       "count  70245.000000  70245.0  70245.0  70245.000000  70245.000000  70245.0   \n",
+       "mean    5927.528963   5888.0    768.0     33.620742      1.544100      0.0   \n",
+       "std     1612.314591      0.0      0.0     19.601231     62.981039      0.0   \n",
+       "min        0.000000   5888.0    768.0      0.000000   -230.000000      0.0   \n",
+       "25%     5520.000000   5888.0    768.0     16.000000    -14.375000      0.0   \n",
+       "50%     5888.000000   5888.0    768.0     34.000000      0.000000      0.0   \n",
+       "75%     6288.000000   5888.0    768.0     50.000000     15.625000      0.0   \n",
+       "max    11520.000000   5888.0    768.0     69.000000    220.000000      0.0   \n",
+       "\n",
+       "             z            M1            M2            M3  \n",
+       "count  70245.0  7.024500e+04  7.024500e+04  7.024500e+04  \n",
+       "mean       0.0  8.254183e-04 -7.006725e-04  2.637759e-21  \n",
+       "std        0.0  2.514225e-01  2.753523e-01  4.931443e-18  \n",
+       "min        0.0 -1.563095e+01 -1.444528e+01 -1.495724e-16  \n",
+       "25%        0.0 -2.129007e-04 -3.779805e-04 -1.650612e-21  \n",
+       "50%        0.0  7.249191e-11 -2.858386e-10  0.000000e+00  \n",
+       "75%        0.0  3.555804e-04  6.998509e-05  2.185712e-21  \n",
+       "max        0.0  1.697434e+01  2.393813e+01  1.424510e-16  "
+      ]
+     },
+     "execution_count": 16,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "var_ascii.Table.describe()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Future we will add more information about this variable."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2020-01-11T12:56:02.545739Z",
+     "start_time": "2020-01-11T12:56:02.543457Z"
+    }
+   },
+   "outputs": [],
+   "source": [
+    "# var_ascii.rl"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
@@ -557,85 +1941,52 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 8,
+   "execution_count": 18,
    "metadata": {
     "ExecuteTime": {
-     "end_time": "2020-01-10T09:09:19.345539Z",
-     "start_time": "2020-01-10T09:09:18.863552Z"
-    }
-   },
-   "outputs": [],
-   "source": [
-    "ds = CarpetIOHDF5(HDF5_file)"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 9,
-   "metadata": {
-    "ExecuteTime": {
-     "end_time": "2020-01-10T09:09:19.351880Z",
-     "start_time": "2020-01-10T09:09:19.348517Z"
+     "end_time": "2020-01-11T12:56:03.129199Z",
+     "start_time": "2020-01-11T12:56:02.548755Z"
     }
    },
    "outputs": [
     {
-     "data": {
-      "text/plain": [
-       "['/Users/liuyu/simulations/BH/ml_admconstraints-ml_mom.xy.h5']"
-      ]
-     },
-     "execution_count": 9,
-     "metadata": {},
-     "output_type": "execute_result"
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Available grid function with xy dimension:\n",
+      "['M1', 'M2', 'M3']\n",
+      "\n",
+      "{'M1': ['/Users/liuyu/simulations/BH/ml_admconstraints-ml_mom.xy.h5'], 'M2': ['/Users/liuyu/simulations/BH/ml_admconstraints-ml_mom.xy.h5'], 'M3': ['/Users/liuyu/simulations/BH/ml_admconstraints-ml_mom.xy.h5']}\n"
+     ]
     }
    ],
    "source": [
-    "ds.files"
+    "ds_hdf5 = CarpetIOHDF5(HDF5_file)\n",
+    "print(ds_hdf5)\n",
+    "print(ds_hdf5.xy.vars)"
    ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {
-    "ExecuteTime": {
-     "end_time": "2020-01-09T08:42:25.487607Z",
-     "start_time": "2020-01-09T08:42:25.482993Z"
-    }
-   },
-   "outputs": [],
-   "source": []
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## CarpetIOASCII"
+    "Then specify variables and their corresponding dim.\n",
+    "\n",
+    "**Note: When specify variable name, we just simple filter it by use string `in` method in python.** So you can specify a vector or tensor like following."
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 10,
+   "execution_count": 19,
    "metadata": {
     "ExecuteTime": {
-     "end_time": "2020-01-10T09:09:19.356972Z",
-     "start_time": "2020-01-10T09:09:19.353750Z"
+     "end_time": "2020-01-11T12:56:03.133851Z",
+     "start_time": "2020-01-11T12:56:03.131655Z"
     }
    },
-   "outputs": [
-    {
-     "data": {
-      "text/plain": [
-       "True"
-      ]
-     },
-     "execution_count": 10,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
+   "outputs": [],
    "source": [
-    "'M' in 'M[1]'"
+    "# ds_hdf5 = ds_ascii.x['M']"
    ]
   },
   {
@@ -663,6 +2014,16 @@
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
    "version": "3.7.4"
+  },
+  "nbTranslate": {
+   "displayLangs": [
+    "*"
+   ],
+   "hotkey": "alt-t",
+   "langInMainMenu": true,
+   "sourceLang": "en",
+   "targetLang": "fr",
+   "useGoogleTranslate": true
   },
   "toc": {
    "base_numbering": 1,

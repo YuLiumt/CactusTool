@@ -104,6 +104,8 @@ class Variable:
     For scalar, we don't need consider grid structure. These data may store in different files, we just simple combine them and remove duplicate data. This will done by pandas DataFrame. Sometimes you want to process a vector or a tensor. :py:class:`Variable` can also handel it.
 
     :param list varfiles: A dict about variable and its file, this variable may be a vector or tensor.
+
+    * :py:attr:`Variable.Table` source data
     """
     def __init__(self, varfiles):
         self.varfiles = varfiles
@@ -111,7 +113,8 @@ class Variable:
 
     def dataset(self, key=True, **kwargs):
         """
-        CarpetIOScalar Dataset will store in pandas dataframe. Because the ASCII data structure more like a table.
+        CarpetIOScalar Dataset will store in pandas dataframe, because the ASCII data structure more like a table. This dataset will store in :py:attr:`Variable.Table`.
+
         :param kwargs: Unknown keyword arguments are passed to :py:func:`pd.concat()`.
 
         :return: DataFrame

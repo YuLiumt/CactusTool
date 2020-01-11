@@ -8,12 +8,18 @@
     <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/jupyter-sphinx.css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="../_static/language_data.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="CactusTool package" href="../API/CactusTool.html" />
@@ -248,9 +254,24 @@ div.rendered_html tbody tr:hover {
 <h1>Carpet<a class="headerlink" href="#Carpet" title="Permalink to this headline">¶</a></h1>
 <p><code class="docutils literal notranslate"><span class="pre">Carpet</span></code> is a sub-module used by <code class="docutils literal notranslate"><span class="pre">main</span></code> modular and contain three base class <code class="docutils literal notranslate"><span class="pre">CarpetIOScalar</span></code>, <code class="docutils literal notranslate"><span class="pre">CarpetIOHDF5</span></code>, and <code class="docutils literal notranslate"><span class="pre">CarpetIOASCII</span></code>. In <code class="docutils literal notranslate"><span class="pre">Carpet</span></code> we will deal with them separately, because their data structure is completely different. These class focused on the data file. Fetch all useful information from these files.</p>
 <p>In order to reduce the complexity of the code, These class does not depend on the <code class="docutils literal notranslate"><span class="pre">main</span></code> modular and can be used alone.</p>
-<p>We’re going to get started by loading up necessary modular and specify some example file in my local computer to demonstrate the function of this module.</p>
+<p>We’re going to get started by loading up necessary modular and specify some example file in my local computer to demonstrate the function of this module. Jupyter Notebook itself is a static documents. <a class="reference external" href="https://ipywidgets.readthedocs.io/en/latest/">ipywidgets</a> allows us to turn it into interactive dashboards.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="kn">as</span> <span class="nn">widgets</span>
+<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">interact_manual</span>
+<span class="kn">from</span> <span class="nn">CactusTool.Carpet</span> <span class="kn">import</span> <span class="n">CarpetIOScalar</span>
+<span class="kn">from</span> <span class="nn">CactusTool.Carpet</span> <span class="kn">import</span> <span class="n">CarpetIOHDF5</span>
+<span class="kn">from</span> <span class="nn">CactusTool.Carpet</span> <span class="kn">import</span> <span class="n">CarpetIOASCII</span>
+<span class="kn">from</span> <span class="nn">CactusTool.funcs</span> <span class="kn">import</span> <span class="n">filter_file</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -258,9 +279,6 @@ div.rendered_html tbody tr:hover {
 <span class="n">HDF5_file</span> <span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="s1">&#39;ml_admconstraints-ml_mom.xy.h5&#39;</span> <span class="c1"># It also can be a list of HDF5 file</span>
 <span class="n">Scalar_file</span> <span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="s1">&#39;ml_admconstraints-ml_mom.maximum.asc&#39;</span> <span class="c1"># It also can be a list of Scalar file</span>
 <span class="n">ASCII_file</span> <span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="s1">&#39;ml_admconstraints-ml_mom.x.asc&#39;</span> <span class="c1"># It also can be a list of Scalar file</span>
-<span class="kn">from</span> <span class="nn">CactusTool.Carpet</span> <span class="k">import</span> <span class="n">CarpetIOScalar</span>
-<span class="kn">from</span> <span class="nn">CactusTool.Carpet</span> <span class="k">import</span> <span class="n">CarpetIOHDF5</span>
-<span class="kn">from</span> <span class="nn">CactusTool.Carpet</span> <span class="k">import</span> <span class="n">CarpetIOASCII</span>
 </pre></div>
 </div>
 </div>
@@ -268,12 +286,12 @@ div.rendered_html tbody tr:hover {
 <h2>CarpetIOScalar<a class="headerlink" href="#CarpetIOScalar" title="Permalink to this headline">¶</a></h2>
 <p>First view all available variables in a given reduction operation.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">ds_scalar</span> <span class="o">=</span> <span class="n">CarpetIOScalar</span><span class="p">(</span><span class="n">Scalar_file</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">ds_scalar</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">ds_scalar</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -289,12 +307,12 @@ Available maximum timeseries:
 </div>
 <p>Then specify variables and their corresponding operations.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">var</span> <span class="o">=</span> <span class="n">ds_scalar</span><span class="o">.</span><span class="n">max</span><span class="p">[</span><span class="s1">&#39;M1&#39;</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">varfiles</span><span class="p">)</span>
+<span></span><span class="n">var_scalar</span> <span class="o">=</span> <span class="n">ds_scalar</span><span class="o">.</span><span class="n">max</span><span class="p">[</span><span class="s1">&#39;M1&#39;</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">var_scalar</span><span class="o">.</span><span class="n">varfiles</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -308,12 +326,12 @@ Available maximum timeseries:
 </div>
 <p><strong>Note: When specify variable name, we just simple filter it by use string ``in`` method in python.</strong> So you can specify a vector or tensor like following.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">var</span> <span class="o">=</span> <span class="n">ds_scalar</span><span class="o">.</span><span class="n">max</span><span class="p">[</span><span class="s1">&#39;M&#39;</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">varfiles</span><span class="p">)</span>
+<span></span><span class="n">var_scalar</span> <span class="o">=</span> <span class="n">ds_scalar</span><span class="o">.</span><span class="n">max</span><span class="p">[</span><span class="s1">&#39;M&#39;</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">var_scalar</span><span class="o">.</span><span class="n">varfiles</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -335,16 +353,16 @@ Please make sure dict_keys([&#39;M1&#39;, &#39;M2&#39;, &#39;M3&#39;]) belong th
 <li><p>Whether add additional key index about filename</p></li>
 </ul>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">var</span><span class="o">.</span><span class="n">dataset</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span></span><span class="n">var_scalar</span><span class="o">.</span><span class="n">dataset</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -468,16 +486,16 @@ Please make sure dict_keys([&#39;M1&#39;, &#39;M2&#39;, &#39;M3&#39;]) belong th
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">var</span><span class="o">.</span><span class="n">dataset</span><span class="p">()</span>
+<span></span><span class="n">var_scalar</span><span class="o">.</span><span class="n">dataset</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -603,16 +621,255 @@ Please make sure dict_keys([&#39;M1&#39;, &#39;M2&#39;, &#39;M3&#39;]) belong th
 </div></div>
 </div>
 <p>For more <code class="docutils literal notranslate"><span class="pre">pd.concat</span></code> parameter you can see <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html">https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html</a></p>
-</div>
-<div class="section" id="Preview">
-<h3>Preview<a class="headerlink" href="#Preview" title="Permalink to this headline">¶</a></h3>
-<p>It is best to run <code class="docutils literal notranslate"><span class="pre">var.dataset</span></code> and check the dataset by eye before executing the following command. We use <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame.plot()</span></code> to do it. Following are some example.</p>
+<p>Now you can use <code class="docutils literal notranslate"><span class="pre">var_scalar.Table</span></code> access it in this example.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">var</span><span class="o">.</span><span class="n">preview</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span></span><span class="n">var_item</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Dropdown</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">var_scalar</span><span class="o">.</span><span class="n">Table</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">2</span><span class="p">:])</span>
+<span class="n">iteration</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Checkbox</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;iteration&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">subtable</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">iteration</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">iteration</span><span class="p">:</span>
+        <span class="n">column</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;iteration&#39;</span><span class="p">,</span> <span class="n">var</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">column</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">var</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">var_scalar</span><span class="o">.</span><span class="n">Table</span><span class="p">[</span><span class="n">column</span><span class="p">]</span>
+
+<span class="n">tables</span> <span class="o">=</span> <span class="n">interact</span><span class="p">(</span><span class="n">subtable</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="n">var_item</span><span class="p">,</span> <span class="n">iteration</span><span class="o">=</span><span class="n">iteration</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">tables</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>time</th>
+      <th>iteration</th>
+      <th>M1</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="11" valign="top">ml_admconstraints-ml_mom.maximum.asc</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>6.911620</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1.0</td>
+      <td>256.0</td>
+      <td>4.690899</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>2.0</td>
+      <td>512.0</td>
+      <td>8.159930</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>3.0</td>
+      <td>768.0</td>
+      <td>16.974336</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>4.0</td>
+      <td>1024.0</td>
+      <td>19.698239</td>
+    </tr>
+    <tr>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <td>65</td>
+      <td>65.0</td>
+      <td>16640.0</td>
+      <td>27.362242</td>
+    </tr>
+    <tr>
+      <td>66</td>
+      <td>66.0</td>
+      <td>16896.0</td>
+      <td>34.752490</td>
+    </tr>
+    <tr>
+      <td>67</td>
+      <td>67.0</td>
+      <td>17152.0</td>
+      <td>41.331741</td>
+    </tr>
+    <tr>
+      <td>68</td>
+      <td>68.0</td>
+      <td>17408.0</td>
+      <td>56.774063</td>
+    </tr>
+    <tr>
+      <td>69</td>
+      <td>69.0</td>
+      <td>17664.0</td>
+      <td>86.641334</td>
+    </tr>
+  </tbody>
+</table>
+<p>70 rows × 3 columns</p>
+</div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;function __main__.subtable(var, iteration=True)&gt;
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Inf">
+<h3>Inf<a class="headerlink" href="#Inf" title="Permalink to this headline">¶</a></h3>
+<p>Use <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame.describe</span></code> we can quickly get some useful information.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">var_scalar</span><span class="o">.</span><span class="n">Table</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>iteration</th>
+      <th>time</th>
+      <th>M1</th>
+      <th>M2</th>
+      <th>M3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>count</td>
+      <td>70.000000</td>
+      <td>70.000000</td>
+      <td>70.000000</td>
+      <td>70.000000</td>
+      <td>70.000000</td>
+    </tr>
+    <tr>
+      <td>mean</td>
+      <td>8832.000000</td>
+      <td>34.500000</td>
+      <td>12.469671</td>
+      <td>14.481853</td>
+      <td>4.910225</td>
+    </tr>
+    <tr>
+      <td>std</td>
+      <td>5209.877798</td>
+      <td>20.351085</td>
+      <td>12.480245</td>
+      <td>16.911225</td>
+      <td>5.304509</td>
+    </tr>
+    <tr>
+      <td>min</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>4.690899</td>
+      <td>4.395717</td>
+      <td>0.730308</td>
+    </tr>
+    <tr>
+      <td>25%</td>
+      <td>4416.000000</td>
+      <td>17.250000</td>
+      <td>7.392146</td>
+      <td>7.589068</td>
+      <td>1.371230</td>
+    </tr>
+    <tr>
+      <td>50%</td>
+      <td>8832.000000</td>
+      <td>34.500000</td>
+      <td>8.610335</td>
+      <td>8.667040</td>
+      <td>3.100016</td>
+    </tr>
+    <tr>
+      <td>75%</td>
+      <td>13248.000000</td>
+      <td>51.750000</td>
+      <td>10.953856</td>
+      <td>9.967824</td>
+      <td>6.312067</td>
+    </tr>
+    <tr>
+      <td>max</td>
+      <td>17664.000000</td>
+      <td>69.000000</td>
+      <td>86.641334</td>
+      <td>88.277753</td>
+      <td>24.019535</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>Future we will add more information about this variable.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">print</span><span class="p">(</span><span class="n">var_scalar</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -620,70 +877,843 @@ Please make sure dict_keys([&#39;M1&#39;, &#39;M2&#39;, &#39;M3&#39;]) belong th
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/Tutorial_Carpet_16_0.png" src="../_images/Tutorial_Carpet_16_0.png" />
+<div class="highlight"><pre>
+Time: [0.0, 69.0] with dt=1.0
+M1: Min is 4.6909e+00;  Mean is 1.2470e+01;     Max is 8.6641e+01
+M2: Min is 4.3957e+00;  Mean is 1.4482e+01;     Max is 8.8278e+01
+M3: Min is 7.3031e-01;  Mean is 4.9102e+00;     Max is 2.4020e+01
+
+</pre></div></div>
 </div>
 </div>
-<p>For more <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame.plot()</span></code> parameter you can see <a class="reference external" href="https://pandas.pydata.org/pandas-docs/version/0.23.4/generated/pandas.DataFrame.plot.html">https://pandas.pydata.org/pandas-docs/version/0.23.4/generated/pandas.DataFrame.plot.html</a></p>
-</div>
-</div>
-<div class="section" id="CarpetIOHDF5">
-<h2>CarpetIOHDF5<a class="headerlink" href="#CarpetIOHDF5" title="Permalink to this headline">¶</a></h2>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">CarpetIOHDF5</span><span class="p">(</span><span class="n">HDF5_file</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="section" id="Preview">
+<h3>Preview<a class="headerlink" href="#Preview" title="Permalink to this headline">¶</a></h3>
+<p>It is best to run <code class="docutils literal notranslate"><span class="pre">var.dataset</span></code> and check the dataset by eye before executing the following command. We use <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame.plot()</span></code> to do it. Following are some example.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">ds</span><span class="o">.</span><span class="n">files</span>
+<span></span><span class="n">var_scalar</span><span class="o">.</span><span class="n">preview</span><span class="p">(</span><span class="n">sharex</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">subplots</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<div class="highlight"><pre>
-[&#39;/Users/liuyu/simulations/BH/ml_admconstraints-ml_mom.xy.h5&#39;]
-</pre></div></div>
+<img alt="../_images/Tutorial_Carpet_22_0.png" src="../_images/Tutorial_Carpet_22_0.png" />
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</div>
+<p>For more <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame.plot()</span></code> parameter you can see <a class="reference external" href="https://pandas.pydata.org/pandas-docs/version/0.23.4/generated/pandas.DataFrame.plot.html">https://pandas.pydata.org/pandas-docs/version/0.23.4/generated/pandas.DataFrame.plot.html</a></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
+<span></span><span class="k">def</span> <span class="nf">preview</span><span class="p">(</span><span class="n">var</span><span class="p">):</span>
+    <span class="n">var_scalar</span><span class="o">.</span><span class="n">preview</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">var</span><span class="p">)</span>
+
+<span class="n">var_item</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Dropdown</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">var_scalar</span><span class="o">.</span><span class="n">Table</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">2</span><span class="p">:])</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">interact</span><span class="p">(</span><span class="n">preview</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="n">var_item</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
 </pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/Tutorial_Carpet_24_0.png" src="../_images/Tutorial_Carpet_24_0.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;function __main__.preview(var)&gt;
+</pre></div></div>
 </div>
 </div>
 </div>
 <div class="section" id="CarpetIOASCII">
 <h2>CarpetIOASCII<a class="headerlink" href="#CarpetIOASCII" title="Permalink to this headline">¶</a></h2>
+<p>Mostly the same as CarpetIOScalar</p>
+<p>First view all available variables in a given dimensions.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="s1">&#39;M&#39;</span> <span class="ow">in</span> <span class="s1">&#39;M[1]&#39;</span>
+<span></span><span class="n">ds_ascii</span> <span class="o">=</span> <span class="n">CarpetIOASCII</span><span class="p">(</span><span class="n">ASCII_file</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">ds_ascii</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-True
+Available grid function with x dimension:
+[&#39;M1&#39;, &#39;M2&#39;, &#39;M3&#39;]
+
 </pre></div></div>
+</div>
+<p>Then specify variables and their corresponding dim.</p>
+<p><strong>Note: When specify variable name, we just simple filter it by use string ``in`` method in python.</strong> So you can specify a vector or tensor like following.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">var_ascii</span> <span class="o">=</span> <span class="n">ds_ascii</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;M&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Please make sure dict_keys([&#39;M1&#39;, &#39;M2&#39;, &#39;M3&#39;]) belong the same group
+</pre></div></div>
+</div>
+<p><strong>Following are some attribute of this variable you may need:</strong></p>
+<div class="section" id="Dataset">
+<h3>Dataset<a class="headerlink" href="#Dataset" title="Permalink to this headline">¶</a></h3>
+<p>These dataset may store in different files and one file may contain many variables. Pandas DataFrame is a powerful tool to combine them and remove duplicate data.</p>
+<p><code class="docutils literal notranslate"><span class="pre">dataset</span></code> is a method, because sometime we need use different way to combine data. We use <code class="docutils literal notranslate"><span class="pre">pd.concat</span></code> to do it. Following are some example.</p>
+<ul class="simple">
+<li><p>Whether add additional key index about filename</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">var_ascii</span><span class="o">.</span><span class="n">dataset</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>it</th>
+      <th>tl</th>
+      <th>rl</th>
+      <th>c</th>
+      <th>ml</th>
+      <th>ix</th>
+      <th>iy</th>
+      <th>iz</th>
+      <th>time</th>
+      <th>x</th>
+      <th>y</th>
+      <th>z</th>
+      <th>M1</th>
+      <th>M2</th>
+      <th>M3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="11" valign="top">ml_admconstraints-ml_mom.x.asc</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>5.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>5888.0</td>
+      <td>768.0</td>
+      <td>0.0</td>
+      <td>-230.00000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-5.432486e-17</td>
+      <td>-7.533550e-13</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>5.0</td>
+      <td>0.0</td>
+      <td>256.0</td>
+      <td>5888.0</td>
+      <td>768.0</td>
+      <td>0.0</td>
+      <td>-220.00000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-5.432486e-17</td>
+      <td>-7.533550e-13</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>5.0</td>
+      <td>0.0</td>
+      <td>512.0</td>
+      <td>5888.0</td>
+      <td>768.0</td>
+      <td>0.0</td>
+      <td>-210.00000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-5.432486e-17</td>
+      <td>-7.533550e-13</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>5.0</td>
+      <td>0.0</td>
+      <td>768.0</td>
+      <td>5888.0</td>
+      <td>768.0</td>
+      <td>0.0</td>
+      <td>-200.00000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-5.432486e-17</td>
+      <td>-7.533550e-13</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>5.0</td>
+      <td>0.0</td>
+      <td>1024.0</td>
+      <td>5888.0</td>
+      <td>768.0</td>
+      <td>0.0</td>
+      <td>-190.00000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>3.353064e-17</td>
+      <td>-1.138351e-12</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <td>70240</td>
+      <td>17664.0</td>
+      <td>0.0</td>
+      <td>6.0</td>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>6036.0</td>
+      <td>5888.0</td>
+      <td>768.0</td>
+      <td>69.0</td>
+      <td>5.78125</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>3.940048e-03</td>
+      <td>1.127827e-04</td>
+      <td>-5.259328e-20</td>
+    </tr>
+    <tr>
+      <td>70241</td>
+      <td>17664.0</td>
+      <td>0.0</td>
+      <td>6.0</td>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>6040.0</td>
+      <td>5888.0</td>
+      <td>768.0</td>
+      <td>69.0</td>
+      <td>5.93750</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>4.817419e-03</td>
+      <td>1.296465e-03</td>
+      <td>2.584893e-19</td>
+    </tr>
+    <tr>
+      <td>70242</td>
+      <td>17664.0</td>
+      <td>0.0</td>
+      <td>6.0</td>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>6044.0</td>
+      <td>5888.0</td>
+      <td>768.0</td>
+      <td>69.0</td>
+      <td>6.09375</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>5.743194e-03</td>
+      <td>2.491388e-03</td>
+      <td>3.130308e-19</td>
+    </tr>
+    <tr>
+      <td>70243</td>
+      <td>17664.0</td>
+      <td>0.0</td>
+      <td>6.0</td>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>6048.0</td>
+      <td>5888.0</td>
+      <td>768.0</td>
+      <td>69.0</td>
+      <td>6.25000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>6.663053e-03</td>
+      <td>3.619432e-03</td>
+      <td>2.339476e-19</td>
+    </tr>
+    <tr>
+      <td>70244</td>
+      <td>17664.0</td>
+      <td>0.0</td>
+      <td>6.0</td>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>6052.0</td>
+      <td>5888.0</td>
+      <td>768.0</td>
+      <td>69.0</td>
+      <td>6.40625</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>7.529135e-03</td>
+      <td>4.600984e-03</td>
+      <td>1.525679e-19</td>
+    </tr>
+  </tbody>
+</table>
+<p>70245 rows × 15 columns</p>
+</div></div>
+</div>
+<p>For more <code class="docutils literal notranslate"><span class="pre">pd.concat</span></code> parameter you can see <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html">https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html</a></p>
+</div>
+<div class="section" id="Grid-hierarchies">
+<h3>Grid hierarchies<a class="headerlink" href="#Grid-hierarchies" title="Permalink to this headline">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">time</span> <span class="o">=</span><span class="mf">0.0</span>
+<span class="n">var_ascii</span><span class="o">.</span><span class="n">Table</span><span class="p">[</span><span class="n">var_ascii</span><span class="o">.</span><span class="n">Table</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">time</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>it</th>
+      <th>tl</th>
+      <th>rl</th>
+      <th>c</th>
+      <th>ml</th>
+      <th>ix</th>
+      <th>iy</th>
+      <th>iz</th>
+      <th>time</th>
+      <th>x</th>
+      <th>y</th>
+      <th>z</th>
+      <th>M1</th>
+      <th>M2</th>
+      <th>M3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="11" valign="top">ml_admconstraints-ml_mom.x.asc</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>5.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>5888.0</td>
+      <td>768.0</td>
+      <td>0.0</td>
+      <td>-230.00000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-5.432486e-17</td>
+      <td>-7.533550e-13</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>5.0</td>
+      <td>0.0</td>
+      <td>256.0</td>
+      <td>5888.0</td>
+      <td>768.0</td>
+      <td>0.0</td>
+      <td>-220.00000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-5.432486e-17</td>
+      <td>-7.533550e-13</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>5.0</td>
+      <td>0.0</td>
+      <td>512.0</td>
+      <td>5888.0</td>
+      <td>768.0</td>
+      <td>0.0</td>
+      <td>-210.00000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-5.432486e-17</td>
+      <td>-7.533550e-13</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>5.0</td>
+      <td>0.0</td>
+      <td>768.0</td>
+      <td>5888.0</td>
+      <td>768.0</td>
+      <td>0.0</td>
+      <td>-200.00000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-5.432486e-17</td>
+      <td>-7.533550e-13</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>5.0</td>
+      <td>0.0</td>
+      <td>1024.0</td>
+      <td>5888.0</td>
+      <td>768.0</td>
+      <td>0.0</td>
+      <td>-190.00000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>3.353064e-17</td>
+      <td>-1.138351e-12</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <td>977</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>6.0</td>
+      <td>18.0</td>
+      <td>0.0</td>
+      <td>6116.0</td>
+      <td>5888.0</td>
+      <td>768.0</td>
+      <td>0.0</td>
+      <td>8.90625</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.837490e-09</td>
+      <td>6.454959e-07</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <td>978</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>6.0</td>
+      <td>18.0</td>
+      <td>0.0</td>
+      <td>6120.0</td>
+      <td>5888.0</td>
+      <td>768.0</td>
+      <td>0.0</td>
+      <td>9.06250</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.451592e-09</td>
+      <td>5.078407e-07</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <td>979</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>6.0</td>
+      <td>18.0</td>
+      <td>0.0</td>
+      <td>6124.0</td>
+      <td>5888.0</td>
+      <td>768.0</td>
+      <td>0.0</td>
+      <td>9.21875</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.155064e-09</td>
+      <td>4.030984e-07</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <td>980</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>6.0</td>
+      <td>18.0</td>
+      <td>0.0</td>
+      <td>6128.0</td>
+      <td>5888.0</td>
+      <td>768.0</td>
+      <td>0.0</td>
+      <td>9.37500</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>9.246212e-10</td>
+      <td>3.222013e-07</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <td>981</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>6.0</td>
+      <td>18.0</td>
+      <td>0.0</td>
+      <td>6132.0</td>
+      <td>5888.0</td>
+      <td>768.0</td>
+      <td>0.0</td>
+      <td>9.53125</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>7.449264e-10</td>
+      <td>2.594932e-07</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>982 rows × 15 columns</p>
+</div></div>
+</div>
+</div>
+<div class="section" id="Inf">
+<h3>Inf<a class="headerlink" href="#Inf" title="Permalink to this headline">¶</a></h3>
+<p>Use <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame.describe</span></code> we can quickly get some useful information.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">var_ascii</span><span class="o">.</span><span class="n">Table</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>it</th>
+      <th>tl</th>
+      <th>rl</th>
+      <th>c</th>
+      <th>ml</th>
+      <th>ix</th>
+      <th>iy</th>
+      <th>iz</th>
+      <th>time</th>
+      <th>x</th>
+      <th>y</th>
+      <th>z</th>
+      <th>M1</th>
+      <th>M2</th>
+      <th>M3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>count</td>
+      <td>70245.000000</td>
+      <td>70245.0</td>
+      <td>70245.000000</td>
+      <td>70245.000000</td>
+      <td>70245.0</td>
+      <td>70245.000000</td>
+      <td>70245.0</td>
+      <td>70245.0</td>
+      <td>70245.000000</td>
+      <td>70245.000000</td>
+      <td>70245.0</td>
+      <td>70245.0</td>
+      <td>7.024500e+04</td>
+      <td>7.024500e+04</td>
+      <td>7.024500e+04</td>
+    </tr>
+    <tr>
+      <td>mean</td>
+      <td>8606.909873</td>
+      <td>0.0</td>
+      <td>3.128906</td>
+      <td>9.211218</td>
+      <td>0.0</td>
+      <td>5927.528963</td>
+      <td>5888.0</td>
+      <td>768.0</td>
+      <td>33.620742</td>
+      <td>1.544100</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>8.254183e-04</td>
+      <td>-7.006725e-04</td>
+      <td>2.637759e-21</td>
+    </tr>
+    <tr>
+      <td>std</td>
+      <td>5017.915173</td>
+      <td>0.0</td>
+      <td>1.978623</td>
+      <td>4.123684</td>
+      <td>0.0</td>
+      <td>1612.314591</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>19.601231</td>
+      <td>62.981039</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2.514225e-01</td>
+      <td>2.753523e-01</td>
+      <td>4.931443e-18</td>
+    </tr>
+    <tr>
+      <td>min</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>5888.0</td>
+      <td>768.0</td>
+      <td>0.000000</td>
+      <td>-230.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-1.563095e+01</td>
+      <td>-1.444528e+01</td>
+      <td>-1.495724e-16</td>
+    </tr>
+    <tr>
+      <td>25%</td>
+      <td>4096.000000</td>
+      <td>0.0</td>
+      <td>1.000000</td>
+      <td>7.000000</td>
+      <td>0.0</td>
+      <td>5520.000000</td>
+      <td>5888.0</td>
+      <td>768.0</td>
+      <td>16.000000</td>
+      <td>-14.375000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-2.129007e-04</td>
+      <td>-3.779805e-04</td>
+      <td>-1.650612e-21</td>
+    </tr>
+    <tr>
+      <td>50%</td>
+      <td>8704.000000</td>
+      <td>0.0</td>
+      <td>3.000000</td>
+      <td>9.000000</td>
+      <td>0.0</td>
+      <td>5888.000000</td>
+      <td>5888.0</td>
+      <td>768.0</td>
+      <td>34.000000</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>7.249191e-11</td>
+      <td>-2.858386e-10</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <td>75%</td>
+      <td>12800.000000</td>
+      <td>0.0</td>
+      <td>5.000000</td>
+      <td>12.000000</td>
+      <td>0.0</td>
+      <td>6288.000000</td>
+      <td>5888.0</td>
+      <td>768.0</td>
+      <td>50.000000</td>
+      <td>15.625000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>3.555804e-04</td>
+      <td>6.998509e-05</td>
+      <td>2.185712e-21</td>
+    </tr>
+    <tr>
+      <td>max</td>
+      <td>17664.000000</td>
+      <td>0.0</td>
+      <td>6.000000</td>
+      <td>18.000000</td>
+      <td>0.0</td>
+      <td>11520.000000</td>
+      <td>5888.0</td>
+      <td>768.0</td>
+      <td>69.000000</td>
+      <td>220.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.697434e+01</td>
+      <td>2.393813e+01</td>
+      <td>1.424510e-16</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>Future we will add more information about this variable.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># var_ascii.rl</span>
+</pre></div>
+</div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -695,6 +1725,54 @@ True
 </div>
 </div>
 </div>
+</div>
+<div class="section" id="CarpetIOHDF5">
+<h2>CarpetIOHDF5<a class="headerlink" href="#CarpetIOHDF5" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">ds_hdf5</span> <span class="o">=</span> <span class="n">CarpetIOHDF5</span><span class="p">(</span><span class="n">HDF5_file</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">ds_hdf5</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">ds_hdf5</span><span class="o">.</span><span class="n">xy</span><span class="o">.</span><span class="n">vars</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Available grid function with xy dimension:
+[&#39;M1&#39;, &#39;M2&#39;, &#39;M3&#39;]
+
+{&#39;M1&#39;: [&#39;/Users/liuyu/simulations/BH/ml_admconstraints-ml_mom.xy.h5&#39;], &#39;M2&#39;: [&#39;/Users/liuyu/simulations/BH/ml_admconstraints-ml_mom.xy.h5&#39;], &#39;M3&#39;: [&#39;/Users/liuyu/simulations/BH/ml_admconstraints-ml_mom.xy.h5&#39;]}
+</pre></div></div>
+</div>
+<p>Then specify variables and their corresponding dim.</p>
+<p><strong>Note: When specify variable name, we just simple filter it by use string ``in`` method in python.</strong> So you can specify a vector or tensor like following.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># ds_hdf5 = ds_ascii.x[&#39;M&#39;]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+<script type="application/vnd.jupyter.widget-state+json">
+{"state": {"aecd449c05af47048e67ba878b50bd18": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "75e4e67e8f354a1bacf606db2f6f807d": {"model_name": "DescriptionStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "98b19d8615334ffca3438cb96c067587": {"model_name": "DropdownModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DropdownModel", "_options_labels": ["M1", "M2", "M3"], "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "DropdownView", "description": "var", "description_tooltip": null, "disabled": false, "index": 0, "layout": "IPY_MODEL_aecd449c05af47048e67ba878b50bd18", "style": "IPY_MODEL_75e4e67e8f354a1bacf606db2f6f807d"}}, "1a93cc9ebfba418193b13a3d6194eea4": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "3134f27b169d4195b1975f64d2aed6a6": {"model_name": "DescriptionStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "73e3147e697a4b1080d87a1e3212ef4c": {"model_name": "CheckboxModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "CheckboxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "CheckboxView", "description": "iteration", "description_tooltip": null, "disabled": false, "indent": true, "layout": "IPY_MODEL_1a93cc9ebfba418193b13a3d6194eea4", "style": "IPY_MODEL_3134f27b169d4195b1975f64d2aed6a6", "value": true}}, "cb84d8c2868e445c9cad76d520c3ddb1": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "7b9e832f6602426b879e720c07d2c514": {"model_name": "VBoxModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": ["widget-interact"], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "VBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "VBoxView", "box_style": "", "children": ["IPY_MODEL_98b19d8615334ffca3438cb96c067587", "IPY_MODEL_73e3147e697a4b1080d87a1e3212ef4c", "IPY_MODEL_6e0a34d21f1c4c8da63b4c532354cf5b"], "layout": "IPY_MODEL_cb84d8c2868e445c9cad76d520c3ddb1"}}, "891e8faecdc24819adb07ce4195979b2": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "6e0a34d21f1c4c8da63b4c532354cf5b": {"model_name": "OutputModel", "model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/output", "_model_module_version": "1.0.0", "_model_name": "OutputModel", "_view_count": null, "_view_module": "@jupyter-widgets/output", "_view_module_version": "1.0.0", "_view_name": "OutputView", "layout": "IPY_MODEL_891e8faecdc24819adb07ce4195979b2", "msg_id": "", "outputs": []}}, "4250e9df8a544cc682f03253fff8d3c6": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "07c11e7068724e659b5755fb115dd3bd": {"model_name": "DescriptionStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "ee8a6e739c884c1392443db7ddf337d2": {"model_name": "DropdownModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DropdownModel", "_options_labels": ["M1", "M2", "M3"], "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "DropdownView", "description": "var", "description_tooltip": null, "disabled": false, "index": 0, "layout": "IPY_MODEL_4250e9df8a544cc682f03253fff8d3c6", "style": "IPY_MODEL_07c11e7068724e659b5755fb115dd3bd"}}, "4dddd7c5efe44f139cbddc42250c1c22": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "3b05fbf2916c4d9283a910de7541f2b0": {"model_name": "VBoxModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": ["widget-interact"], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "VBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "VBoxView", "box_style": "", "children": ["IPY_MODEL_ee8a6e739c884c1392443db7ddf337d2", "IPY_MODEL_8d17542e85f5453d88992ac592bb9d31"], "layout": "IPY_MODEL_4dddd7c5efe44f139cbddc42250c1c22"}}, "39bec601ec08487c9e8cd831677820ee": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "8d17542e85f5453d88992ac592bb9d31": {"model_name": "OutputModel", "model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/output", "_model_module_version": "1.0.0", "_model_name": "OutputModel", "_view_count": null, "_view_module": "@jupyter-widgets/output", "_view_module_version": "1.0.0", "_view_name": "OutputView", "layout": "IPY_MODEL_39bec601ec08487c9e8cd831677820ee", "msg_id": "", "outputs": []}}}, "version_major": 2, "version_minor": 0}
+</script></div>
 </div>
 
 
@@ -708,11 +1786,17 @@ True
 <li><a class="reference internal" href="#">Carpet</a><ul>
 <li><a class="reference internal" href="#CarpetIOScalar">CarpetIOScalar</a><ul>
 <li><a class="reference internal" href="#Dataset">Dataset</a></li>
+<li><a class="reference internal" href="#Inf">Inf</a></li>
 <li><a class="reference internal" href="#Preview">Preview</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#CarpetIOASCII">CarpetIOASCII</a><ul>
+<li><a class="reference internal" href="#Dataset">Dataset</a></li>
+<li><a class="reference internal" href="#Grid-hierarchies">Grid hierarchies</a></li>
+<li><a class="reference internal" href="#Inf">Inf</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#CarpetIOHDF5">CarpetIOHDF5</a></li>
-<li><a class="reference internal" href="#CarpetIOASCII">CarpetIOASCII</a></li>
 </ul>
 </li>
 </ul>

@@ -7,38 +7,17 @@ Subpackages
 .. toctree::
 
    CactusTool.Carpet
+   CactusTool.Debug
+   CactusTool.Parameter
+   CactusTool.Visualize
 
 Submodules
 ----------
-
-CactusTool.debug module
------------------------
-
-.. automodule:: CactusTool.debug
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-CactusTool.dictionary module
-----------------------------
-
-.. automodule:: CactusTool.dictionary
-   :members:
-   :undoc-members:
-   :show-inheritance:
 
 CactusTool.funcs module
 -----------------------
 
 .. automodule:: CactusTool.funcs
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-CactusTool.grid\_data module
-----------------------------
-
-.. automodule:: CactusTool.grid_data
    :members:
    :undoc-members:
    :show-inheritance:
@@ -59,34 +38,10 @@ CactusTool.outputfile module
    :undoc-members:
    :show-inheritance:
 
-CactusTool.parfile module
--------------------------
-
-.. automodule:: CactusTool.parfile
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-CactusTool.preview module
--------------------------
-
-.. automodule:: CactusTool.preview
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 CactusTool.unit module
 ----------------------
 
 .. automodule:: CactusTool.unit
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-CactusTool.visualize module
----------------------------
-
-.. automodule:: CactusTool.visualize
    :members:
    :undoc-members:
    :show-inheritance:

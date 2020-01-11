@@ -9,12 +9,18 @@
     <link rel="stylesheet" href="_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="_static/jupyter-sphinx.css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/language_data.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="#" />
     <link rel="search" title="Search" href="search.html" /> 
   </head><body>
@@ -50,6 +56,7 @@
  | <a href="#I"><strong>I</strong></a>
  | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
+ | <a href="#N"><strong>N</strong></a>
  | <a href="#P"><strong>P</strong></a>
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
@@ -60,20 +67,20 @@
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="API/CactusTool.html#CactusTool.parfile.ParFile.activethorn">activethorn() (CactusTool.parfile.ParFile property)</a>
+      <li><a href="API/CactusTool.Parameter.html#CactusTool.Parameter.parfile.Parfile.activethorn">activethorn() (CactusTool.Parameter.parfile.Parfile property)</a>
 </li>
-      <li><a href="API/CactusTool.html#CactusTool.dictionary.add_three_key">add_three_key() (in module CactusTool.dictionary)</a>
+      <li><a href="API/CactusTool.html#CactusTool.funcs.add_three_key">add_three_key() (in module CactusTool.funcs)</a>
 
       <ul>
-        <li><a href="API/CactusTool.html#CactusTool.parfile.add_three_key">(in module CactusTool.parfile)</a>
+        <li><a href="API/CactusTool.Parameter.html#CactusTool.Parameter.parfile.add_three_key">(in module CactusTool.Parameter.parfile)</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="API/CactusTool.html#CactusTool.dictionary.add_two_key">add_two_key() (in module CactusTool.dictionary)</a>
+      <li><a href="API/CactusTool.html#CactusTool.funcs.add_two_key">add_two_key() (in module CactusTool.funcs)</a>
 
       <ul>
-        <li><a href="API/CactusTool.html#CactusTool.parfile.add_two_key">(in module CactusTool.parfile)</a>
+        <li><a href="API/CactusTool.Parameter.html#CactusTool.Parameter.parfile.add_two_key">(in module CactusTool.Parameter.parfile)</a>
 </li>
       </ul></li>
       <li><a href="API/CactusTool.html#CactusTool.main.Simulation.ASCII">ASCII() (CactusTool.main.Simulation property)</a>
@@ -94,27 +101,29 @@
 </li>
       <li><a href="API/CactusTool.Carpet.html#module-CactusTool.Carpet.Scalar">CactusTool.Carpet.Scalar (module)</a>
 </li>
-      <li><a href="API/CactusTool.html#module-CactusTool.debug">CactusTool.debug (module)</a>
+      <li><a href="API/CactusTool.Debug.html#module-CactusTool.Debug">CactusTool.Debug (module)</a>
 </li>
-      <li><a href="API/CactusTool.html#module-CactusTool.dictionary">CactusTool.dictionary (module)</a>
+      <li><a href="API/CactusTool.Debug.html#module-CactusTool.Debug.NaN">CactusTool.Debug.NaN (module)</a>
 </li>
       <li><a href="API/CactusTool.html#module-CactusTool.funcs">CactusTool.funcs (module)</a>
 </li>
-      <li><a href="API/CactusTool.html#module-CactusTool.grid_data">CactusTool.grid_data (module)</a>
-</li>
       <li><a href="API/CactusTool.html#module-CactusTool.main">CactusTool.main (module)</a>
+</li>
+      <li><a href="API/CactusTool.html#module-CactusTool.outputfile">CactusTool.outputfile (module)</a>
+</li>
+      <li><a href="API/CactusTool.Parameter.html#module-CactusTool.Parameter">CactusTool.Parameter (module)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="API/CactusTool.html#module-CactusTool.outputfile">CactusTool.outputfile (module)</a>
-</li>
-      <li><a href="API/CactusTool.html#module-CactusTool.parfile">CactusTool.parfile (module)</a>
-</li>
-      <li><a href="API/CactusTool.html#module-CactusTool.preview">CactusTool.preview (module)</a>
+      <li><a href="API/CactusTool.Parameter.html#module-CactusTool.Parameter.parfile">CactusTool.Parameter.parfile (module)</a>
 </li>
       <li><a href="API/CactusTool.html#module-CactusTool.unit">CactusTool.unit (module)</a>
 </li>
-      <li><a href="API/CactusTool.html#module-CactusTool.visualize">CactusTool.visualize (module)</a>
+      <li><a href="API/CactusTool.Visualize.html#module-CactusTool.Visualize">CactusTool.Visualize (module)</a>
+</li>
+      <li><a href="API/CactusTool.Visualize.html#module-CactusTool.Visualize.grid_hierarchies">CactusTool.Visualize.grid_hierarchies (module)</a>
+</li>
+      <li><a href="API/CactusTool.Visualize.html#module-CactusTool.Visualize.visualize">CactusTool.Visualize.visualize (module)</a>
 </li>
       <li><a href="API/CactusTool.Carpet.html#CactusTool.Carpet.ASCII.CarpetIOASCII">CarpetIOASCII (class in CactusTool.Carpet.ASCII)</a>
 </li>
@@ -122,11 +131,15 @@
 </li>
       <li><a href="API/CactusTool.Carpet.html#CactusTool.Carpet.Scalar.CarpetIOScalar">CarpetIOScalar (class in CactusTool.Carpet.Scalar)</a>
 </li>
-      <li><a href="API/CactusTool.html#CactusTool.visualize.color_bar">color_bar() (in module CactusTool.visualize)</a>
+      <li><a href="API/CactusTool.Visualize.html#CactusTool.Visualize.visualize.color_bar">color_bar() (in module CactusTool.Visualize.visualize)</a>
 </li>
-      <li><a href="API/CactusTool.Carpet.html#CactusTool.Carpet.Scalar.columns">columns() (in module CactusTool.Carpet.Scalar)</a>
+      <li><a href="API/CactusTool.Carpet.html#CactusTool.Carpet.ASCII.columns">columns() (in module CactusTool.Carpet.ASCII)</a>
+
+      <ul>
+        <li><a href="API/CactusTool.Carpet.html#CactusTool.Carpet.Scalar.columns">(in module CactusTool.Carpet.Scalar)</a>
 </li>
-      <li><a href="API/CactusTool.html#CactusTool.visualize.contour">contour() (in module CactusTool.visualize)</a>
+      </ul></li>
+      <li><a href="API/CactusTool.Visualize.html#CactusTool.Visualize.visualize.contour">contour() (in module CactusTool.Visualize.visualize)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -134,14 +147,12 @@
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="API/CactusTool.Carpet.html#CactusTool.Carpet.Scalar.Variable.dataset">dataset() (CactusTool.Carpet.Scalar.Variable method)</a>
+      <li><a href="API/CactusTool.Carpet.html#CactusTool.Carpet.ASCII.Variable.dataset">dataset() (CactusTool.Carpet.ASCII.Variable method)</a>
+
+      <ul>
+        <li><a href="API/CactusTool.Carpet.html#CactusTool.Carpet.Scalar.Variable.dataset">(CactusTool.Carpet.Scalar.Variable method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="API/CactusTool.html#CactusTool.debug.DeBug">DeBug (class in CactusTool.debug)</a>
-</li>
-      <li><a href="API/CactusTool.html#CactusTool.main.Simulation.Debug">Debug() (CactusTool.main.Simulation property)</a>
-</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -166,7 +177,7 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="API/CactusTool.html#CactusTool.funcs.filter_file">filter_file() (in module CactusTool.funcs)</a>
 </li>
-      <li><a href="API/CactusTool.html#CactusTool.dictionary.Format">Format() (in module CactusTool.dictionary)</a>
+      <li><a href="API/CactusTool.html#CactusTool.funcs.Format">Format() (in module CactusTool.funcs)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -174,17 +185,23 @@
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="API/CactusTool.html#CactusTool.visualize.grid_struct">grid_struct() (in module CactusTool.visualize)</a>
+      <li><a href="API/CactusTool.Carpet.html#CactusTool.Carpet.ASCII.Variable.grid_hierarchies">grid_hierarchies() (CactusTool.Carpet.ASCII.Variable method)</a>
+
+      <ul>
+        <li><a href="API/CactusTool.Carpet.html#CactusTool.Carpet.HDF5.Variable.grid_hierarchies">(CactusTool.Carpet.HDF5.Variable method)</a>
 </li>
+      </ul></li>
+      <li><a href="API/CactusTool.Visualize.html#CactusTool.Visualize.visualize.grid_struct">grid_struct() (in module CactusTool.Visualize.visualize)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="API/CactusTool.Carpet.html#CactusTool.Carpet.ASCII.Griddim">Griddim (class in CactusTool.Carpet.ASCII)</a>
 
       <ul>
         <li><a href="API/CactusTool.Carpet.html#CactusTool.Carpet.HDF5.Griddim">(class in CactusTool.Carpet.HDF5)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="API/CactusTool.html#CactusTool.parfile.guess_par_type">guess_par_type() (in module CactusTool.parfile)</a>
+      <li><a href="API/CactusTool.Parameter.html#CactusTool.Parameter.parfile.guess_par_type">guess_par_type() (in module CactusTool.Parameter.parfile)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -194,7 +211,7 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="API/CactusTool.html#CactusTool.main.Simulation.H5">H5() (CactusTool.main.Simulation property)</a>
 </li>
-      <li><a href="API/CactusTool.html#CactusTool.preview.hdf5_2d">hdf5_2d() (in module CactusTool.preview)</a>
+      <li><a href="API/CactusTool.Carpet.html#CactusTool.Carpet.HDF5.hdf5_2d">hdf5_2d() (in module CactusTool.Carpet.HDF5)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -208,7 +225,7 @@
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="API/CactusTool.html#CactusTool.visualize.imshow">imshow() (in module CactusTool.visualize)</a>
+      <li><a href="API/CactusTool.Visualize.html#CactusTool.Visualize.visualize.imshow">imshow() (in module CactusTool.Visualize.visualize)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -222,7 +239,7 @@
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="API/CactusTool.html#CactusTool.parfile.load_parfile">load_parfile() (in module CactusTool.parfile)</a>
+      <li><a href="API/CactusTool.Parameter.html#CactusTool.Parameter.parfile.load_parfile">load_parfile() (in module CactusTool.Parameter.parfile)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -235,25 +252,41 @@
   </ul></td>
 </tr></table>
 
+<h2 id="N">N</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="API/CactusTool.html#CactusTool.main.Simulation.NaN">NaN() (CactusTool.main.Simulation property)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="API/CactusTool.Debug.html#CactusTool.Debug.NaN.NaNCheck">NaNCheck (class in CactusTool.Debug.NaN)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="API/CactusTool.html#CactusTool.main.Simulation.Par">Par() (CactusTool.main.Simulation property)</a>
 </li>
-      <li><a href="API/CactusTool.html#CactusTool.parfile.par_to_bool">par_to_bool() (in module CactusTool.parfile)</a>
+      <li><a href="API/CactusTool.Parameter.html#CactusTool.Parameter.parfile.par_to_bool">par_to_bool() (in module CactusTool.Parameter.parfile)</a>
 </li>
-      <li><a href="API/CactusTool.html#CactusTool.parfile.par_to_str">par_to_str() (in module CactusTool.parfile)</a>
+      <li><a href="API/CactusTool.Parameter.html#CactusTool.Parameter.parfile.par_to_str">par_to_str() (in module CactusTool.Parameter.parfile)</a>
+</li>
+      <li><a href="API/CactusTool.Parameter.html#CactusTool.Parameter.parfile.par_to_varlist">par_to_varlist() (in module CactusTool.Parameter.parfile)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="API/CactusTool.html#CactusTool.parfile.par_to_varlist">par_to_varlist() (in module CactusTool.parfile)</a>
+      <li><a href="API/CactusTool.Parameter.html#CactusTool.Parameter.parfile.Parfile">Parfile (class in CactusTool.Parameter.parfile)</a>
 </li>
-      <li><a href="API/CactusTool.html#CactusTool.parfile.ParFile">ParFile (class in CactusTool.parfile)</a>
+      <li><a href="API/CactusTool.Visualize.html#CactusTool.Visualize.visualize.pcolormesh">pcolormesh() (in module CactusTool.Visualize.visualize)</a>
 </li>
-      <li><a href="API/CactusTool.html#CactusTool.visualize.pcolormesh">pcolormesh() (in module CactusTool.visualize)</a>
+      <li><a href="API/CactusTool.Carpet.html#CactusTool.Carpet.ASCII.Variable.preview">preview() (CactusTool.Carpet.ASCII.Variable method)</a>
+
+      <ul>
+        <li><a href="API/CactusTool.Carpet.html#CactusTool.Carpet.Scalar.Variable.preview">(CactusTool.Carpet.Scalar.Variable method)</a>
 </li>
-      <li><a href="API/CactusTool.Carpet.html#CactusTool.Carpet.Scalar.Variable.preview">preview() (CactusTool.Carpet.Scalar.Variable method)</a>
-</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -286,11 +319,11 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="API/CactusTool.html#CactusTool.dictionary.subkey_contain_element">subkey_contain_element() (in module CactusTool.dictionary)</a>
+      <li><a href="API/CactusTool.html#CactusTool.funcs.subkey_contain_element">subkey_contain_element() (in module CactusTool.funcs)</a>
 </li>
-      <li><a href="API/CactusTool.html#CactusTool.dictionary.subkey_have_value">subkey_have_value() (in module CactusTool.dictionary)</a>
+      <li><a href="API/CactusTool.html#CactusTool.funcs.subkey_have_value">subkey_have_value() (in module CactusTool.funcs)</a>
 </li>
-      <li><a href="API/CactusTool.html#CactusTool.visualize.surface">surface() (in module CactusTool.visualize)</a>
+      <li><a href="API/CactusTool.Visualize.html#CactusTool.Visualize.visualize.surface">surface() (in module CactusTool.Visualize.visualize)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -298,7 +331,7 @@
 <h2 id="T">T</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="API/CactusTool.html#CactusTool.parfile.Thorn">Thorn (class in CactusTool.parfile)</a>
+      <li><a href="API/CactusTool.Parameter.html#CactusTool.Parameter.parfile.Thorn">Thorn (class in CactusTool.Parameter.parfile)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -306,19 +339,25 @@
 <h2 id="V">V</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="API/CactusTool.Carpet.html#CactusTool.Carpet.HDF5.var_header">var_header() (in module CactusTool.Carpet.HDF5)</a>
-</li>
-      <li><a href="API/CactusTool.Carpet.html#CactusTool.Carpet.HDF5.Variable">Variable (class in CactusTool.Carpet.HDF5)</a>
+      <li><a href="API/CactusTool.Carpet.html#CactusTool.Carpet.ASCII.Variable">Variable (class in CactusTool.Carpet.ASCII)</a>
 
       <ul>
+        <li><a href="API/CactusTool.Carpet.html#CactusTool.Carpet.HDF5.Variable">(class in CactusTool.Carpet.HDF5)</a>
+</li>
         <li><a href="API/CactusTool.Carpet.html#CactusTool.Carpet.Scalar.Variable">(class in CactusTool.Carpet.Scalar)</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="API/CactusTool.Carpet.html#CactusTool.Carpet.Scalar.ScalarReduction.vars">vars() (CactusTool.Carpet.Scalar.ScalarReduction property)</a>
+      <li><a href="API/CactusTool.Carpet.html#CactusTool.Carpet.ASCII.Griddim.vars">vars() (CactusTool.Carpet.ASCII.Griddim property)</a>
+
+      <ul>
+        <li><a href="API/CactusTool.Carpet.html#CactusTool.Carpet.HDF5.Griddim.vars">(CactusTool.Carpet.HDF5.Griddim property)</a>
 </li>
-      <li><a href="API/CactusTool.html#CactusTool.visualize.vectors">vectors() (in module CactusTool.visualize)</a>
+        <li><a href="API/CactusTool.Carpet.html#CactusTool.Carpet.Scalar.ScalarReduction.vars">(CactusTool.Carpet.Scalar.ScalarReduction property)</a>
+</li>
+      </ul></li>
+      <li><a href="API/CactusTool.Visualize.html#CactusTool.Visualize.visualize.vectors">vectors() (in module CactusTool.Visualize.visualize)</a>
 </li>
   </ul></td>
 </tr></table>

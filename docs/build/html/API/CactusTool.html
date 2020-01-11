@@ -8,12 +8,18 @@
     <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/jupyter-sphinx.css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="../_static/language_data.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="CactusTool.Carpet package" href="CactusTool.Carpet.html" />
@@ -57,52 +63,49 @@
 <li class="toctree-l2"><a class="reference internal" href="CactusTool.Carpet.html#module-CactusTool.Carpet">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="CactusTool.Debug.html">CactusTool.Debug package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="CactusTool.Debug.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CactusTool.Debug.html#module-CactusTool.Debug.NaN">CactusTool.Debug.NaN module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CactusTool.Debug.html#module-CactusTool.Debug">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="CactusTool.Parameter.html">CactusTool.Parameter package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="CactusTool.Parameter.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CactusTool.Parameter.html#module-CactusTool.Parameter.parfile">CactusTool.Parameter.parfile module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CactusTool.Parameter.html#module-CactusTool.Parameter">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="CactusTool.Visualize.html">CactusTool.Visualize package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="CactusTool.Visualize.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CactusTool.Visualize.html#module-CactusTool.Visualize.grid_hierarchies">CactusTool.Visualize.grid_hierarchies module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CactusTool.Visualize.html#module-CactusTool.Visualize.visualize">CactusTool.Visualize.visualize module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CactusTool.Visualize.html#module-CactusTool.Visualize">Module contents</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-CactusTool.debug">
-<span id="cactustool-debug-module"></span><h2>CactusTool.debug module<a class="headerlink" href="#module-CactusTool.debug" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="CactusTool.debug.DeBug">
-<em class="property">class </em><code class="sig-prename descclassname">CactusTool.debug.</code><code class="sig-name descname">DeBug</code><span class="sig-paren">(</span><em class="sig-param">Sim</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/debug.html#DeBug"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.debug.DeBug" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-</dd></dl>
-
-</div>
-<div class="section" id="module-CactusTool.dictionary">
-<span id="cactustool-dictionary-module"></span><h2>CactusTool.dictionary module<a class="headerlink" href="#module-CactusTool.dictionary" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="CactusTool.dictionary.Format">
-<code class="sig-prename descclassname">CactusTool.dictionary.</code><code class="sig-name descname">Format</code><span class="sig-paren">(</span><em class="sig-param">dicts</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/dictionary.html#Format"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.dictionary.Format" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="CactusTool.dictionary.add_three_key">
-<code class="sig-prename descclassname">CactusTool.dictionary.</code><code class="sig-name descname">add_three_key</code><span class="sig-paren">(</span><em class="sig-param">par</em>, <em class="sig-param">key_a</em>, <em class="sig-param">key_b</em>, <em class="sig-param">key_c</em>, <em class="sig-param">val</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/dictionary.html#add_three_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.dictionary.add_three_key" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="CactusTool.dictionary.add_two_key">
-<code class="sig-prename descclassname">CactusTool.dictionary.</code><code class="sig-name descname">add_two_key</code><span class="sig-paren">(</span><em class="sig-param">par</em>, <em class="sig-param">key_a</em>, <em class="sig-param">key_b</em>, <em class="sig-param">val</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/dictionary.html#add_two_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.dictionary.add_two_key" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="CactusTool.dictionary.subkey_contain_element">
-<code class="sig-prename descclassname">CactusTool.dictionary.</code><code class="sig-name descname">subkey_contain_element</code><span class="sig-paren">(</span><em class="sig-param">dicts</em>, <em class="sig-param">subkey</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/dictionary.html#subkey_contain_element"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.dictionary.subkey_contain_element" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="CactusTool.dictionary.subkey_have_value">
-<code class="sig-prename descclassname">CactusTool.dictionary.</code><code class="sig-name descname">subkey_have_value</code><span class="sig-paren">(</span><em class="sig-param">dicts</em>, <em class="sig-param">subkey</em>, <em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/dictionary.html#subkey_have_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.dictionary.subkey_have_value" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
 <div class="section" id="module-CactusTool.funcs">
 <span id="cactustool-funcs-module"></span><h2>CactusTool.funcs module<a class="headerlink" href="#module-CactusTool.funcs" title="Permalink to this headline">¶</a></h2>
 <p>This modular provided many useful functions needed by other modular.</p>
+<dl class="function">
+<dt id="CactusTool.funcs.Format">
+<code class="sig-prename descclassname">CactusTool.funcs.</code><code class="sig-name descname">Format</code><span class="sig-paren">(</span><em class="sig-param">dicts</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs.html#Format"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.Format" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.funcs.add_three_key">
+<code class="sig-prename descclassname">CactusTool.funcs.</code><code class="sig-name descname">add_three_key</code><span class="sig-paren">(</span><em class="sig-param">par</em>, <em class="sig-param">key_a</em>, <em class="sig-param">key_b</em>, <em class="sig-param">key_c</em>, <em class="sig-param">val</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs.html#add_three_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.add_three_key" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.funcs.add_two_key">
+<code class="sig-prename descclassname">CactusTool.funcs.</code><code class="sig-name descname">add_two_key</code><span class="sig-paren">(</span><em class="sig-param">par</em>, <em class="sig-param">key_a</em>, <em class="sig-param">key_b</em>, <em class="sig-param">val</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs.html#add_two_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.add_two_key" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="function">
 <dt id="CactusTool.funcs.ensure_list">
 <code class="sig-prename descclassname">CactusTool.funcs.</code><code class="sig-name descname">ensure_list</code><span class="sig-paren">(</span><em class="sig-param">obj</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs.html#ensure_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.ensure_list" title="Permalink to this definition">¶</a></dt>
@@ -185,10 +188,16 @@
 </dl>
 </dd></dl>
 
-</div>
-<div class="section" id="module-CactusTool.grid_data">
-<span id="cactustool-grid-data-module"></span><h2>CactusTool.grid_data module<a class="headerlink" href="#module-CactusTool.grid_data" title="Permalink to this headline">¶</a></h2>
-<p>The <a class="reference internal" href="#module-CactusTool.grid_data" title="CactusTool.grid_data"><code class="xref py py-mod docutils literal notranslate"><span class="pre">CactusTool.grid_data</span></code></a> module provides representations of data on uniform grids as well as for data on refined grid hirachies.</p>
+<dl class="function">
+<dt id="CactusTool.funcs.subkey_contain_element">
+<code class="sig-prename descclassname">CactusTool.funcs.</code><code class="sig-name descname">subkey_contain_element</code><span class="sig-paren">(</span><em class="sig-param">dicts</em>, <em class="sig-param">subkey</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs.html#subkey_contain_element"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.subkey_contain_element" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.funcs.subkey_have_value">
+<code class="sig-prename descclassname">CactusTool.funcs.</code><code class="sig-name descname">subkey_have_value</code><span class="sig-paren">(</span><em class="sig-param">dicts</em>, <em class="sig-param">subkey</em>, <em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs.html#subkey_have_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.subkey_have_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 <div class="section" id="module-CactusTool.main">
 <span id="cactustool-main-module"></span><h2>CactusTool.main module<a class="headerlink" href="#module-CactusTool.main" title="Permalink to this headline">¶</a></h2>
@@ -204,13 +213,13 @@
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="CactusTool.main.Simulation.Debug">
-<em class="property">property </em><code class="sig-name descname">Debug</code><a class="headerlink" href="#CactusTool.main.Simulation.Debug" title="Permalink to this definition">¶</a></dt>
+<dt id="CactusTool.main.Simulation.H5">
+<em class="property">property </em><code class="sig-name descname">H5</code><a class="headerlink" href="#CactusTool.main.Simulation.H5" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="CactusTool.main.Simulation.H5">
-<em class="property">property </em><code class="sig-name descname">H5</code><a class="headerlink" href="#CactusTool.main.Simulation.H5" title="Permalink to this definition">¶</a></dt>
+<dt id="CactusTool.main.Simulation.NaN">
+<em class="property">property </em><code class="sig-name descname">NaN</code><a class="headerlink" href="#CactusTool.main.Simulation.NaN" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -257,282 +266,10 @@
 </dd></dl>
 
 </div>
-<div class="section" id="module-CactusTool.parfile">
-<span id="cactustool-parfile-module"></span><h2>CactusTool.parfile module<a class="headerlink" href="#module-CactusTool.parfile" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="CactusTool.parfile.ParFile">
-<em class="property">class </em><code class="sig-prename descclassname">CactusTool.parfile.</code><code class="sig-name descname">ParFile</code><span class="sig-paren">(</span><em class="sig-param">parfiles</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/parfile.html#ParFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.parfile.ParFile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="CactusTool.parfile.ParFile.activethorn">
-<em class="property">property </em><code class="sig-name descname">activethorn</code><a class="headerlink" href="#CactusTool.parfile.ParFile.activethorn" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="CactusTool.parfile.Thorn">
-<em class="property">class </em><code class="sig-prename descclassname">CactusTool.parfile.</code><code class="sig-name descname">Thorn</code><span class="sig-paren">(</span><em class="sig-param">parameter</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/parfile.html#Thorn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.parfile.Thorn" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>This class represents the parameters of a given Cactus thorn.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="CactusTool.parfile.add_three_key">
-<code class="sig-prename descclassname">CactusTool.parfile.</code><code class="sig-name descname">add_three_key</code><span class="sig-paren">(</span><em class="sig-param">par</em>, <em class="sig-param">key_a</em>, <em class="sig-param">key_b</em>, <em class="sig-param">key_c</em>, <em class="sig-param">val</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/parfile.html#add_three_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.parfile.add_three_key" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="CactusTool.parfile.add_two_key">
-<code class="sig-prename descclassname">CactusTool.parfile.</code><code class="sig-name descname">add_two_key</code><span class="sig-paren">(</span><em class="sig-param">par</em>, <em class="sig-param">key_a</em>, <em class="sig-param">key_b</em>, <em class="sig-param">val</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/parfile.html#add_two_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.parfile.add_two_key" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="CactusTool.parfile.guess_par_type">
-<code class="sig-prename descclassname">CactusTool.parfile.</code><code class="sig-name descname">guess_par_type</code><span class="sig-paren">(</span><em class="sig-param">varstr</em>, <em class="sig-param">filters</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/parfile.html#guess_par_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.parfile.guess_par_type" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="CactusTool.parfile.load_parfile">
-<code class="sig-prename descclassname">CactusTool.parfile.</code><code class="sig-name descname">load_parfile</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/parfile.html#load_parfile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.parfile.load_parfile" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="simple">
-<dt>Return:</dt><dd><p>A dict about key value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="CactusTool.parfile.par_to_bool">
-<code class="sig-prename descclassname">CactusTool.parfile.</code><code class="sig-name descname">par_to_bool</code><span class="sig-paren">(</span><em class="sig-param">v</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/parfile.html#par_to_bool"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.parfile.par_to_bool" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="CactusTool.parfile.par_to_str">
-<code class="sig-prename descclassname">CactusTool.parfile.</code><code class="sig-name descname">par_to_str</code><span class="sig-paren">(</span><em class="sig-param">v</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/parfile.html#par_to_str"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.parfile.par_to_str" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="CactusTool.parfile.par_to_varlist">
-<code class="sig-prename descclassname">CactusTool.parfile.</code><code class="sig-name descname">par_to_varlist</code><span class="sig-paren">(</span><em class="sig-param">v</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/parfile.html#par_to_varlist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.parfile.par_to_varlist" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
-<div class="section" id="module-CactusTool.preview">
-<span id="cactustool-preview-module"></span><h2>CactusTool.preview module<a class="headerlink" href="#module-CactusTool.preview" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="CactusTool.preview.hdf5_2d">
-<code class="sig-prename descclassname">CactusTool.preview.</code><code class="sig-name descname">hdf5_2d</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">Y</em>, <em class="sig-param">data</em>, <em class="sig-param">title=None</em>, <em class="sig-param">colormap='RdBu'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/preview.html#hdf5_2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.preview.hdf5_2d" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a pseudocolor plot</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The dimensions of X and Y should be one greater than those of C. Alternatively, X, Y and C may have equal dimensions, in which case the last row and column of C will be ignored.</p>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<em>array</em>) – A 1-D array. They will be expanded as needed into the appropriate 2-D arrays, making a rectangular grid.</p></li>
-<li><p><strong>Y</strong> (<em>array</em>) – A 1-D array. They will be expanded as needed into the appropriate 2-D arrays, making a rectangular grid.</p></li>
-<li><p><strong>data</strong> (<em>array</em>) – A scalar 2-D array. The values will be color-mapped.</p></li>
-<li><p><strong>title</strong> (<em>str</em>) – Set figure title.</p></li>
-<li><p><strong>colormap</strong> (<em>str</em>) – A Colormap name. The colormap maps the C values to colors.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-</div>
 <div class="section" id="module-CactusTool.unit">
 <span id="cactustool-unit-module"></span><h2>CactusTool.unit module<a class="headerlink" href="#module-CactusTool.unit" title="Permalink to this headline">¶</a></h2>
 <p>This module provides a class Units representing unit systems or unit 
 conversions. All expressed in SI units.</p>
-</div>
-<div class="section" id="module-CactusTool.visualize">
-<span id="cactustool-visualize-module"></span><h2>CactusTool.visualize module<a class="headerlink" href="#module-CactusTool.visualize" title="Permalink to this headline">¶</a></h2>
-<p>This module provides functions to plot different type of figure.</p>
-<ul class="simple">
-<li><p>color_bar: <a class="reference internal" href="#CactusTool.visualize.color_bar" title="CactusTool.visualize.color_bar"><code class="xref py py-func docutils literal notranslate"><span class="pre">color_bar()</span></code></a></p></li>
-<li><p>2-D scalar plot: <a class="reference internal" href="#CactusTool.visualize.imshow" title="CactusTool.visualize.imshow"><code class="xref py py-func docutils literal notranslate"><span class="pre">imshow()</span></code></a>, <a class="reference internal" href="#CactusTool.visualize.pcolormesh" title="CactusTool.visualize.pcolormesh"><code class="xref py py-func docutils literal notranslate"><span class="pre">pcolormesh()</span></code></a>, <a class="reference internal" href="#CactusTool.visualize.contour" title="CactusTool.visualize.contour"><code class="xref py py-func docutils literal notranslate"><span class="pre">contour()</span></code></a>, <a class="reference internal" href="#CactusTool.visualize.surface" title="CactusTool.visualize.surface"><code class="xref py py-func docutils literal notranslate"><span class="pre">surface()</span></code></a></p></li>
-<li><p>2-D vector plot: <a class="reference internal" href="#CactusTool.visualize.vectors" title="CactusTool.visualize.vectors"><code class="xref py py-func docutils literal notranslate"><span class="pre">vectors()</span></code></a></p></li>
-<li><p>grid struct: <a class="reference internal" href="#CactusTool.visualize.grid_struct" title="CactusTool.visualize.grid_struct"><code class="xref py py-func docutils literal notranslate"><span class="pre">grid_struct()</span></code></a></p></li>
-</ul>
-<dl class="function">
-<dt id="CactusTool.visualize.color_bar">
-<code class="sig-prename descclassname">CactusTool.visualize.</code><code class="sig-name descname">color_bar</code><span class="sig-paren">(</span><em class="sig-param">image</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/visualize.html#color_bar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.visualize.color_bar" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds a colorbar with given axes.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>im</strong> – Which image object to use for the colorbar.</p></li>
-<li><p><strong>kwargs</strong> – Unknown keyword arguments are passed to <code class="xref py py-func docutils literal notranslate"><span class="pre">plt.colorbar()</span></code>.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="CactusTool.visualize.contour">
-<code class="sig-prename descclassname">CactusTool.visualize.</code><code class="sig-name descname">contour</code><span class="sig-paren">(</span><em class="sig-param">ax</em>, <em class="sig-param">X</em>, <em class="sig-param">Y</em>, <em class="sig-param">Z</em>, <em class="sig-param">fill=True</em>, <em class="sig-param">contour_levels=10</em>, <em class="sig-param">line_levels=5</em>, <em class="sig-param">line_color='k'</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/visualize.html#contour"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.visualize.contour" title="Permalink to this definition">¶</a></dt>
-<dd><p>Draw contour lines or filled contours.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ax</strong> – Which axes to use for the plot.</p></li>
-<li><p><strong>X</strong><strong>, </strong><strong>Y</strong> (<em>array</em>) – The coordinates of the values in Z. X and Y must both be 2-D with the same shape as Z (e.g. created via <code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.meshgrid()</span></code>)</p></li>
-<li><p><strong>Z</strong> (<em>array</em>) – 2D data to plot.</p></li>
-<li><p><strong>fill</strong> (<em>bool</em>) – draw contour lines or filled contours</p></li>
-<li><p><strong>contour_levels</strong> – if fill is True; contour_levels determines the number of the filled contours.</p></li>
-<li><p><strong>line_levels</strong> – if fill is True; line_levels determines the number of the lines.</p></li>
-<li><p><strong>line_color</strong> – if fill is True; line_color determines the color of the lines.</p></li>
-<li><p><strong>kwargs</strong> – Unknown keyword arguments are passed to <code class="xref py py-func docutils literal notranslate"><span class="pre">ax.contour()</span></code> or <code class="xref py py-func docutils literal notranslate"><span class="pre">ax.contourf()</span></code>.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>image object</p>
-</dd>
-</dl>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">im</span> <span class="o">=</span> <span class="n">imshow</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">)</span>
-<span class="go">Only draw contour lines.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">im</span> <span class="o">=</span> <span class="n">contour</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="go">Draw contour lines and filled contours,</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">im</span> <span class="o">=</span> <span class="n">contour</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">contour_levels</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">line_levels</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-<span class="go">Draw contour lines and filled contours, filled levels determined by contour_levels and line number determined by line_levels</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">im</span> <span class="o">=</span> <span class="n">contour</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">line_color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
-<span class="go">line color determined by line_color</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">im</span> <span class="o">=</span> <span class="n">contour</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">bone</span><span class="p">)</span>
-<span class="go">filled color determined by cmap</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">im</span> <span class="o">=</span> <span class="n">contour</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="go">The alpha blending value, between 0 (transparent) and 1 (opaque).</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Zm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">masked_where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.000001</span><span class="p">,</span> <span class="n">Z</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">im</span> <span class="o">=</span> <span class="n">contour</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">Zm</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="go">control the masked region.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">ticker</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">im</span> <span class="o">=</span> <span class="n">contour</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">locator</span><span class="o">=</span><span class="n">ticker</span><span class="o">.</span><span class="n">LogLocator</span><span class="p">(),</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="go">log locator tells contourf to use a log scale</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="function">
-<dt id="CactusTool.visualize.grid_struct">
-<code class="sig-prename descclassname">CactusTool.visualize.</code><code class="sig-name descname">grid_struct</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/visualize.html#grid_struct"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.visualize.grid_struct" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plots grid structure.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="CactusTool.visualize.imshow">
-<code class="sig-prename descclassname">CactusTool.visualize.</code><code class="sig-name descname">imshow</code><span class="sig-paren">(</span><em class="sig-param">ax</em>, <em class="sig-param">Z</em>, <em class="sig-param">axis_ticks=False</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/visualize.html#imshow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.visualize.imshow" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plot an array as an image. Loss coordinate information. This function return image object, you can add colorbar use <a class="reference internal" href="#CactusTool.visualize.color_bar" title="CactusTool.visualize.color_bar"><code class="xref py py-func docutils literal notranslate"><span class="pre">color_bar()</span></code></a>.</p>
-<p>If X and Y are each equidistant, imshow can be more convenient.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ax</strong> – Which axes to use for the plot.</p></li>
-<li><p><strong>Z</strong> (<em>array</em>) – 2D data to plot.</p></li>
-<li><p><strong>axis_ticks</strong> (<em>bool</em>) – Whether turn on axis lines and labels.</p></li>
-<li><p><strong>kwargs</strong> – Unknown keyword arguments are passed to <code class="xref py py-func docutils literal notranslate"><span class="pre">ax.imshow()</span></code></p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>image object</p>
-</dd>
-</dl>
-<p>Supported interpolation are [‘none’, ‘nearest’, ‘bilinear’, ‘bicubic’, ‘spline16’, ‘spline36’, ‘hanning’, ‘hamming’, ‘hermite’, ‘kaiser’, ‘quadric’, ‘catrom’, ‘gaussian’, ‘bessel’, ‘mitchell’, ‘sinc’, ‘lanczos’].</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">im</span> <span class="o">=</span> <span class="n">imshow</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">axis_ticks</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="go">turn on axis lines and labels.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">im</span> <span class="o">=</span> <span class="n">imshow</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdBu&#39;</span><span class="p">)</span>
-<span class="go">colormap name used to map scalar data to colors.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">im</span> <span class="o">=</span> <span class="n">imshow</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="go">The alpha blending value, between 0 (transparent) and 1 (opaque).</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">im</span> <span class="o">=</span> <span class="n">imshow</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
-<span class="go">Interpolation method.</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="function">
-<dt id="CactusTool.visualize.pcolormesh">
-<code class="sig-prename descclassname">CactusTool.visualize.</code><code class="sig-name descname">pcolormesh</code><span class="sig-paren">(</span><em class="sig-param">ax</em>, <em class="sig-param">X</em>, <em class="sig-param">Y</em>, <em class="sig-param">Z</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/visualize.html#pcolormesh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.visualize.pcolormesh" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a pseudocolor 2-D plot.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ax</strong> – Which axes to use for the plot.</p></li>
-<li><p><strong>X</strong><strong>, </strong><strong>Y</strong> (<em>array</em>) – The coordinates of X and Y are bounds.</p></li>
-<li><p><strong>Z</strong> (<em>array</em>) – 2D data to plot.</p></li>
-<li><p><strong>kwargs</strong> – Unknown keyword arguments are passed to <code class="xref py py-func docutils literal notranslate"><span class="pre">ax.pcolormesh()</span></code>.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>image object</p>
-</dd>
-</dl>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If X, Y and Z have equal dimensions, the last value from the z array may be removed.</p>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">im</span> <span class="o">=</span> <span class="n">pcolormesh</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">Z</span><span class="p">)</span>
-<span class="go">Create a pseudocolor 2-D plot.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Zm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">masked_where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.0001</span><span class="p">,</span> <span class="n">Z</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">im</span> <span class="o">=</span> <span class="n">pcolormesh</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">Zm</span><span class="p">,</span> <span class="n">shading</span><span class="o">=</span><span class="s1">&#39;gouraud&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="function">
-<dt id="CactusTool.visualize.surface">
-<code class="sig-prename descclassname">CactusTool.visualize.</code><code class="sig-name descname">surface</code><span class="sig-paren">(</span><em class="sig-param">ax</em>, <em class="sig-param">X</em>, <em class="sig-param">Y</em>, <em class="sig-param">Z</em>, <em class="sig-param">mesh=False</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/visualize.html#surface"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.visualize.surface" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a surface plot.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ax</strong> – Which axes to use for the plot. ax is the 3D projection.</p></li>
-<li><p><strong>X</strong><strong>, </strong><strong>Y</strong> (<em>array</em>) – The coordinates of the values in Z. X and Y must both be 2-D with the same shape as Z (e.g. created via <code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.meshgrid()</span></code>)</p></li>
-<li><p><strong>Z</strong> (<em>array</em>) – 2D data to plot.</p></li>
-<li><p><strong>mesh</strong> (<em>bool</em>) – A mesh plot</p></li>
-<li><p><strong>kwargs</strong> – Unknown keyword arguments are passed to <code class="xref py py-func docutils literal notranslate"><span class="pre">ax.contour()</span></code> or <code class="xref py py-func docutils literal notranslate"><span class="pre">ax.contourf()</span></code>.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>image object</p>
-</dd>
-</dl>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">im</span> <span class="o">=</span> <span class="n">surface</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">Z</span><span class="p">)</span>
-<span class="go">Create a surface plot.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">im</span> <span class="o">=</span> <span class="n">surface</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">YlGnBu_r</span><span class="p">)</span>
-<span class="go">A colormap for the surface patches.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">im</span> <span class="o">=</span> <span class="n">surface</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">mesh</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="go">A mesh plot.</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="function">
-<dt id="CactusTool.visualize.vectors">
-<code class="sig-prename descclassname">CactusTool.visualize.</code><code class="sig-name descname">vectors</code><span class="sig-paren">(</span><em class="sig-param">ax</em>, <em class="sig-param">X</em>, <em class="sig-param">Y</em>, <em class="sig-param">U</em>, <em class="sig-param">V</em>, <em class="sig-param">W=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/visualize.html#vectors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.visualize.vectors" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plot vectors in 2-D plot. The color of the arrows is its mod. <code class="xref py py-func docutils literal notranslate"><span class="pre">ax.quiverkey()</span></code> auto-scales the length of the arrows to a reasonable size.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ax</strong> – Which axes to use for the plot.</p></li>
-<li><p><strong>X</strong><strong>, </strong><strong>Y</strong> (<em>array</em>) – X, Y define the arrow locations.</p></li>
-<li><p><strong>U</strong><strong>, </strong><strong>V</strong><strong>, </strong><strong>W</strong> (<em>array</em>) – 3-D vector have component (U, V, W). Default is 2-D vector (U,V)</p></li>
-<li><p><strong>kwargs</strong> – Unknown keyword arguments are passed to <code class="xref py py-func docutils literal notranslate"><span class="pre">ax.quiverkey()</span></code>.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>image object</p>
-</dd>
-</dl>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">im</span> <span class="o">=</span> <span class="n">vectors</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="p">)</span>
-<span class="go">Plot a 2D field of vectors.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">im</span> <span class="o">=</span> <span class="n">vectors</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span>
-<span class="go">Plot a 3D field of vectors in 2D plot.</span>
-</pre></div>
-</div>
-</dd></dl>
-
 </div>
 <div class="section" id="module-CactusTool">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-CactusTool" title="Permalink to this headline">¶</a></h2>
@@ -550,16 +287,10 @@ conversions. All expressed in SI units.</p>
 <li><a class="reference internal" href="#">CactusTool package</a><ul>
 <li><a class="reference internal" href="#subpackages">Subpackages</a></li>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-CactusTool.debug">CactusTool.debug module</a></li>
-<li><a class="reference internal" href="#module-CactusTool.dictionary">CactusTool.dictionary module</a></li>
 <li><a class="reference internal" href="#module-CactusTool.funcs">CactusTool.funcs module</a></li>
-<li><a class="reference internal" href="#module-CactusTool.grid_data">CactusTool.grid_data module</a></li>
 <li><a class="reference internal" href="#module-CactusTool.main">CactusTool.main module</a></li>
 <li><a class="reference internal" href="#module-CactusTool.outputfile">CactusTool.outputfile module</a></li>
-<li><a class="reference internal" href="#module-CactusTool.parfile">CactusTool.parfile module</a></li>
-<li><a class="reference internal" href="#module-CactusTool.preview">CactusTool.preview module</a></li>
 <li><a class="reference internal" href="#module-CactusTool.unit">CactusTool.unit module</a></li>
-<li><a class="reference internal" href="#module-CactusTool.visualize">CactusTool.visualize module</a></li>
 <li><a class="reference internal" href="#module-CactusTool">Module contents</a></li>
 </ul>
 </li>

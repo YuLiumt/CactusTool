@@ -248,7 +248,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">CactusTool</span> <span class="k">import</span> <span class="n">Simulation</span>
+<span></span><span class="kn">from</span> <span class="nn">CactusTool</span> <span class="kn">import</span> <span class="n">Simulation</span>
 <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;/Users/liuyu/simulations/TOV_single_vel&#39;</span>
 <span class="c1"># name = &#39;/Users/liuyu/simulations/BH&#39;</span>
 </pre></div>
@@ -272,7 +272,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">Par</span><span class="p">)</span>
+<span></span><span class="k">print</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">Par</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -281,7 +281,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">Par</span><span class="o">.</span><span class="n">MoL</span><span class="p">)</span>
+<span></span><span class="k">print</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">Par</span><span class="o">.</span><span class="n">MoL</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -295,7 +295,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">Scalar</span><span class="p">)</span>
+<span></span><span class="k">print</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">Scalar</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -304,8 +304,8 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">Scalar</span><span class="o">.</span><span class="n">none</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">Scalar</span><span class="o">.</span><span class="n">none</span><span class="p">[</span><span class="s1">&#39;qlm_area[0]&#39;</span><span class="p">])</span>
+<span></span><span class="k">print</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">Scalar</span><span class="o">.</span><span class="n">none</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">Scalar</span><span class="o">.</span><span class="n">none</span><span class="p">[</span><span class="s1">&#39;qlm_area[0]&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -314,7 +314,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">Scalar</span><span class="o">.</span><span class="n">none</span><span class="p">[</span><span class="s1">&#39;qlm_area[0]&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+<span></span><span class="k">print</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">Scalar</span><span class="o">.</span><span class="n">none</span><span class="p">[</span><span class="s1">&#39;qlm_area[0]&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -341,7 +341,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">H5</span><span class="p">)</span>
+<span></span><span class="k">print</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">H5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -350,7 +350,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">H5</span><span class="o">.</span><span class="n">xy</span><span class="p">[</span><span class="s1">&#39;rho&#39;</span><span class="p">])</span>
+<span></span><span class="k">print</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">H5</span><span class="o">.</span><span class="n">xy</span><span class="p">[</span><span class="s1">&#39;rho&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -373,7 +373,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">files</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">Debug</span><span class="o">.</span><span class="n">files</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

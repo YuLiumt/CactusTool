@@ -3,11 +3,11 @@ This is the main modular. Everything start from it.
 """
 
 from .funcs import *
-from .parfile import ParFile
+from .Parameter import Parfile
 from .Carpet import CarpetIOScalar
 from .Carpet import CarpetIOHDF5
 from .Carpet import CarpetIOASCII
-from .debug import DeBug
+from .Debug import NaNCheck
 import os
 
 class Simulation:
@@ -38,7 +38,7 @@ class Simulation:
         It first read parameter file if it exist.
         """
         if bool(self.parfiles):
-            return ParFile(self.parfiles)
+            return Parfile(self.parfiles)
         else:
             print("Do not find any parfile in ", self.path)
 
@@ -64,8 +64,8 @@ class Simulation:
             raise Exception("No ASCII variable in {}:".format(self.simname))        
 
     @property
-    def Debug(self):
+    def NaN(self):
         if bool(self.debugfiles):
-            return DeBug(self)
+            return NaNCheck(self)
         else:
             raise Exception("No NaNCheck in {}:".format(self.simname))

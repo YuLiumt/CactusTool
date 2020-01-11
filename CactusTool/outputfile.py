@@ -2,7 +2,6 @@
 Carpet provides ASCII and HDF5-based output for Carpet. These I/O methods can output any type of CCTK grid variables (grid scalars, grid functions, and grid arrays of arbitrary dimension). The :py:mod:`~CactusTool.outputfile` module provides most of the functionality of functions to deal with these different type of output file.
 """
 
-from .dictionary import *
 import numpy as np
 import h5py
 import bz2
