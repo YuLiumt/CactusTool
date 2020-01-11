@@ -45,7 +45,7 @@ extensions = [
     'nbsphinx',
     'IPython.sphinxext.ipython_console_highlighting',
     'recommonmark',
-    'jupyter_sphinx.execute',
+    # 'jupyter_sphinx.execute',
 ]
 
 nbsphinx_execute = 'always'
