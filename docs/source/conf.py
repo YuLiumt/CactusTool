@@ -48,7 +48,8 @@ extensions = [
     # 'jupyter_sphinx.execute',
 ]
 
-nbsphinx_execute = 'always'
+nbsphinx_allow_errors = True
+# nbsphinx_execute = 'always'
 
 autosummary_generate = True
 
