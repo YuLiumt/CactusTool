@@ -1,3 +1,2 @@
 ipykernel
 nbsphinx
-jupyter_sphinx.execute
