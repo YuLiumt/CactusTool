@@ -12,8 +12,10 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../../'))
+sys.path.insert(0, os.path.abspath('../..'))
 # autodoc_mock_imports = ['CactusTool', 'numpy', 're', 'os', 'h5py', 'bz2', 'gzip']
+package_path = os.path.abspath('../..')
+os.environ['PYTHONPATH'] = ':'.join((package_path, os.environ.get('PYTHONPATH', '')))
 
 import sphinx_rtd_theme
 # -- Project information -----------------------------------------------------
