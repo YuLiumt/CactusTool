@@ -13,4 +13,5 @@ setup(
         "scipy", 
         "h5py",
         "matplotlib",
+        "pandas",
     ])
