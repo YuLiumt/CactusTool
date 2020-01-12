@@ -19,11 +19,11 @@ CactusTool is not a powerful 3D animation tool. CactusTool generates rich static
    Tutorial/main
    API/CactusTool
 
-Indices and tables
-==================
+.. Indices and tables
+.. ==================
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+.. * :ref:`genindex`
+.. * :ref:`modindex`
+.. * :ref:`search`
 
 Built by `Yu Liu <https://yuliumt.github.io>`_
