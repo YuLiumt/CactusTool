@@ -24,6 +24,9 @@ python:
     - method: pip
       path: .
       extra_requirements:
-          - docs
-    - method: setuptools
-      path: package
+        - docs
+        - numpy
+        - scipy
+        - h5py
+        - matplotlib
+        - pandas
