@@ -16,6 +16,7 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
   </head><body>
@@ -54,6 +55,8 @@
 <span class="sd">    Thorn CarpetIOHDF5 provides I/O methods for outputting gird function in HDF5 format into files. This class can handle all CarpetIOHDF5 output. Read the dataset from files and return all useful information stored in these files. We recommend use CarpetIOHDF5 to output all 2-D and 3-D grid function.</span>
 
 <span class="sd">    :py:class:`CarpetIOHDF5` itself do nothing. You need specify the dimensions of gird function. This will pointer to :py:class:`Griddim`.</span>
+
+<span class="sd">    :param list files: can either be a list of filenames or a single filename</span>
 
 <span class="sd">    * :py:attr:`CarpetIOHDF5.x` x dimension of the gird function</span>
 <span class="sd">    * :py:attr:`CarpetIOHDF5.y` y dimension of the gird function</span>
@@ -94,7 +97,7 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">vars</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        All available variable in such dim.</span>
+<span class="sd">        All available variable in such dim. We store a dictionary { key : [file] } to be able to track the location of the data within the multiple files.</span>
 
 <span class="sd">        :return: A dict. key is the variable name, value is corresponding files.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -152,6 +155,7 @@
 
 <div class="viewcode-block" id="Variable.grid_hierarchies"><a class="viewcode-back" href="../../../API/CactusTool.Carpet.html#CactusTool.Carpet.HDF5.Variable.grid_hierarchies">[docs]</a>    <span class="k">def</span> <span class="nf">grid_hierarchies</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        # TODO:</span>
 <span class="sd">        Describes the geometry of the refined grid hierarchies, such as component number, ghost zones and refinement level. Grid hierarchies may change in the evolution. These all get from the header of files.</span>
 
 <span class="sd">        :return: a dict about grid_hierarchies</span>

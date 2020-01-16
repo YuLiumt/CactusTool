@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>CactusTool.funcs.Dataset &#8212; CactusTool 0.0.1 documentation</title>
+    <link rel="stylesheet" href="../../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../funcs.html" accesskey="U">CactusTool.funcs</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for CactusTool.funcs.Dataset</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Dataset</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<div class="viewcode-block" id="arithmetic_progression"><a class="viewcode-back" href="../../../API/CactusTool.funcs.html#CactusTool.funcs.Dataset.arithmetic_progression">[docs]</a><span class="k">def</span> <span class="nf">arithmetic_progression</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Arithmetic Progressions</span>
+
+<span class="sd">    :param list a: Arithmetic Progressions</span>
+<span class="sd">    :return: a0 and da</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">da</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">da</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> is not a arithmetic progressions&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">da</span></div>
+
+<div class="viewcode-block" id="merge_data_simple"><a class="viewcode-back" href="../../../API/CactusTool.funcs.html#CactusTool.funcs.Dataset.merge_data_simple">[docs]</a><span class="k">def</span> <span class="nf">merge_data_simple</span><span class="p">(</span><span class="n">alldat</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Merges a list of RegData instances into one, assuming they</span>
+<span class="sd">    all have the same grid spacing and filling a regular grid completely,</span>
+<span class="sd">    with the same values in overlapping regions (ghost zones etc).</span>
+<span class="sd">    Beware, the assumptions are not checked.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">alldat</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">alldat</span><span class="p">)</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">alldat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">mg</span>    <span class="o">=</span> <span class="n">merge_geom</span><span class="p">(</span><span class="n">alldat</span><span class="p">)</span>
+    <span class="n">data</span>  <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">mg</span><span class="o">.</span><span class="n">shape</span><span class="p">(),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">alldat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">alldat</span><span class="p">:</span>
+        <span class="n">i0</span>      <span class="o">=</span> <span class="p">((</span><span class="n">d</span><span class="o">.</span><span class="n">x0</span><span class="p">()</span><span class="o">-</span><span class="n">mg</span><span class="o">.</span><span class="n">x0</span><span class="p">())</span><span class="o">/</span><span class="n">mg</span><span class="o">.</span><span class="n">dx</span><span class="p">()</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">int32</span><span class="p">)</span>
+        <span class="n">i1</span>      <span class="o">=</span> <span class="n">i0</span> <span class="o">+</span> <span class="n">d</span><span class="o">.</span><span class="n">shape</span><span class="p">()</span>
+        <span class="n">i</span>       <span class="o">=</span> <span class="p">[</span><span class="nb">slice</span><span class="p">(</span><span class="n">j0</span><span class="p">,</span><span class="n">j1</span><span class="p">)</span> <span class="k">for</span> <span class="n">j0</span><span class="p">,</span><span class="n">j1</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">i0</span><span class="p">,</span><span class="n">i1</span><span class="p">)]</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">data</span>
+    <span class="c1">#</span>
+    <span class="k">return</span> <span class="n">RegData</span><span class="p">(</span><span class="n">mg</span><span class="o">.</span><span class="n">x0</span><span class="p">(),</span><span class="n">mg</span><span class="o">.</span><span class="n">dx</span><span class="p">(),</span><span class="n">data</span><span class="p">,</span> <span class="n">reflevel</span><span class="o">=</span><span class="n">alldat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">reflevel</span><span class="p">(),</span> <span class="n">component</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CompData"><a class="viewcode-back" href="../../../API/CactusTool.funcs.html#CactusTool.funcs.Dataset.CompData">[docs]</a><span class="k">def</span> <span class="nf">CompData</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Composite data consisting of one or more regular datasets with </span>
+<span class="sd">    different grid spacings, i.e. a mesh refinement hirachy. The grid </span>
+<span class="sd">    spacings should differ by powers of two. Origins of the components </span>
+<span class="sd">    are shifted relative to each other only by multiples of the finest </span>
+<span class="sd">    spacing. Basic arithmetic operations are defined for this class, as </span>
+<span class="sd">    well as interpolation and resampling. This class can be iterated over </span>
+<span class="sd">    to get all the regular datasets, ordered by refinement level and</span>
+<span class="sd">    componen number.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">a</span></div>
+
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../funcs.html" >CactusTool.funcs</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Yu Liu.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.
+    </div>
+  </body>
+</html>

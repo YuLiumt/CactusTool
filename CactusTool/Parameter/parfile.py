@@ -150,7 +150,7 @@ class Thorn:
         return "%s" % (self.parameter)
 
 
-class Parfile:
+class ParFile:
     def __init__(self, parfiles):
         # Use the parfile which is first created
         par_create_time = [os.path.getctime(par) for par in parfiles]

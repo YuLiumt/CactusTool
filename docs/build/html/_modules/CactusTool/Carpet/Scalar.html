@@ -16,6 +16,7 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
   </head><body>
@@ -52,34 +53,72 @@
 
 <div class="viewcode-block" id="CarpetIOScalar"><a class="viewcode-back" href="../../../API/CactusTool.Carpet.html#CactusTool.Carpet.Scalar.CarpetIOScalar">[docs]</a><span class="k">class</span> <span class="nc">CarpetIOScalar</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Thorn CarpetIOScalar provides I/O methods for outputting scalar values in ASCII format into files. This class can handle all CarpetIOScalar output. Read the dataset from files and return all executable reduction operation.</span>
+<span class="sd">    Thorn CarpetIOScalar provides I/O methods for outputting scalar values in ASCII format into files. This class can handle all CarpetIOScalar output. Read the dataset from files when given specified reduction operation.</span>
 
-<span class="sd">    :py:class:`CarpetIOScalar` itself do nothing. You need specify the reduction operation. This will pointer to :py:class:`ScalarReduction`.</span>
+<span class="sd">    :py:class:`CarpetIOScalar` itself do nothing. You need specify the reduction operation. This will pointer to another class :py:class:`ScalarReduction`.</span>
 
-<span class="sd">    * :py:attr:`CarpetIOScalar.min` The minimum of the gird function</span>
-<span class="sd">    * :py:attr:`CarpetIOScalar.max` The maximum of the gird function</span>
-<span class="sd">    * :py:attr:`CarpetIOScalar.norm1` The norm1 of the gird function</span>
-<span class="sd">    * :py:attr:`CarpetIOScalar.norm2` The norm2 of the gird function</span>
-<span class="sd">    * :py:attr:`CarpetIOScalar.average` The average of the gird function</span>
-<span class="sd">    * :py:attr:`CarpetIOScalar.none` The variable is scalar, don&#39;t need do any reduction</span>
-
-<span class="sd">    :param list files: A list of file in absolute path.</span>
-
-<span class="sd">    &gt;&gt;&gt; ds = CarpetIOScalar(Scalar_file)</span>
-<span class="sd">    &gt;&gt;&gt; print(ds)</span>
-<span class="sd">    Available min timeseries:</span>
-<span class="sd">    []</span>
-<span class="sd">    Available max timeseries:</span>
-<span class="sd">    [&#39;H&#39;]</span>
+<span class="sd">    :param list files: can either be a list of filenames or a single filename</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">files</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">files</span>    <span class="o">=</span> <span class="n">ensure_list</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">min</span>      <span class="o">=</span> <span class="n">ScalarReduction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">,</span> <span class="s1">&#39;minimum&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">max</span>      <span class="o">=</span> <span class="n">ScalarReduction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">,</span> <span class="s1">&#39;maximum&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">norm1</span>    <span class="o">=</span> <span class="n">ScalarReduction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">,</span> <span class="s1">&#39;norm1&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">norm2</span>    <span class="o">=</span> <span class="n">ScalarReduction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">,</span> <span class="s1">&#39;norm2&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">average</span>  <span class="o">=</span> <span class="n">ScalarReduction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">,</span> <span class="s1">&#39;average&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">none</span>     <span class="o">=</span> <span class="n">ScalarReduction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">files</span> <span class="o">=</span> <span class="n">ensure_list</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">min</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The minimum of the values </span>
+
+<span class="sd">        .. math:: </span>
+<span class="sd">        </span>
+<span class="sd">            \\min := \\min \{a_{i}\} </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">ScalarReduction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">,</span> <span class="s1">&#39;minimum&#39;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">max</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The maximum of the values</span>
+
+<span class="sd">        .. math:: </span>
+<span class="sd">        </span>
+<span class="sd">            \\max := \\max \{a_{i}\} </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">ScalarReduction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">,</span> <span class="s1">&#39;maximum&#39;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">norm1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The norm1 of the values</span>
+
+<span class="sd">        .. math:: </span>
+<span class="sd">        </span>
+<span class="sd">            \\frac{\\Sigma_{i} \\left|a_{i}\\right|}{count}</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">ScalarReduction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">,</span> <span class="s1">&#39;norm1&#39;</span><span class="p">)</span>
+ 
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">norm2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The norm2 of the values</span>
+
+<span class="sd">        .. math:: </span>
+<span class="sd">        </span>
+<span class="sd">            \\sqrt{\\frac{\\sum_{i} \\left|a_{i}\\right|^{2}}{count}}</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">ScalarReduction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">,</span> <span class="s1">&#39;norm2&#39;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">average</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The average of the values</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">ScalarReduction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">,</span> <span class="s1">&#39;average&#39;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">none</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The values at coordinate origin</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">ScalarReduction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%s%s%s%s%s%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">min</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">norm1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">norm2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">average</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">none</span><span class="p">)</span></div>
@@ -87,7 +126,7 @@
 
 <div class="viewcode-block" id="ScalarReduction"><a class="viewcode-back" href="../../../API/CactusTool.Carpet.html#CactusTool.Carpet.Scalar.ScalarReduction">[docs]</a><span class="k">class</span> <span class="nc">ScalarReduction</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    For gird function, We need choose which type of reduction operations. Then choose the variable we want to processes, this will pointer to :py:class:`Variable`.</span>
+<span class="sd">    For gird function, We need choose which type of reduction operations. Then choose the variable we want to processes, this will pointer to another class :py:class:`Variable`.</span>
 
 <span class="sd">    :param list files: A list of file in absolute path.</span>
 <span class="sd">    :param str kind: Type of reduction operations.</span>
@@ -95,7 +134,13 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">kind</span><span class="p">):</span>
         <span class="n">pat_fn</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;\S*\.(minimum|maximum|norm1|norm2|average)?\.asc(\.(gz|bz2))?$&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">=</span> <span class="n">kind</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">files</span> <span class="o">=</span> <span class="p">[</span><span class="n">file</span> <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span> <span class="k">if</span> <span class="n">pat_fn</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">file</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">kind</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">files</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span> 
+                <span class="k">if</span> <span class="n">pat_fn</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">file</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">kind</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="k">continue</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">vars</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -124,9 +169,7 @@
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">vars</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">k</span><span class="p">:</span>
                 <span class="n">p</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Please make sure </span><span class="si">%s</span><span class="s2"> belong the same group&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
-        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> is not exist in reduction </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kind</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">Variable</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
     
@@ -150,82 +193,39 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">varfiles</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">varfiles</span> <span class="o">=</span> <span class="n">varfiles</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">Table</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_init_dataset</span><span class="p">()</span>
 
-<div class="viewcode-block" id="Variable.dataset"><a class="viewcode-back" href="../../../API/CactusTool.Carpet.html#CactusTool.Carpet.Scalar.Variable.dataset">[docs]</a>    <span class="k">def</span> <span class="nf">dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_init_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        CarpetIOScalar Dataset will store in pandas dataframe, because the ASCII data structure more like a table. This dataset will store in :py:attr:`Variable.Table`.</span>
-
-<span class="sd">        :param kwargs: Unknown keyword arguments are passed to :py:func:`pd.concat()`.</span>
+<span class="sd">        CarpetIOScalar Dataset will store in pandas dataframe, because the ASCII data structure more like a table. This dataset will store in :py:attr:`Variable.dataset`.</span>
 
 <span class="sd">        :return: DataFrame</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">files</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">p</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">varfiles</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">tem</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">varfiles</span><span class="p">[</span><span class="n">var</span><span class="p">]:</span>
                 <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
                     <span class="k">continue</span>
                 <span class="n">files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
                 <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">comments</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
-                <span class="n">column</span> <span class="o">=</span> <span class="n">columns</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
-                <span class="n">p</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">column</span><span class="p">))</span> 
-
-        <span class="k">if</span> <span class="n">key</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">Table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="n">files</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">Table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Table</span></div>
-
-<div class="viewcode-block" id="Variable.preview"><a class="viewcode-back" href="../../../API/CactusTool.Carpet.html#CactusTool.Carpet.Scalar.Variable.preview">[docs]</a>    <span class="k">def</span> <span class="nf">preview</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        :py:meth:`Variable.preview` just simple preview. We will use :py:func:`pandas.DataFrame.plot()` to do it. It is best to run :py:meth:`Variable.dataset` and check the dataset by eye before executing it.</span>
-
-<span class="sd">        :param kwargs: Unknown keyword arguments are passed to :py:func:`pandas.DataFrame.plot()`.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Table</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Use default method combine multi data file.&quot;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="p">()</span>
-        <span class="k">assert</span> <span class="s1">&#39;time&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">Table</span><span class="p">,</span> <span class="s2">&quot;Dataset don&#39;t have time column&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">Table</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
-
-    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Table</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="p">()</span>
-
-        <span class="n">columns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Table</span><span class="o">.</span><span class="n">columns</span>
-        <span class="nb">min</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Table</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
-        <span class="nb">max</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Table</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-        <span class="n">mean</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Table</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-        <span class="n">output</span> <span class="o">=</span> <span class="s2">&quot;Time: [</span><span class="si">{}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">] with dt=</span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">min</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">],</span> <span class="nb">max</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">Table</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="nb">min</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">])</span>
-        <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">[</span><span class="mi">2</span><span class="p">:]:</span>
-            <span class="n">output</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">: Min is </span><span class="si">{:.4e}</span><span class="s2">;</span><span class="se">\t</span><span class="s2">Mean is </span><span class="si">{:.4e}</span><span class="s2">;</span><span class="se">\t</span><span class="s2">Max is </span><span class="si">{:.4e}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="nb">min</span><span class="p">[</span><span class="n">column</span><span class="p">],</span> <span class="n">mean</span><span class="p">[</span><span class="n">column</span><span class="p">],</span> <span class="nb">max</span><span class="p">[</span><span class="n">column</span><span class="p">])</span>
-        <span class="k">return</span> <span class="n">output</span></div>
-
-<div class="viewcode-block" id="columns"><a class="viewcode-back" href="../../../API/CactusTool.Carpet.html#CactusTool.Carpet.Scalar.columns">[docs]</a><span class="k">def</span> <span class="nf">columns</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Fetch CarpetIOScalar header information.</span>
-
-<span class="sd">    :param str file: file in absolute path</span>
-<span class="sd">    :return: The column in given file.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">with</span> <span class="n">read</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">columns</span><span class="o">=</span><span class="p">[]</span>
-        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">():</span>
-            <span class="k">if</span> <span class="s2">&quot;# 1:iteration 2:time 3:data&quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
-                <span class="n">columns</span> <span class="o">=</span> <span class="n">columns</span> <span class="o">+</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">:]</span>
-            <span class="k">if</span> <span class="s2">&quot;# column format:&quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
-                <span class="n">columns</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">3</span><span class="p">:]</span>
-            <span class="k">if</span> <span class="s2">&quot;# data columns: &quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
-                <span class="k">del</span> <span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-                <span class="n">columns</span> <span class="o">=</span> <span class="n">columns</span> <span class="o">+</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">3</span><span class="p">:]</span>
-                <span class="k">break</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">columns</span><span class="p">)]</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;File: </span><span class="si">{}</span><span class="s2"> Header fail to identify.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">file</span><span class="p">))</span></div>
+                <span class="n">column</span> <span class="o">=</span> <span class="n">columns_asc</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+                <span class="n">tem_c</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">column</span><span class="p">)</span>
+                <span class="n">tem</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tem_c</span><span class="p">)</span>
+            <span class="c1"># concat different component in same variable</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tem</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">tem_p</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">tem</span><span class="p">)</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+            <span class="c1"># merge different variable</span>
+            <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+                <span class="n">p</span> <span class="o">=</span> <span class="n">tem_p</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">p</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">tem_p</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">,</span><span class="s1">&#39;iteration&#39;</span><span class="p">])</span>
+ 
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span> <span class="o">=</span> <span class="n">p</span></div>
 </pre></div>
 
           </div>

@@ -8,3 +8,4 @@ This is the Tutorial of CactusTool. is come from jupyter notebook
 
    CactusTool
    Carpet
+   widgets

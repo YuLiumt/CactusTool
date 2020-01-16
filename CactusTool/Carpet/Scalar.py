@@ -11,34 +11,72 @@ import re
 
 class CarpetIOScalar:
     """
-    Thorn CarpetIOScalar provides I/O methods for outputting scalar values in ASCII format into files. This class can handle all CarpetIOScalar output. Read the dataset from files and return all executable reduction operation.
+    Thorn CarpetIOScalar provides I/O methods for outputting scalar values in ASCII format into files. This class can handle all CarpetIOScalar output. Read the dataset from files when given specified reduction operation.
 
-    :py:class:`CarpetIOScalar` itself do nothing. You need specify the reduction operation. This will pointer to :py:class:`ScalarReduction`.
+    :py:class:`CarpetIOScalar` itself do nothing. You need specify the reduction operation. This will pointer to another class :py:class:`ScalarReduction`.
 
-    * :py:attr:`CarpetIOScalar.min` The minimum of the gird function
-    * :py:attr:`CarpetIOScalar.max` The maximum of the gird function
-    * :py:attr:`CarpetIOScalar.norm1` The norm1 of the gird function
-    * :py:attr:`CarpetIOScalar.norm2` The norm2 of the gird function
-    * :py:attr:`CarpetIOScalar.average` The average of the gird function
-    * :py:attr:`CarpetIOScalar.none` The variable is scalar, don't need do any reduction
-
-    :param list files: A list of file in absolute path.
-
-    >>> ds = CarpetIOScalar(Scalar_file)
-    >>> print(ds)
-    Available min timeseries:
-    []
-    Available max timeseries:
-    ['H']
+    :param list files: can either be a list of filenames or a single filename
     """
     def __init__(self, files):
-        self.files    = ensure_list(files)
-        self.min      = ScalarReduction(self.files, 'minimum')
-        self.max      = ScalarReduction(self.files, 'maximum')
-        self.norm1    = ScalarReduction(self.files, 'norm1')
-        self.norm2    = ScalarReduction(self.files, 'norm2')
-        self.average  = ScalarReduction(self.files, 'average')
-        self.none     = ScalarReduction(self.files, None)
+        self.files = ensure_list(files)
+
+    @property
+    def min(self):
+        """
+        The minimum of the values 
+
+        .. math:: 
+        
+            \\min := \\min \{a_{i}\} 
+        """
+        return ScalarReduction(self.files, 'minimum')
+
+    @property
+    def max(self):
+        """
+        The maximum of the values
+
+        .. math:: 
+        
+            \\max := \\max \{a_{i}\} 
+        """
+        return ScalarReduction(self.files, 'maximum')
+
+    @property
+    def norm1(self):
+        """
+        The norm1 of the values
+
+        .. math:: 
+        
+            \\frac{\\Sigma_{i} \\left|a_{i}\\right|}{count}
+        """
+        return ScalarReduction(self.files, 'norm1')
+ 
+    @property
+    def norm2(self):
+        """
+        The norm2 of the values
+
+        .. math:: 
+        
+            \\sqrt{\\frac{\\sum_{i} \\left|a_{i}\\right|^{2}}{count}}
+        """
+        return ScalarReduction(self.files, 'norm2')
+
+    @property
+    def average(self):
+        """
+        The average of the values
+        """
+        return ScalarReduction(self.files, 'average')
+
+    @property
+    def none(self):
+        """
+        The values at coordinate origin
+        """
+        return ScalarReduction(self.files, None)
 
     def __str__(self):
         return "%s%s%s%s%s%s" % (self.min, self.max, self.norm1, self.norm2, self.average, self.none)
@@ -46,7 +84,7 @@ class CarpetIOScalar:
 
 class ScalarReduction:
     """
-    For gird function, We need choose which type of reduction operations. Then choose the variable we want to processes, this will pointer to :py:class:`Variable`.
+    For gird function, We need choose which type of reduction operations. Then choose the variable we want to processes, this will pointer to another class :py:class:`Variable`.
 
     :param list files: A list of file in absolute path.
     :param str kind: Type of reduction operations.
@@ -54,7 +92,13 @@ class ScalarReduction:
     def __init__(self, files, kind):
         pat_fn = re.compile("\S*\.(minimum|maximum|norm1|norm2|average)?\.asc(\.(gz|bz2))?$")
         self.kind = kind
-        self.files = [file for file in files if pat_fn.match(file).group(1) == self.kind]
+        self.files = []
+        for file in files:
+            try: 
+                if pat_fn.match(file).group(1) == self.kind:
+                    self.files.append(file)
+            except AttributeError:
+                continue
 
     @property
     def vars(self):
@@ -83,9 +127,7 @@ class ScalarReduction:
         for k, v in self.vars.items():
             if key in k:
                 p[k] = v
-        if len(p) > 1:
-            print("Please make sure %s belong the same group" % (p.keys()))
-        elif len(p) == 0:
+        if len(p) == 0:
             raise Exception("{} is not exist in reduction {}".format(key, self.kind))
         return Variable(p)
     
@@ -109,79 +151,36 @@ class Variable:
     """
     def __init__(self, varfiles):
         self.varfiles = varfiles
-        self.Table = None
+        self._init_dataset()
 
-    def dataset(self, key=True, **kwargs):
+    def _init_dataset(self):
         """
-        CarpetIOScalar Dataset will store in pandas dataframe, because the ASCII data structure more like a table. This dataset will store in :py:attr:`Variable.Table`.
-
-        :param kwargs: Unknown keyword arguments are passed to :py:func:`pd.concat()`.
+        CarpetIOScalar Dataset will store in pandas dataframe, because the ASCII data structure more like a table. This dataset will store in :py:attr:`Variable.dataset`.
 
         :return: DataFrame
         """
         files = []
-        p = []
+        p = pd.DataFrame()
         for var in self.varfiles.keys():
+            tem = []
             for file in self.varfiles[var]:
                 filename = os.path.basename(file)
                 if filename in files:
                     continue
                 files.append(filename)
                 data = np.loadtxt(file, comments="#")
-                column = columns(file)
-                p.append(pd.DataFrame(data, columns=column)) 
-
-        if key:
-            self.Table = pd.concat(p, keys=files)
-        else:
-            self.Table = pd.concat(p, **kwargs)
-
-        return self.Table
-
-    def preview(self, **kwargs):
-        """
-        :py:meth:`Variable.preview` just simple preview. We will use :py:func:`pandas.DataFrame.plot()` to do it. It is best to run :py:meth:`Variable.dataset` and check the dataset by eye before executing it.
-
-        :param kwargs: Unknown keyword arguments are passed to :py:func:`pandas.DataFrame.plot()`.
-        """
-        if self.Table.empty:
-            print("Use default method combine multi data file.")
-            self.dataset()
-        assert 'time' in self.Table, "Dataset don't have time column"
-        self.Table.plot(x='time', **kwargs)
-
-    def __str__(self):
-        if self.Table.empty:
-            self.dataset()
-
-        columns = self.Table.columns
-        min = self.Table.min()
-        max = self.Table.max()
-        mean = self.Table.mean()
-        output = "Time: [{}, {}] with dt={}\n".format(min['time'], max['time'], self.Table['time'][1]-min['time'])
-        for column in columns[2:]:
-            output += "{}: Min is {:.4e};\tMean is {:.4e};\tMax is {:.4e}\n".format(column, min[column], mean[column], max[column])
-        return output
-
-def columns(file):
-    """
-    Fetch CarpetIOScalar header information.
-
-    :param str file: file in absolute path
-    :return: The column in given file.
-    """
-    with read(file) as f:
-        columns=[]
-        for line in f.readlines():
-            if "# 1:iteration 2:time 3:data" in line:
-                columns = columns + line.split()[1:]
-            if "# column format:" in line:
-                columns = line.split()[3:]
-            if "# data columns: " in line:
-                del columns[-1]
-                columns = columns + line.split()[3:]
-                break
-    if len(columns) > 0:
-        return [name.split(":")[1] for c, name in enumerate(columns)]
-    else:
-        raise Exception("File: {} Header fail to identify.".format(file))
+                column = columns_asc(file)
+                tem_c = pd.DataFrame(data, columns=column)
+                tem.append(tem_c)
+            # concat different component in same variable
+            if len(tem) == 0:
+                continue
+            else:
+                tem_p = pd.concat(tem).drop_duplicates()
+            # merge different variable
+            if p.empty:
+                p = tem_p
+            else:
+                p = pd.merge(p, tem_p, how='outer', on=['time','iteration'])
+ 
+        self.dataset = p

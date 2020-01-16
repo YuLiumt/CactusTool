@@ -16,6 +16,7 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Installation" href="Note/install.html" /> 
@@ -43,7 +44,7 @@
             
   <div class="section" id="welcome-to-cactustool-s-documentation">
 <h1>Welcome to CactusTool’s documentation!<a class="headerlink" href="#welcome-to-cactustool-s-documentation" title="Permalink to this headline">¶</a></h1>
-<p>CactusTool package provides tools to analysis and visualization <a class="reference external" href="http://www.cactuscode.org">CACTUS</a> simulations.</p>
+<p>CactusTool is a Python module that provides classes and functions for the analysis and visualization <a class="reference external" href="http://www.cactuscode.org">CACTUS</a> simulations.</p>
 <p>Cactus itself cannot visualize the data and requires third-party tools. Currently, the better software includes <a class="reference external" href="https://wci.llnl.gov/simulation/computer-codes/visit/">Visit</a>, <a class="reference external" href="https://simulationtools.org">SimulationTools</a>  and <a class="reference external" href="http://www.gnuplot.info">gnuplot</a>. In addition to these better tools, <a class="reference external" href="https://bitbucket.org/DrWhat/pycactuset">PostCactus</a> and <a class="reference external" href="https://bitbucket.org/knarrff/pycactus">PyCactus</a>  are also a good choice. Both are pure Python package. Personally like it very much. Python is a powerful tool and there are very rich third-party libraries, such as <a class="reference external" href="https://docs.python.org/3/library/re.html">re</a>, <a class="reference external" href="https://pandas.pydata.org">pandas</a>, <a class="reference external" href="https://matplotlib.org/index.html">matplotlib</a>, and <a class="reference external" href="https://docs.h5py.org/en/stable/">HDF5</a>. Most gravitational wave data processing are based on python. With these third-party libraries, you can do more amazing things besides visualization. <a class="reference external" href="http://astro.phys.wvu.edu/zetienne/">Zachariah B. Etienne</a> wrote a outputC module. I think it can be used on Cactus in the future. However, PostCactus and PyCactus are all based on python2, which is not maintained now. Based on a comprehensive consideration of all aspects, I decided to write this library. CactusTool code benefits from PostCactus and PyCactus code. The software framework follows PostCactus. However, a more comprehensive manual is provided. CactusTool will be continuously updated and will be more powerful than the former.</p>
 <p>CactusTool is not a powerful 3D animation tool. CactusTool generates rich static picture with matplotlib. Although matplotlib can do this, it will make the code more complicated and more inconvenient to use. In my opinion, animation is more convenient to show the simulation and easier to judge whether the simulation evolution process is normal, but it is not helpful for the analysis of the data. This aspect can be made up by <a class="reference external" href="https://jupyter.org">Jupyter notebook</a>. Jupyter Notebook allows you to create and share documents that contain live code, equations, visualizations and narrative text. It will be more convenient to show results. More than this, <a class="reference external" href="https://ipywidgets.readthedocs.io/en/latest/">ipywidgets</a> allows us to turn Jupyter Notebooks from static documents into interactive dashboards, perfect for exploring and visualizing data, i.e., <strong>provide animation in another way and be interactive.</strong> With <a class="reference external" href="https://rise.readthedocs.io/en/maint-5.6/">RISE</a>, you can instantly turn your jupyter notebook into a slideshow. ipywidgets interactive dashboards will not be part of CactusTool. Everyone’s needs are different and it is difficult to unify. This manual will provide some ipywidgets examples and template.</p>
 <div class="toctree-wrapper compound">
@@ -58,15 +59,14 @@
 <li class="toctree-l1"><a class="reference internal" href="Tutorial/main.html">Tutorial</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Tutorial/CactusTool.html">CactusTool</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Tutorial/Carpet.html">Carpet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial/widgets.html">Scalar</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="API/CactusTool.html">CactusTool package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="API/CactusTool.html#subpackages">Subpackages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="API/CactusTool.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="API/CactusTool.html#module-CactusTool.funcs">CactusTool.funcs module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="API/CactusTool.html#module-CactusTool.main">CactusTool.main module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="API/CactusTool.html#module-CactusTool.outputfile">CactusTool.outputfile module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="API/CactusTool.html#module-CactusTool.unit">CactusTool.unit module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="API/CactusTool.html#module-CactusTool">Module contents</a></li>
 </ul>
 </li>

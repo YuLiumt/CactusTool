@@ -1,0 +1,297 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>CactusTool.funcs package &#8212; CactusTool 0.0.1 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="CactusTool.Visualize package" href="CactusTool.Visualize.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="CactusTool.Visualize.html" title="CactusTool.Visualize package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="CactusTool.html" accesskey="U">CactusTool package</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="cactustool-funcs-package">
+<h1>CactusTool.funcs package<a class="headerlink" href="#cactustool-funcs-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-CactusTool.funcs.Dataset">
+<span id="cactustool-funcs-dataset-module"></span><h2>CactusTool.funcs.Dataset module<a class="headerlink" href="#module-CactusTool.funcs.Dataset" title="Permalink to this headline">¶</a></h2>
+<p>Dataset</p>
+<dl class="function">
+<dt id="CactusTool.funcs.Dataset.CompData">
+<code class="sig-prename descclassname">CactusTool.funcs.Dataset.</code><code class="sig-name descname">CompData</code><span class="sig-paren">(</span><em class="sig-param">a</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/Dataset.html#CompData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.Dataset.CompData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Composite data consisting of one or more regular datasets with 
+different grid spacings, i.e. a mesh refinement hirachy. The grid 
+spacings should differ by powers of two. Origins of the components 
+are shifted relative to each other only by multiples of the finest 
+spacing. Basic arithmetic operations are defined for this class, as 
+well as interpolation and resampling. This class can be iterated over 
+to get all the regular datasets, ordered by refinement level and
+componen number.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.funcs.Dataset.arithmetic_progression">
+<code class="sig-prename descclassname">CactusTool.funcs.Dataset.</code><code class="sig-name descname">arithmetic_progression</code><span class="sig-paren">(</span><em class="sig-param">a</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/Dataset.html#arithmetic_progression"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.Dataset.arithmetic_progression" title="Permalink to this definition">¶</a></dt>
+<dd><p>Arithmetic Progressions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>a</strong> (<em>list</em>) – Arithmetic Progressions</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a0 and da</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.funcs.Dataset.merge_data_simple">
+<code class="sig-prename descclassname">CactusTool.funcs.Dataset.</code><code class="sig-name descname">merge_data_simple</code><span class="sig-paren">(</span><em class="sig-param">alldat</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/Dataset.html#merge_data_simple"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.Dataset.merge_data_simple" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merges a list of RegData instances into one, assuming they
+all have the same grid spacing and filling a regular grid completely,
+with the same values in overlapping regions (ghost zones etc).
+Beware, the assumptions are not checked.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-CactusTool.funcs.check">
+<span id="cactustool-funcs-check-module"></span><h2>CactusTool.funcs.check module<a class="headerlink" href="#module-CactusTool.funcs.check" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="CactusTool.funcs.check.ensure_list">
+<code class="sig-prename descclassname">CactusTool.funcs.check.</code><code class="sig-name descname">ensure_list</code><span class="sig-paren">(</span><em class="sig-param">obj</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/check.html#ensure_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.check.ensure_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function ensures that <cite>obj</cite> is a list. Typically used to convert a string to a list.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.funcs.check.ensure_numpy_array">
+<code class="sig-prename descclassname">CactusTool.funcs.check.</code><code class="sig-name descname">ensure_numpy_array</code><span class="sig-paren">(</span><em class="sig-param">obj</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/check.html#ensure_numpy_array"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.check.ensure_numpy_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function ensures that <cite>obj</cite> is a numpy array. Typically used to convert scalar, list or tuple argument passed to functions using Cython.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.funcs.check.is_empty">
+<code class="sig-prename descclassname">CactusTool.funcs.check.</code><code class="sig-name descname">is_empty</code><span class="sig-paren">(</span><em class="sig-param">obj</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/check.html#is_empty"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.check.is_empty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make sure <cite>obj</cite> isn’t empty.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-CactusTool.funcs.file">
+<span id="cactustool-funcs-file-module"></span><h2>CactusTool.funcs.file module<a class="headerlink" href="#module-CactusTool.funcs.file" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="CactusTool.funcs.file.columns_asc">
+<code class="sig-prename descclassname">CactusTool.funcs.file.</code><code class="sig-name descname">columns_asc</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/file.html#columns_asc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.file.columns_asc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetch ASCII file header information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>file</strong> (<em>str</em>) – file in absolute path</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The columns in given file.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.funcs.file.fetch_all_file">
+<code class="sig-prename descclassname">CactusTool.funcs.file.</code><code class="sig-name descname">fetch_all_file</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/file.html#fetch_all_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.file.fetch_all_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetch all important file in path, especially <cite>.par</cite>, <cite>.asc</cite>, and <cite>.h5</cite> file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – absolute path</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>file list with absolute path.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.funcs.file.filter_file">
+<code class="sig-prename descclassname">CactusTool.funcs.file.</code><code class="sig-name descname">filter_file</code><span class="sig-paren">(</span><em class="sig-param">files</em>, <em class="sig-param">file_style</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/file.html#filter_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.file.filter_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Choose the file end with specified file_style</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>list</em>) – A list of file in absolute path.</p></li>
+<li><p><strong>file_style</strong> (<em>str</em>) – <p>There are few file_style you can choose:</p>
+<ul>
+<li><p>par: parameter file</p></li>
+<li><p>scalar file</p></li>
+<li><p>ASCII file</p></li>
+<li><p>HDF5 file</p></li>
+<li><p>checkpoints</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.funcs.file.read">
+<code class="sig-prename descclassname">CactusTool.funcs.file.</code><code class="sig-name descname">read</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/file.html#read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.file.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Carpet output file type is completely different. This function provides different way to open it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>file</strong> (<em>str</em>) – file in absolute path</p>
+</dd>
+</dl>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">read</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.funcs.file.rm_output_active">
+<code class="sig-prename descclassname">CactusTool.funcs.file.</code><code class="sig-name descname">rm_output_active</code><span class="sig-paren">(</span><em class="sig-param">files</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/file.html#rm_output_active"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.file.rm_output_active" title="Permalink to this definition">¶</a></dt>
+<dd><p>output-dddd-active/ is a copy from output-dddd/, so we remove these file in output-dddd-active/ to avoid duplicate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>list</em>) – A list of file in absolute path.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>file list withnot the one in output-dddd-active</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-CactusTool.funcs.json">
+<span id="cactustool-funcs-json-module"></span><h2>CactusTool.funcs.json module<a class="headerlink" href="#module-CactusTool.funcs.json" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="CactusTool.funcs.json.Format">
+<code class="sig-prename descclassname">CactusTool.funcs.json.</code><code class="sig-name descname">Format</code><span class="sig-paren">(</span><em class="sig-param">dicts</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/json.html#Format"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.json.Format" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.funcs.json.add_three_key">
+<code class="sig-prename descclassname">CactusTool.funcs.json.</code><code class="sig-name descname">add_three_key</code><span class="sig-paren">(</span><em class="sig-param">par</em>, <em class="sig-param">key_a</em>, <em class="sig-param">key_b</em>, <em class="sig-param">key_c</em>, <em class="sig-param">val</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/json.html#add_three_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.json.add_three_key" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.funcs.json.add_two_key">
+<code class="sig-prename descclassname">CactusTool.funcs.json.</code><code class="sig-name descname">add_two_key</code><span class="sig-paren">(</span><em class="sig-param">par</em>, <em class="sig-param">key_a</em>, <em class="sig-param">key_b</em>, <em class="sig-param">val</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/json.html#add_two_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.json.add_two_key" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.funcs.json.subkey_contain_element">
+<code class="sig-prename descclassname">CactusTool.funcs.json.</code><code class="sig-name descname">subkey_contain_element</code><span class="sig-paren">(</span><em class="sig-param">dicts</em>, <em class="sig-param">subkey</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/json.html#subkey_contain_element"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.json.subkey_contain_element" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.funcs.json.subkey_have_value">
+<code class="sig-prename descclassname">CactusTool.funcs.json.</code><code class="sig-name descname">subkey_have_value</code><span class="sig-paren">(</span><em class="sig-param">dicts</em>, <em class="sig-param">subkey</em>, <em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/json.html#subkey_have_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.json.subkey_have_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-CactusTool.funcs.unit">
+<span id="cactustool-funcs-unit-module"></span><h2>CactusTool.funcs.unit module<a class="headerlink" href="#module-CactusTool.funcs.unit" title="Permalink to this headline">¶</a></h2>
+<p>This module provides a class Units representing unit systems or unit 
+conversions. All expressed in SI units.</p>
+</div>
+<div class="section" id="module-CactusTool.funcs">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-CactusTool.funcs" title="Permalink to this headline">¶</a></h2>
+<p>This modular provided many useful functions needed by other modular.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">CactusTool.funcs package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-CactusTool.funcs.Dataset">CactusTool.funcs.Dataset module</a></li>
+<li><a class="reference internal" href="#module-CactusTool.funcs.check">CactusTool.funcs.check module</a></li>
+<li><a class="reference internal" href="#module-CactusTool.funcs.file">CactusTool.funcs.file module</a></li>
+<li><a class="reference internal" href="#module-CactusTool.funcs.json">CactusTool.funcs.json module</a></li>
+<li><a class="reference internal" href="#module-CactusTool.funcs.unit">CactusTool.funcs.unit module</a></li>
+<li><a class="reference internal" href="#module-CactusTool.funcs">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="CactusTool.Visualize.html"
+                        title="previous chapter">CactusTool.Visualize package</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/API/CactusTool.funcs.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="CactusTool.Visualize.html" title="CactusTool.Visualize package"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="CactusTool.html" >CactusTool package</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Yu Liu.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.
+    </div>
+  </body>
+</html>

@@ -16,8 +16,10 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="CactusTool.funcs package" href="CactusTool.funcs.html" />
     <link rel="prev" title="CactusTool.Parameter package" href="CactusTool.Parameter.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -29,6 +31,9 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="CactusTool.funcs.html" title="CactusTool.funcs package"
+             accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="CactusTool.Parameter.html" title="CactusTool.Parameter package"
              accesskey="P">previous</a> |</li>
@@ -47,8 +52,55 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-CactusTool.Visualize.grid_hierarchies">
-<span id="cactustool-visualize-grid-hierarchies-module"></span><h2>CactusTool.Visualize.grid_hierarchies module<a class="headerlink" href="#module-CactusTool.Visualize.grid_hierarchies" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-CactusTool.Visualize.mesh">
+<span id="cactustool-visualize-mesh-module"></span><h2>CactusTool.Visualize.mesh module<a class="headerlink" href="#module-CactusTool.Visualize.mesh" title="Permalink to this headline">¶</a></h2>
+<p>A rectangular grid, supporting 
+common arithmetic operations. The standard mathematical unary
+functions, e.g. sin(), are implemented as member functions.
+Supports interpolation and resampling. The objects can also be used 
+as a function, mapping coordinate to interpolated data. Supports 
+numercial differentiation.
+:ivar data: The actual data (numpy array).</p>
+<dl class="class">
+<dt id="CactusTool.Visualize.mesh.SlicePlot">
+<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Visualize.mesh.</code><code class="sig-name descname">SlicePlot</code><span class="sig-paren">(</span><em class="sig-param">ax</em>, <em class="sig-param">ds</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Visualize/mesh.html#SlicePlot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Visualize.mesh.SlicePlot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-CactusTool.Visualize.profile">
+<span id="cactustool-visualize-profile-module"></span><h2>CactusTool.Visualize.profile module<a class="headerlink" href="#module-CactusTool.Visualize.profile" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="CactusTool.Visualize.profile.LinePlot">
+<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Visualize.profile.</code><code class="sig-name descname">LinePlot</code><span class="sig-paren">(</span><em class="sig-param">ax</em>, <em class="sig-param">ds</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Visualize/profile.html#LinePlot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Visualize.profile.LinePlot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>1D profiles</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-CactusTool.Visualize.ts">
+<span id="cactustool-visualize-ts-module"></span><h2>CactusTool.Visualize.ts module<a class="headerlink" href="#module-CactusTool.Visualize.ts" title="Permalink to this headline">¶</a></h2>
+<p>This module provides various functions to plot time series.</p>
+<dl class="class">
+<dt id="CactusTool.Visualize.ts.TimeSeries">
+<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Visualize.ts.</code><code class="sig-name descname">TimeSeries</code><span class="sig-paren">(</span><em class="sig-param">ax</em>, <em class="sig-param">ds</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Visualize/ts.html#TimeSeries"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Visualize.ts.TimeSeries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Plot time series plot.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ax</strong> – Which axes to use for the plot.</p></li>
+<li><p><strong>ds</strong> – Dataset</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="CactusTool.Visualize.ts.TimeSeries.plot">
+<code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param">var</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Visualize/ts.html#TimeSeries.plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Visualize.ts.TimeSeries.plot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="module-CactusTool.Visualize.visualize">
 <span id="cactustool-visualize-visualize-module"></span><h2>CactusTool.Visualize.visualize module<a class="headerlink" href="#module-CactusTool.Visualize.visualize" title="Permalink to this headline">¶</a></h2>
@@ -238,6 +290,15 @@
 </dd></dl>
 
 </div>
+<div class="section" id="module-CactusTool.Visualize.volume">
+<span id="cactustool-visualize-volume-module"></span><h2>CactusTool.Visualize.volume module<a class="headerlink" href="#module-CactusTool.Visualize.volume" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="CactusTool.Visualize.volume.VolumeRendering">
+<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Visualize.volume.</code><code class="sig-name descname">VolumeRendering</code><span class="sig-paren">(</span><em class="sig-param">ax</em>, <em class="sig-param">ds</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Visualize/volume.html#VolumeRendering"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Visualize.volume.VolumeRendering" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+</div>
 <div class="section" id="module-CactusTool.Visualize">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-CactusTool.Visualize" title="Permalink to this headline">¶</a></h2>
 </div>
@@ -253,8 +314,11 @@
   <ul>
 <li><a class="reference internal" href="#">CactusTool.Visualize package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-CactusTool.Visualize.grid_hierarchies">CactusTool.Visualize.grid_hierarchies module</a></li>
+<li><a class="reference internal" href="#module-CactusTool.Visualize.mesh">CactusTool.Visualize.mesh module</a></li>
+<li><a class="reference internal" href="#module-CactusTool.Visualize.profile">CactusTool.Visualize.profile module</a></li>
+<li><a class="reference internal" href="#module-CactusTool.Visualize.ts">CactusTool.Visualize.ts module</a></li>
 <li><a class="reference internal" href="#module-CactusTool.Visualize.visualize">CactusTool.Visualize.visualize module</a></li>
+<li><a class="reference internal" href="#module-CactusTool.Visualize.volume">CactusTool.Visualize.volume module</a></li>
 <li><a class="reference internal" href="#module-CactusTool.Visualize">Module contents</a></li>
 </ul>
 </li>
@@ -263,6 +327,9 @@
   <h4>Previous topic</h4>
   <p class="topless"><a href="CactusTool.Parameter.html"
                         title="previous chapter">CactusTool.Parameter package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="CactusTool.funcs.html"
+                        title="next chapter">CactusTool.funcs package</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -293,6 +360,9 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="CactusTool.funcs.html" title="CactusTool.funcs package"
+             >next</a> |</li>
         <li class="right" >
           <a href="CactusTool.Parameter.html" title="CactusTool.Parameter package"
              >previous</a> |</li>

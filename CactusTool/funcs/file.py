@@ -1,17 +1,10 @@
-"""
-This modular provided many useful functions needed by other modular.
-"""
-
-import numpy as np
-import json
+from .check import *
 import h5py
 import gzip
 import bz2
 import re
 import os
 
-
-###################    file    ###################
 
 def read(file):
     """
@@ -97,76 +90,25 @@ def filter_file(files, file_style):
     }
     return [f for f in files if re.compile(re_pat[file_style]).match(f)]
 
+def columns_asc(file):
+    """
+    Fetch ASCII file header information.
 
-###################    python type    ###################
-
-def is_empty(obj):
+    :param str file: file in absolute path
+    :return: The columns in given file.
     """
-    Make sure `obj` isn't empty.
-    """
-    if not obj:
-        print("Please check why {} is None".format(obj))
-
-def ensure_list(obj):
-    """
-    This function ensures that `obj` is a list. Typically used to convert a string to a list.
-    """
-    if obj is None:
-        return [obj]
-    if not isinstance(obj, list):
-        return [obj]
-    return obj
-
-def ensure_numpy_array(obj):
-    """
-    This function ensures that `obj` is a numpy array. Typically used to convert scalar, list or tuple argument passed to functions using Cython.
-    """
-    if isinstance(obj, np.ndarray):
-        if obj.shape == ():
-            return np.array([obj])
-        # We cast to ndarray to catch ndarray subclasses
-        return np.array(obj)
-    elif isinstance(obj, (list, tuple)):
-        return np.asarray(obj)
+    with read(file) as f:
+        columns=[]
+        for line in f.readlines():
+            if "# 1:iteration 2:time 3:data" in line:
+                columns = columns + line.split()[1:]
+            if "# column format:" in line:
+                columns = line.split()[3:]
+            if "# data columns: " in line:
+                del columns[-1]
+                columns = columns + line.split()[3:]
+                break
+    if len(columns) > 0:
+        return [name.split(":")[1] for c, name in enumerate(columns)]
     else:
-        return np.asarray([obj])
-
-###################    json    ###################
-
-def Format(dicts):
-    return json.dumps(dicts, sort_keys=True, indent=4)
-
-def subkey_have_value(dicts, subkey, value):
-    p = {}
-    for k, v in dicts.items():
-        assert subkey in v, "dict don't have subkey: %s" % (subkey)
-        if v[subkey] == value:
-            p[k] = dicts[k]
-    return p
-
-def subkey_contain_element(dicts, subkey):
-    p = set()
-    for k, v in dicts.items():
-        assert subkey in v, "dict don't have subkey: %s" % (subkey)
-        try:
-            p.add(v[subkey])
-        except:
-            raise RuntimeError("the value of subkey is not element" % subkey)
-    return p
-
-
-
-def add_two_key(par, key_a, key_b, val):
-    if key_a in par:
-        par[key_a].update({key_b: val})
-    else:
-        par.update({key_a: {key_b: val}})
-
-def add_three_key(par, key_a, key_b, key_c, val):
-    if key_a in par:
-        if key_b in par:
-            par[key_a][key_b].update({key_c: val})
-        else:
-            par[key_a].update({key_b: {key_c: val}})
-    else:
-        par.update({key_a: {key_b: {key_c: val}}})
+        raise Exception("File: {} Header fail to identify.".format(file))

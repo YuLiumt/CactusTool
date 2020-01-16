@@ -14,6 +14,8 @@ class CarpetIOHDF5:
 
     :py:class:`CarpetIOHDF5` itself do nothing. You need specify the dimensions of gird function. This will pointer to :py:class:`Griddim`.
 
+    :param list files: can either be a list of filenames or a single filename
+
     * :py:attr:`CarpetIOHDF5.x` x dimension of the gird function
     * :py:attr:`CarpetIOHDF5.y` y dimension of the gird function
     * :py:attr:`CarpetIOHDF5.z` z dimension of the gird function
@@ -53,7 +55,7 @@ class Griddim:
     @property
     def vars(self):
         """
-        All available variable in such dim.
+        All available variable in such dim. We store a dictionary { key : [file] } to be able to track the location of the data within the multiple files.
 
         :return: A dict. key is the variable name, value is corresponding files.
         """
@@ -111,6 +113,7 @@ class Variable:
 
     def grid_hierarchies(self):
         """
+        # TODO:
         Describes the geometry of the refined grid hierarchies, such as component number, ghost zones and refinement level. Grid hierarchies may change in the evolution. These all get from the header of files.
 
         :return: a dict about grid_hierarchies

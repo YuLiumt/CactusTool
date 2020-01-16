@@ -3,14 +3,14 @@ This is the main modular. Everything start from it.
 """
 
 from .funcs import *
-from .Parameter import Parfile
+from .Parameter import ParFile
 from .Carpet import CarpetIOScalar
 from .Carpet import CarpetIOHDF5
 from .Carpet import CarpetIOASCII
 from .Debug import NaNCheck
 import os
 
-class Simulation:
+class load:
     """
     Basis class of CactusTool, anything start from it. Please use it attributes.
     """
@@ -33,12 +33,12 @@ class Simulation:
         self.debugfiles = filter_file(self.allfiles, "debug")
  
     @property
-    def Par(self):
+    def Parfile(self):
         """
         It first read parameter file if it exist.
         """
         if bool(self.parfiles):
-            return Parfile(self.parfiles)
+            return ParFile(self.parfiles)
         else:
             print("Do not find any parfile in ", self.path)
 

@@ -1,1 +1,1 @@
-from .parfile import Parfile
+from .parfile import ParFile

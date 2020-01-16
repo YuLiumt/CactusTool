@@ -10,17 +10,10 @@ Subpackages
    CactusTool.Debug
    CactusTool.Parameter
    CactusTool.Visualize
+   CactusTool.funcs
 
 Submodules
 ----------
-
-CactusTool.funcs module
------------------------
-
-.. automodule:: CactusTool.funcs
-   :members:
-   :undoc-members:
-   :show-inheritance:
 
 CactusTool.main module
 ----------------------
@@ -34,14 +27,6 @@ CactusTool.outputfile module
 ----------------------------
 
 .. automodule:: CactusTool.outputfile
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-CactusTool.unit module
-----------------------
-
-.. automodule:: CactusTool.unit
    :members:
    :undoc-members:
    :show-inheritance:
