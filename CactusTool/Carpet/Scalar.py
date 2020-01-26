@@ -19,64 +19,45 @@ class CarpetIOScalar:
     """
     def __init__(self, files):
         self.files = ensure_list(files)
+        self.type = {
+            'min': 'minimum',
+            'max': 'maximum',
+            'norm1': 'norm1',
+            'norm2': 'norm2',
+            'average': 'average',
+            'none': None
+        }
 
     @property
-    def min(self):
+    def available_reductions(self):
         """
-        The minimum of the values 
+        available reduction operations in this dataset.
 
-        .. math:: 
-        
-            \\min := \\min \{a_{i}\} 
+        :return: list of available reduction operations
         """
-        return ScalarReduction(self.files, 'minimum')
+        p = []
+        for type in self.type.keys():
+            if str(self[type]):
+                p.append(type)
+        return p
 
-    @property
-    def max(self):
+    def __getattr__(self, reduction):
         """
-        The maximum of the values
+        Specify the reduction operation by attribute
 
-        .. math:: 
-        
-            \\max := \\max \{a_{i}\} 
+        :param str reduction: the reduction operation
         """
-        return ScalarReduction(self.files, 'maximum')
+        assert reduction in self.type.keys(), "Does not include {} operation on scalar".format(reduction)
+        return ScalarReduction(self.files, self.type[reduction])
 
-    @property
-    def norm1(self):
+    def __getitem__(self, reduction):
         """
-        The norm1 of the values
+        Specify the reduction operation by item
 
-        .. math:: 
-        
-            \\frac{\\Sigma_{i} \\left|a_{i}\\right|}{count}
+        :param str reduction: the reduction operation
         """
-        return ScalarReduction(self.files, 'norm1')
- 
-    @property
-    def norm2(self):
-        """
-        The norm2 of the values
-
-        .. math:: 
-        
-            \\sqrt{\\frac{\\sum_{i} \\left|a_{i}\\right|^{2}}{count}}
-        """
-        return ScalarReduction(self.files, 'norm2')
-
-    @property
-    def average(self):
-        """
-        The average of the values
-        """
-        return ScalarReduction(self.files, 'average')
-
-    @property
-    def none(self):
-        """
-        The values at coordinate origin
-        """
-        return ScalarReduction(self.files, None)
+        assert reduction in self.type.keys(), "Does not include {} operation on scalar".format(reduction)
+        return ScalarReduction(self.files, self.type[reduction])
 
     def __str__(self):
         return "%s%s%s%s%s%s" % (self.min, self.max, self.norm1, self.norm2, self.average, self.none)
@@ -122,18 +103,22 @@ class ScalarReduction:
 
         return Vars
 
+    @property
+    def available_variables(self):
+        """
+        All available variables in a given reduction.
+
+        :return: list of available variables
+        """
+        return list(self.vars.keys())
+
     def __getitem__(self, key):
-        p = {}
-        for k, v in self.vars.items():
-            if key in k:
-                p[k] = v
-        if len(p) == 0:
-            raise Exception("{} is not exist in reduction {}".format(key, self.kind))
-        return Variable(p)
-    
+        assert key in self.available_variables, "{} is not exist in reduction {}".format(key, self.kind)
+        return Variable(key, self.vars[key])
+
     def __contains__(self, key):
         return key in self.vars
-        
+
     def __str__(self):
         if self.vars:
             return "Available %s timeseries:\n%s\n" % (str(self.kind).lower(), list(self.vars.keys()))
@@ -149,38 +134,28 @@ class Variable:
 
     * :py:attr:`Variable.Table` source data
     """
-    def __init__(self, varfiles):
-        self.varfiles = varfiles
-        self._init_dataset()
+    def __init__(self, var, files):
+        self.var = var
+        self.files = files
 
-    def _init_dataset(self):
+    @property
+    def dataset(self):
         """
-        CarpetIOScalar Dataset will store in pandas dataframe, because the ASCII data structure more like a table. This dataset will store in :py:attr:`Variable.dataset`.
-
         :return: DataFrame
         """
-        files = []
-        p = pd.DataFrame()
-        for var in self.varfiles.keys():
-            tem = []
-            for file in self.varfiles[var]:
-                filename = os.path.basename(file)
-                if filename in files:
-                    continue
-                files.append(filename)
-                data = np.loadtxt(file, comments="#")
-                column = columns_asc(file)
-                tem_c = pd.DataFrame(data, columns=column)
-                tem.append(tem_c)
-            # concat different component in same variable
-            if len(tem) == 0:
-                continue
-            else:
-                tem_p = pd.concat(tem).drop_duplicates()
-            # merge different variable
-            if p.empty:
-                p = tem_p
-            else:
-                p = pd.merge(p, tem_p, how='outer', on=['time','iteration'])
- 
-        self.dataset = p
+        tem = []
+        for file in self.files:
+            data = np.loadtxt(file, comments="#")
+            column = columns_asc(file)
+            tem_c = pd.DataFrame(data, columns=column)
+            tem.append(tem_c)
+        # concat different component in same variable
+        return pd.concat(tem).drop_duplicates()
+    
+    @property
+    def t(self):
+        return self.dataset['time'].values
+
+    @property
+    def y(self):
+        return self.dataset[self.var].values

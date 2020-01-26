@@ -5,6 +5,7 @@ This module provides various functions to plot time series.
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
+from ..funcs import *
 
 
 class TimeSeries:
@@ -14,18 +15,17 @@ class TimeSeries:
     :param ax: Which axes to use for the plot.
     :param ds: Dataset
     """
-    def __init__(self, ax, ds):
+    def __init__(self, ax, t, y):
         self.ax = ax
-        if isinstance(ds, pd.DataFrame):
-            assert 'time' in ds.columns, "time not in dataset columns"
-            self.ds = ds
+        self.t = t
+        self.y = y
         
-    def plot(self, var, **kwargs):
-        im = self.ax.plot(self.ds['time'], self.ds[var], **kwargs)
+    def plot(self, **kwargs):
+        """
+        line plot.
+
+        :param str fields: The name of the field(s) to be plotted.
+        """
+        im = self.ax.plot(self.t, self.y, **kwargs)
         self.ax.set_xlabel('time (M)')
         return im
-    
-    # def annotate(self):
-    #     ax.annotate('data = (%.1f, %.1f)'%(xdata, ydata),
-        #             (xdata, ydata), xytext=(-2*offset, offset), textcoords='offset points',
-        #             bbox=bbox, arrowprops=arrowprops)

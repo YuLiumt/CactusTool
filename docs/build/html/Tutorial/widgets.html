@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Scalar &#8212; CactusTool 0.0.1 documentation</title>
+    <title>ipywidgets &#8212; CactusTool 0.0.1 documentation</title>
     <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -18,7 +18,9 @@
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" /> 
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="CactusTool package" href="../API/CactusTool.html" />
+    <link rel="prev" title="Carpet" href="Carpet.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -29,7 +31,14 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">CactusTool 0.0.1 documentation</a> &#187;</li> 
+        <li class="right" >
+          <a href="../API/CactusTool.html" title="CactusTool package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Carpet.html" title="Carpet"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="main.html" accesskey="U">Tutorial</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -238,10 +247,12 @@ div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
 </style>
+<div class="section" id="ipywidgets">
+<h1>ipywidgets<a class="headerlink" href="#ipywidgets" title="Permalink to this headline">¶</a></h1>
 <p>Jupyter Notebook itself is a static documents. <a class="reference external" href="https://ipywidgets.readthedocs.io/en/latest/">ipywidgets</a> allows us to turn it into interactive dashboards. This tutorial just provides some <code class="docutils literal notranslate"><span class="pre">ipywidgets</span></code> templates you might like.</p>
 <p>We’re going to get started by loading up necessary modular and specify some example file in my local computer.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -252,15 +263,15 @@ div.rendered_html tbody tr:hover {
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
-<span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;/Users/liuyu/simulations/GW150914/&#39;</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;/Users/liuyu/simulations/BH/&#39;</span>
 <span class="n">sim</span> <span class="o">=</span> <span class="n">CactusTool</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="Scalar">
-<h1>Scalar<a class="headerlink" href="#Scalar" title="Permalink to this headline">¶</a></h1>
+<h2>Scalar<a class="headerlink" href="#Scalar" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -300,7 +311,294 @@ div.rendered_html tbody tr:hover {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "856d50c61db048e58364e5230485ec96", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "ee221b920e7b4f29b8154a451c43c81f", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+</div>
+<div class="section" id="ASCII">
+<h2>ASCII<a class="headerlink" href="#ASCII" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">CactusTool</span> <span class="kn">import</span> <span class="n">LinePlot</span>
+
+<span class="n">var</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">ASCII</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;M&#39;</span><span class="p">]</span> <span class="c1"># All scalar</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">line</span> <span class="o">=</span> <span class="n">LinePlot</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">dataset</span><span class="p">)</span>
+
+<span class="c1"># def timeseries(Variable, grid):</span>
+<span class="c1">#     fig, ax = plt.subplots()</span>
+<span class="c1">#     ts = LinePlot(ax, var.dataset)</span>
+<span class="c1">#     ts.plot(Variable)</span>
+<span class="c1">#     if grid:</span>
+<span class="c1">#         plt.grid()</span>
+<span class="c1">#     plt.show()</span>
+
+<span class="c1"># chapter=widgets.Label(value=&#39;CarpetIOScalar:&#39;)</span>
+<span class="c1"># var_item=widgets.Dropdown(options=var.dataset.columns[2:], description=&#39;Variable:&#39;)</span>
+<span class="c1"># grid_item=widgets.Checkbox(value=True, description=&#39;Grid&#39;)</span>
+<span class="c1"># output = interactive_output(timeseries,</span>
+<span class="c1">#                             {</span>
+<span class="c1">#                                 &#39;Variable&#39;: var_item,</span>
+<span class="c1">#                                 &#39;grid&#39;: grid_item</span>
+<span class="c1">#                             })</span>
+
+<span class="c1"># VBox([</span>
+<span class="c1">#     chapter,</span>
+<span class="c1">#     HBox([</span>
+<span class="c1">#         var_item,</span>
+<span class="c1">#         grid_item</span>
+<span class="c1">#     ]),</span>
+<span class="c1">#     output</span>
+<span class="c1"># ])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>it</th>
+      <th>tl</th>
+      <th>rl</th>
+      <th>c</th>
+      <th>ml</th>
+      <th>ix</th>
+      <th>iy</th>
+      <th>iz</th>
+      <th>time</th>
+      <th>x</th>
+      <th>y</th>
+      <th>z</th>
+      <th>M1</th>
+      <th>M2</th>
+      <th>M3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>5.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>5888.0</td>
+      <td>768.0</td>
+      <td>0.0</td>
+      <td>-230.00000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-5.432486e-17</td>
+      <td>-7.533550e-13</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>5.0</td>
+      <td>0.0</td>
+      <td>256.0</td>
+      <td>5888.0</td>
+      <td>768.0</td>
+      <td>0.0</td>
+      <td>-220.00000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-5.432486e-17</td>
+      <td>-7.533550e-13</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>5.0</td>
+      <td>0.0</td>
+      <td>512.0</td>
+      <td>5888.0</td>
+      <td>768.0</td>
+      <td>0.0</td>
+      <td>-210.00000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-5.432486e-17</td>
+      <td>-7.533550e-13</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>5.0</td>
+      <td>0.0</td>
+      <td>768.0</td>
+      <td>5888.0</td>
+      <td>768.0</td>
+      <td>0.0</td>
+      <td>-200.00000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-5.432486e-17</td>
+      <td>-7.533550e-13</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>5.0</td>
+      <td>0.0</td>
+      <td>1024.0</td>
+      <td>5888.0</td>
+      <td>768.0</td>
+      <td>0.0</td>
+      <td>-190.00000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>3.353064e-17</td>
+      <td>-1.138351e-12</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <td>70240</td>
+      <td>17664.0</td>
+      <td>0.0</td>
+      <td>6.0</td>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>6036.0</td>
+      <td>5888.0</td>
+      <td>768.0</td>
+      <td>69.0</td>
+      <td>5.78125</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>3.940048e-03</td>
+      <td>1.127827e-04</td>
+      <td>-5.259328e-20</td>
+    </tr>
+    <tr>
+      <td>70241</td>
+      <td>17664.0</td>
+      <td>0.0</td>
+      <td>6.0</td>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>6040.0</td>
+      <td>5888.0</td>
+      <td>768.0</td>
+      <td>69.0</td>
+      <td>5.93750</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>4.817419e-03</td>
+      <td>1.296465e-03</td>
+      <td>2.584893e-19</td>
+    </tr>
+    <tr>
+      <td>70242</td>
+      <td>17664.0</td>
+      <td>0.0</td>
+      <td>6.0</td>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>6044.0</td>
+      <td>5888.0</td>
+      <td>768.0</td>
+      <td>69.0</td>
+      <td>6.09375</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>5.743194e-03</td>
+      <td>2.491388e-03</td>
+      <td>3.130308e-19</td>
+    </tr>
+    <tr>
+      <td>70243</td>
+      <td>17664.0</td>
+      <td>0.0</td>
+      <td>6.0</td>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>6048.0</td>
+      <td>5888.0</td>
+      <td>768.0</td>
+      <td>69.0</td>
+      <td>6.25000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>6.663053e-03</td>
+      <td>3.619432e-03</td>
+      <td>2.339476e-19</td>
+    </tr>
+    <tr>
+      <td>70244</td>
+      <td>17664.0</td>
+      <td>0.0</td>
+      <td>6.0</td>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>6052.0</td>
+      <td>5888.0</td>
+      <td>768.0</td>
+      <td>69.0</td>
+      <td>6.40625</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>7.529135e-03</td>
+      <td>4.600984e-03</td>
+      <td>1.525679e-19</td>
+    </tr>
+  </tbody>
+</table>
+<p>70245 rows × 15 columns</p>
+</div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -314,6 +612,7 @@ div.rendered_html tbody tr:hover {
 <script type="application/vnd.jupyter.widget-state+json">
 {"state": {"23e39448fd254de1aae4d53ec9a29200": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "283d3dcdb3cc42d08a517042fa555c9b": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "3504862a25664a19b299e4b86e22eccd": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "LabelModel", "state": {"layout": "IPY_MODEL_23e39448fd254de1aae4d53ec9a29200", "style": "IPY_MODEL_e89d47bb16e543c1b1acf88422e9db4e", "value": "CarpetIOScalar:"}}, "4724176ca63b4b498dad6fe5a67c1b6b": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HBoxModel", "state": {"children": ["IPY_MODEL_51b1e0c2b5164e9ab8754a5d40694da4", "IPY_MODEL_e2d988c172a3497b9bcfa361dceb1389"], "layout": "IPY_MODEL_698d3efdd2574701b6976cbfc48ee0f9"}}, "51b1e0c2b5164e9ab8754a5d40694da4": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DropdownModel", "state": {"_options_labels": ["maxrss_mb", "majflt_mb", "arena_mb", "ordblks_mb", "hblks_mb", "hblkhd_mb", "uordblks_mb", "fordblks_mb", "keepcost_mb", "swap_used_mb"], "description": "Variable:", "index": 0, "layout": "IPY_MODEL_5de164063b0e4e948264858e6c39c44a", "style": "IPY_MODEL_283d3dcdb3cc42d08a517042fa555c9b"}}, "5de164063b0e4e948264858e6c39c44a": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "698d3efdd2574701b6976cbfc48ee0f9": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "76aba011c277440ba72bebd20e606c09": {"model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "model_name": "OutputModel", "state": {"layout": "IPY_MODEL_df4c63e4915d40b4b0f8fdd4159bdf11", "outputs": [{"data": {"image/png": "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\n", "text/plain": "<Figure size 432x288 with 1 Axes>"}, "metadata": {"needs_background": "light"}, "output_type": "display_data"}]}}, "856d50c61db048e58364e5230485ec96": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "VBoxModel", "state": {"children": ["IPY_MODEL_3504862a25664a19b299e4b86e22eccd", "IPY_MODEL_4724176ca63b4b498dad6fe5a67c1b6b", "IPY_MODEL_76aba011c277440ba72bebd20e606c09"], "layout": "IPY_MODEL_91c8270f66704c358c3464e932183ac9"}}, "91c8270f66704c358c3464e932183ac9": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "9267eb08c0264af3aacdd3110c523648": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "d032560a3f3149fe8ab065dde7113039": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "df4c63e4915d40b4b0f8fdd4159bdf11": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "e2d988c172a3497b9bcfa361dceb1389": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "CheckboxModel", "state": {"description": "Grid", "disabled": false, "layout": "IPY_MODEL_d032560a3f3149fe8ab065dde7113039", "style": "IPY_MODEL_9267eb08c0264af3aacdd3110c523648", "value": true}}, "e89d47bb16e543c1b1acf88422e9db4e": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}}, "version_major": 2, "version_minor": 0}
 </script></div>
+</div>
 
 
           </div>
@@ -321,6 +620,21 @@ div.rendered_html tbody tr:hover {
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">ipywidgets</a><ul>
+<li><a class="reference internal" href="#Scalar">Scalar</a></li>
+<li><a class="reference internal" href="#ASCII">ASCII</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Carpet.html"
+                        title="previous chapter">Carpet</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../API/CactusTool.html"
+                        title="next chapter">CactusTool package</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -351,7 +665,14 @@ div.rendered_html tbody tr:hover {
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">CactusTool 0.0.1 documentation</a> &#187;</li> 
+        <li class="right" >
+          <a href="../API/CactusTool.html" title="CactusTool package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Carpet.html" title="Carpet"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="main.html" >Tutorial</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

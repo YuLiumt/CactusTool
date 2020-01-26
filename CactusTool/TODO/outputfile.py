@@ -88,3 +88,8 @@ def HDF5_gf(file, slice):
     
     return data
 
+
+"""
+    >>> u, index = np.unique(np.array, return )
+    >>> np.zeros_like(y)
+"""

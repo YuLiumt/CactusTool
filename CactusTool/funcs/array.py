@@ -14,7 +14,7 @@ def arithmetic_progression(a):
     da = set(np.diff(a))
     if len(da) != 1:
         raise ImportError("{} is not a arithmetic progressions".format(a))
-    return da
+    return a[0], a[-1], da
 
 def merge_data_simple(alldat):
     """Merges a list of RegData instances into one, assuming they

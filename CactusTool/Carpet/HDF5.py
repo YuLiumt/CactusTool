@@ -3,6 +3,7 @@ Cactus dataset main produced by `Carpet <https://carpetcode.org>`_, which is an 
 """
 
 from ..funcs import *
+# from .gird import Grid
 import pandas as pd
 import numpy as np
 import os
@@ -15,26 +16,41 @@ class CarpetIOHDF5:
     :py:class:`CarpetIOHDF5` itself do nothing. You need specify the dimensions of gird function. This will pointer to :py:class:`Griddim`.
 
     :param list files: can either be a list of filenames or a single filename
-
-    * :py:attr:`CarpetIOHDF5.x` x dimension of the gird function
-    * :py:attr:`CarpetIOHDF5.y` y dimension of the gird function
-    * :py:attr:`CarpetIOHDF5.z` z dimension of the gird function
-    * :py:attr:`CarpetIOHDF5.xy` xy dimension of the gird function
-    * :py:attr:`CarpetIOHDF5.xz` xz dimension of the gird function
-    * :py:attr:`CarpetIOHDF5.yz` yz dimension of the gird function
-    * :py:attr:`CarpetIOHDF5.xyz` xyz dimension of the gird function
-
-    :param list files: A list of file in absolute path.
     """
     def __init__(self, files):
         self.files = ensure_list(files)
-        self.x     = Griddim(self.files, 'x')
-        self.y     = Griddim(self.files, 'y')
-        self.z     = Griddim(self.files, 'z')
-        self.xy    = Griddim(self.files, 'xy')
-        self.xz    = Griddim(self.files, 'xz')
-        self.yz    = Griddim(self.files, 'yz')
-        self.xyz   = Griddim(self.files, 'xyz')
+        self.dims = ['x', 'y', 'z', 'xy', 'xz', 'yz', 'xyz']
+
+    @property
+    def available_dims(self):
+        """
+        available dimension in this dataset.
+
+        :return: list of available dimension
+        """
+        p = []
+        for dim in self.dims:
+            if str(self[dim]):
+                p.append(dim)
+        return p
+
+    def __getattr__(self, dim):
+        """
+        Specify the dimension of the gird function
+
+        :param str dim: the dimension
+        """
+        assert dim in self.dims, "Does not include {} dim on ASCII".format(dim)
+        return Griddim(self.files, dim)
+
+    def __getitem__(self, dim):
+        """
+        Specify the dimension of the gird function by item
+
+        :param str dim: the dimension
+        """
+        assert dim in self.dims, "Does not include {} dim on ASCII".format(dim)
+        return Griddim(self.files, dim)
 
     def __str__(self):
         return "%s%s%s%s%s%s%s" % (self.x, self.y, self.z, self.xy, self.xz, self.yz, self.xyz)
@@ -50,7 +66,13 @@ class Griddim:
     def __init__(self, files, dim):
         self.dim = dim
         pat_fn = re.compile("\S*\.([xyz]*)\.h5(\.(gz|bz2))?$")
-        self.files = [file for file in files if pat_fn.match(file).group(1) == self.dim]
+        self.files = []
+        for file in files:
+            try: 
+                if pat_fn.match(file).group(1) == self.dim:
+                    self.files.append(file)
+            except AttributeError:
+                continue
 
     @property
     def vars(self):
@@ -76,16 +98,18 @@ class Griddim:
 
         return Vars
 
+    @property
+    def available_variables(self):
+        """
+        All available variables in a given dimension.
+
+        :return: list of available variables
+        """
+        return list(self.vars.keys())
+
     def __getitem__(self, key):
-        p = {}
-        for k, v in self.vars.items():
-            if key in k:
-                p[k] = v
-        if len(p) > 1:
-            print("Please make sure %s belong the same group" % (p.keys()))
-        elif len(p) == 0:
-            raise Exception("{} is not exist in reduction {}".format(key, self.kind))
-        return Variable(p, self.dim)
+        assert key in self.available_variables, "{} is not exist in reduction {}".format(key, self.dim)
+        return Variable(key, self.vars[key], self.dim)
     
     def __contains__(self, key):
         return key in self.vars
@@ -106,14 +130,35 @@ class Variable:
 
     * :py:attr:`Variable.Table` source data
     """   
-    def __init__(self, varfiles, dim):
-        self.varfiles = varfiles
+    def __init__(self, var, files, dim):
+        self.var = var
+        self.files = files
         self.dim = dim
-        self.Table = None
+
+    @property
+    def it(self):
+        iteration = np.array([])
+        pattern = re.compile(r'([^:]+)::(\S+) it=(\d+) tl=(\d+)( m=(\d+))? rl=(\d+)( c=(\d+))?')
+        for file in self.files:
+            with read(file) as f:
+                for item in list(f):
+                    header = pattern.match(item)
+                    if header is None:
+                        continue
+                    if header.group(2) == self.var:
+                        iteration = np.append(iteration, int(header.group(3)))
+        return np.unique(iteration).sort()
+
+    # @property
+    # def t(self):
+    #     time = []
+    #     for item in self.dataset:
+    #         time.append(self.dataset[item]['time'])
+    #     return time
+
 
     def grid_hierarchies(self):
         """
-        # TODO:
         Describes the geometry of the refined grid hierarchies, such as component number, ghost zones and refinement level. Grid hierarchies may change in the evolution. These all get from the header of files.
 
         :return: a dict about grid_hierarchies
@@ -126,7 +171,7 @@ class Variable:
                     continue
         return None
 
-    def read(self, meshgrid='HYDROBASE::press it=0 tl=0 rl=0 c=10'):
+    def slice(self, meshgrid='HYDROBASE::press it=0 tl=0 rl=0 c=10'):
         """
         CarpetIOHDF5 is different with CarpetIOASCII. We don't need read all data in the beginning. 2-D or 3-D data is huge, reading all data at one time is a waste of resources.
 
@@ -144,9 +189,6 @@ class Variable:
             data = np.array(mesh) 
         return grid, data
 
-
-    # def __str__(self):
-    #     return "{}".format(json.dumps(self.iteration, sort_keys=True, indent=4))
 
 
 def merge_filedata(filelist):
@@ -185,15 +227,6 @@ def merge_filedata(filelist):
                 p.append(infos)
 
     return p
-
-def iteration(file):
-    scalar_pat = re.compile("\S*/(output-\d\d\d\d)/\S*\.h5")
-    iteration = scalar_pat.match(file)
-    if iteration is not None:
-        return iteration.group(1)
-    else:
-        return "output-0000"
-
 
 
 def hdf5_2d(X, Y, data, title=None, colormap='RdBu'):
