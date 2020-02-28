@@ -11,10 +11,23 @@ def arithmetic_progression(a):
     :param list a: Arithmetic Progressions
     :return: a0 and da
     """
+    a = sorted(a)
     da = set(np.diff(a))
     if len(da) != 1:
         raise ImportError("{} is not a arithmetic progressions".format(a))
     return a[0], a[-1], da
+
+def merge_component():
+    """Composite data consisting of one or more regular datasets with 
+    different grid spacings, i.e. a mesh refinement hirachy. The grid 
+    spacings should differ by powers of two. Origins of the components 
+    are shifted relative to each other only by multiples of the finest 
+    spacing. Basic arithmetic operations are defined for this class, as 
+    well as interpolation and resampling. This class can be iterated over 
+    to get all the regular datasets, ordered by refinement level and
+    componen number.
+    """
+    return a
 
 def merge_data_simple(alldat):
     """Merges a list of RegData instances into one, assuming they
@@ -38,15 +51,5 @@ def merge_data_simple(alldat):
     #
     return RegData(mg.x0(),mg.dx(),data, reflevel=alldat[0].reflevel(), component=-1)
 
-def CompData(a):
-    """Composite data consisting of one or more regular datasets with 
-    different grid spacings, i.e. a mesh refinement hirachy. The grid 
-    spacings should differ by powers of two. Origins of the components 
-    are shifted relative to each other only by multiples of the finest 
-    spacing. Basic arithmetic operations are defined for this class, as 
-    well as interpolation and resampling. This class can be iterated over 
-    to get all the regular datasets, ordered by refinement level and
-    componen number.
-    """
-    return a
+
 

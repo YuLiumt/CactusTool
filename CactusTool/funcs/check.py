@@ -1,4 +1,16 @@
 import numpy as np
+import os
+import re
+
+################### File name ###################
+
+def hdf5_filename_check(file):
+    pat_fn = re.compile("\S*\.([xyz]*)\.h5$")
+    m = pat_fn.match(file)
+    if m:
+        return m.group(1)
+    else:
+        raise ValueError("%s is not HDF5 file" % os.path.basename(file))
 
 def is_empty(obj):
     """

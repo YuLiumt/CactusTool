@@ -4,49 +4,39 @@ import pandas as pd
 
 
 class AMRGrid:
-    def __init__(self, dsets, dim, var, dtype):
+    def __init__(self, dsets, dim, var):
         self.dsets = dsets
         self.dim = dim
         self.var = var
-        self.dtype = dtype
 
     @property
     def hierarchy(self):
         p = {}
 
-        if self.dtype == 'ascii':
-            rls = self.dsets['rl'].unique().astype(int).tolist()
-            for rl in rls:
-                c = self.dsets[self.dsets.rl == rl].c.unique().astype(int).tolist()
-                p[rl] = c
-            return p
+        rls = self.dsets['rl'].unique().astype(int).tolist()
+        for rl in rls:
+            dset = self.dsets[self.dsets.rl == rl]
+            c = dset.c.unique().astype(int).tolist()
+            p[rl] = c
 
-        elif self.dtype == 'hdf5':
-            # self.rl = {}
-            # for item in self.dsets:
-            return p
+        return p
+
 
     def coords(self, rl=-1, c=-1):
-        if self.dtype == 'ascii':
-            slice = self.dsets
-            if rl != -1:
-                slice = slice[slice.rl == rl]
-                assert not slice.empty, "dataset is empty at refinement level {}".format(rl)
-            if c != -1:
-                slice = slice[slice.c == c]
-                assert not slice.empty, "dataset is empty at component {}".format(c)
-            return tuple([slice[dim].values for dim in self.dim])
-
-        elif self.dtype == 'hdf5':
-            pass
+        slice = self.dsets
+        if rl != -1:
+            slice = slice[slice.rl == rl]
+            assert not slice.empty, "dataset is empty at refinement level {}".format(rl)
+        if c != -1:
+            slice = slice[slice.c == c]
+            assert not slice.empty, "dataset is empty at component {}".format(c)
+        grid = tuple(np.sort(np.unique(slice[dim].values)) for dim in self.dim)
+        return tuple(np.meshgrid(*grid))
 
     def interpolate(self, coords):
-        if self.dtype == 'ascii':
-            points = tuple([self.dsets[dim].values for dim in self.dim])
-            return griddata(points, self.dsets[self.var], coords, method='nearest')
+        points = tuple([self.dsets[dim].values for dim in self.dim])
+        return griddata(points, self.dsets[self.var].values, coords, method='nearest')
 
-        elif self.dtype == 'hdf5':
-            pass
 
 
 

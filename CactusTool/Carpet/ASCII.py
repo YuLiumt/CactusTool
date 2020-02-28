@@ -132,9 +132,9 @@ class Variable:
         self.var = var
         self.files = files
         self.dim = dim
-
-    @property
-    def dataset(self):
+        self.dataset = self._init_dataset()
+ 
+    def _init_dataset(self):
         """
         CarpetIOASCII Dataset will store in pandas dataframe. Because the ASCII data structure more like a table. This dataset will store in :py:attr:`Variable.dataset`.
 
@@ -151,11 +151,11 @@ class Variable:
 
     @property
     def it(self):
-        return self.dataset['it'].unique().astype(int).tolist()
+        return sorted(self.dataset['it'].unique().astype(int).tolist())
 
     @property
     def time(self):
-        return pd.Series(self.dataset['time'].values, index=self.dataset['it'].astype(int)).drop_duplicates()
+        return pd.Series(self.dataset['time'].values, index=self.dataset['it'].astype(int)).drop_duplicates().sort_index()
         
     def temporary(self, it=0):
         dataset = self.dataset[self.dataset.it == it]
@@ -163,14 +163,8 @@ class Variable:
         for dim in self.dim:
             column += dim
         dset = pd.DataFrame(dataset, columns=column) 
-        return AMRGrid(dset, self.dim, self.var, 'ascii')
+        return AMRGrid(dset, self.dim, self.var)
 
-    def value(self, time=0):
-        dataset = self.dataset[self.dataset.time == time]
-        points = tuple([dataset[dim].values for dim in self.dim])
-        value = dataset[self.var].values
-        return LinearNDInterpolator(points, value)
-        # return points
 
 
     

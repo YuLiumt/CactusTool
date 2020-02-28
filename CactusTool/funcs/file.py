@@ -1,11 +1,12 @@
 from .check import *
+import pandas as pd
 import h5py
 import gzip
 import bz2
 import re
 import os
 
-################### Open file ###################
+
 def read(file):
     """
     Carpet output file type is completely different. This function provides different way to open it.
@@ -65,11 +66,14 @@ def header_h5(file):
             dset = pattern.match(item)
             if dset is None:
                 continue
-            p[item] = {'thorn': dset.group(1), 
-                       'varname': dset.group(2),
-                       'iteration': int(dset.group(3)),
-                       'timelevel': int(dset.group(4)),
-                       'rl': int(dset.group(7))}
+            p[item] = {
+                'file': file,
+                'thorn': dset.group(1), 
+                'varname': dset.group(2),
+                'iteration': int(dset.group(3)),
+                'timelevel': int(dset.group(4)),
+                'rl': int(dset.group(7))
+            }
             if dset.group(6) != None:
                 p[item].update({'ml': int(dset.group(6))})
             if dset.group(9) != None:
@@ -116,6 +120,40 @@ def dataset_h5(file, slice):
         p['data'] = np.array(dset)  
     
     return p
+
+def dataframe_h5(file, axis):
+    """
+    HDF5 to pandas DataFrame
+    """
+    assert axis in ['x', 'y', 'z', 'xy', 'xz', 'yz', 'xyz'], "Does not include {} axis on {}".format(dim, file)
+    pattern = re.compile(r'([^:]+)::(\S+) it=(\d+) tl=(\d+)( m=(\d+))? rl=(\d+)( c=(\d+))?')
+    with read(file) as f:
+        tem = []
+        for item in list(f):
+            header = pattern.match(item)
+            if header is None:
+                continue
+            dset = f[item]
+            var = header.group(2)
+            data = np.array(dset)
+            origin = dset.attrs.get('origin', None)
+            delta = dset.attrs.get('delta', None)
+            size = data.shape
+            dim = len(axis)
+            coord = tuple(np.arange(0,size[(dim-1)-i])*delta[i]+origin[i] for i in range(dim))
+            grid = np.meshgrid(*coord)
+            tem_c = pd.DataFrame()
+            for i in range(dim):
+                tem_c[axis[i]] = grid[i].flatten()
+            tem_c[var] = data.flatten()
+            tem_c['rl'] = int(header.group(7))
+            tem_c['it'] = int(header.group(3))
+            tem_c['time'] = dset.attrs.get('time', None)
+            if header.group(9) != None:
+                tem_c['c'] = int(header.group(9))    
+            tem.append(tem_c)
+
+    return pd.concat(tem)
 
 ################### Folder ###################
 def fetch_all_file(path):

@@ -3,7 +3,7 @@ Cactus dataset main produced by `Carpet <https://carpetcode.org>`_, which is an 
 """
 
 from ..funcs import *
-# from .gird import Grid
+from .grid import AMRGrid
 import pandas as pd
 import numpy as np
 import os
@@ -134,27 +134,67 @@ class Variable:
         self.var = var
         self.files = files
         self.dim = dim
+        self.initialize = False
+
+    def init_dataset(self):
+        tem = []
+        for file in self.files:
+            tem.append(dataframe_h5(file, self.dim))
+        self.dataset = pd.concat(tem).drop_duplicates()
+        self.initialize = True
+
+    @property
+    def header(self):
+        p = {}
+        for file in self.files:
+            p.update(header_h5(file))
+        return p
 
     @property
     def it(self):
-        iteration = np.array([])
-        pattern = re.compile(r'([^:]+)::(\S+) it=(\d+) tl=(\d+)( m=(\d+))? rl=(\d+)( c=(\d+))?')
-        for file in self.files:
-            with read(file) as f:
-                for item in list(f):
-                    header = pattern.match(item)
-                    if header is None:
-                        continue
-                    if header.group(2) == self.var:
-                        iteration = np.append(iteration, int(header.group(3)))
-        return np.unique(iteration).sort()
+        iteration = set()
+        headers = select_header_h5(self.header, self.var)
+        for item in headers:
+            iteration.add(int(self.header[item]['iteration']))
+        return sorted(list(iteration))
+
+    def temporary(self, it=0):
+        if self.initialize:
+            dataset = self.dataset[self.dataset.it == it]
+            column = ['rl', 'c', self.var]
+            for dim in self.dim:
+                column += dim
+            dset = pd.DataFrame(dataset, columns=column) 
+        else:
+            headers = select_header_h5(self.header, self.var, it=it)
+            dsets = []
+            for item in headers:
+                dsets.append(dataset_h5(self.dataset[item]['file'], item))
+        return AMRGrid(dset, self.dim, self.var)
+
 
     # @property
-    # def t(self):
-    #     time = []
+    # def it(self):
+    #     return self.dataset['it'].unique().astype(int).tolist()
+
+    # @property
+    # def time(self):
+    #     return pd.Series(self.dataset['time'].values, index=self.dataset['it'].astype(int)).drop_duplicates().sort_index()
+
+    # @property
+    # def time(self):
+    #     p = []
     #     for item in self.dataset:
     #         time.append(self.dataset[item]['time'])
     #     return time
+
+    # def temporary(self, it=0):
+    #     headers = select_header_h5(self.dataset, self.var, it=it)
+    #     dsets = []
+    #     for item in headers:
+    #         dsets.append(dataset_h5(self.dataset[item]['file'], item))
+    #     # return AMRGrid(dset, self.dim, self.var, 'hdf5')
+    #     return dsets
 
 
     def grid_hierarchies(self):
