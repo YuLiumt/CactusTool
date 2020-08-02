@@ -44,10 +44,18 @@ CactusTool.funcs.json module
    :undoc-members:
    :show-inheritance:
 
-CactusTool.funcs.sys module
+CactusTool.funcs.log module
 ---------------------------
 
-.. automodule:: CactusTool.funcs.sys
+.. automodule:: CactusTool.funcs.log
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+CactusTool.funcs.ts module
+--------------------------
+
+.. automodule:: CactusTool.funcs.ts
    :members:
    :undoc-members:
    :show-inheritance:

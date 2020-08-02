@@ -12,6 +12,22 @@ CactusTool.Carpet.ASCII module
    :undoc-members:
    :show-inheritance:
 
+CactusTool.Carpet.Array module
+------------------------------
+
+.. automodule:: CactusTool.Carpet.Array
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+CactusTool.Carpet.GF module
+---------------------------
+
+.. automodule:: CactusTool.Carpet.GF
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 CactusTool.Carpet.HDF5 module
 -----------------------------
 

@@ -14,6 +14,8 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="../_static/language_data.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -50,13 +52,21 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-CactusTool.Visualize.mesh">
-<span id="cactustool-visualize-mesh-module"></span><h2>CactusTool.Visualize.mesh module<a class="headerlink" href="#module-CactusTool.Visualize.mesh" title="Permalink to this headline">¶</a></h2>
-<p>This Class has all the routines for the imaging</p>
-<dl class="class">
-<dt id="CactusTool.Visualize.mesh.SlicePlot">
-<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Visualize.mesh.</code><code class="sig-name descname">SlicePlot</code><span class="sig-paren">(</span><em class="sig-param">ax</em>, <em class="sig-param">ds</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Visualize/mesh.html#SlicePlot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Visualize.mesh.SlicePlot" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<div class="section" id="module-CactusTool.Visualize.plot2d">
+<span id="cactustool-visualize-plot2d-module"></span><h2>CactusTool.Visualize.plot2d module<a class="headerlink" href="#module-CactusTool.Visualize.plot2d" title="Permalink to this headline">¶</a></h2>
+<p>Makes a 2D color plot</p>
+<dl class="function">
+<dt id="CactusTool.Visualize.plot2d.pcolormesh">
+<code class="sig-prename descclassname">CactusTool.Visualize.plot2d.</code><code class="sig-name descname">pcolormesh</code><span class="sig-paren">(</span><em class="sig-param">dsets</em>, <em class="sig-param">dim='xy'</em>, <em class="sig-param">axlim=None</em>, <em class="sig-param">Normalize=None</em>, <em class="sig-param">title=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Visualize/plot2d.html#pcolormesh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Visualize.plot2d.pcolormesh" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-CactusTool.Visualize.plot3d">
+<span id="cactustool-visualize-plot3d-module"></span><h2>CactusTool.Visualize.plot3d module<a class="headerlink" href="#module-CactusTool.Visualize.plot3d" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="CactusTool.Visualize.plot3d.plot_trajectory">
+<code class="sig-prename descclassname">CactusTool.Visualize.plot3d.</code><code class="sig-name descname">plot_trajectory</code><span class="sig-paren">(</span><em class="sig-param">ax</em>, <em class="sig-param">x</em>, <em class="sig-param">y</em>, <em class="sig-param">z</em>, <em class="sig-param">color=None</em>, <em class="sig-param">label=None</em>, <em class="sig-param">plot_end=True</em>, <em class="sig-param">lw=1</em>, <em class="sig-param">nmasks=20</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Visualize/plot3d.html#plot_trajectory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Visualize.plot3d.plot_trajectory" title="Permalink to this definition">¶</a></dt>
+<dd><p>trajectory with alpha</p>
 </dd></dl>
 
 </div>
@@ -321,7 +331,8 @@
   <ul>
 <li><a class="reference internal" href="#">CactusTool.Visualize package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-CactusTool.Visualize.mesh">CactusTool.Visualize.mesh module</a></li>
+<li><a class="reference internal" href="#module-CactusTool.Visualize.plot2d">CactusTool.Visualize.plot2d module</a></li>
+<li><a class="reference internal" href="#module-CactusTool.Visualize.plot3d">CactusTool.Visualize.plot3d module</a></li>
 <li><a class="reference internal" href="#module-CactusTool.Visualize.profile">CactusTool.Visualize.profile module</a></li>
 <li><a class="reference internal" href="#module-CactusTool.Visualize.ts">CactusTool.Visualize.ts module</a></li>
 <li><a class="reference internal" href="#module-CactusTool.Visualize.visualize">CactusTool.Visualize.visualize module</a></li>

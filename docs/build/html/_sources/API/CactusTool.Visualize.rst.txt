@@ -4,10 +4,18 @@ CactusTool.Visualize package
 Submodules
 ----------
 
-CactusTool.Visualize.mesh module
---------------------------------
+CactusTool.Visualize.plot2d module
+----------------------------------
 
-.. automodule:: CactusTool.Visualize.mesh
+.. automodule:: CactusTool.Visualize.plot2d
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+CactusTool.Visualize.plot3d module
+----------------------------------
+
+.. automodule:: CactusTool.Visualize.plot3d
    :members:
    :undoc-members:
    :show-inheritance:

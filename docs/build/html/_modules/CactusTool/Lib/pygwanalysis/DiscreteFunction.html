@@ -1,0 +1,919 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>CactusTool.Lib.pygwanalysis.DiscreteFunction &#8212; CactusTool 0.0.1 documentation</title>
+    <link rel="stylesheet" href="../../../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for CactusTool.Lib.pygwanalysis.DiscreteFunction</h1><div class="highlight"><pre>
+<span></span><span class="c1">#----------------------------------------------------------</span>
+<span class="c1">#</span>
+<span class="c1"># Classes and routines for representing and manipulating </span>
+<span class="c1"># discrete functions.</span>
+<span class="c1">#</span>
+<span class="c1"># Released under the MIT License.</span>
+<span class="c1"># (C) Christian Reisswig 2009-2011</span>
+<span class="c1">#</span>
+<span class="c1">#----------------------------------------------------------</span>
+
+
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.Utils</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="n">debug</span> <span class="o">=</span> <span class="mi">0</span>
+
+<div class="viewcode-block" id="DiscreteFunction"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction">[docs]</a><span class="k">class</span> <span class="nc">DiscreteFunction</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Class describing discrete functions which transform 1D data&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="DiscreteFunction.HasUniformSpacing"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.HasUniformSpacing">[docs]</a>    <span class="k">def</span> <span class="nf">HasUniformSpacing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Checks if this function has a unifrom grid spacing&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="c1"># check if we have uniform spacing</span>
+            <span class="n">dx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">dx</span><span class="o">-</span><span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="o">+</span><span class="mi">1</span><span class="p">]))</span> <span class="o">&gt;</span> <span class="mf">1e-7</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+            
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_</span><span class="p">,</span> <span class="n">f_</span><span class="p">,</span> <span class="n">g_</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialise a 1D transformation function&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="n">x_</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">g_</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="n">f_</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">array</span><span class="p">(</span><span class="n">g_</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="n">f_</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">HasUniformSpacing</span><span class="p">()</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">dx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dx</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="p">[]</span>
+    
+<div class="viewcode-block" id="DiscreteFunction.Load"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.Load">[docs]</a>    <span class="k">def</span> <span class="nf">Load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">col1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col2</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">col3</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;load a 1d function from file&quot;&quot;&quot;</span>
+        
+        <span class="n">fp</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+        <span class="n">x_</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">f_</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fp</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;#&#39;</span> <span class="ow">or</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;&quot;&#39;</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="c1">#data = map(float, line.split())</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+            <span class="n">x_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">col1</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">or</span> <span class="n">col3</span><span class="o">&lt;=</span><span class="mi">0</span><span class="p">):</span>
+                <span class="n">f_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">col2</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">f_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">complex</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">col2</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">float</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">col3</span><span class="o">-</span><span class="mi">1</span><span class="p">])))</span>
+        <span class="n">fp</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="n">x_</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="n">f_</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">HasUniformSpacing</span><span class="p">()</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">dx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dx</span> <span class="o">=</span> <span class="mf">0.0</span></div>
+    
+<div class="viewcode-block" id="DiscreteFunction.MakeMonotonicCoordinates"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.MakeMonotonicCoordinates">[docs]</a>    <span class="k">def</span> <span class="nf">MakeMonotonicCoordinates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">maxvariance</span><span class="o">=</span><span class="mf">1e10</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Given a function whose coordinates are not monotonic, we remove all entries that violate monotonicity.</span>
+<span class="sd">           maxvariance is the maximal change that may occur from one point to the next&quot;&quot;&quot;</span>
+        <span class="n">x_</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">f_</span> <span class="o">=</span> <span class="p">[]</span>
+                
+        <span class="n">jj</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">jj</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">]):</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">jj</span><span class="p">]</span><span class="o">+</span><span class="n">maxvariance</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="n">jj</span> <span class="o">=</span> <span class="n">ii</span>
+            <span class="n">x_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+            <span class="n">f_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">x_</span><span class="p">,</span> <span class="n">f_</span><span class="p">)</span></div>
+    
+    
+<div class="viewcode-block" id="DiscreteFunction.Restrict"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.Restrict">[docs]</a>    <span class="k">def</span> <span class="nf">Restrict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Restrict 1d function to intervall between [x0, x1]&quot;&quot;&quot;</span>
+                
+        <span class="n">x_</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">f_</span> <span class="o">=</span> <span class="p">[]</span>
+        
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">x0</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">x1</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="n">x_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+            <span class="n">f_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">x_</span><span class="p">,</span> <span class="n">f_</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="DiscreteFunction.Invert"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.Invert">[docs]</a>    <span class="k">def</span> <span class="nf">Invert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Invert function on a specific interval&quot;&quot;&quot;</span>
+        <span class="n">DF</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Restrict</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">)</span>
+        <span class="n">DF</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">DF</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="n">DF</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">DF</span> <span class="o">=</span> <span class="n">DF</span><span class="o">.</span><span class="n">MakeMonotonicCoordinates</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">DF</span></div>
+        
+    
+<div class="viewcode-block" id="DiscreteFunction.Extend"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.Extend">[docs]</a>    <span class="k">def</span> <span class="nf">Extend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">after</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Extend the function by n function values g separated with spacing dx&quot;&quot;&quot;</span>
+        <span class="n">x_</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">f_</span> <span class="o">=</span> <span class="p">[]</span>
+        
+        <span class="c1"># add new values at beginning</span>
+        <span class="k">if</span> <span class="n">after</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+                <span class="n">x_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="p">(</span><span class="n">ii</span><span class="o">-</span><span class="n">n</span><span class="p">)</span><span class="o">*</span><span class="n">dx</span><span class="p">)</span>
+                <span class="n">f_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">g</span><span class="p">(</span><span class="n">x_</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="c1"># copy old values</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)):</span>
+            <span class="n">x_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+            <span class="n">f_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+        <span class="c1"># add new values at the end</span>
+        <span class="k">if</span> <span class="n">after</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+                <span class="n">x_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="p">(</span><span class="n">ii</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">dx</span><span class="p">)</span>
+                <span class="n">f_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">g</span><span class="p">(</span><span class="n">x_</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">x_</span><span class="p">,</span> <span class="n">f_</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="DiscreteFunction.Append"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.Append">[docs]</a>    <span class="k">def</span> <span class="nf">Append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">DF</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Appends another discrete function to this function&quot;&quot;&quot;</span>
+        <span class="n">x_</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">f_</span> <span class="o">=</span> <span class="p">[]</span>
+        
+        <span class="c1"># copy old values</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)):</span>
+            <span class="n">x_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+            <span class="n">f_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+        <span class="c1"># add new values at the end</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">DF</span><span class="o">.</span><span class="n">Length</span><span class="p">()):</span>
+            <span class="n">x_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">dx</span><span class="o">+</span><span class="n">DF</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">-</span><span class="n">DF</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">f_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">DF</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">x_</span><span class="p">,</span> <span class="n">f_</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="DiscreteFunction.FindNearestNeighbor"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.FindNearestNeighbor">[docs]</a>    <span class="k">def</span> <span class="nf">FindNearestNeighbor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">BruteForceSearch</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Find nearest neighboring point (index) to x&quot;&quot;&quot;</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dx</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">BruteForceSearch</span> <span class="o">==</span> <span class="kc">False</span><span class="p">):</span>
+            <span class="c1"># We have uniform data and can compute the nearest point</span>
+            <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">((</span><span class="n">x</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">dx</span><span class="p">))</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dx</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">BruteForceSearch</span> <span class="o">==</span> <span class="kc">False</span><span class="p">):</span>
+            <span class="c1"># Use bijection to find our point</span>
+            <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="k">return</span> <span class="mi">0</span>
+            <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Length</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span>
+            <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Length</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">((</span><span class="n">b</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="mf">0.5</span><span class="p">))</span>
+            <span class="k">while</span> <span class="p">(</span><span class="n">found</span> <span class="o">==</span> <span class="kc">False</span><span class="p">):</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">b</span><span class="o">-</span><span class="n">a</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="c1">#print(&quot;(x, a, b, x[a], x[b])=&quot;, x, a, b, self.x[a], self.x[b])</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">b</span><span class="p">])</span> <span class="o">&lt;</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">a</span><span class="p">])):</span> <span class="k">return</span> <span class="n">b</span>
+                    <span class="k">else</span><span class="p">:</span> <span class="k">return</span> <span class="n">a</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]):</span> <span class="k">return</span> <span class="n">i</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]):</span> 
+                    <span class="n">b</span> <span class="o">=</span> <span class="n">i</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">a</span> <span class="o">=</span> <span class="n">i</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="n">a</span><span class="o">+</span><span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">((</span><span class="n">b</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="mf">0.5</span><span class="p">))</span>
+            <span class="c1">#print(&quot;Error: FindNearestNeighbor: bijection search not implemented&quot;)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">BruteForceSearch</span> <span class="o">==</span> <span class="kc">True</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="o">+</span><span class="mi">1</span><span class="p">]):</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span> <span class="o">&lt;</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="o">+</span><span class="mi">1</span><span class="p">])):</span>
+                        <span class="n">n</span> <span class="o">=</span> <span class="n">ii</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">n</span> <span class="o">=</span> <span class="n">ii</span><span class="o">+</span><span class="mi">1</span>
+                    <span class="k">break</span>
+        <span class="k">return</span> <span class="n">n</span></div>
+    
+<div class="viewcode-block" id="DiscreteFunction.Interpolate"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.Interpolate">[docs]</a>    <span class="k">def</span> <span class="nf">Interpolate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xi</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;interpolate to point x&quot;&quot;&quot;</span>
+        
+        <span class="n">interp_order</span> <span class="o">=</span> <span class="mi">5</span>
+        
+        <span class="c1"># Don&#39;t do anything if we are outside of domain, just copy value from boundary points</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">xi</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">xi</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        
+        <span class="c1"># find closest point to interpolation point</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">FindNearestNeighbor</span><span class="p">(</span><span class="n">xi</span><span class="p">)</span>
+        
+        <span class="c1">#if (abs(xi-self.x[n]) &lt; 1e-8): print(&quot;Skipping interpolation: point too close to gridpoint.&quot;; return self.f[n])</span>
+        
+        <span class="n">npoints</span> <span class="o">=</span> <span class="n">interp_order</span><span class="o">+</span><span class="mi">1</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">xi</span> <span class="ow">and</span> <span class="n">npoints</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">nstart</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="n">npoints</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">nstart</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="n">npoints</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">nstart</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">):</span> <span class="n">nstart</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">nstart</span><span class="o">+</span><span class="n">npoints</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)):</span> <span class="n">nstart</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="n">npoints</span>
+        
+        <span class="n">res</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nstart</span><span class="p">,</span> <span class="n">nstart</span><span class="o">+</span><span class="n">npoints</span><span class="p">):</span>
+            <span class="n">l</span> <span class="o">=</span> <span class="mf">1.0</span>
+            <span class="k">for</span> <span class="n">jj</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nstart</span><span class="p">,</span> <span class="n">nstart</span><span class="o">+</span><span class="n">npoints</span><span class="p">):</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">ii</span> <span class="o">!=</span> <span class="n">jj</span><span class="p">):</span>
+                    <span class="n">l</span> <span class="o">=</span> <span class="n">l</span> <span class="o">*</span> <span class="p">(</span><span class="n">xi</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">jj</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">jj</span><span class="p">])</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">res</span> <span class="o">+</span> <span class="n">l</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span>
+        
+        <span class="k">return</span> <span class="n">res</span></div>
+
+<div class="viewcode-block" id="DiscreteFunction.QuadraticSpline"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.QuadraticSpline">[docs]</a>    <span class="k">def</span> <span class="nf">QuadraticSpline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Use a quadratic spline to interpolate at point x&quot;&quot;&quot;</span>
+        
+        <span class="c1"># Don&#39;t do anything if we are outside of domain, just copy value from boundary points</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">xi</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">xi</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        
+        <span class="c1"># find closest point to interpolation point</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">xi</span> <span class="ow">and</span> <span class="n">xi</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="o">+</span><span class="mi">1</span><span class="p">]):</span>
+                <span class="n">n</span> <span class="o">=</span> <span class="n">ii</span>
+                <span class="k">break</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">xi</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">n</span><span class="p">])</span> <span class="o">&lt;</span> <span class="mf">1e-8</span><span class="p">):</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
+        
+        <span class="n">nstart</span> <span class="o">=</span> <span class="n">n</span>
+        
+        <span class="c1">#self.f[ii] + </span>
+        
+        
+        <span class="k">return</span> <span class="n">res</span></div>
+
+
+<div class="viewcode-block" id="DiscreteFunction.Resample"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.Resample">[docs]</a>    <span class="k">def</span> <span class="nf">Resample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">intervall</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Resample field to resolution dx&quot;&quot;&quot;</span>
+        
+        <span class="k">if</span> <span class="n">intervall</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">xstart</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">npoints</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="n">dx</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">xstart</span> <span class="o">=</span> <span class="n">intervall</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">npoints</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">intervall</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">intervall</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="n">dx</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span>
+        
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">zeros</span><span class="p">(</span><span class="n">npoints</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span> <span class="n">zeros</span><span class="p">(</span><span class="n">npoints</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
+        <span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">xstart</span>
+        <span class="n">res</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">xstart</span><span class="p">)</span>
+        <span class="n">res</span><span class="o">.</span><span class="n">dx</span> <span class="o">=</span> <span class="n">dx</span>
+        
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">npoints</span><span class="p">):</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">xstart</span><span class="o">+</span><span class="n">dx</span><span class="o">*</span><span class="n">ii</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+        
+        <span class="k">return</span> <span class="n">res</span></div>
+
+
+<div class="viewcode-block" id="DiscreteFunction.TransformCoord"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.TransformCoord">[docs]</a>    <span class="k">def</span> <span class="nf">TransformCoord</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">g</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Transform coordinate according to function g &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+            
+<div class="viewcode-block" id="DiscreteFunction.Length"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.Length">[docs]</a>    <span class="k">def</span> <span class="nf">Length</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns number of datapoints&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="DiscreteFunction.Union"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.Union">[docs]</a>    <span class="k">def</span> <span class="nf">Union</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f2</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns the union of points between this and function f&quot;&quot;&quot;</span>
+        <span class="n">x_</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">jj</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">npoints</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># find union number of points</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Length</span><span class="p">()):</span>
+            <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">f2</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">jj</span><span class="p">]</span> <span class="ow">and</span> <span class="n">jj</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">f2</span><span class="o">.</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">x_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f2</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">jj</span><span class="p">])</span>
+                <span class="n">npoints</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">jj</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">f2</span><span class="o">.</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                    <span class="n">jj</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">==</span> <span class="n">f2</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">jj</span><span class="p">]):</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">jj</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">f2</span><span class="o">.</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                    <span class="n">jj</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">x_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+            <span class="n">npoints</span> <span class="o">+=</span> <span class="mi">1</span>
+        
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">x_</span><span class="p">,</span> <span class="n">zeros</span><span class="p">(</span><span class="n">npoints</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">)))</span>
+        
+        <span class="k">return</span> <span class="n">res</span></div>
+        
+
+<div class="viewcode-block" id="DiscreteFunction.NormL1"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.NormL1">[docs]</a>    <span class="k">def</span> <span class="nf">NormL1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Calculates L1-norm of function&quot;&quot;&quot;</span>
+        <span class="n">norm</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Length</span><span class="p">()):</span>
+            <span class="n">norm</span> <span class="o">+=</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">norm</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">Length</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="DiscreteFunction.NormL2"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.NormL2">[docs]</a>    <span class="k">def</span> <span class="nf">NormL2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Calculates L2-norm of function&quot;&quot;&quot;</span>
+        <span class="n">norm</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Length</span><span class="p">()):</span>
+            <span class="n">norm</span> <span class="o">+=</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
+        <span class="k">return</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">norm</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">Length</span><span class="p">()</span>
+        
+        <span class="k">return</span> <span class="n">norm</span></div>
+
+
+<div class="viewcode-block" id="DiscreteFunction.NormSup"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.NormSup">[docs]</a>    <span class="k">def</span> <span class="nf">NormSup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Calculates infinity-norm of function&quot;&quot;&quot;</span>
+        
+        <span class="n">norm</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Length</span><span class="p">()):</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">norm</span><span class="p">):</span> <span class="n">norm</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+        
+        <span class="k">return</span> <span class="n">norm</span></div>
+
+
+<div class="viewcode-block" id="DiscreteFunction.FindMax"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.FindMax">[docs]</a>    <span class="k">def</span> <span class="nf">FindMax</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Finds grid index location of discrete maximum&quot;&quot;&quot;</span>
+        
+        <span class="n">fmax</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1e50</span>
+        <span class="n">imax</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Length</span><span class="p">()):</span>
+            <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">fmax</span><span class="p">):</span>
+                <span class="n">imax</span> <span class="o">=</span> <span class="n">ii</span>
+                <span class="n">fmax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span>
+        
+        <span class="k">return</span> <span class="n">imax</span></div>
+
+<div class="viewcode-block" id="DiscreteFunction.FindAbsMax"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.FindAbsMax">[docs]</a>    <span class="k">def</span> <span class="nf">FindAbsMax</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Finds grid index location of absolute discrete maximum&quot;&quot;&quot;</span>
+        
+        <span class="n">fmax</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1e50</span>
+        <span class="n">imax</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Length</span><span class="p">()):</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">fmax</span><span class="p">):</span>
+                <span class="n">imax</span> <span class="o">=</span> <span class="n">ii</span>
+                <span class="n">fmax</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+        
+        <span class="k">return</span> <span class="n">imax</span></div>
+
+<div class="viewcode-block" id="DiscreteFunction.FindAbsMaxInterpolated"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.FindAbsMaxInterpolated">[docs]</a>    <span class="k">def</span> <span class="nf">FindAbsMaxInterpolated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Finds location of continuous maximum via interpolation&quot;&quot;&quot;</span>
+        
+        <span class="n">ii</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">FindAbsMax</span><span class="p">()</span>  <span class="c1"># find discrete maximum</span>
+        <span class="c1">#print(&quot;Discrete Maximum at&quot;, self.x[ii])</span>
+        
+        <span class="n">DF2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Restrict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+        
+        <span class="c1"># Preselect intervall based on first derivative of 2nd order Lagrange polynomial (its derivative has only one root!)</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">DF2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Restrict</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">Lagrange_derivative</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">],</span> <span class="n">DF2</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">DF2</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">Lagrange_derivative</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">DF2</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">DF2</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span>
+
+        <span class="c1">#xroot = find_root([a, b], lambda x: Lagrange_derivative(x, DF2.x, DF2.f, order), 0, precision)</span>
+
+        <span class="c1"># Find maximum by interpolating between a and b with given precision</span>
+        <span class="n">prev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+        <span class="n">a</span> <span class="o">+=</span> <span class="n">precision</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">a</span> <span class="o">!=</span> <span class="n">b</span><span class="p">):</span>
+            <span class="n">cur</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">cur</span> <span class="o">&lt;</span> <span class="n">prev</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="n">prev</span> <span class="o">=</span> <span class="n">cur</span>
+            <span class="n">a</span> <span class="o">+=</span> <span class="n">precision</span>
+        <span class="n">xroot</span> <span class="o">=</span> <span class="n">a</span>
+
+        <span class="c1">#print(&quot;Maximum at&quot;, xroot)</span>
+        <span class="k">return</span> <span class="n">xroot</span>    </div>
+
+
+<div class="viewcode-block" id="DiscreteFunction.DifferentiateFunction"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.DifferentiateFunction">[docs]</a>    <span class="k">def</span> <span class="nf">DifferentiateFunction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Differentiate this function and return a function&quot;&quot;&quot;</span>
+        
+        <span class="n">npoints</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Length</span><span class="p">()</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="o">*</span><span class="mf">0.0</span><span class="p">)</span>
+        
+        <span class="c1"># TODO: fail if not uniform spacing</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">res</span><span class="o">.</span><span class="n">dx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dx</span>
+        
+        <span class="c1"># Simple second order centred differentiation</span>
+        
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Length</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">res</span><span class="o">.</span><span class="n">dx</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">res</span></div>
+    
+    
+<div class="viewcode-block" id="DiscreteFunction.IntegrateFunction"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.IntegrateFunction">[docs]</a>    <span class="k">def</span> <span class="nf">IntegrateFunction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Integrate this function and return a function&quot;&quot;&quot;</span>
+        
+        <span class="n">npoints</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Length</span><span class="p">()</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="o">*</span><span class="mf">0.0</span><span class="p">)</span>
+        
+        <span class="c1"># TODO: fail if not uniform spacing</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">res</span><span class="o">.</span><span class="n">dx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dx</span>
+        
+        <span class="c1"># 4th-order Adams-Moulton coeffs</span>
+        <span class="n">beta</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="mf">9.0</span><span class="o">/</span><span class="mf">24.0</span><span class="p">,</span> <span class="mf">19.0</span><span class="o">/</span><span class="mf">24.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.0</span><span class="o">/</span><span class="mf">24.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="o">/</span><span class="mf">24.0</span><span class="p">])</span>
+        
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Length</span><span class="p">()):</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
+                <span class="n">s</span> <span class="o">+=</span> <span class="n">beta</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="o">-</span><span class="n">k</span><span class="p">]</span>
+            <span class="n">s</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dx</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span><span class="o">+</span><span class="n">res</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        
+        <span class="k">return</span> <span class="n">res</span></div>
+    
+    
+<div class="viewcode-block" id="DiscreteFunction.Integrate"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.Integrate">[docs]</a>    <span class="k">def</span> <span class="nf">Integrate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">Resample</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">secondOrder</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Integrate this function in [a,b] and return a number. If a,b do not line up with gridpoints then resample&quot;&quot;&quot;</span>
+        
+        <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="n">a</span><span class="o">&lt;</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span> <span class="n">a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">b</span><span class="o">&gt;</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span> <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        
+        <span class="n">nstart</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">a</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">dx</span><span class="p">)</span>
+        <span class="n">nend</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">b</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">dx</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">Resample</span> <span class="o">==</span> <span class="kc">True</span><span class="p">):</span>
+            <span class="n">ntot</span> <span class="o">=</span> <span class="n">nend</span><span class="o">-</span><span class="n">nstart</span>
+            <span class="n">dx</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span><span class="o">-</span><span class="n">a</span><span class="p">)</span> <span class="o">/</span> <span class="n">ntot</span>
+            <span class="n">dummy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">zeros</span><span class="p">(</span><span class="n">ntot</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span> <span class="n">zeros</span><span class="p">(</span><span class="n">ntot</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
+            <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dummy</span><span class="o">.</span><span class="n">Length</span><span class="p">()):</span>
+                <span class="n">dummy</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="o">+</span><span class="n">ii</span><span class="o">*</span><span class="n">dx</span>
+                <span class="n">dummy</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">dummy</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+            <span class="n">nstart</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">nend</span> <span class="o">=</span> <span class="n">dummy</span><span class="o">.</span><span class="n">Length</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">dummy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nstart</span><span class="p">,</span> <span class="n">nend</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+                <span class="n">dummy</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span>
+                <span class="n">dummy</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="n">secondOrder</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nstart</span><span class="p">,</span> <span class="n">nend</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+                <span class="n">res</span> <span class="o">=</span> <span class="n">res</span> <span class="o">+</span> <span class="n">coeff2nd</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="n">nstart</span><span class="p">,</span> <span class="n">nend</span><span class="o">-</span><span class="n">nstart</span><span class="p">)</span><span class="o">*</span><span class="n">dummy</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nstart</span><span class="p">,</span> <span class="n">nend</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+                <span class="n">res</span> <span class="o">=</span> <span class="n">res</span> <span class="o">+</span> <span class="n">Simpson_coeff</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="n">nstart</span><span class="p">,</span> <span class="n">nend</span><span class="o">-</span><span class="n">nstart</span><span class="p">)</span><span class="o">*</span><span class="n">dummy</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dx</span> <span class="o">*</span> <span class="n">res</span>
+
+        <span class="k">return</span> <span class="n">res</span></div>
+
+
+
+<div class="viewcode-block" id="DiscreteFunction.FirstDerivative"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.FirstDerivative">[docs]</a>    <span class="k">def</span> <span class="nf">FirstDerivative</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">dx</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Take first derivative of this function&quot;&quot;&quot;</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">HasUniformSpacing</span><span class="p">()</span> <span class="o">==</span> <span class="kc">False</span> <span class="ow">and</span> <span class="n">dx</span><span class="o">==-</span><span class="mi">1</span><span class="p">):</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;FirstDerivative: f has no uniform spacing!&quot;</span><span class="p">)</span>
+        
+        <span class="n">npoints</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>   
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">zeros</span><span class="p">(</span><span class="n">npoints</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span> <span class="n">zeros</span><span class="p">(</span><span class="n">npoints</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        
+        <span class="c1"># Use dx given by parameter</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">dx</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">Length</span><span class="p">()):</span>
+                <span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span>
+                <span class="n">res</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">+</span><span class="n">dx</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">-</span><span class="n">dx</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.0</span><span class="o">*</span><span class="n">dx</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span> <span class="c1"># use internal dx</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">order</span><span class="o">==</span><span class="mi">2</span><span class="p">):</span>
+                <span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">Length</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                    <span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span>
+                    <span class="n">res</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.0</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">dx</span><span class="p">)</span>
+                <span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">order</span><span class="o">==</span><span class="mi">4</span><span class="p">):</span>
+                <span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">Length</span><span class="p">()</span><span class="o">-</span><span class="mi">2</span><span class="p">):</span>
+                    <span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span>
+                    <span class="n">res</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span><span class="o">/</span><span class="mf">12.</span> <span class="o">+</span> <span class="mf">2.</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mf">3.</span> <span class="o">-</span> <span class="mf">2.</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mf">3.</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="o">/</span><span class="mf">12.</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dx</span><span class="p">)</span>
+                <span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">res</span></div>
+
+
+<div class="viewcode-block" id="DiscreteFunction.SecondDerivative"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.SecondDerivative">[docs]</a>    <span class="k">def</span> <span class="nf">SecondDerivative</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">dx</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Take second derivative of this function&quot;&quot;&quot;</span>
+    
+        <span class="n">npoints</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>   
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">zeros</span><span class="p">(</span><span class="n">npoints</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span> <span class="n">zeros</span><span class="p">(</span><span class="n">npoints</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        
+        <span class="c1"># Use dx given by parameter</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">dx</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">Length</span><span class="p">()):</span>
+                <span class="k">if</span> <span class="n">order</span><span class="o">==</span><span class="mi">2</span><span class="p">:</span>
+                    <span class="n">res</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">+</span><span class="n">dx</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">-</span><span class="n">dx</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">dx</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span> <span class="c1"># use internal dx</span>
+            <span class="k">if</span> <span class="n">order</span><span class="o">==</span><span class="mi">2</span><span class="p">:</span>
+                <span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">Length</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                    <span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span>
+                    <span class="n">res</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dx</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+                <span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">order</span><span class="o">==</span><span class="mi">4</span><span class="p">:</span>
+                <span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">Length</span><span class="p">()</span><span class="o">-</span><span class="mi">2</span><span class="p">):</span>
+                    <span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span>
+                    <span class="n">res</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span><span class="o">/</span><span class="mi">12</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">5</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mi">3</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="o">/</span><span class="mi">12</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dx</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+                <span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">res</span></div>
+
+
+<div class="viewcode-block" id="DiscreteFunction.FourierTransform"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.FourierTransform">[docs]</a>    <span class="k">def</span> <span class="nf">FourierTransform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cutNegFreq</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Fourier-transform of this function&quot;&quot;&quot;</span>
+
+        <span class="n">npoints</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">zeros</span><span class="p">(</span><span class="n">npoints</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span> <span class="n">zeros</span><span class="p">(</span><span class="n">npoints</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
+
+        <span class="n">dt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dx</span>
+        <span class="n">res</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">dt</span> <span class="o">*</span> <span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">)</span> <span class="c1">#/2  # divide by two because we&#39;re going to cut the negative frequencies!</span>
+        
+        <span class="c1"># get the freq</span>
+        
+        <span class="c1">#for i in range(0, self.Length()):</span>
+        <span class="c1">#    res.x[i] = 2*pi * i*1.0/(self.Length()*dt)</span>
+        <span class="n">res</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">fft</span><span class="o">.</span><span class="n">fftfreq</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Length</span><span class="p">(),</span> <span class="n">dt</span><span class="p">)</span>
+        <span class="n">res</span><span class="o">.</span><span class="n">dx</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        
+        <span class="k">if</span> <span class="n">cutNegFreq</span><span class="o">==</span><span class="kc">False</span><span class="p">:</span>
+            <span class="c1"># Undo standard FFT ordering where negative frequencies are stored beyond i=n/2 (n=length of array)</span>
+            <span class="c1"># so that we have a continuous parametrization</span>
+            <span class="c1"># This needs to be undone later!</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">fft</span><span class="o">.</span><span class="n">fftshift</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">fft</span><span class="o">.</span><span class="n">fftshift</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">f</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># rather delete negative frequency components</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">npoints</span><span class="o">/</span><span class="mi">2</span><span class="p">]</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">npoints</span><span class="o">/</span><span class="mi">2</span><span class="p">]</span>
+        
+        <span class="k">return</span> <span class="n">res</span></div>
+
+
+<div class="viewcode-block" id="DiscreteFunction.InverseFourierTransform"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.InverseFourierTransform">[docs]</a>    <span class="k">def</span> <span class="nf">InverseFourierTransform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shiftNegFreq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">noNegFreq</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Fourier-transform of this function&quot;&quot;&quot;</span>
+
+        <span class="n">npoints</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">zeros</span><span class="p">(</span><span class="n">npoints</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span> <span class="n">zeros</span><span class="p">(</span><span class="n">npoints</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
+        
+        <span class="k">if</span> <span class="n">noNegFreq</span><span class="o">==</span><span class="kc">False</span><span class="p">:</span>
+            <span class="c1"># assuming we have a continuous parameterization, we have to put</span>
+            <span class="c1"># this to FFT standard form where negative frequencies are stored beyond n/2 (n=length of array)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">fft</span><span class="o">.</span><span class="n">ifftshift</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">fft</span><span class="o">.</span><span class="n">ifftshift</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">)</span>
+
+        <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dx</span>
+        <span class="n">res</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">fft</span><span class="o">.</span><span class="n">ifft</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">)</span>
+        
+        <span class="c1"># get the time</span>
+        <span class="n">res</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">fft</span><span class="o">.</span><span class="n">fftfreq</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Length</span><span class="p">(),</span> <span class="n">df</span><span class="p">)</span>
+        <span class="n">res</span><span class="o">.</span><span class="n">dx</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">noNegFreq</span><span class="o">==</span><span class="kc">False</span><span class="p">:</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">fft</span><span class="o">.</span><span class="n">fftshift</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">shiftNegFreq</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>    
+            <span class="n">res</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">fft</span><span class="o">.</span><span class="n">fftshift</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">f</span><span class="p">)</span>
+        <span class="n">res</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">f</span> <span class="o">/</span> <span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">dx</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">res</span></div>
+
+
+
+<div class="viewcode-block" id="DiscreteFunction.Smooth"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.Smooth">[docs]</a>    <span class="k">def</span> <span class="nf">Smooth</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Smooth this function &quot;&quot;&quot;</span>
+    
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">zeros</span><span class="p">(</span><span class="n">npoints</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span> <span class="n">zeros</span><span class="p">(</span><span class="n">npoints</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
+        
+        <span class="k">return</span> <span class="n">res</span></div>
+
+
+    <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rval</span><span class="p">):</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Union</span><span class="p">(</span><span class="n">rval</span><span class="p">)</span> 
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">Length</span><span class="p">()):</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span> <span class="o">+</span> <span class="n">rval</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">res</span>
+
+    <span class="k">def</span> <span class="nf">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rval</span><span class="p">):</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Union</span><span class="p">(</span><span class="n">rval</span><span class="p">)</span> 
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">Length</span><span class="p">()):</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span> <span class="o">-</span> <span class="n">rval</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">res</span>
+
+    <span class="c1"># implement pointwise multiplication (to apply windowing to a wavefunction)</span>
+    <span class="k">def</span> <span class="nf">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rval</span><span class="p">):</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Union</span><span class="p">(</span><span class="n">rval</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">Length</span><span class="p">()):</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span> <span class="o">*</span> <span class="n">rval</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">res</span>
+
+    <span class="k">def</span> <span class="nf">__div__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rval</span><span class="p">):</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Union</span><span class="p">(</span><span class="n">rval</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">Length</span><span class="p">()):</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span> <span class="o">/</span> <span class="n">rval</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">res</span>
+
+    <span class="k">def</span> <span class="nf">__abs__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">npoints</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">zeros</span><span class="p">(</span><span class="n">npoints</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">Length</span><span class="p">()):</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">res</span>
+
+    <span class="k">def</span> <span class="nf">__pos__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">npoints</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">res</span>
+
+    <span class="k">def</span> <span class="nf">__neg__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">npoints</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">res</span>
+
+<div class="viewcode-block" id="DiscreteFunction.real"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.real">[docs]</a>    <span class="k">def</span> <span class="nf">real</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">npoints</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">zeros</span><span class="p">(</span><span class="n">npoints</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Length</span><span class="p">()):</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">.</span><span class="n">real</span>
+        <span class="k">return</span> <span class="n">res</span></div>
+
+<div class="viewcode-block" id="DiscreteFunction.imag"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.imag">[docs]</a>    <span class="k">def</span> <span class="nf">imag</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">npoints</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">zeros</span><span class="p">(</span><span class="n">npoints</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Length</span><span class="p">()):</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">.</span><span class="n">imag</span>
+        <span class="k">return</span> <span class="n">res</span></div>
+
+<div class="viewcode-block" id="DiscreteFunction.conjugate"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.conjugate">[docs]</a>    <span class="k">def</span> <span class="nf">conjugate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">npoints</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">zeros</span><span class="p">(</span><span class="n">npoints</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Length</span><span class="p">()):</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">.</span><span class="n">conjugate</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">res</span></div>
+
+
+    <span class="c1"># implement iterator</span>
+    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="bp">self</span>
+    
+<div class="viewcode-block" id="DiscreteFunction.next"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.next">[docs]</a>    <span class="k">def</span> <span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">Length</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">StopIteration</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">]]</span></div>
+    
+    
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;# x    f(x) </span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="c1">#if type(self.f[0])==float:</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Length</span><span class="p">()):</span>
+            <span class="n">s</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span><span class="o">+</span><span class="s2">&quot; &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="n">s</span></div>
+        <span class="c1">#if type(self.f[0])==complex:</span>
+        <span class="c1">#    for ii in range(0, self.Length()):</span>
+        <span class="c1">#       s += str(self.x[ii])+&quot; &quot;+str(self.f[ii].real)+&quot; &quot;+str(self.f[ii].imag)+&quot;\n&quot;</span>
+        <span class="c1">#    return s</span>
+    
+        
+
+
+
+<span class="c1">#---------------------------------------------------------------</span>
+<span class="c1">#</span>
+<span class="c1"># Here come functions that operate on DiscreteFunction objects</span>
+<span class="c1">#</span>
+<span class="c1">#---------------------------------------------------------------</span>
+
+
+
+<div class="viewcode-block" id="ScalProd"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.DiscreteFunction.ScalProd">[docs]</a><span class="k">def</span> <span class="nf">ScalProd</span><span class="p">(</span><span class="n">f1</span><span class="p">,</span> <span class="n">f2</span><span class="p">,</span> <span class="n">kernel</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Calculates scalar-product of functions f1, f2 over kernel &quot;&quot;&quot;</span>
+    
+    <span class="n">res</span> <span class="o">=</span> <span class="mf">0.0</span>
+    
+    
+    <span class="k">return</span> <span class="n">res</span></div>
+
+
+<div class="viewcode-block" id="MakeConsistent"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.DiscreteFunction.MakeConsistent">[docs]</a><span class="k">def</span> <span class="nf">MakeConsistent</span><span class="p">(</span><span class="n">DF1</span><span class="p">,</span> <span class="n">DF2</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Interpolates functions to same interval on same points &quot;&quot;&quot;</span>
+    
+    <span class="k">if</span> <span class="p">(</span><span class="n">x0</span> <span class="o">&lt;</span> <span class="nb">max</span><span class="p">(</span><span class="n">DF1</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">DF2</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span> <span class="n">x0</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">DF1</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">DF2</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">x1</span> <span class="o">&gt;</span> <span class="nb">min</span><span class="p">(</span><span class="n">DF1</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">DF2</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])):</span> <span class="n">x1</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">DF1</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">DF2</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="p">((</span><span class="n">x1</span><span class="o">-</span><span class="n">x0</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: MakeConsistent: Empty overlap.&quot;</span><span class="p">)</span>
+        <span class="n">npoints</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">npoints</span> <span class="o">=</span> <span class="nb">int</span> <span class="p">((</span><span class="n">x1</span><span class="o">-</span><span class="n">x0</span><span class="p">)</span><span class="o">/</span><span class="n">dx</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span>
+    
+    <span class="n">newDF1</span> <span class="o">=</span> <span class="n">DF2</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">zeros</span><span class="p">(</span><span class="n">npoints</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span> <span class="n">zeros</span><span class="p">(</span><span class="n">npoints</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">DF1</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
+    <span class="n">newDF2</span> <span class="o">=</span> <span class="n">DF2</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">zeros</span><span class="p">(</span><span class="n">npoints</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span> <span class="n">zeros</span><span class="p">(</span><span class="n">npoints</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">DF2</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
+    
+    <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">npoints</span><span class="p">):</span>
+        <span class="n">newDF1</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">x0</span><span class="o">+</span><span class="n">ii</span><span class="o">*</span><span class="n">dx</span>
+        <span class="n">newDF2</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">newDF1</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span>
+        <span class="n">newDF1</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">DF1</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">newDF1</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+        <span class="n">newDF2</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">DF2</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">newDF2</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">newDF1</span><span class="p">,</span> <span class="n">newDF2</span></div>
+
+
+<div class="viewcode-block" id="Blend"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.DiscreteFunction.Blend">[docs]</a><span class="k">def</span> <span class="nf">Blend</span><span class="p">(</span><span class="n">DF1</span><span class="p">,</span> <span class="n">DF2</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Blend two functions DF1-&gt;Df2 over an intervall [x0,x1] using function a: [0,1]-&gt;[0,1].</span>
+<span class="sd">       The blending is applied according to the convex combination (1-a)*DF1 + a*DF2</span>
+<span class="sd">       where a takes values in [0,1]. Usually, this is just the identity, i.e. a(x)=x.&quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">x1</span> <span class="o">&lt;=</span> <span class="n">x0</span><span class="p">):</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Blend error: x1&lt;=x0 !&quot;</span><span class="p">)</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># normalize</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="n">x1</span><span class="o">-</span><span class="n">x0</span>
+
+    <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">DF1</span><span class="o">.</span><span class="n">Length</span><span class="p">()):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">DF1</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">x0</span><span class="p">):</span>
+            <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">DF1</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">DF1</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">DF1</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">x0</span> <span class="ow">and</span> <span class="n">DF1</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">x1</span><span class="p">):</span>
+            <span class="c1"># project current coordinate x in intervall c\in[0,1]</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="p">(</span><span class="n">DF1</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">-</span><span class="n">x0</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">x1</span><span class="o">-</span><span class="n">x0</span><span class="p">)</span>
+            <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">DF1</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+            <span class="c1"># blend</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="p">(</span><span class="n">c</span><span class="p">))</span><span class="o">*</span><span class="n">DF1</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">+</span> <span class="n">a</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="o">*</span><span class="n">DF2</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">DF1</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">]))</span>
+    
+    <span class="c1"># append remaining part of DF2</span>
+    <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">DF2</span><span class="o">.</span><span class="n">Length</span><span class="p">()):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">DF2</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">x1</span><span class="p">):</span>
+            <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">DF2</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">DF2</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">DF2</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="AlignOverRange"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.DiscreteFunction.AlignOverRange">[docs]</a><span class="k">def</span> <span class="nf">AlignOverRange</span><span class="p">(</span><span class="n">DF1</span><span class="p">,</span> <span class="n">DF2</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">start_xoff</span><span class="p">,</span> <span class="n">delta</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">accuracy</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span> <span class="n">monotonic</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Aligns two functions by minimizing their difference in the L2 norm and </span>
+<span class="sd">       returns the x-shift that needs to be applied.</span>
+<span class="sd">       [x0,x1]: The minimization interval.</span>
+<span class="sd">       start_xoff: An initial guess to speed up computation.</span>
+<span class="sd">       delta: the shift will be applied in the range [start_xoff-delta, start_xoff+delta]. </span>
+<span class="sd">              The smaller delta, the faster (but keep in mind that you need to be sure that the minimum is located in that range!</span>
+<span class="sd">       dx: The delta spacing of interpolated function values on which the pointwise difference is taken.</span>
+<span class="sd">       accuracy: The accuracy in finding the shift that minimizes the L2 norm of the error (&#39;the delta spacing of the shift&#39;).</span>
+<span class="sd">       monotonic: Set to &#39;True&#39; if function is monotonic (this will greatly speed up computation)&quot;&quot;&quot;</span>
+
+    <span class="c1"># Keep DF1 fixed. Find offset x_off that needs to be applied to DF2.x</span>
+    <span class="c1"># in order to make the L2-norm of the difference over a range [x0,x1]</span>
+    <span class="c1"># as small as possible.</span>
+
+    <span class="n">x_off</span> <span class="o">=</span> <span class="n">start_xoff</span><span class="o">-</span><span class="n">delta</span>
+    <span class="n">minErr</span> <span class="o">=</span> <span class="mf">10e10</span>
+    <span class="n">minX</span> <span class="o">=</span> <span class="n">x_off</span>
+    <span class="n">trueMinX</span> <span class="o">=</span> <span class="n">x_off</span>
+    <span class="n">firstTime</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="c1"># If function is monotonic, we can use a faster algorithm</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">monotonic</span><span class="o">==</span><span class="kc">True</span><span class="p">):</span>
+        <span class="n">factor</span> <span class="o">=</span> <span class="mf">2.0</span><span class="o">*</span><span class="n">delta</span><span class="o">/</span><span class="n">accuracy</span><span class="o">*</span><span class="mf">0.1</span>
+        <span class="n">maxX</span> <span class="o">=</span> <span class="n">start_xoff</span><span class="o">+</span><span class="n">delta</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">factor</span> <span class="o">&gt;=</span> <span class="mf">1.0</span> <span class="ow">or</span> <span class="n">firstTime</span> <span class="o">==</span> <span class="kc">True</span><span class="p">):</span>
+            <span class="n">x_off</span> <span class="o">=</span> <span class="n">minX</span>
+            <span class="n">minErr</span> <span class="o">=</span> <span class="mf">10e10</span>
+            <span class="k">while</span> <span class="p">(</span><span class="n">x_off</span> <span class="o">&lt;</span> <span class="n">maxX</span><span class="p">):</span>
+                <span class="n">DF2shift</span> <span class="o">=</span> <span class="n">DiscreteFunction</span><span class="p">(</span><span class="n">DF2</span><span class="o">.</span><span class="n">x</span><span class="o">+</span><span class="n">x_off</span><span class="p">,</span> <span class="n">DF2</span><span class="o">.</span><span class="n">f</span><span class="p">)</span>
+                <span class="n">subDF1</span><span class="p">,</span> <span class="n">subDF2</span> <span class="o">=</span> <span class="n">MakeConsistent</span><span class="p">(</span><span class="n">DF1</span><span class="p">,</span> <span class="n">DF2shift</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">dx</span><span class="p">)</span>
+                <span class="n">err</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">subDF1</span><span class="o">.</span><span class="n">Length</span><span class="p">()):</span>
+                    <span class="n">err</span> <span class="o">+=</span> <span class="p">(</span><span class="n">subDF1</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">-</span><span class="n">subDF2</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
+                <span class="n">err</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+                <span class="c1">#print(minErr, err)</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">err</span> <span class="o">&lt;</span> <span class="n">minErr</span><span class="p">):</span>
+                    <span class="n">minErr</span> <span class="o">=</span> <span class="n">err</span>
+                    <span class="n">minX</span> <span class="o">=</span> <span class="n">x_off</span><span class="o">-</span><span class="n">accuracy</span><span class="o">*</span><span class="n">factor</span>
+                    <span class="n">trueMinX</span> <span class="o">=</span> <span class="n">x_off</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">maxX</span> <span class="o">=</span> <span class="n">x_off</span>
+                    <span class="k">break</span>
+                <span class="n">x_off</span> <span class="o">+=</span> <span class="n">accuracy</span><span class="o">*</span><span class="n">factor</span>
+            <span class="n">factor</span> <span class="o">*=</span> <span class="mf">0.1</span>
+            <span class="n">firstTime</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="n">trueMinX</span>
+        
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ERROR! ...using brute force method!&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Proceed with brute force algorithm...</span>
+
+    <span class="n">x_off</span> <span class="o">=</span> <span class="n">start_xoff</span><span class="o">-</span><span class="n">delta</span>
+
+    <span class="n">minErr</span> <span class="o">=</span> <span class="mf">10e10</span>
+    <span class="n">minX</span> <span class="o">=</span> <span class="n">x_off</span>
+
+
+    <span class="c1"># We shift DF2 and compute the error over range [x0,x1]</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">x_off</span> <span class="o">&lt;</span> <span class="n">start_xoff</span><span class="o">+</span><span class="n">delta</span><span class="p">):</span>
+        <span class="n">DF2shift</span> <span class="o">=</span> <span class="n">DiscreteFunction</span><span class="p">(</span><span class="n">DF2</span><span class="o">.</span><span class="n">x</span><span class="o">+</span><span class="n">x_off</span><span class="p">,</span> <span class="n">DF2</span><span class="o">.</span><span class="n">f</span><span class="p">)</span>
+        <span class="n">subDF1</span><span class="p">,</span> <span class="n">subDF2</span> <span class="o">=</span> <span class="n">MakeConsistent</span><span class="p">(</span><span class="n">DF1</span><span class="p">,</span> <span class="n">DF2shift</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">dx</span><span class="p">)</span>
+        <span class="n">err</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">subDF1</span><span class="o">.</span><span class="n">Length</span><span class="p">()):</span>
+            <span class="n">err</span> <span class="o">+=</span> <span class="p">(</span><span class="n">subDF1</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">-</span><span class="n">subDF2</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
+        <span class="n">err</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+        <span class="c1">#print(err)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">err</span> <span class="o">&lt;</span> <span class="n">minErr</span><span class="p">):</span>
+            <span class="n">minErr</span> <span class="o">=</span> <span class="n">err</span>
+            <span class="n">minX</span> <span class="o">=</span> <span class="n">x_off</span>
+        <span class="n">x_off</span> <span class="o">+=</span> <span class="n">accuracy</span>
+
+    <span class="k">return</span> <span class="n">minX</span></div>
+
+
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Yu Liu.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.
+    </div>
+  </body>
+</html>

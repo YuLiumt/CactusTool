@@ -1,0 +1,249 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>CactusTool.Lib.pygwanalysis.RadiatedQuantities &#8212; CactusTool 0.0.1 documentation</title>
+    <link rel="stylesheet" href="../../../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for CactusTool.Lib.pygwanalysis.RadiatedQuantities</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/python</span>
+
+<span class="c1">#----------------------------------------------------------</span>
+<span class="c1">#</span>
+<span class="c1"># This module computes radiated gravitational-wave energy,</span>
+<span class="c1"># angular/linear momentum.</span>
+<span class="c1">#</span>
+<span class="c1"># This module depends on DataAnalysis and DiscreteFunction</span>
+<span class="c1">#</span>
+<span class="c1"># Released under the MIT License.</span>
+<span class="c1"># (C) Christian Reisswig 2010-2011</span>
+<span class="c1">#</span>
+<span class="c1">#----------------------------------------------------------</span>
+
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">from</span> <span class="nn">.DiscreteFunction</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.WaveFunction</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.harmonics</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.DataAnalysis</span> <span class="k">import</span> <span class="o">*</span>
+
+
+<div class="viewcode-block" id="alm"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.RadiatedQuantities.alm">[docs]</a><span class="k">def</span> <span class="nf">alm</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">sqrt</span><span class="p">((</span><span class="n">l</span><span class="o">-</span><span class="n">m</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">l</span><span class="o">+</span><span class="n">m</span><span class="o">+</span><span class="mf">1.0</span><span class="p">))</span><span class="o">*</span><span class="mf">1.0</span><span class="o">/</span><span class="p">(</span><span class="n">l</span><span class="o">*</span><span class="p">(</span><span class="n">l</span><span class="o">+</span><span class="mf">1.0</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="blm"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.RadiatedQuantities.blm">[docs]</a><span class="k">def</span> <span class="nf">blm</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">sqrt</span><span class="p">((</span><span class="n">l</span><span class="o">-</span><span class="mf">2.0</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">l</span><span class="o">+</span><span class="mf">2.0</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">l</span><span class="o">+</span><span class="n">m</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">l</span><span class="o">+</span><span class="n">m</span><span class="o">-</span><span class="mf">1.0</span><span class="p">)</span><span class="o">*</span><span class="mf">1.0</span><span class="o">/</span><span class="p">((</span><span class="mf">2.0</span><span class="o">*</span><span class="n">l</span><span class="o">-</span><span class="mf">1.0</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mf">2.0</span><span class="o">*</span><span class="n">l</span><span class="o">+</span><span class="mf">1.0</span><span class="p">)))</span><span class="o">/</span><span class="p">(</span><span class="mf">2.0</span><span class="o">*</span><span class="n">l</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="clm"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.RadiatedQuantities.clm">[docs]</a><span class="k">def</span> <span class="nf">clm</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">m</span><span class="o">*</span><span class="mf">2.0</span><span class="o">/</span><span class="p">(</span><span class="n">l</span><span class="o">*</span><span class="p">(</span><span class="n">l</span><span class="o">+</span><span class="mf">1.0</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="dlm"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.RadiatedQuantities.dlm">[docs]</a><span class="k">def</span> <span class="nf">dlm</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mf">1.0</span><span class="o">/</span><span class="n">l</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">((</span><span class="n">l</span><span class="o">-</span><span class="mf">2.0</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">l</span><span class="o">+</span><span class="mf">2.0</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">l</span><span class="o">-</span><span class="n">m</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">l</span><span class="o">+</span><span class="n">m</span><span class="p">)</span><span class="o">*</span><span class="mf">1.0</span><span class="o">/</span><span class="p">((</span><span class="mf">2.0</span><span class="o">*</span><span class="n">l</span><span class="o">-</span><span class="mf">1.0</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mf">2.0</span><span class="o">*</span><span class="n">l</span><span class="o">+</span><span class="mf">1.0</span><span class="p">)))</span></div>
+
+<div class="viewcode-block" id="flm"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.RadiatedQuantities.flm">[docs]</a><span class="k">def</span> <span class="nf">flm</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">l</span><span class="o">*</span><span class="p">(</span><span class="n">l</span><span class="o">+</span><span class="mf">1.0</span><span class="p">)</span><span class="o">-</span><span class="n">m</span><span class="o">*</span><span class="p">(</span><span class="n">m</span><span class="o">+</span><span class="mf">1.0</span><span class="p">))</span></div>
+    
+    
+
+<div class="viewcode-block" id="RadiatedEnergyFluxRWZM"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.RadiatedQuantities.RadiatedEnergyFluxRWZM">[docs]</a><span class="k">def</span> <span class="nf">RadiatedEnergyFluxRWZM</span><span class="p">(</span><span class="n">Qeven</span><span class="p">,</span> <span class="n">Qodd</span><span class="p">,</span> <span class="n">lmax</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Given the time integral of rPsi4 (l,m) modes (a DiscreteFunction mode array),</span>
+<span class="sd">        this function computes the radiated energy flux</span>
+<span class="sd">        that is emitted as a function of time in units of [M].&quot;&quot;&quot;</span>
+    
+    <span class="n">npoints</span> <span class="o">=</span> <span class="n">Qeven</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">Length</span><span class="p">()</span>
+    <span class="n">Edot</span> <span class="o">=</span> <span class="n">DiscreteFunction</span><span class="p">(</span><span class="n">Qeven</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">zeros</span><span class="p">(</span><span class="n">npoints</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span>
+
+    <span class="n">dtQeven</span> <span class="o">=</span> <span class="n">InitModeArray</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">lmax</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="n">l</span><span class="p">,</span> <span class="n">l</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">dtQeven</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="n">m</span><span class="p">]</span> <span class="o">=</span> <span class="n">Qeven</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="n">m</span><span class="p">]</span><span class="o">.</span><span class="n">DifferentiateFunction</span><span class="p">()</span>
+    
+    <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Edot</span><span class="o">.</span><span class="n">Length</span><span class="p">()):</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">lmax</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="n">l</span><span class="p">,</span> <span class="n">l</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+                <span class="n">e</span> <span class="o">=</span> <span class="n">e</span> <span class="o">+</span> <span class="nb">abs</span><span class="p">(</span><span class="n">dtQeven</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="n">m</span><span class="p">]</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="nb">abs</span><span class="p">(</span><span class="n">Qodd</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="n">m</span><span class="p">]</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
+        <span class="n">Edot</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">e</span><span class="o">/</span><span class="p">(</span><span class="mf">32.</span><span class="o">*</span><span class="n">pi</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">Edot</span></div>
+
+
+
+<div class="viewcode-block" id="RadiatedEnergyFlux"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.RadiatedQuantities.RadiatedEnergyFlux">[docs]</a><span class="k">def</span> <span class="nf">RadiatedEnergyFlux</span><span class="p">(</span><span class="n">int_rPsi4_ModeArray</span><span class="p">,</span> <span class="n">lmax</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Given the time integral of rPsi4 (l,m) modes (a DiscreteFunction mode array),</span>
+<span class="sd">        this function computes the radiated energy flux</span>
+<span class="sd">        that is emitted as a function of time in units of [M].&quot;&quot;&quot;</span>
+    
+    <span class="n">t</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">Edot</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">int_rPsi4_ModeArray</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">Length</span><span class="p">()):</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">lmax</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="n">l</span><span class="p">,</span> <span class="n">l</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+                <span class="n">e</span> <span class="o">=</span> <span class="n">e</span> <span class="o">+</span> <span class="nb">abs</span><span class="p">(</span><span class="n">int_rPsi4_ModeArray</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="n">m</span><span class="p">]</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="n">e</span><span class="o">/</span><span class="p">(</span><span class="mf">16.</span><span class="o">*</span><span class="n">pi</span><span class="p">)</span>
+        <span class="n">Edot</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">int_rPsi4_ModeArray</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+    
+    <span class="k">return</span> <span class="n">DiscreteFunction</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">Edot</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="RadiatedAngMomFlux"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.RadiatedQuantities.RadiatedAngMomFlux">[docs]</a><span class="k">def</span> <span class="nf">RadiatedAngMomFlux</span><span class="p">(</span><span class="n">int_rPsi4_ModeArray</span><span class="p">,</span> <span class="n">int_int_rPsi4_ModeArray</span><span class="p">,</span> <span class="n">lmax</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Given the first and second time integral of rPsi4 (l,m) modes (DiscreteFunction mode arrays),</span>
+<span class="sd">        this function computes the radiated angular momentum flux (Lx, Ly, Lz)</span>
+<span class="sd">        that is emitted as a function of time in units of [M].&quot;&quot;&quot;</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">Lxdot</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">Lydot</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">Lzdot</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">int_rPsi4_ModeArray</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">Length</span><span class="p">()):</span>
+        <span class="n">lx_dt</span> <span class="o">=</span> <span class="nb">complex</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">ly_dt</span> <span class="o">=</span> <span class="nb">complex</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">lz_dt</span> <span class="o">=</span> <span class="nb">complex</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">lmax</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="n">l</span><span class="p">,</span> <span class="n">l</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+                <span class="n">factorx</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">factory</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">if</span> <span class="n">m</span><span class="o">+</span><span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">l</span><span class="p">:</span>
+                    <span class="n">factorx</span> <span class="o">=</span> <span class="n">factorx</span> <span class="o">+</span> <span class="n">flm</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span> <span class="o">*</span> <span class="n">int_rPsi4_ModeArray</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">.</span><span class="n">conjugate</span><span class="p">()</span>
+                    <span class="n">factory</span> <span class="o">=</span> <span class="n">factory</span> <span class="o">+</span> <span class="n">flm</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span> <span class="o">*</span> <span class="n">int_rPsi4_ModeArray</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">.</span><span class="n">conjugate</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">m</span><span class="o">-</span><span class="mi">1</span> <span class="o">&gt;=</span> <span class="o">-</span><span class="n">l</span><span class="p">:</span>
+                    <span class="n">factorx</span> <span class="o">=</span> <span class="n">factorx</span> <span class="o">+</span> <span class="n">flm</span><span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="o">-</span><span class="n">m</span><span class="p">)</span> <span class="o">*</span> <span class="n">int_rPsi4_ModeArray</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">.</span><span class="n">conjugate</span><span class="p">()</span>
+                    <span class="n">factory</span> <span class="o">=</span> <span class="n">factory</span> <span class="o">-</span> <span class="n">flm</span><span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="o">-</span><span class="n">m</span><span class="p">)</span> <span class="o">*</span> <span class="n">int_rPsi4_ModeArray</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">.</span><span class="n">conjugate</span><span class="p">()</span>
+                        
+                <span class="n">lx_dt</span> <span class="o">=</span> <span class="n">lx_dt</span> <span class="o">+</span> <span class="n">int_int_rPsi4_ModeArray</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="n">m</span><span class="p">]</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">*</span> <span class="n">factorx</span>
+                <span class="n">ly_dt</span> <span class="o">=</span> <span class="n">ly_dt</span> <span class="o">+</span> <span class="n">int_int_rPsi4_ModeArray</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="n">m</span><span class="p">]</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">*</span> <span class="n">factory</span>
+                <span class="n">lz_dt</span> <span class="o">=</span> <span class="n">lz_dt</span> <span class="o">+</span> <span class="n">m</span> <span class="o">*</span> <span class="n">int_int_rPsi4_ModeArray</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="n">m</span><span class="p">]</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">*</span> <span class="n">int_rPsi4_ModeArray</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="n">m</span><span class="p">]</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">.</span><span class="n">conjugate</span><span class="p">()</span>
+            
+        <span class="n">Lxdot</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="mf">1.</span><span class="o">/</span><span class="p">(</span><span class="mi">32</span><span class="o">*</span><span class="n">pi</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">lx_dt</span><span class="p">)</span><span class="o">.</span><span class="n">imag</span><span class="p">)</span>
+        <span class="n">Lydot</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="mf">1.</span><span class="o">/</span><span class="p">(</span><span class="mi">32</span><span class="o">*</span><span class="n">pi</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">ly_dt</span><span class="p">)</span><span class="o">.</span><span class="n">real</span><span class="p">)</span>
+        <span class="n">Lzdot</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="mf">1.</span><span class="o">/</span><span class="p">(</span><span class="mi">16</span><span class="o">*</span><span class="n">pi</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">lz_dt</span><span class="p">)</span><span class="o">.</span><span class="n">imag</span><span class="p">)</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">int_rPsi4_ModeArray</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+    
+    <span class="k">return</span> <span class="n">DiscreteFunction</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">Lxdot</span><span class="p">),</span> <span class="n">DiscreteFunction</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">Lydot</span><span class="p">),</span> <span class="n">DiscreteFunction</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">Lzdot</span><span class="p">)</span></div>
+    
+
+<div class="viewcode-block" id="RadiatedLinMomFlux"><a class="viewcode-back" href="../../../../API/CactusTool.Lib.pygwanalysis.html#CactusTool.Lib.pygwanalysis.RadiatedQuantities.RadiatedLinMomFlux">[docs]</a><span class="k">def</span> <span class="nf">RadiatedLinMomFlux</span><span class="p">(</span><span class="n">int_rPsi4_ModeArray</span><span class="p">,</span> <span class="n">lmax</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Given the first time integral of rPsi4 (l,m) modes (DiscreteFunction mode array),</span>
+<span class="sd">        this function computes the radiated linear momentum flux (Px, Py, Pz)</span>
+<span class="sd">        that is emitted as a function of time in units of [M].&quot;&quot;&quot;</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">Pxdot</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">Pydot</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">Pzdot</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">int_rPsi4_ModeArray</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">Length</span><span class="p">()):</span>
+        <span class="n">px_py_dt</span> <span class="o">=</span> <span class="nb">complex</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">pz_dt</span> <span class="o">=</span> <span class="nb">complex</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">lmax</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="n">l</span><span class="p">,</span> <span class="n">l</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+                <span class="n">factor</span> <span class="o">=</span> <span class="nb">complex</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+                <span class="n">factor2</span> <span class="o">=</span> <span class="nb">complex</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">m</span><span class="o">+</span><span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">l</span><span class="p">:</span> 
+                    <span class="n">factor</span> <span class="o">=</span> <span class="n">factor</span> <span class="o">+</span> <span class="n">alm</span><span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="n">m</span><span class="p">)</span><span class="o">*</span><span class="n">int_rPsi4_ModeArray</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">.</span><span class="n">conjugate</span><span class="p">()</span>
+                <span class="c1">#else: continue</span>
+                <span class="k">if</span> <span class="n">l</span><span class="o">-</span><span class="mi">1</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">m</span><span class="o">+</span><span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">l</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span> 
+                        <span class="n">factor</span> <span class="o">=</span> <span class="n">factor</span> <span class="o">+</span> <span class="n">blm</span><span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="o">-</span><span class="n">m</span><span class="p">)</span><span class="o">*</span><span class="n">int_rPsi4_ModeArray</span><span class="p">[</span><span class="n">l</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">.</span><span class="n">conjugate</span><span class="p">()</span>
+                    <span class="c1">#else: continue</span>
+                    <span class="n">factor2</span> <span class="o">=</span> <span class="n">factor2</span> <span class="o">+</span> <span class="n">dlm</span><span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="n">m</span><span class="p">)</span><span class="o">*</span><span class="n">int_rPsi4_ModeArray</span><span class="p">[</span><span class="n">l</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">m</span><span class="p">]</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">.</span><span class="n">conjugate</span><span class="p">()</span>
+                <span class="c1">#else: continue</span>
+                <span class="k">if</span> <span class="n">l</span><span class="o">+</span><span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">lmax</span><span class="p">:</span> 
+                    <span class="n">factor</span> <span class="o">=</span> <span class="n">factor</span> <span class="o">-</span> <span class="n">blm</span><span class="p">(</span><span class="n">l</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">int_rPsi4_ModeArray</span><span class="p">[</span><span class="n">l</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">.</span><span class="n">conjugate</span><span class="p">()</span>
+                    <span class="n">factor2</span> <span class="o">=</span> <span class="n">factor2</span> <span class="o">+</span> <span class="n">dlm</span><span class="p">(</span><span class="n">l</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">m</span><span class="p">)</span><span class="o">*</span><span class="n">int_rPsi4_ModeArray</span><span class="p">[</span><span class="n">l</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">m</span><span class="p">]</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">.</span><span class="n">conjugate</span><span class="p">()</span>
+                <span class="c1">#else: continue</span>
+        
+                <span class="n">px_py_dt</span> <span class="o">=</span> <span class="n">px_py_dt</span> <span class="o">+</span> <span class="n">int_rPsi4_ModeArray</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="n">m</span><span class="p">]</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">*</span> <span class="n">factor</span>
+                <span class="n">pz_dt</span> <span class="o">=</span> <span class="n">pz_dt</span> <span class="o">+</span> <span class="n">int_rPsi4_ModeArray</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="n">m</span><span class="p">]</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">clm</span><span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="n">m</span><span class="p">)</span><span class="o">*</span><span class="n">int_rPsi4_ModeArray</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="n">m</span><span class="p">]</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">.</span><span class="n">conjugate</span><span class="p">()</span> <span class="o">+</span> <span class="n">factor2</span><span class="p">)</span>
+    
+        <span class="n">px_py_dt</span> <span class="o">=</span> <span class="mf">1.</span><span class="o">/</span><span class="p">(</span><span class="mi">8</span><span class="o">*</span><span class="n">pi</span><span class="p">)</span> <span class="o">*</span> <span class="n">px_py_dt</span>
+        <span class="n">pz_dt</span> <span class="o">=</span> <span class="mf">1.</span><span class="o">/</span><span class="p">(</span><span class="mi">16</span><span class="o">*</span><span class="n">pi</span><span class="p">)</span> <span class="o">*</span> <span class="n">pz_dt</span>
+        
+        <span class="n">Pxdot</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">px_py_dt</span><span class="o">.</span><span class="n">real</span><span class="p">)</span>
+        <span class="n">Pydot</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">px_py_dt</span><span class="o">.</span><span class="n">imag</span><span class="p">)</span>
+        <span class="n">Pzdot</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pz_dt</span><span class="o">.</span><span class="n">real</span><span class="p">)</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">int_rPsi4_ModeArray</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+    
+    <span class="k">return</span> <span class="n">DiscreteFunction</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">Pxdot</span><span class="p">),</span> <span class="n">DiscreteFunction</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">Pydot</span><span class="p">),</span> <span class="n">DiscreteFunction</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">Pzdot</span><span class="p">)</span></div>
+
+
+
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Yu Liu.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.
+    </div>
+  </body>
+</html>

@@ -14,10 +14,12 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="../_static/language_data.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="CactusTool.Carpet package" href="CactusTool.Carpet.html" />
+    <link rel="next" title="CactusTool.Analysis package" href="CactusTool.Analysis.html" />
     <link rel="prev" title="ipywidgets" href="../Tutorial/widgets.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -30,7 +32,7 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="CactusTool.Carpet.html" title="CactusTool.Carpet package"
+          <a href="CactusTool.Analysis.html" title="CactusTool.Analysis package"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="../Tutorial/widgets.html" title="ipywidgets"
@@ -50,10 +52,22 @@
 <h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="CactusTool.Analysis.html">CactusTool.Analysis package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="CactusTool.Analysis.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CactusTool.Analysis.html#module-CactusTool.Analysis.AH">CactusTool.Analysis.AH module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CactusTool.Analysis.html#module-CactusTool.Analysis.CoM">CactusTool.Analysis.CoM module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CactusTool.Analysis.html#module-CactusTool.Analysis.GW">CactusTool.Analysis.GW module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CactusTool.Analysis.html#module-CactusTool.Analysis.HMNS">CactusTool.Analysis.HMNS module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CactusTool.Analysis.html#module-CactusTool.Analysis.thorn_inf">CactusTool.Analysis.thorn_inf module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CactusTool.Analysis.html#module-CactusTool.Analysis">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="CactusTool.Carpet.html">CactusTool.Carpet package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="CactusTool.Carpet.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="CactusTool.Carpet.html#module-CactusTool.Carpet.ASCII">CactusTool.Carpet.ASCII module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="CactusTool.Carpet.html#module-CactusTool.Carpet.HDF5">CactusTool.Carpet.HDF5 module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CactusTool.Carpet.html#module-CactusTool.Carpet.Array">CactusTool.Carpet.Array module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CactusTool.Carpet.html#module-CactusTool.Carpet.GF">CactusTool.Carpet.GF module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CactusTool.Carpet.html#cactustool-carpet-hdf5-module">CactusTool.Carpet.HDF5 module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="CactusTool.Carpet.html#module-CactusTool.Carpet.Scalar">CactusTool.Carpet.Scalar module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="CactusTool.Carpet.html#module-CactusTool.Carpet.grid">CactusTool.Carpet.grid module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="CactusTool.Carpet.html#module-CactusTool.Carpet">Module contents</a></li>
@@ -65,6 +79,25 @@
 <li class="toctree-l2"><a class="reference internal" href="CactusTool.Debug.html#module-CactusTool.Debug">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="CactusTool.Lib.html">CactusTool.Lib package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="CactusTool.Lib.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="CactusTool.Lib.pygwanalysis.html">CactusTool.Lib.pygwanalysis package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="CactusTool.Lib.pygwanalysis.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="CactusTool.Lib.pygwanalysis.html#module-CactusTool.Lib.pygwanalysis.DataAnalysis">CactusTool.Lib.pygwanalysis.DataAnalysis module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="CactusTool.Lib.pygwanalysis.html#module-CactusTool.Lib.pygwanalysis.DiscreteFunction">CactusTool.Lib.pygwanalysis.DiscreteFunction module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="CactusTool.Lib.pygwanalysis.html#module-CactusTool.Lib.pygwanalysis.RadiatedQuantities">CactusTool.Lib.pygwanalysis.RadiatedQuantities module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="CactusTool.Lib.pygwanalysis.html#module-CactusTool.Lib.pygwanalysis.Utils">CactusTool.Lib.pygwanalysis.Utils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="CactusTool.Lib.pygwanalysis.html#cactustool-lib-pygwanalysis-wavediff-module">CactusTool.Lib.pygwanalysis.WaveDiff module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="CactusTool.Lib.pygwanalysis.html#module-CactusTool.Lib.pygwanalysis.WaveFunction">CactusTool.Lib.pygwanalysis.WaveFunction module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="CactusTool.Lib.pygwanalysis.html#module-CactusTool.Lib.pygwanalysis.harmonics">CactusTool.Lib.pygwanalysis.harmonics module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="CactusTool.Lib.pygwanalysis.html#module-CactusTool.Lib.pygwanalysis">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="CactusTool.Lib.html#module-CactusTool.Lib">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="CactusTool.Parameter.html">CactusTool.Parameter package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="CactusTool.Parameter.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="CactusTool.Parameter.html#module-CactusTool.Parameter.parfile">CactusTool.Parameter.parfile module</a></li>
@@ -73,7 +106,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="CactusTool.Visualize.html">CactusTool.Visualize package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="CactusTool.Visualize.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="CactusTool.Visualize.html#module-CactusTool.Visualize.mesh">CactusTool.Visualize.mesh module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CactusTool.Visualize.html#module-CactusTool.Visualize.plot2d">CactusTool.Visualize.plot2d module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CactusTool.Visualize.html#module-CactusTool.Visualize.plot3d">CactusTool.Visualize.plot3d module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="CactusTool.Visualize.html#module-CactusTool.Visualize.profile">CactusTool.Visualize.profile module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="CactusTool.Visualize.html#module-CactusTool.Visualize.ts">CactusTool.Visualize.ts module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="CactusTool.Visualize.html#module-CactusTool.Visualize.visualize">CactusTool.Visualize.visualize module</a></li>
@@ -88,7 +122,8 @@
 <li class="toctree-l2"><a class="reference internal" href="CactusTool.funcs.html#module-CactusTool.funcs.file">CactusTool.funcs.file module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="CactusTool.funcs.html#module-CactusTool.funcs.interp">CactusTool.funcs.interp module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="CactusTool.funcs.html#module-CactusTool.funcs.json">CactusTool.funcs.json module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="CactusTool.funcs.html#module-CactusTool.funcs.sys">CactusTool.funcs.sys module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CactusTool.funcs.html#module-CactusTool.funcs.log">CactusTool.funcs.log module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CactusTool.funcs.html#module-CactusTool.funcs.ts">CactusTool.funcs.ts module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="CactusTool.funcs.html#module-CactusTool.funcs.unit">CactusTool.funcs.unit module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="CactusTool.funcs.html#module-CactusTool.funcs">Module contents</a></li>
 </ul>
@@ -99,38 +134,38 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
+<div class="section" id="cactustool-init-module">
+<h2>CactusTool..___init__ module<a class="headerlink" href="#cactustool-init-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="cactustool-main-module">
+<h2>CactusTool.._main module<a class="headerlink" href="#cactustool-main-module" title="Permalink to this headline">¶</a></h2>
+</div>
 <div class="section" id="module-CactusTool.main">
-<span id="cactustool-main-module"></span><h2>CactusTool.main module<a class="headerlink" href="#module-CactusTool.main" title="Permalink to this headline">¶</a></h2>
+<span id="id1"></span><h2>CactusTool.main module<a class="headerlink" href="#module-CactusTool.main" title="Permalink to this headline">¶</a></h2>
 <p>This is the main modular. Everything start from it.</p>
 <dl class="class">
 <dt id="CactusTool.main.load">
-<em class="property">class </em><code class="sig-prename descclassname">CactusTool.main.</code><code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param">simpath</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/main.html#load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.main.load" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">CactusTool.main.</code><code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param">simname</em>, <em class="sig-param">basedir=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/main.html#load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.main.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Basis class of CactusTool, anything start from it. Please use it attributes.</p>
 <dl class="method">
-<dt id="CactusTool.main.load.ASCII">
-<em class="property">property </em><code class="sig-name descname">ASCII</code><a class="headerlink" href="#CactusTool.main.load.ASCII" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="CactusTool.main.load.H5">
-<em class="property">property </em><code class="sig-name descname">H5</code><a class="headerlink" href="#CactusTool.main.load.H5" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="CactusTool.main.load.NaN">
-<em class="property">property </em><code class="sig-name descname">NaN</code><a class="headerlink" href="#CactusTool.main.load.NaN" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="CactusTool.main.load.Parfile">
-<em class="property">property </em><code class="sig-name descname">Parfile</code><a class="headerlink" href="#CactusTool.main.load.Parfile" title="Permalink to this definition">¶</a></dt>
-<dd><p>It first read parameter file if it exist.</p>
+<dt id="CactusTool.main.load.Analysis">
+<code class="sig-name descname">Analysis</code><span class="sig-paren">(</span><em class="sig-param">Thorn</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/main.html#load.Analysis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.main.load.Analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Analysis thorn’s output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>thorn</strong> (<em>str</em>) – thorn name</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
+<dt id="CactusTool.main.load.GF">
+<code class="sig-name descname">GF</code><span class="sig-paren">(</span><em class="sig-param">dim='xy'</em>, <em class="sig-param">format='h5'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/main.html#load.GF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.main.load.GF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="CactusTool.main.load.Scalar">
-<em class="property">property </em><code class="sig-name descname">Scalar</code><a class="headerlink" href="#CactusTool.main.load.Scalar" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">Scalar</code><span class="sig-paren">(</span><em class="sig-param">type='maximum'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/main.html#load.Scalar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.main.load.Scalar" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -138,6 +173,38 @@
 </div>
 <div class="section" id="module-CactusTool">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-CactusTool" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="CactusTool.load">
+<em class="property">class </em><code class="sig-prename descclassname">CactusTool.</code><code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param">simname</em>, <em class="sig-param">basedir=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/main.html#load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="CactusTool.load.Analysis">
+<code class="sig-name descname">Analysis</code><span class="sig-paren">(</span><em class="sig-param">Thorn</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/main.html#load.Analysis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.load.Analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Analysis thorn’s output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>thorn</strong> (<em>str</em>) – thorn name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.load.GF">
+<code class="sig-name descname">GF</code><span class="sig-paren">(</span><em class="sig-param">dim='xy'</em>, <em class="sig-param">format='h5'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/main.html#load.GF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.load.GF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.load.Scalar">
+<code class="sig-name descname">Scalar</code><span class="sig-paren">(</span><em class="sig-param">type='maximum'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/main.html#load.Scalar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.load.Scalar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.pcolormesh">
+<code class="sig-prename descclassname">CactusTool.</code><code class="sig-name descname">pcolormesh</code><span class="sig-paren">(</span><em class="sig-param">dsets</em>, <em class="sig-param">dim='xy'</em>, <em class="sig-param">axlim=None</em>, <em class="sig-param">Normalize=None</em>, <em class="sig-param">title=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Visualize/plot2d.html#pcolormesh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.pcolormesh" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 </div>
 
@@ -152,6 +219,8 @@
 <li><a class="reference internal" href="#">CactusTool package</a><ul>
 <li><a class="reference internal" href="#subpackages">Subpackages</a></li>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#cactustool-init-module">CactusTool..___init__ module</a></li>
+<li><a class="reference internal" href="#cactustool-main-module">CactusTool.._main module</a></li>
 <li><a class="reference internal" href="#module-CactusTool.main">CactusTool.main module</a></li>
 <li><a class="reference internal" href="#module-CactusTool">Module contents</a></li>
 </ul>
@@ -162,8 +231,8 @@
   <p class="topless"><a href="../Tutorial/widgets.html"
                         title="previous chapter">ipywidgets</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="CactusTool.Carpet.html"
-                        title="next chapter">CactusTool.Carpet package</a></p>
+  <p class="topless"><a href="CactusTool.Analysis.html"
+                        title="next chapter">CactusTool.Analysis package</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -195,7 +264,7 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="CactusTool.Carpet.html" title="CactusTool.Carpet package"
+          <a href="CactusTool.Analysis.html" title="CactusTool.Analysis package"
              >next</a> |</li>
         <li class="right" >
           <a href="../Tutorial/widgets.html" title="ipywidgets"

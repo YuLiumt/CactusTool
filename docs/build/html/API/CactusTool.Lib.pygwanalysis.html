@@ -1,0 +1,861 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>CactusTool.Lib.pygwanalysis package &#8212; CactusTool 0.0.1 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="CactusTool.Parameter package" href="CactusTool.Parameter.html" />
+    <link rel="prev" title="CactusTool.Lib package" href="CactusTool.Lib.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="CactusTool.Parameter.html" title="CactusTool.Parameter package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="CactusTool.Lib.html" title="CactusTool.Lib package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="CactusTool.html" >CactusTool package</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="CactusTool.Lib.html" accesskey="U">CactusTool.Lib package</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="cactustool-lib-pygwanalysis-package">
+<h1>CactusTool.Lib.pygwanalysis package<a class="headerlink" href="#cactustool-lib-pygwanalysis-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-CactusTool.Lib.pygwanalysis.DataAnalysis">
+<span id="cactustool-lib-pygwanalysis-dataanalysis-module"></span><h2>CactusTool.Lib.pygwanalysis.DataAnalysis module<a class="headerlink" href="#module-CactusTool.Lib.pygwanalysis.DataAnalysis" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.ButterworthFilter">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">ButterworthFilter</code><span class="sig-paren">(</span><em class="sig-param">WF</em>, <em class="sig-param">G0</em>, <em class="sig-param">omega0</em>, <em class="sig-param">n</em>, <em class="sig-param">sign</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#ButterworthFilter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.ButterworthFilter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Applies a “Butterworth” filter to the waveform where omega0 denotes the blending position and n the order of blending. 
+sign determines which of the two halfes is chosen.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.CorrelationFunction">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">CorrelationFunction</code><span class="sig-paren">(</span><em class="sig-param">fhSI1</em>, <em class="sig-param">fhSI2</em>, <em class="sig-param">Sn</em>, <em class="sig-param">fLow</em>, <em class="sig-param">fHi</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#CorrelationFunction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.CorrelationFunction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the correlation function over a given detector by using Fourier-modes in SI units.
+The definition of the correlation function is given in Phys. Rev. D 44, 3819-3834, Eq. 2.6, and especially Eq. 2.8 in terms of Fourier transforms.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.FStrainToSI">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">FStrainToSI</code><span class="sig-paren">(</span><em class="sig-param">h</em>, <em class="sig-param">M</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#FStrainToSI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.FStrainToSI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts the Fourier domain strain to SI units</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.FixedFrequencyIntegration">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">FixedFrequencyIntegration</code><span class="sig-paren">(</span><em class="sig-param">WF1</em>, <em class="sig-param">f0</em>, <em class="sig-param">k</em>, <em class="sig-param">n=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#FixedFrequencyIntegration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.FixedFrequencyIntegration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given some function and frequency f0 (ie omega0/2pi)), we apply the integration scheme proposed by Reisswig&amp;Pollney
+to get the k-th integral</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.FrequenciesToSI">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">FrequenciesToSI</code><span class="sig-paren">(</span><em class="sig-param">f</em>, <em class="sig-param">M</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#FrequenciesToSI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.FrequenciesToSI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a list of frequencies to SI units</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.GaussFilter">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">GaussFilter</code><span class="sig-paren">(</span><em class="sig-param">WF</em>, <em class="sig-param">t0</em>, <em class="sig-param">sigma0</em>, <em class="sig-param">sign</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#GaussFilter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.GaussFilter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Applies a (half-)Gaussian filter to the waveform where t0, denotes the blending position and sigma0 the width of blending. 
+sign determines which of the two halfes is chosen.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.GaussSmooth">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">GaussSmooth</code><span class="sig-paren">(</span><em class="sig-param">WF</em>, <em class="sig-param">sigma</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#GaussSmooth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.GaussSmooth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Smoothes the input by convolving with a normal distribution</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.GethFD">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">GethFD</code><span class="sig-paren">(</span><em class="sig-param">WF</em>, <em class="sig-param">wf_type='news'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#GethFD"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.GethFD" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given psi4 or the news in Fourier domain this returns h in Fourier domain</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.GethFromNews">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">GethFromNews</code><span class="sig-paren">(</span><em class="sig-param">WF1</em>, <em class="sig-param">f0</em>, <em class="sig-param">n=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#GethFromNews"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.GethFromNews" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the news and frequency f0 (ie omega0/2pi)), we apply the integration scheme proposed by Reisswig&amp;Pollney
+to get h</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.GethFromPsi4">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">GethFromPsi4</code><span class="sig-paren">(</span><em class="sig-param">WF1</em>, <em class="sig-param">f0</em>, <em class="sig-param">n=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#GethFromPsi4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.GethFromPsi4" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given psi4 and frequency f0 (ie omega0/2pi)), we apply the integration scheme proposed by Reisswig&amp;Pollney
+to get h. n denotes the number of zeros as n times length of signal</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.GethFromPsi4Filtered">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">GethFromPsi4Filtered</code><span class="sig-paren">(</span><em class="sig-param">WF1</em>, <em class="sig-param">frange</em>, <em class="sig-param">n=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#GethFromPsi4Filtered"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.GethFromPsi4Filtered" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given psi4 and frequency f0 (ie omega0/2pi)), we apply the integration scheme proposed by Reisswig&amp;Pollney by applying a filter
+to get h. n denotes the number of zeros as n times length of signal</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.GethTD">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">GethTD</code><span class="sig-paren">(</span><em class="sig-param">WF</em>, <em class="sig-param">wf_type='news'</em>, <em class="sig-param">shiftToZero=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#GethTD"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.GethTD" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given psi4 or the news in the time domain this returns h in the time domain</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.InitModeArray">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">InitModeArray</code><span class="sig-paren">(</span><em class="sig-param">lmax</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#InitModeArray"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.InitModeArray" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an array with empty modes up to lmax</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.IntCharFreq">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">IntCharFreq</code><span class="sig-paren">(</span><em class="sig-param">fhSI</em>, <em class="sig-param">d</em>, <em class="sig-param">Sn</em>, <em class="sig-param">fLow</em>, <em class="sig-param">fHi</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#IntCharFreq"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.IntCharFreq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a reconstructed h in SI units in Fourier domain and distance d (in Mpc) this computes the integrated characteristic signal frequency for sensitivity curve Sn</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.LoadModeArray">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">LoadModeArray</code><span class="sig-paren">(</span><em class="sig-param">basename</em>, <em class="sig-param">lmax</em>, <em class="sig-param">col_time=1</em>, <em class="sig-param">col_re=2</em>, <em class="sig-param">col_im=3</em>, <em class="sig-param">filenameformat='cce_conversion_script'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#LoadModeArray"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.LoadModeArray" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads an array of modes up to lmax from disk.
+We assume that files begin with ‘basename’ and end with _l*m*.dat</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.LuminosityDistance">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">LuminosityDistance</code><span class="sig-paren">(</span><em class="sig-param">z</em>, <em class="sig-param">Omega_m=0.3175</em>, <em class="sig-param">Omega_lambda=0.6825</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#LuminosityDistance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.LuminosityDistance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the luminosity distance in Mpc for a given redshift z
+Code from Ed Wright <a class="reference external" href="http://www.astro.ucla.edu/~wright/CosmoCalc.html">http://www.astro.ucla.edu/~wright/CosmoCalc.html</a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.Match">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">Match</code><span class="sig-paren">(</span><em class="sig-param">hSI1</em>, <em class="sig-param">hSI2</em>, <em class="sig-param">Sn</em>, <em class="sig-param">fLow</em>, <em class="sig-param">fHi</em>, <em class="sig-param">WFtype='h'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#Match"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.Match" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the best match given two waveforms hSI1 and hSI2 in SI units in the time domain.
+The waveforms are assumed to be in the standard from h=h_+-ih_x.
+If WFtype is not set to ‘h’, but ‘psi4’ or ‘news’ we will perform the integration in the Fourier domain to get h</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.MinMassFromOmega">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">MinMassFromOmega</code><span class="sig-paren">(</span><em class="sig-param">omega</em>, <em class="sig-param">fcut</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#MinMassFromOmega"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.MinMassFromOmega" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a frequency omega=2*pi*f in units 1/M and a lower detector sensitivity cut-off fcut [Hz], 
+this computes the minimum allowable mass such that fSI&gt;=fcut, where fSI is f in SI units.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.MisMatch">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">MisMatch</code><span class="sig-paren">(</span><em class="sig-param">hSI1</em>, <em class="sig-param">hSI2</em>, <em class="sig-param">Sn</em>, <em class="sig-param">fLow</em>, <em class="sig-param">fHi</em>, <em class="sig-param">WFtype='h'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#MisMatch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.MisMatch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Same as above but 1-Match</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.NewsToSI">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">NewsToSI</code><span class="sig-paren">(</span><em class="sig-param">h</em>, <em class="sig-param">M</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#NewsToSI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.NewsToSI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts time domain news to SI units</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.OrthonormalBasis">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">OrthonormalBasis</code><span class="sig-paren">(</span><em class="sig-param">hSI_plus</em>, <em class="sig-param">hSI_cross</em>, <em class="sig-param">Sn</em>, <em class="sig-param">fLow</em>, <em class="sig-param">fHi</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#OrthonormalBasis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.OrthonormalBasis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the two linearly independent waves h_plus and h_cross in SI units and in the Fourier domain, we find an orthonormalised basis wrt to the detector inner product</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.PhaseAlignOverRange">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">PhaseAlignOverRange</code><span class="sig-paren">(</span><em class="sig-param">DF1</em>, <em class="sig-param">DF2</em>, <em class="sig-param">x0</em>, <em class="sig-param">x1</em>, <em class="sig-param">start_xoff</em>, <em class="sig-param">delta</em>, <em class="sig-param">dx</em>, <em class="sig-param">accuracy=0.01</em>, <em class="sig-param">monotonic=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#PhaseAlignOverRange"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.PhaseAlignOverRange" title="Permalink to this definition">¶</a></dt>
+<dd><p>Phase-aligns two waveforms by minimizing their difference in the L2 norm and 
+returns the time-shift (and phase shift) that needs to be applied. The procedure is that
+from Boyle et al, arxiv:0804.4184v2.
+DF1: phase of waveform 1
+DF2: phase of waveform 2
+[x0,x1]: The minimization interval.
+start_xoff: An initial guess to speed up computation.
+delta: the shift will be applied in the range [start_xoff-delta, start_xoff+delta].</p>
+<blockquote>
+<div><p>The smaller delta, the faster (but keep in mind that you need to be sure that the minimum is located in that range!</p>
+</div></blockquote>
+<p>dx: The delta spacing of interpolated function values on which the pointwise difference is taken.
+accuracy: The accuracy in finding the shift that minimizes the L2 norm of the error (‘the delta spacing of the shift’).
+monotonic: Set to ‘True’ if function is monotonic (this will greatly speed up computation)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.PolynomialFilterDriver">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">PolynomialFilterDriver</code><span class="sig-paren">(</span><em class="sig-param">WFfr</em>, <em class="sig-param">x0</em>, <em class="sig-param">x1</em>, <em class="sig-param">blend=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#PolynomialFilterDriver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.PolynomialFilterDriver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a waveform in Fourier domain, we fit a polynomial between frequncy range frange as
+described in Reisswig&amp;Pollney 2010</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.Psi4ToSI">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">Psi4ToSI</code><span class="sig-paren">(</span><em class="sig-param">h</em>, <em class="sig-param">M</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#Psi4ToSI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.Psi4ToSI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts time domain psi4 to SI units</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.ReconFromsYlm">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">ReconFromsYlm</code><span class="sig-paren">(</span><em class="sig-param">arrayWF</em>, <em class="sig-param">theta</em>, <em class="sig-param">phi</em>, <em class="sig-param">lmax</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#ReconFromsYlm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.ReconFromsYlm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given an array of WF modes h_lm reconstruct h at angle theta, phi up to l=lmax</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.Reconstruction">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">Reconstruction</code><span class="sig-paren">(</span><em class="sig-param">WF</em>, <em class="sig-param">dx</em>, <em class="sig-param">kernel</em>, <em class="sig-param">tau</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#Reconstruction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.Reconstruction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resamples the input to resolution dx by convolving with a reconstruction filter kernel of width tau</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.ReisswigFilter">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">ReisswigFilter</code><span class="sig-paren">(</span><em class="sig-param">WF1</em>, <em class="sig-param">f0</em>, <em class="sig-param">doItInFreqDomain=False</em>, <em class="sig-param">k=1</em>, <em class="sig-param">n=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#ReisswigFilter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.ReisswigFilter" title="Permalink to this definition">¶</a></dt>
+<dd><p>This filter takes the k-th derivative (optionally in the Fourier domain) and then applies Fixed-frequency integration
+to hi-pass filter the signal</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.Richardson_error">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">Richardson_error</code><span class="sig-paren">(</span><em class="sig-param">order</em>, <em class="sig-param">dxLow</em>, <em class="sig-param">dxHi</em>, <em class="sig-param">errorDF</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#Richardson_error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.Richardson_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Richardson extrapolates the errorDF assumed as given by the difference on low dxLow and hi resolution dxHi by the order specified.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.SNR">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">SNR</code><span class="sig-paren">(</span><em class="sig-param">fhSI</em>, <em class="sig-param">d</em>, <em class="sig-param">Sn</em>, <em class="sig-param">fLow</em>, <em class="sig-param">fHi</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#SNR"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.SNR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a reconstructed h in SI units in Fourier domain and distance d (in Mpc) this computes the SNR for sensitivity curve Sn</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.SNRavg">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">SNRavg</code><span class="sig-paren">(</span><em class="sig-param">fhSIModes</em>, <em class="sig-param">lmax</em>, <em class="sig-param">d</em>, <em class="sig-param">Sn</em>, <em class="sig-param">fLow</em>, <em class="sig-param">fHi</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#SNRavg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.SNRavg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a modes array in SI units in Fourier domain and distance d (in Mpc) this computes the angle averaged SNR for sensitivity curve Sn</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.SelecthCross">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">SelecthCross</code><span class="sig-paren">(</span><em class="sig-param">h</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#SelecthCross"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.SelecthCross" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a complex function h=h_+-ih_x, this returns h_x</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.SelecthPlus">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">SelecthPlus</code><span class="sig-paren">(</span><em class="sig-param">h</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#SelecthPlus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.SelecthPlus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a complex function h=h_+-ih_x, this returns h_+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.SensitivityAdLIGO">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">SensitivityAdLIGO</code><span class="sig-paren">(</span><em class="sig-param">f</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#SensitivityAdLIGO"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.SensitivityAdLIGO" title="Permalink to this definition">¶</a></dt>
+<dd><p>This curve is using most likely data points from 25. Jan. 2010, LIGO Document T0900288-v3</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.SensitivityAdLIGO_Old">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">SensitivityAdLIGO_Old</code><span class="sig-paren">(</span><em class="sig-param">f</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#SensitivityAdLIGO_Old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.SensitivityAdLIGO_Old" title="Permalink to this definition">¶</a></dt>
+<dd><p>This curve is an old one!</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.SensitivityAdVirgo">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">SensitivityAdVirgo</code><span class="sig-paren">(</span><em class="sig-param">f</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#SensitivityAdVirgo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.SensitivityAdVirgo" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.SensitivityBBO">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">SensitivityBBO</code><span class="sig-paren">(</span><em class="sig-param">f</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#SensitivityBBO"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.SensitivityBBO" title="Permalink to this definition">¶</a></dt>
+<dd><p>From arXiv:1110.2865
+For this sensitivity curve, you don’t need to select the + or x polarization component since the detector is a triangle.
+The 60 degree abgle between detector arms is incoproated into the noise curve.
+The antenna pattern is incorporated in the noise curve.
+For SNRs, use an additional factor of sqrt(4) since BBO consists of 4 detectors!</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.SensitivityDECIGO">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">SensitivityDECIGO</code><span class="sig-paren">(</span><em class="sig-param">f</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#SensitivityDECIGO"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.SensitivityDECIGO" title="Permalink to this definition">¶</a></dt>
+<dd><p>From arXiv:1110.2865
+For this sensitivity curve, you don’t need to select the + or x polarization component since the detector is a triangle.
+The 60 degree abgle between detector arms is incoproated into the noise curve.
+The antenna pattern is incorporated in the noise curve.
+For SNRs, use an additional factor of sqrt(4) since BBO consists of 4 detectors!</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.SensitivityLIGO">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">SensitivityLIGO</code><span class="sig-paren">(</span><em class="sig-param">f</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#SensitivityLIGO"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.SensitivityLIGO" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.SensitivityLISA">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">SensitivityLISA</code><span class="sig-paren">(</span><em class="sig-param">F</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#SensitivityLISA"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.SensitivityLISA" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.SensitivityLISA_Berti">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">SensitivityLISA_Berti</code><span class="sig-paren">(</span><em class="sig-param">f</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#SensitivityLISA_Berti"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.SensitivityLISA_Berti" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.SensitivityVirgo">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">SensitivityVirgo</code><span class="sig-paren">(</span><em class="sig-param">f</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#SensitivityVirgo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.SensitivityVirgo" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.SensitivityeLIGO">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">SensitivityeLIGO</code><span class="sig-paren">(</span><em class="sig-param">f</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#SensitivityeLIGO"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.SensitivityeLIGO" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.SensitivityeLISA">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">SensitivityeLISA</code><span class="sig-paren">(</span><em class="sig-param">f</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#SensitivityeLISA"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.SensitivityeLISA" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.ShiftToZero">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">ShiftToZero</code><span class="sig-paren">(</span><em class="sig-param">DF</em>, <em class="sig-param">trange</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#ShiftToZero"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.ShiftToZero" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a range [.,.] shift the wave according to that intervall to zero</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.Spectrogram">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">Spectrogram</code><span class="sig-paren">(</span><em class="sig-param">WF</em>, <em class="sig-param">kernel</em>, <em class="sig-param">tau</em>, <em class="sig-param">sigma</em>, <em class="sig-param">t0</em>, <em class="sig-param">t1</em>, <em class="sig-param">n</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#Spectrogram"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.Spectrogram" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs a spectogram of function WF, i.e. computes the frequencies components 
+for n time bins between t0 and t1. The result is a 2D function along time and frequency
+axis. ‘kernel’ and ‘sigma’ denote the window function and half-width that is used for 
+computing the Fourier transform for a given time bin of width ‘tau’. ‘tau’ is usually chosen such
+that the bins overlap.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.StrainToCGS">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">StrainToCGS</code><span class="sig-paren">(</span><em class="sig-param">h</em>, <em class="sig-param">M</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#StrainToCGS"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.StrainToCGS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts time domain strain to CGS units</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.StrainToSI">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">StrainToSI</code><span class="sig-paren">(</span><em class="sig-param">h</em>, <em class="sig-param">M</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#StrainToSI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.StrainToSI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts time domain strain to SI units</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.TanhWindow">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">TanhWindow</code><span class="sig-paren">(</span><em class="sig-param">WF</em>, <em class="sig-param">t0</em>, <em class="sig-param">sigma0</em>, <em class="sig-param">t1</em>, <em class="sig-param">sigma1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#TanhWindow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.TanhWindow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Applies a tanh filter to the waveform where t0, t1 denote the blending positions and sigma0 and sigma1 the widths of blending</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.TimesToSI">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">TimesToSI</code><span class="sig-paren">(</span><em class="sig-param">t</em>, <em class="sig-param">M</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#TimesToSI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.TimesToSI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a list of time values to SI units</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.UnitStep">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">UnitStep</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#UnitStep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.UnitStep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Step function</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.WienerDiscreteScalarProduct">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">WienerDiscreteScalarProduct</code><span class="sig-paren">(</span><em class="sig-param">hSI1</em>, <em class="sig-param">hSI2</em>, <em class="sig-param">d</em>, <em class="sig-param">Sn</em>, <em class="sig-param">fLow</em>, <em class="sig-param">fHi</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#WienerDiscreteScalarProduct"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.WienerDiscreteScalarProduct" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a reconstructed h1 and h2 in SI units in Fourier domain and distance d (in Mpc) this computes the discrete Wiener scalar product for sensitivity curve Sn</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DataAnalysis.WienerScalarProduct">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DataAnalysis.</code><code class="sig-name descname">WienerScalarProduct</code><span class="sig-paren">(</span><em class="sig-param">hSI1</em>, <em class="sig-param">hSI2</em>, <em class="sig-param">d</em>, <em class="sig-param">Sn</em>, <em class="sig-param">fLow</em>, <em class="sig-param">fHi</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DataAnalysis.html#WienerScalarProduct"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DataAnalysis.WienerScalarProduct" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a reconstructed h1 and h2 in SI units in Fourier domain and distance d (in Mpc) this computes the Wiener scalar product for sensitivity curve Sn</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-CactusTool.Lib.pygwanalysis.DiscreteFunction">
+<span id="cactustool-lib-pygwanalysis-discretefunction-module"></span><h2>CactusTool.Lib.pygwanalysis.DiscreteFunction module<a class="headerlink" href="#module-CactusTool.Lib.pygwanalysis.DiscreteFunction" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DiscreteFunction.AlignOverRange">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DiscreteFunction.</code><code class="sig-name descname">AlignOverRange</code><span class="sig-paren">(</span><em class="sig-param">DF1</em>, <em class="sig-param">DF2</em>, <em class="sig-param">x0</em>, <em class="sig-param">x1</em>, <em class="sig-param">start_xoff</em>, <em class="sig-param">delta</em>, <em class="sig-param">dx</em>, <em class="sig-param">accuracy=0.01</em>, <em class="sig-param">monotonic=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DiscreteFunction.html#AlignOverRange"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DiscreteFunction.AlignOverRange" title="Permalink to this definition">¶</a></dt>
+<dd><p>Aligns two functions by minimizing their difference in the L2 norm and 
+returns the x-shift that needs to be applied.
+[x0,x1]: The minimization interval.
+start_xoff: An initial guess to speed up computation.
+delta: the shift will be applied in the range [start_xoff-delta, start_xoff+delta].</p>
+<blockquote>
+<div><p>The smaller delta, the faster (but keep in mind that you need to be sure that the minimum is located in that range!</p>
+</div></blockquote>
+<p>dx: The delta spacing of interpolated function values on which the pointwise difference is taken.
+accuracy: The accuracy in finding the shift that minimizes the L2 norm of the error (‘the delta spacing of the shift’).
+monotonic: Set to ‘True’ if function is monotonic (this will greatly speed up computation)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DiscreteFunction.Blend">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DiscreteFunction.</code><code class="sig-name descname">Blend</code><span class="sig-paren">(</span><em class="sig-param">DF1</em>, <em class="sig-param">DF2</em>, <em class="sig-param">x0</em>, <em class="sig-param">x1</em>, <em class="sig-param">a=&lt;function &lt;lambda&gt;&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DiscreteFunction.html#Blend"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DiscreteFunction.Blend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Blend two functions DF1-&gt;Df2 over an intervall [x0,x1] using function a: [0,1]-&gt;[0,1].
+The blending is applied according to the convex combination (1-a)*DF1 + a*DF2
+where a takes values in [0,1]. Usually, this is just the identity, i.e. a(x)=x.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction">
+<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DiscreteFunction.</code><code class="sig-name descname">DiscreteFunction</code><span class="sig-paren">(</span><em class="sig-param">x_</em>, <em class="sig-param">f_</em>, <em class="sig-param">g_=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DiscreteFunction.html#DiscreteFunction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class describing discrete functions which transform 1D data</p>
+<dl class="method">
+<dt id="CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.Append">
+<code class="sig-name descname">Append</code><span class="sig-paren">(</span><em class="sig-param">DF</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DiscreteFunction.html#DiscreteFunction.Append"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.Append" title="Permalink to this definition">¶</a></dt>
+<dd><p>Appends another discrete function to this function</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.DifferentiateFunction">
+<code class="sig-name descname">DifferentiateFunction</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DiscreteFunction.html#DiscreteFunction.DifferentiateFunction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.DifferentiateFunction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Differentiate this function and return a function</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.Extend">
+<code class="sig-name descname">Extend</code><span class="sig-paren">(</span><em class="sig-param">n</em>, <em class="sig-param">dx</em>, <em class="sig-param">g</em>, <em class="sig-param">after=1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DiscreteFunction.html#DiscreteFunction.Extend"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.Extend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extend the function by n function values g separated with spacing dx</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.FindAbsMax">
+<code class="sig-name descname">FindAbsMax</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DiscreteFunction.html#DiscreteFunction.FindAbsMax"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.FindAbsMax" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds grid index location of absolute discrete maximum</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.FindAbsMaxInterpolated">
+<code class="sig-name descname">FindAbsMaxInterpolated</code><span class="sig-paren">(</span><em class="sig-param">precision=0.0001</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DiscreteFunction.html#DiscreteFunction.FindAbsMaxInterpolated"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.FindAbsMaxInterpolated" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds location of continuous maximum via interpolation</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.FindMax">
+<code class="sig-name descname">FindMax</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DiscreteFunction.html#DiscreteFunction.FindMax"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.FindMax" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds grid index location of discrete maximum</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.FindNearestNeighbor">
+<code class="sig-name descname">FindNearestNeighbor</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">BruteForceSearch=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DiscreteFunction.html#DiscreteFunction.FindNearestNeighbor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.FindNearestNeighbor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find nearest neighboring point (index) to x</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.FirstDerivative">
+<code class="sig-name descname">FirstDerivative</code><span class="sig-paren">(</span><em class="sig-param">order=4</em>, <em class="sig-param">dx=-1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DiscreteFunction.html#DiscreteFunction.FirstDerivative"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.FirstDerivative" title="Permalink to this definition">¶</a></dt>
+<dd><p>Take first derivative of this function</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.FourierTransform">
+<code class="sig-name descname">FourierTransform</code><span class="sig-paren">(</span><em class="sig-param">cutNegFreq=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DiscreteFunction.html#DiscreteFunction.FourierTransform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.FourierTransform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fourier-transform of this function</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.HasUniformSpacing">
+<code class="sig-name descname">HasUniformSpacing</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DiscreteFunction.html#DiscreteFunction.HasUniformSpacing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.HasUniformSpacing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if this function has a unifrom grid spacing</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.Integrate">
+<code class="sig-name descname">Integrate</code><span class="sig-paren">(</span><em class="sig-param">a</em>, <em class="sig-param">b</em>, <em class="sig-param">Resample=True</em>, <em class="sig-param">secondOrder=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DiscreteFunction.html#DiscreteFunction.Integrate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.Integrate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Integrate this function in [a,b] and return a number. If a,b do not line up with gridpoints then resample</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.IntegrateFunction">
+<code class="sig-name descname">IntegrateFunction</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DiscreteFunction.html#DiscreteFunction.IntegrateFunction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.IntegrateFunction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Integrate this function and return a function</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.Interpolate">
+<code class="sig-name descname">Interpolate</code><span class="sig-paren">(</span><em class="sig-param">xi</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DiscreteFunction.html#DiscreteFunction.Interpolate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.Interpolate" title="Permalink to this definition">¶</a></dt>
+<dd><p>interpolate to point x</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.InverseFourierTransform">
+<code class="sig-name descname">InverseFourierTransform</code><span class="sig-paren">(</span><em class="sig-param">shiftNegFreq=False</em>, <em class="sig-param">noNegFreq=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DiscreteFunction.html#DiscreteFunction.InverseFourierTransform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.InverseFourierTransform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fourier-transform of this function</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.Invert">
+<code class="sig-name descname">Invert</code><span class="sig-paren">(</span><em class="sig-param">x0</em>, <em class="sig-param">x1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DiscreteFunction.html#DiscreteFunction.Invert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.Invert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Invert function on a specific interval</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.Length">
+<code class="sig-name descname">Length</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DiscreteFunction.html#DiscreteFunction.Length"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.Length" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns number of datapoints</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.Load">
+<code class="sig-name descname">Load</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">col1=1</em>, <em class="sig-param">col2=2</em>, <em class="sig-param">col3=3</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DiscreteFunction.html#DiscreteFunction.Load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.Load" title="Permalink to this definition">¶</a></dt>
+<dd><p>load a 1d function from file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.MakeMonotonicCoordinates">
+<code class="sig-name descname">MakeMonotonicCoordinates</code><span class="sig-paren">(</span><em class="sig-param">maxvariance=10000000000.0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DiscreteFunction.html#DiscreteFunction.MakeMonotonicCoordinates"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.MakeMonotonicCoordinates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a function whose coordinates are not monotonic, we remove all entries that violate monotonicity.
+maxvariance is the maximal change that may occur from one point to the next</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.NormL1">
+<code class="sig-name descname">NormL1</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DiscreteFunction.html#DiscreteFunction.NormL1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.NormL1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates L1-norm of function</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.NormL2">
+<code class="sig-name descname">NormL2</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DiscreteFunction.html#DiscreteFunction.NormL2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.NormL2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates L2-norm of function</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.NormSup">
+<code class="sig-name descname">NormSup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DiscreteFunction.html#DiscreteFunction.NormSup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.NormSup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates infinity-norm of function</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.QuadraticSpline">
+<code class="sig-name descname">QuadraticSpline</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">z0=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DiscreteFunction.html#DiscreteFunction.QuadraticSpline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.QuadraticSpline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use a quadratic spline to interpolate at point x</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.Resample">
+<code class="sig-name descname">Resample</code><span class="sig-paren">(</span><em class="sig-param">dx</em>, <em class="sig-param">intervall=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DiscreteFunction.html#DiscreteFunction.Resample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.Resample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resample field to resolution dx</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.Restrict">
+<code class="sig-name descname">Restrict</code><span class="sig-paren">(</span><em class="sig-param">x0</em>, <em class="sig-param">x1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DiscreteFunction.html#DiscreteFunction.Restrict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.Restrict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Restrict 1d function to intervall between [x0, x1]</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.SecondDerivative">
+<code class="sig-name descname">SecondDerivative</code><span class="sig-paren">(</span><em class="sig-param">order=2</em>, <em class="sig-param">dx=-1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DiscreteFunction.html#DiscreteFunction.SecondDerivative"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.SecondDerivative" title="Permalink to this definition">¶</a></dt>
+<dd><p>Take second derivative of this function</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.Smooth">
+<code class="sig-name descname">Smooth</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DiscreteFunction.html#DiscreteFunction.Smooth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.Smooth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Smooth this function</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.TransformCoord">
+<code class="sig-name descname">TransformCoord</code><span class="sig-paren">(</span><em class="sig-param">g</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DiscreteFunction.html#DiscreteFunction.TransformCoord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.TransformCoord" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform coordinate according to function g</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.Union">
+<code class="sig-name descname">Union</code><span class="sig-paren">(</span><em class="sig-param">f2</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DiscreteFunction.html#DiscreteFunction.Union"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.Union" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the union of points between this and function f</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.conjugate">
+<code class="sig-name descname">conjugate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DiscreteFunction.html#DiscreteFunction.conjugate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.conjugate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.imag">
+<code class="sig-name descname">imag</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DiscreteFunction.html#DiscreteFunction.imag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.imag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.next">
+<code class="sig-name descname">next</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DiscreteFunction.html#DiscreteFunction.next"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.next" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.real">
+<code class="sig-name descname">real</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DiscreteFunction.html#DiscreteFunction.real"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction.real" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DiscreteFunction.MakeConsistent">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DiscreteFunction.</code><code class="sig-name descname">MakeConsistent</code><span class="sig-paren">(</span><em class="sig-param">DF1</em>, <em class="sig-param">DF2</em>, <em class="sig-param">x0</em>, <em class="sig-param">x1</em>, <em class="sig-param">dx</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DiscreteFunction.html#MakeConsistent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DiscreteFunction.MakeConsistent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interpolates functions to same interval on same points</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.DiscreteFunction.ScalProd">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.DiscreteFunction.</code><code class="sig-name descname">ScalProd</code><span class="sig-paren">(</span><em class="sig-param">f1</em>, <em class="sig-param">f2</em>, <em class="sig-param">kernel</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/DiscreteFunction.html#ScalProd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.DiscreteFunction.ScalProd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates scalar-product of functions f1, f2 over kernel</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-CactusTool.Lib.pygwanalysis.RadiatedQuantities">
+<span id="cactustool-lib-pygwanalysis-radiatedquantities-module"></span><h2>CactusTool.Lib.pygwanalysis.RadiatedQuantities module<a class="headerlink" href="#module-CactusTool.Lib.pygwanalysis.RadiatedQuantities" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.RadiatedQuantities.RadiatedAngMomFlux">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.RadiatedQuantities.</code><code class="sig-name descname">RadiatedAngMomFlux</code><span class="sig-paren">(</span><em class="sig-param">int_rPsi4_ModeArray</em>, <em class="sig-param">int_int_rPsi4_ModeArray</em>, <em class="sig-param">lmax</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/RadiatedQuantities.html#RadiatedAngMomFlux"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.RadiatedQuantities.RadiatedAngMomFlux" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the first and second time integral of rPsi4 (l,m) modes (DiscreteFunction mode arrays),
+this function computes the radiated angular momentum flux (Lx, Ly, Lz)
+that is emitted as a function of time in units of [M].</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.RadiatedQuantities.RadiatedEnergyFlux">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.RadiatedQuantities.</code><code class="sig-name descname">RadiatedEnergyFlux</code><span class="sig-paren">(</span><em class="sig-param">int_rPsi4_ModeArray</em>, <em class="sig-param">lmax</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/RadiatedQuantities.html#RadiatedEnergyFlux"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.RadiatedQuantities.RadiatedEnergyFlux" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the time integral of rPsi4 (l,m) modes (a DiscreteFunction mode array),
+this function computes the radiated energy flux
+that is emitted as a function of time in units of [M].</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.RadiatedQuantities.RadiatedEnergyFluxRWZM">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.RadiatedQuantities.</code><code class="sig-name descname">RadiatedEnergyFluxRWZM</code><span class="sig-paren">(</span><em class="sig-param">Qeven</em>, <em class="sig-param">Qodd</em>, <em class="sig-param">lmax</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/RadiatedQuantities.html#RadiatedEnergyFluxRWZM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.RadiatedQuantities.RadiatedEnergyFluxRWZM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the time integral of rPsi4 (l,m) modes (a DiscreteFunction mode array),
+this function computes the radiated energy flux
+that is emitted as a function of time in units of [M].</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.RadiatedQuantities.RadiatedLinMomFlux">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.RadiatedQuantities.</code><code class="sig-name descname">RadiatedLinMomFlux</code><span class="sig-paren">(</span><em class="sig-param">int_rPsi4_ModeArray</em>, <em class="sig-param">lmax</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/RadiatedQuantities.html#RadiatedLinMomFlux"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.RadiatedQuantities.RadiatedLinMomFlux" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the first time integral of rPsi4 (l,m) modes (DiscreteFunction mode array),
+this function computes the radiated linear momentum flux (Px, Py, Pz)
+that is emitted as a function of time in units of [M].</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.RadiatedQuantities.alm">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.RadiatedQuantities.</code><code class="sig-name descname">alm</code><span class="sig-paren">(</span><em class="sig-param">l</em>, <em class="sig-param">m</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/RadiatedQuantities.html#alm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.RadiatedQuantities.alm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.RadiatedQuantities.blm">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.RadiatedQuantities.</code><code class="sig-name descname">blm</code><span class="sig-paren">(</span><em class="sig-param">l</em>, <em class="sig-param">m</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/RadiatedQuantities.html#blm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.RadiatedQuantities.blm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.RadiatedQuantities.clm">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.RadiatedQuantities.</code><code class="sig-name descname">clm</code><span class="sig-paren">(</span><em class="sig-param">l</em>, <em class="sig-param">m</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/RadiatedQuantities.html#clm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.RadiatedQuantities.clm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.RadiatedQuantities.dlm">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.RadiatedQuantities.</code><code class="sig-name descname">dlm</code><span class="sig-paren">(</span><em class="sig-param">l</em>, <em class="sig-param">m</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/RadiatedQuantities.html#dlm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.RadiatedQuantities.dlm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.RadiatedQuantities.flm">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.RadiatedQuantities.</code><code class="sig-name descname">flm</code><span class="sig-paren">(</span><em class="sig-param">l</em>, <em class="sig-param">m</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/RadiatedQuantities.html#flm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.RadiatedQuantities.flm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-CactusTool.Lib.pygwanalysis.Utils">
+<span id="cactustool-lib-pygwanalysis-utils-module"></span><h2>CactusTool.Lib.pygwanalysis.Utils module<a class="headerlink" href="#module-CactusTool.Lib.pygwanalysis.Utils" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.Utils.Lagrange_derivative">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.Utils.</code><code class="sig-name descname">Lagrange_derivative</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">xi</em>, <em class="sig-param">fi</em>, <em class="sig-param">order=2</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/Utils.html#Lagrange_derivative"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.Utils.Lagrange_derivative" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.Utils.Simpson_coeff">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.Utils.</code><code class="sig-name descname">Simpson_coeff</code><span class="sig-paren">(</span><em class="sig-param">i</em>, <em class="sig-param">N</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/Utils.html#Simpson_coeff"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.Utils.Simpson_coeff" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.Utils.find_root">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.Utils.</code><code class="sig-name descname">find_root</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">f</em>, <em class="sig-param">val</em>, <em class="sig-param">eps</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/Utils.html#find_root"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.Utils.find_root" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="cactustool-lib-pygwanalysis-wavediff-module">
+<h2>CactusTool.Lib.pygwanalysis.WaveDiff module<a class="headerlink" href="#cactustool-lib-pygwanalysis-wavediff-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-CactusTool.Lib.pygwanalysis.WaveFunction">
+<span id="cactustool-lib-pygwanalysis-wavefunction-module"></span><h2>CactusTool.Lib.pygwanalysis.WaveFunction module<a class="headerlink" href="#module-CactusTool.Lib.pygwanalysis.WaveFunction" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="CactusTool.Lib.pygwanalysis.WaveFunction.WaveFunction">
+<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.WaveFunction.</code><code class="sig-name descname">WaveFunction</code><span class="sig-paren">(</span><em class="sig-param">x_</em>, <em class="sig-param">f_</em>, <em class="sig-param">g_=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/WaveFunction.html#WaveFunction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.WaveFunction.WaveFunction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction" title="CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">CactusTool.Lib.pygwanalysis.DiscreteFunction.DiscreteFunction</span></code></a></p>
+<p>Class describing discrete 1d wave functions</p>
+<dl class="method">
+<dt id="CactusTool.Lib.pygwanalysis.WaveFunction.WaveFunction.Amplitude">
+<code class="sig-name descname">Amplitude</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/WaveFunction.html#WaveFunction.Amplitude"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.WaveFunction.WaveFunction.Amplitude" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the amplitude as a DiscreteFunction object</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.Lib.pygwanalysis.WaveFunction.WaveFunction.Frequency">
+<code class="sig-name descname">Frequency</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/WaveFunction.html#WaveFunction.Frequency"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.WaveFunction.WaveFunction.Frequency" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the instantenous frequency as a DiscreteFunction object</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.Lib.pygwanalysis.WaveFunction.WaveFunction.Imag">
+<code class="sig-name descname">Imag</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/WaveFunction.html#WaveFunction.Imag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.WaveFunction.WaveFunction.Imag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the imaginary part of the wave</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.Lib.pygwanalysis.WaveFunction.WaveFunction.Phase">
+<code class="sig-name descname">Phase</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/WaveFunction.html#WaveFunction.Phase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.WaveFunction.WaveFunction.Phase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the phase as a DiscreteFunction object</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.Lib.pygwanalysis.WaveFunction.WaveFunction.Real">
+<code class="sig-name descname">Real</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/WaveFunction.html#WaveFunction.Real"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.WaveFunction.WaveFunction.Real" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the real part of the wave</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-CactusTool.Lib.pygwanalysis.harmonics">
+<span id="cactustool-lib-pygwanalysis-harmonics-module"></span><h2>CactusTool.Lib.pygwanalysis.harmonics module<a class="headerlink" href="#module-CactusTool.Lib.pygwanalysis.harmonics" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.harmonics.Cslm">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.harmonics.</code><code class="sig-name descname">Cslm</code><span class="sig-paren">(</span><em class="sig-param">s</em>, <em class="sig-param">l</em>, <em class="sig-param">m</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/harmonics.html#Cslm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.harmonics.Cslm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.harmonics.fac">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.harmonics.</code><code class="sig-name descname">fac</code><span class="sig-paren">(</span><em class="sig-param">n</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/harmonics.html#fac"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.harmonics.fac" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.harmonics.sYlm">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.harmonics.</code><code class="sig-name descname">sYlm</code><span class="sig-paren">(</span><em class="sig-param">ss</em>, <em class="sig-param">ll</em>, <em class="sig-param">mm</em>, <em class="sig-param">theta</em>, <em class="sig-param">phi</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/harmonics.html#sYlm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.harmonics.sYlm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="CactusTool.Lib.pygwanalysis.harmonics.s_lambda_lm">
+<code class="sig-prename descclassname">CactusTool.Lib.pygwanalysis.harmonics.</code><code class="sig-name descname">s_lambda_lm</code><span class="sig-paren">(</span><em class="sig-param">s</em>, <em class="sig-param">l</em>, <em class="sig-param">m</em>, <em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/pygwanalysis/harmonics.html#s_lambda_lm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.pygwanalysis.harmonics.s_lambda_lm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-CactusTool.Lib.pygwanalysis">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-CactusTool.Lib.pygwanalysis" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">CactusTool.Lib.pygwanalysis package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-CactusTool.Lib.pygwanalysis.DataAnalysis">CactusTool.Lib.pygwanalysis.DataAnalysis module</a></li>
+<li><a class="reference internal" href="#module-CactusTool.Lib.pygwanalysis.DiscreteFunction">CactusTool.Lib.pygwanalysis.DiscreteFunction module</a></li>
+<li><a class="reference internal" href="#module-CactusTool.Lib.pygwanalysis.RadiatedQuantities">CactusTool.Lib.pygwanalysis.RadiatedQuantities module</a></li>
+<li><a class="reference internal" href="#module-CactusTool.Lib.pygwanalysis.Utils">CactusTool.Lib.pygwanalysis.Utils module</a></li>
+<li><a class="reference internal" href="#cactustool-lib-pygwanalysis-wavediff-module">CactusTool.Lib.pygwanalysis.WaveDiff module</a></li>
+<li><a class="reference internal" href="#module-CactusTool.Lib.pygwanalysis.WaveFunction">CactusTool.Lib.pygwanalysis.WaveFunction module</a></li>
+<li><a class="reference internal" href="#module-CactusTool.Lib.pygwanalysis.harmonics">CactusTool.Lib.pygwanalysis.harmonics module</a></li>
+<li><a class="reference internal" href="#module-CactusTool.Lib.pygwanalysis">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="CactusTool.Lib.html"
+                        title="previous chapter">CactusTool.Lib package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="CactusTool.Parameter.html"
+                        title="next chapter">CactusTool.Parameter package</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/API/CactusTool.Lib.pygwanalysis.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="CactusTool.Parameter.html" title="CactusTool.Parameter package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="CactusTool.Lib.html" title="CactusTool.Lib package"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="CactusTool.html" >CactusTool package</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="CactusTool.Lib.html" >CactusTool.Lib package</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Yu Liu.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.
+    </div>
+  </body>
+</html>

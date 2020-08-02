@@ -14,6 +14,8 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="../_static/language_data.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -64,26 +66,23 @@
 </dd></dl>
 
 <dl class="function">
-<dt id="CactusTool.funcs.array.merge_component">
-<code class="sig-prename descclassname">CactusTool.funcs.array.</code><code class="sig-name descname">merge_component</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/array.html#merge_component"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.array.merge_component" title="Permalink to this definition">¶</a></dt>
-<dd><p>Composite data consisting of one or more regular datasets with 
-different grid spacings, i.e. a mesh refinement hirachy. The grid 
-spacings should differ by powers of two. Origins of the components 
-are shifted relative to each other only by multiples of the finest 
-spacing. Basic arithmetic operations are defined for this class, as 
-well as interpolation and resampling. This class can be iterated over 
-to get all the regular datasets, ordered by refinement level and
-componen number.</p>
+<dt id="CactusTool.funcs.array.is_monotonically_increasing">
+<code class="sig-prename descclassname">CactusTool.funcs.array.</code><code class="sig-name descname">is_monotonically_increasing</code><span class="sig-paren">(</span><em class="sig-param">t</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/array.html#is_monotonically_increasing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.array.is_monotonically_increasing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wether the data is strictly increasing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>t</strong> – Data samples</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
-<dt id="CactusTool.funcs.array.merge_data_simple">
-<code class="sig-prename descclassname">CactusTool.funcs.array.</code><code class="sig-name descname">merge_data_simple</code><span class="sig-paren">(</span><em class="sig-param">alldat</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/array.html#merge_data_simple"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.array.merge_data_simple" title="Permalink to this definition">¶</a></dt>
-<dd><p>Merges a list of RegData instances into one, assuming they
-all have the same grid spacing and filling a regular grid completely,
-with the same values in overlapping regions (ghost zones etc).
-Beware, the assumptions are not checked.</p>
-</dd></dl>
+<dt id="CactusTool.funcs.array.list_bounds">
+<code class="sig-prename descclassname">CactusTool.funcs.array.</code><code class="sig-name descname">list_bounds</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/array.html#list_bounds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.array.list_bounds" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </div>
 <div class="section" id="module-CactusTool.funcs.check">
@@ -135,9 +134,14 @@ Beware, the assumptions are not checked.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="CactusTool.funcs.file.dataset">
+<code class="sig-prename descclassname">CactusTool.funcs.file.</code><code class="sig-name descname">dataset</code><span class="sig-paren">(</span><em class="sig-param">file</em>, <em class="sig-param">slice</em>, <em class="sig-param">dim</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/file.html#dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.file.dataset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
 <dt id="CactusTool.funcs.file.dataset_h5">
 <code class="sig-prename descclassname">CactusTool.funcs.file.</code><code class="sig-name descname">dataset_h5</code><span class="sig-paren">(</span><em class="sig-param">file</em>, <em class="sig-param">slice</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/file.html#dataset_h5"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.file.dataset_h5" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a dictionary about dataset.</p>
+<dd><p>Return a dictionary about dataset with in slice.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -154,13 +158,13 @@ Beware, the assumptions are not checked.</p>
 <dl class="function">
 <dt id="CactusTool.funcs.file.fetch_all_file">
 <code class="sig-prename descclassname">CactusTool.funcs.file.</code><code class="sig-name descname">fetch_all_file</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/file.html#fetch_all_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.file.fetch_all_file" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fetch all important file in path, especially <cite>.par</cite>, <cite>.asc</cite>, and <cite>.h5</cite> file.</p>
+<dd><p>Fetch all files under the path.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – absolute path</p>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – directory in absolute path</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>file list with absolute path.</p>
+<dd class="field-even"><p>file list</p>
 </dd>
 </dl>
 </dd></dl>
@@ -172,17 +176,20 @@ Beware, the assumptions are not checked.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>files</strong> (<em>list</em>) – A list of file in absolute path.</p></li>
+<li><p><strong>files</strong> (<em>list</em>) – file list in absolute path.</p></li>
 <li><p><strong>file_style</strong> (<em>str</em>) – <p>There are few file_style you can choose:</p>
 <ul>
-<li><p>.par: parameter file</p></li>
-<li><p>.asc: scalar file</p></li>
-<li><p>.asc: ASCII file</p></li>
-<li><p>.h5: HDF5 file</p></li>
-<li><p>checkpoints</p></li>
+<li><p>parfile: parameter file</p></li>
+<li><p>scalar: Scalar file</p></li>
+<li><p>ascii: ASCII file</p></li>
+<li><p>hdf5: HDF5 file</p></li>
+<li><p>debug: NaNmask</p></li>
 </ul>
 </p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>file list</p>
 </dd>
 </dl>
 </dd></dl>
@@ -202,6 +209,20 @@ Beware, the assumptions are not checked.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="CactusTool.funcs.file.is_simfactory">
+<code class="sig-prename descclassname">CactusTool.funcs.file.</code><code class="sig-name descname">is_simfactory</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/file.html#is_simfactory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.file.is_simfactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Is the directory generated by SimFactory Tools?</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – directory in absolute path</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
 <dt id="CactusTool.funcs.file.read">
 <code class="sig-prename descclassname">CactusTool.funcs.file.</code><code class="sig-name descname">read</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/file.html#read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.file.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>Carpet output file type is completely different. This function provides different way to open it.</p>
@@ -216,15 +237,18 @@ Beware, the assumptions are not checked.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="CactusTool.funcs.file.rm_output_active">
-<code class="sig-prename descclassname">CactusTool.funcs.file.</code><code class="sig-name descname">rm_output_active</code><span class="sig-paren">(</span><em class="sig-param">files</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/file.html#rm_output_active"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.file.rm_output_active" title="Permalink to this definition">¶</a></dt>
-<dd><p>output-dddd-active/ is a copy from output-dddd/, so we exclude it to avoid duplicate.</p>
+<dt id="CactusTool.funcs.file.rm_dir_in_filelist">
+<code class="sig-prename descclassname">CactusTool.funcs.file.</code><code class="sig-name descname">rm_dir_in_filelist</code><span class="sig-paren">(</span><em class="sig-param">files</em>, <em class="sig-param">dir</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/file.html#rm_dir_in_filelist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.file.rm_dir_in_filelist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes files under the specified directory.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>files</strong> (<em>list</em>) – A list of file in absolute path.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>files</strong> (<em>list</em>) – file list in absolute path</p></li>
+<li><p><strong>dir</strong> (<em>str</em>) – The directory you want to remove</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>file list withnot the one in output-dddd-active</p>
+<dd class="field-even"><p>file list</p>
 </dd>
 </dl>
 </dd></dl>
@@ -303,12 +327,150 @@ Beware, the assumptions are not checked.</p>
 <dd></dd></dl>
 
 </div>
-<div class="section" id="module-CactusTool.funcs.sys">
-<span id="cactustool-funcs-sys-module"></span><h2>CactusTool.funcs.sys module<a class="headerlink" href="#module-CactusTool.funcs.sys" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="CactusTool.funcs.sys.curdir">
-<code class="sig-prename descclassname">CactusTool.funcs.sys.</code><code class="sig-name descname">curdir</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/sys.html#curdir"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.sys.curdir" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the current working directory.</p>
+<div class="section" id="module-CactusTool.funcs.log">
+<span id="cactustool-funcs-log-module"></span><h2>CactusTool.funcs.log module<a class="headerlink" href="#module-CactusTool.funcs.log" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-CactusTool.funcs.ts">
+<span id="cactustool-funcs-ts-module"></span><h2>CactusTool.funcs.ts module<a class="headerlink" href="#module-CactusTool.funcs.ts" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="CactusTool.funcs.ts.TimeSeries">
+<em class="property">class </em><code class="sig-prename descclassname">CactusTool.funcs.ts.</code><code class="sig-name descname">TimeSeries</code><span class="sig-paren">(</span><em class="sig-param">t</em>, <em class="sig-param">y</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/ts.html#TimeSeries"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.ts.TimeSeries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class represents real or complex valued time series.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t</strong> – Sampling times, need to be strictly increasing.</p></li>
+<li><p><strong>y</strong> – Data samples, can be real or complex valued.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="CactusTool.funcs.ts.TimeSeries.absolute">
+<code class="sig-name descname">absolute</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/ts.html#TimeSeries.absolute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.ts.TimeSeries.absolute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.funcs.ts.TimeSeries.clip">
+<code class="sig-name descname">clip</code><span class="sig-paren">(</span><em class="sig-param">tmin=None</em>, <em class="sig-param">tmax=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/ts.html#TimeSeries.clip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.ts.TimeSeries.clip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Throws away data outside the time intarval [tmin, tmax]. If tmin or tmax are not specified or None, it does not remove anything from this side.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tmin</strong> – Left boundary cut interval or None.</p></li>
+<li><p><strong>tmax</strong> – Right boundary cut interval or None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.funcs.ts.TimeSeries.conjugate">
+<code class="sig-name descname">conjugate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/ts.html#TimeSeries.conjugate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.ts.TimeSeries.conjugate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.funcs.ts.TimeSeries.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/ts.html#TimeSeries.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.ts.TimeSeries.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.funcs.ts.TimeSeries.deriv">
+<code class="sig-name descname">deriv</code><span class="sig-paren">(</span><em class="sig-param">order</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/ts.html#TimeSeries.deriv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.ts.TimeSeries.deriv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute derivative of order&lt;=5 using splines.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>order</strong> (<em>int</em>) – Order of differentiation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.funcs.ts.TimeSeries.imag">
+<code class="sig-name descname">imag</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/ts.html#TimeSeries.imag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.ts.TimeSeries.imag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.funcs.ts.TimeSeries.integrate">
+<code class="sig-name descname">integrate</code><span class="sig-paren">(</span><em class="sig-param">a=None</em>, <em class="sig-param">b=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/ts.html#TimeSeries.integrate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.ts.TimeSeries.integrate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the definite integral over the interval [a,b] using spline representations. If lower and/or upper bound is not specified, use boundary of the timeseries.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> – Lower integration bound or None.</p></li>
+<li><p><strong>b</strong> – Upper integration bound or None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.funcs.ts.TimeSeries.phase">
+<code class="sig-name descname">phase</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/ts.html#TimeSeries.phase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.ts.TimeSeries.phase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the complex phase of a complex-valued signal such that
+no phase wrap-arounds occur.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Continuous complex phase.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.funcs.ts.TimeSeries.real">
+<code class="sig-name descname">real</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/ts.html#TimeSeries.real"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.ts.TimeSeries.real" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.funcs.ts.TimeSeries.remove_mean">
+<code class="sig-name descname">remove_mean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/ts.html#TimeSeries.remove_mean"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.ts.TimeSeries.remove_mean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove the mean value from the data.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.funcs.ts.TimeSeries.resample">
+<code class="sig-name descname">resample</code><span class="sig-paren">(</span><em class="sig-param">times</em>, <em class="sig-param">ext=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/ts.html#TimeSeries.resample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.ts.TimeSeries.resample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resamples the timeseries to new times.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>times</strong> – New sample times.</p></li>
+<li><p><strong>ext</strong> (<em>0 for extrapolation</em><em>, </em><em>1 for returning zero</em><em>, </em><em>2 for ValueError.</em>) – How to handle points outside the time interval.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Resampled time series.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.funcs.ts.TimeSeries.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param">fname</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/ts.html#TimeSeries.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.ts.TimeSeries.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves into simple ascii format with 2 collumns (t,y) for real valued
+data and 3 collumns (t, Re(y), Im(y)) for complex valued data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fname</strong> (<em>str</em>) – File name.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.funcs.ts.TimeSeries.shift">
+<code class="sig-name descname">shift</code><span class="sig-paren">(</span><em class="sig-param">tshift</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/ts.html#TimeSeries.shift"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.ts.TimeSeries.shift" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.funcs.ts.TimeSeries.tmax">
+<code class="sig-name descname">tmax</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/ts.html#TimeSeries.tmax"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.ts.TimeSeries.tmax" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="CactusTool.funcs.ts.TimeSeries.tmin">
+<code class="sig-name descname">tmin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/funcs/ts.html#TimeSeries.tmin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.funcs.ts.TimeSeries.tmin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </div>
@@ -338,7 +500,8 @@ conversions. All expressed in SI units.</p>
 <li><a class="reference internal" href="#module-CactusTool.funcs.file">CactusTool.funcs.file module</a></li>
 <li><a class="reference internal" href="#module-CactusTool.funcs.interp">CactusTool.funcs.interp module</a></li>
 <li><a class="reference internal" href="#module-CactusTool.funcs.json">CactusTool.funcs.json module</a></li>
-<li><a class="reference internal" href="#module-CactusTool.funcs.sys">CactusTool.funcs.sys module</a></li>
+<li><a class="reference internal" href="#module-CactusTool.funcs.log">CactusTool.funcs.log module</a></li>
+<li><a class="reference internal" href="#module-CactusTool.funcs.ts">CactusTool.funcs.ts module</a></li>
 <li><a class="reference internal" href="#module-CactusTool.funcs.unit">CactusTool.funcs.unit module</a></li>
 <li><a class="reference internal" href="#module-CactusTool.funcs">Module contents</a></li>
 </ul>

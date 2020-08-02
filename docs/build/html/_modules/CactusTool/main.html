@@ -14,6 +14,8 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <script type="text/javascript" src="../../_static/language_data.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -42,73 +44,138 @@
 <span class="sd">This is the main modular. Everything start from it.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">.funcs</span> <span class="k">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">.Parameter</span> <span class="k">import</span> <span class="n">ParFile</span>
-<span class="kn">from</span> <span class="nn">.Carpet</span> <span class="k">import</span> <span class="n">CarpetIOScalar</span>
-<span class="kn">from</span> <span class="nn">.Carpet</span> <span class="k">import</span> <span class="n">CarpetIOHDF5</span>
-<span class="kn">from</span> <span class="nn">.Carpet</span> <span class="k">import</span> <span class="n">CarpetIOASCII</span>
-<span class="kn">from</span> <span class="nn">.Debug</span> <span class="k">import</span> <span class="n">NaNCheck</span>
+<span class="kn">from</span> <span class="nn">.funcs.log</span> <span class="k">import</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">.funcs.file</span> <span class="k">import</span> <span class="n">is_simfactory</span>
+<span class="c1"># fetch_all_file, rm_dir_in_filelist, filter_file, </span>
+<span class="c1"># from .Parameter import ParFile</span>
+<span class="kn">from</span> <span class="nn">.Carpet.Scalar</span> <span class="k">import</span> <span class="n">CarpetIOScalar</span>
+<span class="kn">from</span> <span class="nn">.Carpet.GF</span> <span class="k">import</span> <span class="n">CarpetGF</span>
+<span class="c1"># from .Carpet import CarpetIOASCII</span>
+<span class="c1"># from .Debug import NaNCheck</span>
+<span class="c1"># from loguru import logger</span>
 <span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+
 
 <div class="viewcode-block" id="load"><a class="viewcode-back" href="../../API/CactusTool.html#CactusTool.main.load">[docs]</a><span class="k">class</span> <span class="nc">load</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Basis class of CactusTool, anything start from it. Please use it attributes.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">simpath</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">simname</span><span class="p">,</span> <span class="n">basedir</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Args:</span>
-<span class="sd">            simpath (str): absolute path to simulation directory.</span>
+<span class="sd">        Load Cactus simulation name.</span>
+
+<span class="sd">        :param str simname: simulation name.</span>
+<span class="sd">        :param str basedir: Basis directory. The default is &#39;~/simulations/&#39;.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">simpath</span><span class="p">),</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> doesn&#39;t exist in your local computer.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">simpath</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">simname</span> <span class="o">=</span> <span class="n">simname</span>
+        <span class="c1"># Make sure basis directory exists.</span>
+        <span class="k">if</span> <span class="n">basedir</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">SourceDir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">&#39;~/simulations/&#39;</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">SourceDir</span><span class="p">),</span> <span class="s2">&quot;The default basis directory ~/simulations/ not exists.&#39;&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">basedir</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">):</span>
+                <span class="n">basedir</span> <span class="o">+=</span> <span class="s1">&#39;/&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">SourceDir</span> <span class="o">=</span> <span class="n">basedir</span>
+            <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">SourceDir</span><span class="p">),</span> <span class="s2">&quot;Basis directory &#39;</span><span class="si">{}</span><span class="s2">&#39; not exists.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">SourceDir</span><span class="p">)</span>
+        <span class="c1"># Make sure simulation directory exists.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">simpath</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">SourceDir</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">simname</span>
+        <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">simpath</span><span class="p">),</span> <span class="s2">&quot;simulation name &#39;</span><span class="si">{}</span><span class="s2">&#39; not in your &#39;</span><span class="si">{}</span><span class="s2">&#39;.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">simname</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">SourceDir</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">simpath</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">simpath</span> <span class="o">+=</span> <span class="s1">&#39;/&#39;</span>
+        <span class="c1"># The directory structure of SimFactory is different from the traditional one.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_simfactory</span> <span class="o">=</span> <span class="n">is_simfactory</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">simpath</span><span class="p">)</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        # Fetch all file under directory of simpath</span>
+<span class="sd">        self._allfiles = fetch_all_file(self.simpath)</span>
+
+<span class="sd">        # CactusTool is currently unable to deal with the following folder.</span>
+<span class="sd">        if self._simfactory:</span>
+<span class="sd">            self._allfiles = rm_dir_in_filelist(self._allfiles, &#39;SIMFACTORY&#39;)</span>
+<span class="sd">            self._allfiles = rm_dir_in_filelist(self._allfiles, &#39;output-(\d\d\d\d)-active&#39;)</span>
+<span class="sd">            self._allfiles = rm_dir_in_filelist(self._allfiles, &#39;cactus-source&#39;)</span>
+<span class="sd">        self._allfiles = rm_dir_in_filelist(self._allfiles, &#39;checkpoints&#39;)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="c1"># def Parfile(self, file=None):</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#     Load parameter file if it exist. You can change the default file by use ‘Parfile(&lt;parameter file&gt;)’.</span>
+
+    <span class="c1">#     :param str file: parameter file in absolute path.</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#     if file:</span>
+    <span class="c1">#         assert os.path.exists(file), &quot;parameter file &#39;{}&#39; not exists. Make sure it‘s an absolute path.&quot;.format(file)</span>
+    <span class="c1">#         assert file.endswith(&#39;.par&#39;), &quot;parameter file &#39;{}&#39; should end with &#39;.par&#39;.&quot;.format(file)</span>
+    <span class="c1">#         self.parfile = file</span>
+    <span class="c1">#     else:</span>
+    <span class="c1">#         parfiles = filter_file(self._allfiles, &quot;parfile&quot;)</span>
+
+    <span class="c1">#         # In some cases, it may contain more than one parfile.</span>
+    <span class="c1">#         if len(parfiles) == 1:</span>
+    <span class="c1">#             self.parfile = parfiles[0]</span>
+    <span class="c1">#         else:</span>
+    <span class="c1">#             # Guess parfile you want to load</span>
+    <span class="c1">#             if self._simfactory:</span>
+    <span class="c1">#                 self.parfile = self.simpath + &#39;/output-0000/&#39; + self.simname + &#39;.par&#39;</span>
+    <span class="c1">#             else:</span>
+    <span class="c1">#                 self.parfile = self.simpath + &#39;/&#39; + self.simname + &#39;.par&#39;</span>
+    <span class="c1">#             assert self.parfile in parfiles, &quot;Make sure `IO::out_dir = $parfile` in your parfile, or you can input the one you want to load.&quot;</span>
+
+    <span class="c1">#         logger.info(&quot;Use the default parameter file &#39;{}&#39;.&quot;, self.parfile)</span>
+
+    <span class="c1">#     return ParFile(self.parfile)</span>
+
+<div class="viewcode-block" id="load.Scalar"><a class="viewcode-back" href="../../API/CactusTool.html#CactusTool.main.load.Scalar">[docs]</a>    <span class="k">def</span> <span class="nf">Scalar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;maximum&#39;</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;minimum&#39;</span><span class="p">,</span> <span class="s1">&#39;maximum&#39;</span><span class="p">,</span> <span class="s1">&#39;norm1&#39;</span><span class="p">,</span> <span class="s1">&#39;norm2&#39;</span><span class="p">,</span> <span class="s1">&#39;average&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_simfactory</span><span class="p">:</span> 
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;CactusTool currently cannot handle simfactory!&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fileList</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">simpath</span> <span class="o">+</span> <span class="s1">&#39;*.</span><span class="si">{}</span><span class="s1">.asc&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">))</span>
+        <span class="k">assert</span> <span class="nb">bool</span><span class="p">(</span><span class="n">fileList</span><span class="p">),</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> don&#39;t have &#39;</span><span class="si">{}</span><span class="s2">&#39; operation on scalar&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">simname</span><span class="p">,</span> <span class="nb">type</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">CarpetIOScalar</span><span class="p">(</span><span class="n">fileList</span><span class="p">)</span>  </div>
         
-        <span class="bp">self</span><span class="o">.</span><span class="n">basedir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">simname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">simpath</span><span class="p">)</span>
+<div class="viewcode-block" id="load.GF"><a class="viewcode-back" href="../../API/CactusTool.html#CactusTool.main.load.GF">[docs]</a>    <span class="k">def</span> <span class="nf">GF</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;h5&#39;</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">dim</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">,</span> <span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="s1">&#39;xz&#39;</span><span class="p">,</span> <span class="s1">&#39;yz&#39;</span><span class="p">,</span> <span class="s1">&#39;xyz&#39;</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="nb">format</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;asc&#39;</span><span class="p">,</span> <span class="s1">&#39;h5&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_simfactory</span><span class="p">:</span> 
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;CactusTool currently cannot handle simfactory!&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fileList</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">simpath</span> <span class="o">+</span> <span class="s1">&#39;*.</span><span class="si">{}</span><span class="s1">.</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="nb">format</span><span class="p">))</span>
+        <span class="k">assert</span> <span class="nb">bool</span><span class="p">(</span><span class="n">fileList</span><span class="p">),</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> don&#39;t have &#39;</span><span class="si">{}</span><span class="s2">&#39; dim in &#39;.</span><span class="si">{}</span><span class="s2">&#39; format&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">simname</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="nb">format</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">CarpetGF</span><span class="p">(</span><span class="n">fileList</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="nb">format</span><span class="p">)</span></div>
 
-        <span class="n">files_tem</span> <span class="o">=</span> <span class="n">fetch_all_file</span><span class="p">(</span><span class="n">simpath</span><span class="p">)</span>
+    <span class="c1"># @property</span>
+    <span class="c1"># def ASCII(self):</span>
+    <span class="c1">#     self.ascfiles = filter_file(self._allfiles, &quot;ascii&quot;)</span>
+    <span class="c1">#     if bool(self.ascfiles):</span>
+    <span class="c1">#         return CarpetIOASCII(self.ascfiles)</span>
+    <span class="c1">#     else:</span>
+    <span class="c1">#         raise Exception(&quot;No ASCII variable in {}:&quot;.format(self.simname))        </span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">allfiles</span> <span class="o">=</span> <span class="n">rm_output_active</span><span class="p">(</span><span class="n">files_tem</span><span class="p">)</span> <span class="c1"># Exclude file in output-0000-active directory.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">parfiles</span> <span class="o">=</span> <span class="n">filter_file</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">allfiles</span><span class="p">,</span> <span class="s2">&quot;par&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">scafiles</span> <span class="o">=</span> <span class="n">filter_file</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">allfiles</span><span class="p">,</span> <span class="s2">&quot;scalar&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ascfiles</span> <span class="o">=</span> <span class="n">filter_file</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">allfiles</span><span class="p">,</span> <span class="s2">&quot;asc&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">h5files</span>  <span class="o">=</span> <span class="n">filter_file</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">allfiles</span><span class="p">,</span> <span class="s2">&quot;hdf5&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">debugfiles</span> <span class="o">=</span> <span class="n">filter_file</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">allfiles</span><span class="p">,</span> <span class="s2">&quot;debug&quot;</span><span class="p">)</span>
- 
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">Parfile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="load.Analysis"><a class="viewcode-back" href="../../API/CactusTool.html#CactusTool.main.load.Analysis">[docs]</a>    <span class="k">def</span> <span class="nf">Analysis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Thorn</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        It first read parameter file if it exist.</span>
+<span class="sd">        Analysis thorn&#39;s output.</span>
+
+<span class="sd">        :param str thorn: thorn name</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parfiles</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">ParFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parfiles</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Do not find any parfile in &quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+        <span class="kn">from</span> <span class="nn">.Analysis</span> <span class="k">import</span> <span class="n">ThornFile</span><span class="p">,</span> <span class="n">hmns</span><span class="p">,</span> <span class="n">multipole</span><span class="p">,</span> <span class="n">volumeintegrals_grmhd</span>
 
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">Scalar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scafiles</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">CarpetIOScalar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scafiles</span><span class="p">)</span>
+        <span class="n">thorn</span> <span class="o">=</span> <span class="n">Thorn</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="n">thorn</span> <span class="ow">in</span> <span class="n">ThornFile</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="s2">&quot;CactusTool currently not support </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Thorn</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_simfactory</span><span class="p">:</span> 
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;CactusTool currently cannot handle simfactory!&quot;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;No Scalar variable in </span><span class="si">{}</span><span class="s2">:&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">simname</span><span class="p">))</span>
+            <span class="n">fileList</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">simpath</span> <span class="o">+</span> <span class="n">ThornFile</span><span class="p">[</span><span class="n">thorn</span><span class="p">])</span>
+        <span class="k">assert</span> <span class="nb">bool</span><span class="p">(</span><span class="n">fileList</span><span class="p">),</span> <span class="s2">&quot;There are no data files about </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Thorn</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">locals</span><span class="p">()[</span><span class="n">thorn</span><span class="p">](</span><span class="n">fileList</span><span class="p">)</span></div></div>
 
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">H5</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h5files</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">CarpetIOHDF5</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h5files</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;No H5 variable in </span><span class="si">{}</span><span class="s2">:&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">simname</span><span class="p">))</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">ASCII</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ascfiles</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">CarpetIOASCII</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ascfiles</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;No ASCII variable in </span><span class="si">{}</span><span class="s2">:&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">simname</span><span class="p">))</span>        
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">NaN</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">debugfiles</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">NaNCheck</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;No NaNCheck in </span><span class="si">{}</span><span class="s2">:&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">simname</span><span class="p">))</span></div>
+    <span class="c1"># @property</span>
+    <span class="c1"># def NaN(self):</span>
+    <span class="c1">#     self.debug  = filter_file(self.allfiles, &quot;debug&quot;)</span>
+    <span class="c1">#     if bool(self.debugfiles):</span>
+    <span class="c1">#         return NaNCheck(self)</span>
+    <span class="c1">#     else:</span>
+    <span class="c1">#         raise Exception(&quot;No NaNCheck in {}:&quot;.format(self.simname))</span>
 </pre></div>
 
           </div>

@@ -1,0 +1,226 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>CactusTool.Carpet.GF &#8212; CactusTool 0.0.1 documentation</title>
+    <link rel="stylesheet" href="../../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for CactusTool.Carpet.GF</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Cactus dataset main produced by `Carpet &lt;https://carpetcode.org&gt;`_, which is an adaptive mesh refinement and multi-patch driver for the Cactus. This modular processes output of CarpetIOHDF5 or CarpetIOASCII.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">..funcs</span> <span class="k">import</span> <span class="n">header_h5</span><span class="p">,</span> <span class="n">select_header_h5</span><span class="p">,</span> <span class="n">read</span><span class="p">,</span> <span class="n">add_two_key</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<div class="viewcode-block" id="CarpetGF"><a class="viewcode-back" href="../../../API/CactusTool.Carpet.html#CactusTool.Carpet.GF.CarpetGF">[docs]</a><span class="k">class</span> <span class="nc">CarpetGF</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="nb">format</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dim</span> <span class="o">=</span> <span class="n">dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="nb">format</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fname</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;^([a-zA-Z0-9_-]+)\.([xyz]*)(\.file_\d+)?\.(asc|h5)$&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+            <span class="n">mp</span> <span class="o">=</span> <span class="n">pat</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">file</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">mp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">thorn_var</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fname</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">thorn_var</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fname</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> is not exist&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="n">files</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fname</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">format</span> <span class="o">==</span> <span class="s1">&#39;h5&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">CarpetIOHDF5</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">format</span> <span class="o">==</span> <span class="s1">&#39;asc&#39;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;CactusTool currently only support &#39;.h5&#39;!&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fname</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="CarpetIOHDF5"><a class="viewcode-back" href="../../../API/CactusTool.Carpet.html#CactusTool.Carpet.GF.CarpetIOHDF5">[docs]</a><span class="k">class</span> <span class="nc">CarpetIOHDF5</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Thorn CarpetIOHDF5 provides I/O methods for outputting gird function in HDF5 format into files. This class can handle all CarpetIOHDF5 output. Read the dataset from files and return all useful information stored in these files. We recommend use CarpetIOHDF5 to output all 2-D and 3-D grid function.</span>
+
+<span class="sd">    :param str file: a single filename</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">dim</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dim</span> <span class="o">=</span> <span class="n">dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">header</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="n">file</span><span class="p">]</span> <span class="o">=</span> <span class="n">header_h5</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">vars</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">vars</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="n">file</span><span class="p">]:</span>
+                <span class="nb">vars</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="n">file</span><span class="p">][</span><span class="n">item</span><span class="p">][</span><span class="s1">&#39;varname&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">vars</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">it</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">iteration</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="n">file</span><span class="p">]:</span>
+                <span class="n">iteration</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="n">file</span><span class="p">][</span><span class="n">item</span><span class="p">][</span><span class="s1">&#39;iteration&#39;</span><span class="p">]))</span>
+        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">iteration</span><span class="p">))</span>
+
+<div class="viewcode-block" id="CarpetIOHDF5.temporary"><a class="viewcode-back" href="../../../API/CactusTool.Carpet.html#CactusTool.Carpet.GF.CarpetIOHDF5.temporary">[docs]</a>    <span class="k">def</span> <span class="nf">temporary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">it</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">read</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span> 
+                <span class="k">for</span> <span class="n">header</span> <span class="ow">in</span> <span class="n">select_header_h5</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="n">file</span><span class="p">],</span> <span class="n">var</span><span class="p">,</span> <span class="n">it</span><span class="o">=</span><span class="n">it</span><span class="p">):</span>
+                    <span class="n">rl</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="n">file</span><span class="p">][</span><span class="n">header</span><span class="p">][</span><span class="s1">&#39;rl&#39;</span><span class="p">]</span>
+                    <span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="n">file</span><span class="p">][</span><span class="n">header</span><span class="p">][</span><span class="s1">&#39;c&#39;</span><span class="p">]</span>
+                    <span class="n">dset</span> <span class="o">=</span> <span class="p">{}</span>
+                    <span class="n">mesh</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="n">header</span><span class="p">]</span>
+                    <span class="n">origin</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;origin&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                    <span class="n">delta</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;delta&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mesh</span><span class="p">)</span>
+                    <span class="n">size</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">shape</span>
+                    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+                        <span class="n">dset</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">size</span><span class="p">[(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">-</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">delta</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">origin</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">delta</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span>
+                    <span class="n">dset</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span>
+                    <span class="n">add_two_key</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">rl</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">dset</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">p</span></div></div>
+
+<span class="c1">#     @property</span>
+<span class="c1">#     def rl(self):</span>
+<span class="c1">#         rl = set()</span>
+<span class="c1">#         for file in self.header:</span>
+<span class="c1">#             for item in self.header[file]:</span>
+<span class="c1">#                 rl.add(int(self.header[file][item][&#39;rl&#39;]))</span>
+<span class="c1">#         return sorted(list(rl))</span>
+
+<span class="c1">#     def temporary(self, var, it=0, rl=-1):</span>
+<span class="c1">#         dsets = []</span>
+<span class="c1">#         if rl == -1:</span>
+<span class="c1">#             rl = self.rl</span>
+<span class="c1">#         for level in list(rl):</span>
+<span class="c1">#             for file in self.header:</span>
+<span class="c1">#                 with read(file) as f: </span>
+<span class="c1">#                     headers = select_header_h5(self.header[file], var, it=it, rl=level)</span>
+            
+<span class="c1">#                     for slice in headers:</span>
+<span class="c1">#                         p = dict()</span>
+<span class="c1">#                         mesh = f[slice]</span>
+<span class="c1">#                         p[&#39;level&#39;] = mesh.attrs.get(&#39;level&#39;, None)</span>
+<span class="c1">#                         origin = mesh.attrs.get(&#39;origin&#39;, None)</span>
+<span class="c1">#                         delta = mesh.attrs.get(&#39;delta&#39;, None)</span>
+<span class="c1">#                         p[&#39;origin&#39;] = origin</span>
+<span class="c1">#                         data = np.array(mesh)</span>
+<span class="c1">#                         size = mesh.shape</span>
+<span class="c1">#                         n = len(self.dim)</span>
+<span class="c1">#                         for i in range(n):</span>
+<span class="c1">#                             p[self.dim[i]] = np.arange(0, size[(n-1)-i]+1)*delta[i] + origin[i] - delta[i]/2</span>
+<span class="c1">#                         p[&#39;data&#39;] = data</span>
+<span class="c1">#                         dsets.append(p)</span>
+<span class="c1">#         return AMRGrid(dsets, self.dim, var)</span>
+
+<span class="c1"># class AMRGrid:</span>
+<span class="c1">#     def __init__(self, dsets, dim, var):</span>
+<span class="c1">#         self.dsets = dsets</span>
+<span class="c1">#         self.dim = dim</span>
+<span class="c1">#         self.var = var</span>
+    
+<span class="c1">#     def Preview(self, axlim=None, Normalize=None):</span>
+<span class="c1">#         import matplotlib.pyplot as plt</span>
+<span class="c1">#         import matplotlib.colors as colors</span>
+
+<span class="c1">#         vmax = np.amax(self.dsets[0][&#39;data&#39;])</span>
+<span class="c1">#         vmin = np.amin(self.dsets[0][&#39;data&#39;])</span>
+<span class="c1">#         for item in self.dsets:</span>
+<span class="c1">#             if vmax &lt; np.amax(item[&#39;data&#39;]):</span>
+<span class="c1">#                 vmax = np.amax(item[&#39;data&#39;])</span>
+<span class="c1">#             if vmin &gt; np.amin(item[&#39;data&#39;]):</span>
+<span class="c1">#                 vmin = np.amin(item[&#39;data&#39;])</span>
+<span class="c1">#         for item in self.dsets:</span>
+<span class="c1">#             if Normalize is None:</span>
+<span class="c1">#                 plt.pcolormesh(item[self.dim[0]], item[self.dim[1]], item[&#39;data&#39;], vmin=vmin, vmax=vmax)</span>
+<span class="c1">#             elif Normalize == &#39;LogNorm&#39;:</span>
+<span class="c1">#                 assert vmin &gt; 0, &quot;values must all be positive&quot;</span>
+<span class="c1">#                 plt.pcolormesh(item[self.dim[0]], item[self.dim[1]], item[&#39;data&#39;], norm=colors.LogNorm(vmin=vmin, vmax=vmax))</span>
+
+<span class="c1">#         if axlim is not None:</span>
+<span class="c1">#             plt.xlim(axlim)</span>
+<span class="c1">#             plt.ylim(axlim)</span>
+<span class="c1">#         plt.xlabel(&#39;x&#39;)</span>
+<span class="c1">#         plt.ylabel(&#39;y&#39;)</span>
+<span class="c1">#         plt.title(self.var)</span>
+<span class="c1">#         plt.colorbar()</span>
+<span class="c1">#         plt.show()</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Yu Liu.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.
+    </div>
+  </body>
+</html>
