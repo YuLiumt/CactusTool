@@ -23,14 +23,6 @@ CactusTool.main module
    :undoc-members:
    :show-inheritance:
 
-CactusTool.outputfile module
-----------------------------
-
-.. automodule:: CactusTool.outputfile
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 
 Module contents
 ---------------

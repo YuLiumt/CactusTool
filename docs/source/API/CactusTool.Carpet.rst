@@ -28,6 +28,14 @@ CactusTool.Carpet.Scalar module
    :undoc-members:
    :show-inheritance:
 
+CactusTool.Carpet.grid module
+-----------------------------
+
+.. automodule:: CactusTool.Carpet.grid
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 
 Module contents
 ---------------

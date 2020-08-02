@@ -14,8 +14,6 @@
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
     <script type="text/javascript" src="../../../_static/language_data.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -41,19 +39,24 @@
             
   <h1>Source code for CactusTool.Visualize.mesh</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">A rectangular grid, supporting </span>
-<span class="sd">common arithmetic operations. The standard mathematical unary</span>
-<span class="sd">functions, e.g. sin(), are implemented as member functions.</span>
-<span class="sd">Supports interpolation and resampling. The objects can also be used </span>
-<span class="sd">as a function, mapping coordinate to interpolated data. Supports </span>
-<span class="sd">numercial differentiation.</span>
-<span class="sd">:ivar data: The actual data (numpy array).</span>
+<span class="sd">This Class has all the routines for the imaging</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="SlicePlot"><a class="viewcode-back" href="../../../API/CactusTool.Visualize.html#CactusTool.Visualize.mesh.SlicePlot">[docs]</a><span class="k">class</span> <span class="nc">SlicePlot</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">ds</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span></div>
+
+    <span class="c1"># def extent():</span>
+    <span class="c1">#     if extent[0] is not None:</span>
+    <span class="c1">#         self.ax.set_xlim(xmin=extent[0])</span>
+    <span class="c1">#     if extent[1] is not None:</span>
+    <span class="c1">#         self.ax.set_xlim(xmax=extent[1])</span>
+    <span class="c1">#     if extent[2] is not None:</span>
+    <span class="c1">#         self.ax.set_ylim(ymin=extent[2])</span>
+    <span class="c1">#     if extent[3] is not None:</span>
+    <span class="c1">#         self.ax.set_ylim(ymax=extent[3])</span>
+
 </pre></div>
 
           </div>

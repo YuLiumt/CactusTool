@@ -14,12 +14,10 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="../_static/language_data.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="CactusTool package" href="../API/CactusTool.html" />
+    <link rel="next" title="ipywidgets" href="widgets.html" />
     <link rel="prev" title="CactusTool" href="CactusTool.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -32,7 +30,7 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="../API/CactusTool.html" title="CactusTool package"
+          <a href="widgets.html" title="ipywidgets"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="CactusTool.html" title="CactusTool"
@@ -264,6 +262,7 @@ div.rendered_html tbody tr:hover {
 <span class="kn">from</span> <span class="nn">CactusTool.Carpet</span> <span class="kn">import</span> <span class="n">CarpetIOHDF5</span>
 <span class="kn">from</span> <span class="nn">CactusTool.Carpet</span> <span class="kn">import</span> <span class="n">CarpetIOASCII</span>
 <span class="kn">from</span> <span class="nn">CactusTool.funcs</span> <span class="kn">import</span> <span class="n">filter_file</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">os</span>
 </pre></div>
 </div>
@@ -280,13 +279,15 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="section" id="CarpetIOScalar">
 <h2>CarpetIOScalar<a class="headerlink" href="#CarpetIOScalar" title="Permalink to this headline">¶</a></h2>
-<p>First view all available variables in a given reduction operation.</p>
+<p>First view all available reduction or all available variables.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">ds_scalar</span> <span class="o">=</span> <span class="n">CarpetIOScalar</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Available reductions:&quot;</span><span class="p">,</span> <span class="n">ds_scalar</span><span class="o">.</span><span class="n">available_reductions</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;All available variables:</span><span class="se">\n</span><span class="s2">------------&quot;</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">ds_scalar</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -296,6 +297,9 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
+Available reductions: [&#39;max&#39;, &#39;none&#39;]
+All available variables:
+------------
 Available maximum timeseries:
 [&#39;H&#39;, &#39;M1&#39;, &#39;M2&#39;, &#39;M3&#39;, &#39;qlm_shape[0]&#39;, &#39;qlm_shape[1]&#39;, &#39;maxrss_mb&#39;, &#39;majflt_mb&#39;, &#39;arena_mb&#39;, &#39;ordblks_mb&#39;, &#39;hblks_mb&#39;, &#39;hblkhd_mb&#39;, &#39;uordblks_mb&#39;, &#39;fordblks_mb&#39;, &#39;keepcost_mb&#39;, &#39;swap_used_mb&#39;]
 Available none timeseries:
@@ -303,15 +307,31 @@ Available none timeseries:
 
 </pre></div></div>
 </div>
-<p>Then specify variables and their corresponding operations. <strong>Note: When specify variable name, we just simple filter it by use string ``in`` method in python.</strong> So you can specify a vector or tensor like following.</p>
-<div class="nbinput nblast docutils container">
+<p>All available variables in a given reduction.</p>
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">print</span><span class="p">(</span><span class="s2">&quot;Available variables:&quot;</span><span class="p">,</span> <span class="n">ds_scalar</span><span class="o">.</span><span class="n">max</span><span class="o">.</span><span class="n">available_variables</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Available variables: [&#39;H&#39;, &#39;M1&#39;, &#39;M2&#39;, &#39;M3&#39;, &#39;qlm_shape[0]&#39;, &#39;qlm_shape[1]&#39;, &#39;maxrss_mb&#39;, &#39;majflt_mb&#39;, &#39;arena_mb&#39;, &#39;ordblks_mb&#39;, &#39;hblks_mb&#39;, &#39;hblkhd_mb&#39;, &#39;uordblks_mb&#39;, &#39;fordblks_mb&#39;, &#39;keepcost_mb&#39;, &#39;swap_used_mb&#39;]
+</pre></div></div>
+</div>
+<p>Then specify variables and their corresponding operations.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">var_scalar</span> <span class="o">=</span> <span class="n">ds_scalar</span><span class="o">.</span><span class="n">max</span><span class="p">[</span><span class="s1">&#39;M1&#39;</span><span class="p">]</span> <span class="c1"># A scalar</span>
-<span class="n">var_scalar</span> <span class="o">=</span> <span class="n">ds_scalar</span><span class="o">.</span><span class="n">max</span><span class="p">[</span><span class="s1">&#39;M&#39;</span><span class="p">]</span> <span class="c1"># A vector or tensor</span>
-<span class="n">var_scalar</span> <span class="o">=</span> <span class="n">ds_scalar</span><span class="o">.</span><span class="n">max</span><span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]</span> <span class="c1"># All variable</span>
 </pre></div>
 </div>
 </div>
@@ -320,7 +340,7 @@ Available none timeseries:
 <h3>Dataset<a class="headerlink" href="#Dataset" title="Permalink to this headline">¶</a></h3>
 <p>These dataset may store in different files and one file may contain many variables. Pandas DataFrame is a powerful tool to combine them and remove duplicate data. We use <code class="docutils literal notranslate"><span class="pre">pd.concat</span></code> to the same variable and <code class="docutils literal notranslate"><span class="pre">pd.merge</span></code> to different variable.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -329,7 +349,7 @@ Available none timeseries:
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -353,22 +373,9 @@ Available none timeseries:
       <th></th>
       <th>iteration</th>
       <th>time</th>
-      <th>H</th>
       <th>M1</th>
       <th>M2</th>
       <th>M3</th>
-      <th>qlm_shape[0]</th>
-      <th>qlm_shape[1]</th>
-      <th>maxrss_mb</th>
-      <th>majflt_mb</th>
-      <th>arena_mb</th>
-      <th>ordblks_mb</th>
-      <th>hblks_mb</th>
-      <th>hblkhd_mb</th>
-      <th>uordblks_mb</th>
-      <th>fordblks_mb</th>
-      <th>keepcost_mb</th>
-      <th>swap_used_mb</th>
     </tr>
   </thead>
   <tbody>
@@ -376,121 +383,43 @@ Available none timeseries:
       <td>0</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>390.581293</td>
       <td>6.911620</td>
       <td>23.938131</td>
       <td>0.730308</td>
-      <td>-inf</td>
-      <td>-inf</td>
-      <td>322.0</td>
-      <td>0.0</td>
-      <td>282.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>251.0</td>
-      <td>30.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
     </tr>
     <tr>
       <td>1</td>
       <td>256.0</td>
       <td>1.0</td>
-      <td>42.265903</td>
       <td>4.690899</td>
       <td>6.131249</td>
       <td>1.355362</td>
-      <td>-inf</td>
-      <td>-inf</td>
-      <td>327.0</td>
-      <td>0.0</td>
-      <td>282.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>253.0</td>
-      <td>39.0</td>
-      <td>10.0</td>
-      <td>0.0</td>
     </tr>
     <tr>
       <td>2</td>
       <td>512.0</td>
       <td>2.0</td>
-      <td>65.653168</td>
       <td>8.159930</td>
       <td>8.806923</td>
       <td>2.408183</td>
-      <td>-inf</td>
-      <td>-inf</td>
-      <td>328.0</td>
-      <td>0.0</td>
-      <td>282.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>256.0</td>
-      <td>38.0</td>
-      <td>10.0</td>
-      <td>0.0</td>
     </tr>
     <tr>
       <td>3</td>
       <td>768.0</td>
       <td>3.0</td>
-      <td>60.606439</td>
       <td>16.974336</td>
       <td>16.485445</td>
       <td>2.944662</td>
-      <td>-inf</td>
-      <td>0.459084</td>
-      <td>345.0</td>
-      <td>0.0</td>
-      <td>297.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>259.0</td>
-      <td>43.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
     </tr>
     <tr>
       <td>4</td>
       <td>1024.0</td>
       <td>4.0</td>
-      <td>59.892898</td>
       <td>19.698239</td>
       <td>14.367274</td>
       <td>4.194277</td>
-      <td>-inf</td>
-      <td>0.459084</td>
-      <td>351.0</td>
-      <td>0.0</td>
-      <td>301.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>9.0</td>
-      <td>266.0</td>
-      <td>44.0</td>
-      <td>5.0</td>
-      <td>0.0</td>
     </tr>
     <tr>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
       <td>...</td>
       <td>...</td>
       <td>...</td>
@@ -502,111 +431,94 @@ Available none timeseries:
       <td>65</td>
       <td>16640.0</td>
       <td>65.0</td>
-      <td>48.207639</td>
       <td>27.362242</td>
       <td>14.835847</td>
       <td>10.510170</td>
-      <td>0.484935</td>
-      <td>0.484935</td>
-      <td>480.0</td>
-      <td>0.0</td>
-      <td>389.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>53.0</td>
-      <td>315.0</td>
-      <td>76.0</td>
-      <td>10.0</td>
-      <td>0.0</td>
     </tr>
     <tr>
       <td>66</td>
       <td>16896.0</td>
       <td>66.0</td>
-      <td>28.754836</td>
       <td>34.752490</td>
       <td>10.354096</td>
       <td>8.157228</td>
-      <td>0.484935</td>
-      <td>0.484935</td>
-      <td>480.0</td>
-      <td>0.0</td>
-      <td>389.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>53.0</td>
-      <td>315.0</td>
-      <td>78.0</td>
-      <td>10.0</td>
-      <td>0.0</td>
     </tr>
     <tr>
       <td>67</td>
       <td>17152.0</td>
       <td>67.0</td>
-      <td>28.009021</td>
       <td>41.331741</td>
       <td>9.649753</td>
       <td>7.046484</td>
-      <td>0.484935</td>
-      <td>0.484935</td>
-      <td>480.0</td>
-      <td>0.0</td>
-      <td>389.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>53.0</td>
-      <td>315.0</td>
-      <td>79.0</td>
-      <td>10.0</td>
-      <td>0.0</td>
     </tr>
     <tr>
       <td>68</td>
       <td>17408.0</td>
       <td>68.0</td>
-      <td>43.712040</td>
       <td>56.774063</td>
       <td>7.861392</td>
       <td>8.128903</td>
-      <td>0.484935</td>
-      <td>0.484935</td>
-      <td>480.0</td>
-      <td>0.0</td>
-      <td>389.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>53.0</td>
-      <td>315.0</td>
-      <td>79.0</td>
-      <td>10.0</td>
-      <td>0.0</td>
     </tr>
     <tr>
       <td>69</td>
       <td>17664.0</td>
       <td>69.0</td>
-      <td>72.069296</td>
       <td>86.641334</td>
       <td>9.599766</td>
       <td>10.149837</td>
-      <td>0.484935</td>
-      <td>0.484935</td>
-      <td>480.0</td>
-      <td>0.0</td>
-      <td>389.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>53.0</td>
-      <td>314.0</td>
-      <td>80.0</td>
-      <td>10.0</td>
-      <td>0.0</td>
     </tr>
   </tbody>
 </table>
-<p>70 rows × 18 columns</p>
+<p>70 rows × 5 columns</p>
 </div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">print</span><span class="p">(</span><span class="n">var_scalar</span><span class="o">.</span><span class="n">t</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[ 0.  1.  2.  3.  4.  5.  6.  7.  8.  9. 10. 11. 12. 13. 14. 15. 16. 17.
+ 18. 19. 20. 21. 22. 23. 24. 25. 26. 27. 28. 29. 30. 31. 32. 33. 34. 35.
+ 36. 37. 38. 39. 40. 41. 42. 43. 44. 45. 46. 47. 48. 49. 50. 51. 52. 53.
+ 54. 55. 56. 57. 58. 59. 60. 61. 62. 63. 64. 65. 66. 67. 68. 69.]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">print</span><span class="p">(</span><span class="n">var_scalar</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[ 6.91162042  4.69089922  8.15992957 16.97433572 19.69823863  9.8019281
+  9.4338747  10.77087389 12.00844701 11.01484966 12.79959189 12.24370226
+  9.20261885  8.44617812  7.05872649  7.09998882  7.51981068  5.91742035
+  6.37142577  7.94033838  5.80713348  6.52797666  6.32129715  5.78973875
+  7.34959148  6.06841687  6.93356998  6.83452031  7.26392397  6.0761769
+  7.17537283  6.83487526  7.56906249  7.80594351  7.66626339  7.89391274
+  7.80146422  8.7930208   8.83248621  8.5883266   9.06674216  8.99319226
+  8.93508182  8.63234341  8.47202999  8.35542697  8.23359316  8.54950164
+  8.21014089  9.20736732  9.44981673  8.74601727  9.4345638   8.66198577
+  8.83671494  8.69098541  8.05605277  8.48518954 11.24335718 13.76169372
+ 15.24567271 17.25641237 21.17488396 24.64856006 27.66993284 27.36224159
+ 34.75248999 41.33174092 56.77406288 86.64133425]
+</pre></div></div>
 </div>
 </div>
 <div class="section" id="Header">
@@ -619,11 +531,13 @@ Available none timeseries:
 <p>Mostly the same as CarpetIOScalar</p>
 <p>First view all available variables in a given dimensions.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">ds_ascii</span> <span class="o">=</span> <span class="n">CarpetIOASCII</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Available dimension:&quot;</span><span class="p">,</span> <span class="n">ds_ascii</span><span class="o">.</span><span class="n">available_dims</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;All available dimensions:</span><span class="se">\n</span><span class="s2">------------&quot;</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">ds_ascii</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -633,6 +547,9 @@ Available none timeseries:
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
+Available dimension: [&#39;x&#39;, &#39;y&#39;, &#39;z&#39;]
+All available dimensions:
+------------
 Available grid function with x dimension:
 [&#39;H&#39;, &#39;gxx&#39;, &#39;gxy&#39;, &#39;gxz&#39;, &#39;gyy&#39;, &#39;gyz&#39;, &#39;gzz&#39;, &#39;M1&#39;, &#39;M2&#39;, &#39;M3&#39;]
 Available grid function with y dimension:
@@ -642,14 +559,30 @@ Available grid function with z dimension:
 
 </pre></div></div>
 </div>
-<p>Then specify variables and their corresponding dim.</p>
-<p><strong>Note: When specify variable name, we just simple filter it by use string ``in`` method in python.</strong> So you can specify a vector or tensor like following. Not do <code class="docutils literal notranslate"><span class="pre">ds_ascii.x['']</span></code> like <code class="docutils literal notranslate"><span class="pre">CarpetIOScalar</span></code> when the sample is very huge specially in Laptop.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">var_ascii</span> <span class="o">=</span> <span class="n">ds_ascii</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;M&#39;</span><span class="p">]</span>
+<span></span><span class="k">print</span><span class="p">(</span><span class="s2">&quot;Available variables:&quot;</span><span class="p">,</span> <span class="n">ds_ascii</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">available_variables</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Available variables: [&#39;H&#39;, &#39;gxx&#39;, &#39;gxy&#39;, &#39;gxz&#39;, &#39;gyy&#39;, &#39;gyz&#39;, &#39;gzz&#39;, &#39;M1&#39;, &#39;M2&#39;, &#39;M3&#39;]
+</pre></div></div>
+</div>
+<p>Then specify variables and their corresponding dim.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">var_ascii</span> <span class="o">=</span> <span class="n">ds_ascii</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;H&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -659,7 +592,7 @@ Available grid function with z dimension:
 <p>These dataset may store in different files and one file may contain many variables. Pandas DataFrame is a powerful tool to combine them and remove duplicate data.</p>
 <p><code class="docutils literal notranslate"><span class="pre">dataset</span></code> is a method, because sometime we need use different way to combine data. We use <code class="docutils literal notranslate"><span class="pre">pd.concat</span></code> to do it. Following are some example. For more <code class="docutils literal notranslate"><span class="pre">pd.concat</span></code> parameter you can see <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html">https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html</a></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -668,7 +601,7 @@ Available grid function with z dimension:
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -702,9 +635,7 @@ Available grid function with z dimension:
       <th>x</th>
       <th>y</th>
       <th>z</th>
-      <th>M1</th>
-      <th>M2</th>
-      <th>M3</th>
+      <th>H</th>
     </tr>
   </thead>
   <tbody>
@@ -722,9 +653,7 @@ Available grid function with z dimension:
       <td>-230.00000</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>-5.432486e-17</td>
-      <td>-7.533550e-13</td>
-      <td>0.000000e+00</td>
+      <td>-8.299652e-10</td>
     </tr>
     <tr>
       <td>1</td>
@@ -740,9 +669,7 @@ Available grid function with z dimension:
       <td>-220.00000</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>-5.432486e-17</td>
-      <td>-7.533550e-13</td>
-      <td>0.000000e+00</td>
+      <td>-8.299652e-10</td>
     </tr>
     <tr>
       <td>2</td>
@@ -758,9 +685,7 @@ Available grid function with z dimension:
       <td>-210.00000</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>-5.432486e-17</td>
-      <td>-7.533550e-13</td>
-      <td>0.000000e+00</td>
+      <td>-8.299652e-10</td>
     </tr>
     <tr>
       <td>3</td>
@@ -776,9 +701,7 @@ Available grid function with z dimension:
       <td>-200.00000</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>-5.432486e-17</td>
-      <td>-7.533550e-13</td>
-      <td>0.000000e+00</td>
+      <td>-8.299652e-10</td>
     </tr>
     <tr>
       <td>4</td>
@@ -794,13 +717,9 @@ Available grid function with z dimension:
       <td>-190.00000</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>3.353064e-17</td>
-      <td>-1.138351e-12</td>
-      <td>0.000000e+00</td>
+      <td>-9.211791e-10</td>
     </tr>
     <tr>
-      <td>...</td>
-      <td>...</td>
       <td>...</td>
       <td>...</td>
       <td>...</td>
@@ -830,9 +749,7 @@ Available grid function with z dimension:
       <td>5.78125</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>3.940048e-03</td>
-      <td>1.127827e-04</td>
-      <td>-5.259328e-20</td>
+      <td>-4.753934e-02</td>
     </tr>
     <tr>
       <td>70241</td>
@@ -848,9 +765,7 @@ Available grid function with z dimension:
       <td>5.93750</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>4.817419e-03</td>
-      <td>1.296465e-03</td>
-      <td>2.584893e-19</td>
+      <td>-4.116361e-02</td>
     </tr>
     <tr>
       <td>70242</td>
@@ -866,9 +781,7 @@ Available grid function with z dimension:
       <td>6.09375</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>5.743194e-03</td>
-      <td>2.491388e-03</td>
-      <td>3.130308e-19</td>
+      <td>-3.494065e-02</td>
     </tr>
     <tr>
       <td>70243</td>
@@ -884,9 +797,7 @@ Available grid function with z dimension:
       <td>6.25000</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>6.663053e-03</td>
-      <td>3.619432e-03</td>
-      <td>2.339476e-19</td>
+      <td>-2.893913e-02</td>
     </tr>
     <tr>
       <td>70244</td>
@@ -902,27 +813,1209 @@ Available grid function with z dimension:
       <td>6.40625</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>7.529135e-03</td>
-      <td>4.600984e-03</td>
-      <td>1.525679e-19</td>
+      <td>-2.323888e-02</td>
     </tr>
   </tbody>
 </table>
-<p>70245 rows × 15 columns</p>
+<p>70245 rows × 13 columns</p>
 </div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">print</span><span class="p">(</span><span class="n">var_ascii</span><span class="o">.</span><span class="n">it</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[0, 256, 512, 768, 1024, 1280, 1536, 1792, 2048, 2304, 2560, 2816, 3072, 3328, 3584, 3840, 4096, 4352, 4608, 4864, 5120, 5376, 5632, 5888, 6144, 6400, 6656, 6912, 7168, 7424, 7680, 7936, 8192, 8448, 8704, 8960, 9216, 9472, 9728, 9984, 10240, 10496, 10752, 11008, 11264, 11520, 11776, 12032, 12288, 12544, 12800, 13056, 13312, 13568, 13824, 14080, 14336, 14592, 14848, 15104, 15360, 15616, 15872, 16128, 16384, 16640, 16896, 17152, 17408, 17664]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">print</span><span class="p">(</span><span class="n">var_ascii</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+it
+0         0.0
+256       1.0
+512       2.0
+768       3.0
+1024      4.0
+         ...
+16640    65.0
+16896    66.0
+17152    67.0
+17408    68.0
+17664    69.0
+Length: 70, dtype: float64
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="AMR-grid">
+<h3>AMR grid<a class="headerlink" href="#AMR-grid" title="Permalink to this headline">¶</a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">AMRgrid_asc</span> <span class="o">=</span> <span class="n">var_ascii</span><span class="o">.</span><span class="n">temporary</span><span class="p">(</span><span class="n">it</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">AMRgrid_asc</span><span class="o">.</span><span class="n">hierarchy</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{0: [5, 7, 9, 10, 12, 14],
+ 1: [2, 7, 12, 17],
+ 2: [2, 7, 12, 17],
+ 3: [2, 7, 12, 17],
+ 4: [2, 7, 12, 17],
+ 5: [0, 2, 4, 6, 8, 10, 12, 14, 16, 18],
+ 6: [0, 2, 4, 6, 9, 12, 15, 18]}
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">coords</span> <span class="o">=</span> <span class="n">AMRgrid_asc</span><span class="o">.</span><span class="n">coords</span><span class="p">(</span><span class="n">rl</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">coords</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(array([-230., -220., -210., -200., -190., -180., -170., -160., -150.,
+        -140., -130., -120., -110., -100.,  -90.,  -80.,  -70.,  -60.,
+         -50.,  -40.,  -30.,  -20.,  -10.,    0.,   10.,   20.,   30.,
+          40.,   50.,   60.,   70.,   80.,   90.,  100.,  110.,  120.,
+         130.,  140.,  150.,  160.,  170.,  180.,  190.,  200.,  210.,
+         220.]),)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+
+<span class="n">f</span> <span class="o">=</span> <span class="n">AMRgrid_asc</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">coords</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">f</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/Tutorial_Carpet_32_0.png" src="../_images/Tutorial_Carpet_32_0.png" />
+</div>
 </div>
 </div>
 </div>
 <div class="section" id="CarpetIOHDF5">
 <h2>CarpetIOHDF5<a class="headerlink" href="#CarpetIOHDF5" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">ds_hdf5</span> <span class="o">=</span> <span class="n">CarpetIOHDF5</span><span class="p">(</span><span class="n">HDF5_file</span><span class="p">)</span>
+<span></span><span class="n">ds_hdf5</span> <span class="o">=</span> <span class="n">CarpetIOHDF5</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Available dimension:&quot;</span><span class="p">,</span> <span class="n">ds_hdf5</span><span class="o">.</span><span class="n">available_dims</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;All available dimensions:</span><span class="se">\n</span><span class="s2">------------&quot;</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">ds_hdf5</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">ds_hdf5</span><span class="o">.</span><span class="n">xy</span><span class="o">.</span><span class="n">vars</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Available dimension: [&#39;xy&#39;, &#39;xz&#39;, &#39;yz&#39;]
+All available dimensions:
+------------
+Available grid function with xy dimension:
+[&#39;H&#39;, &#39;M1&#39;, &#39;M2&#39;, &#39;M3&#39;, &#39;alp&#39;]
+Available grid function with xz dimension:
+[&#39;alp&#39;, &#39;M1&#39;, &#39;M2&#39;, &#39;M3&#39;, &#39;H&#39;]
+Available grid function with yz dimension:
+[&#39;alp&#39;, &#39;M1&#39;, &#39;M2&#39;, &#39;M3&#39;, &#39;H&#39;]
+
+</pre></div></div>
+</div>
+<p>Then specify variables and their corresponding dim.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">var_hdf5</span> <span class="o">=</span> <span class="n">ds_hdf5</span><span class="o">.</span><span class="n">xy</span><span class="p">[</span><span class="s1">&#39;H&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Dataset">
+<h3>Dataset<a class="headerlink" href="#Dataset" title="Permalink to this headline">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">var_hdf5</span><span class="o">.</span><span class="n">header</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=0 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=0 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=0 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=0 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=0 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=0 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=0 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=0 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=0 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=0 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=0 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=0 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=1 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=1 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=1 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=1 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=1 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=1 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=1 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=1 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=1 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=1 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=1 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=1 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=1 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=1 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=1 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=1 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=2 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=2 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=2 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=2 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=2 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=2 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=2 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=2 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=2 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=2 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=2 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=2 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=2 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=2 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=2 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=2 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=3 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=3 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=3 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=3 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=3 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=3 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=3 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=3 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=3 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=3 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=3 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=3 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=3 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=3 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=3 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=3 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=4 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=4 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=4 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=4 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=4 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=4 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=4 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=4 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=4 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=4 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=4 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=4 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=4 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=4 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=4 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=4 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=5 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=5 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=5 c=11&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=5 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=5 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=5 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=5 c=16&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=5 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=5 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=5 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=5 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=5 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=5 c=6&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=5 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=5 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=6 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=6 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=6 c=11&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=6 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=6 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=6 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=6 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=6 c=16&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=6 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=6 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=6 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=6 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=6 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=6 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=6 c=6&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=6 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=6 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=0 tl=0 rl=6 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=0 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=0 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=0 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=0 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=0 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=0 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=0 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=0 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=0 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=0 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=0 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=0 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=1 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=1 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=1 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=1 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=1 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=1 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=1 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=1 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=1 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=1 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=1 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=1 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=1 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=1 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=1 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=1 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=2 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=2 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=2 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=2 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=2 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=2 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=2 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=2 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=2 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=2 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=2 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=2 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=2 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=2 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=2 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=2 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=3 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=3 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=3 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=3 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=3 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=3 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=3 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=3 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=3 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=3 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=3 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=3 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=3 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=3 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=3 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=3 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=4 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=4 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=4 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=4 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=4 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=4 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=4 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=4 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=4 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=4 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=4 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=4 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=4 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=4 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=4 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=4 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=5 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=5 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=5 c=11&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=5 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=5 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=5 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=5 c=16&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=5 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=5 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=5 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=5 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=5 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=5 c=6&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=5 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=5 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=6 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=6 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=6 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=6 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=6 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=6 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=6 c=16&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=6 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=6 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=6 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=6 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=6 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=6 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=6 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=6 c=6&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=6 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=6 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=1024 tl=0 rl=6 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=0 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=0 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=0 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=0 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=0 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=0 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=0 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=0 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=0 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=0 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=0 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=0 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=1 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=1 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=1 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=1 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=1 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=1 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=1 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=1 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=1 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=1 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=1 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=1 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=1 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=1 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=1 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=1 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=2 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=2 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=2 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=2 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=2 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=2 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=2 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=2 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=2 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=2 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=2 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=2 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=2 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=2 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=2 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=2 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=3 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=3 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=3 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=3 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=3 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=3 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=3 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=3 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=3 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=3 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=3 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=3 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=3 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=3 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=3 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=3 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=4 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=4 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=4 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=4 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=4 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=4 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=4 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=4 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=4 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=4 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=4 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=4 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=4 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=4 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=4 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=4 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=5 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=5 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=5 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=5 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=5 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=5 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=5 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=5 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=5 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=5 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=5 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=5 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=5 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=5 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=5 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=5 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=6 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=6 c=1&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=6 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=6 c=11&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=6 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=6 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=6 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=6 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=6 c=16&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=6 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=6 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=6 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=6 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=6 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=6 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=6 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=6 c=6&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=6 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=6 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10240 tl=0 rl=6 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=0 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=0 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=0 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=0 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=0 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=0 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=0 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=0 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=0 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=0 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=0 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=0 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=1 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=1 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=1 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=1 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=1 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=1 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=1 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=1 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=1 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=1 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=1 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=1 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=1 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=1 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=1 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=1 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=2 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=2 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=2 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=2 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=2 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=2 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=2 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=2 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=2 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=2 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=2 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=2 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=2 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=2 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=2 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=2 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=3 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=3 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=3 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=3 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=3 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=3 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=3 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=3 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=3 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=3 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=3 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=3 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=3 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=3 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=3 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=3 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=4 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=4 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=4 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=4 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=4 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=4 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=4 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=4 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=4 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=4 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=4 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=4 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=4 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=4 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=4 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=4 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=5 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=5 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=5 c=11&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=5 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=5 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=5 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=5 c=16&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=5 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=5 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=5 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=5 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=5 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=5 c=6&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=5 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=5 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=6 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=6 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=6 c=11&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=6 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=6 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=6 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=6 c=16&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=6 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=6 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=6 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=6 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=6 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=6 c=6&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=6 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10496 tl=0 rl=6 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=0 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=0 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=0 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=0 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=0 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=0 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=0 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=0 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=0 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=0 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=0 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=0 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=1 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=1 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=1 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=1 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=1 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=1 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=1 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=1 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=1 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=1 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=1 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=1 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=1 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=1 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=1 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=1 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=2 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=2 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=2 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=2 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=2 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=2 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=2 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=2 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=2 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=2 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=2 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=2 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=2 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=2 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=2 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=2 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=3 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=3 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=3 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=3 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=3 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=3 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=3 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=3 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=3 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=3 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=3 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=3 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=3 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=3 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=3 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=3 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=4 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=4 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=4 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=4 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=4 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=4 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=4 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=4 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=4 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=4 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=4 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=4 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=4 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=4 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=4 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=4 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=5 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=5 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=5 c=11&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=5 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=5 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=5 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=5 c=16&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=5 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=5 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=5 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=5 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=5 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=5 c=6&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=5 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=5 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=6 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=6 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=6 c=11&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=6 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=6 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=6 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=6 c=16&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=6 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=6 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=6 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=6 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=6 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=6 c=6&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=6 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=10752 tl=0 rl=6 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=0 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=0 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=0 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=0 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=0 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=0 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=0 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=0 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=0 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=0 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=0 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=0 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=1 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=1 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=1 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=1 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=1 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=1 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=1 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=1 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=1 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=1 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=1 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=1 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=1 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=1 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=1 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=1 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=2 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=2 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=2 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=2 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=2 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=2 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=2 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=2 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=2 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=2 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=2 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=2 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=2 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=2 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=2 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=2 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=3 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=3 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=3 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=3 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=3 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=3 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=3 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=3 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=3 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=3 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=3 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=3 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=3 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=3 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=3 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=3 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=4 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=4 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=4 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=4 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=4 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=4 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=4 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=4 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=4 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=4 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=4 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=4 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=4 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=4 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=4 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=4 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=5 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=5 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=5 c=11&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=5 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=5 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=5 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=5 c=16&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=5 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=5 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=5 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=5 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=5 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=5 c=6&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=5 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=5 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=6 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=6 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=6 c=11&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=6 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=6 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=6 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=6 c=16&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=6 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=6 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=6 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=6 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=6 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=6 c=6&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=6 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11008 tl=0 rl=6 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=0 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=0 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=0 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=0 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=0 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=0 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=0 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=0 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=0 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=0 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=0 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=0 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=1 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=1 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=1 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=1 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=1 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=1 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=1 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=1 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=1 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=1 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=1 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=1 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=1 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=1 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=1 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=1 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=2 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=2 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=2 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=2 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=2 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=2 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=2 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=2 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=2 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=2 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=2 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=2 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=2 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=2 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=2 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=2 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=3 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=3 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=3 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=3 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=3 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=3 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=3 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=3 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=3 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=3 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=3 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=3 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=3 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=3 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=3 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=3 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=4 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=4 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=4 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=4 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=4 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=4 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=4 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=4 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=4 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=4 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=4 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=4 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=4 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=4 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=4 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=4 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=5 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=5 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=5 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=5 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=5 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=5 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=5 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=5 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=5 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=5 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=5 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=5 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=5 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=5 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=5 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=5 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=6 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=6 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=6 c=11&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=6 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=6 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=6 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=6 c=16&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=6 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=6 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=6 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=6 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=6 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=6 c=6&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=6 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11264 tl=0 rl=6 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=0 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=0 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=0 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=0 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=0 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=0 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=0 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=0 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=0 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=0 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=0 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=0 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=1 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=1 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=1 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=1 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=1 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=1 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=1 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=1 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=1 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=1 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=1 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=1 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=1 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=1 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=1 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=1 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=2 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=2 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=2 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=2 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=2 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=2 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=2 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=2 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=2 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=2 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=2 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=2 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=2 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=2 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=2 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=2 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=3 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=3 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=3 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=3 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=3 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=3 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=3 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=3 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=3 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=3 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=3 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=3 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=3 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=3 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=3 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=3 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=4 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=4 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=4 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=4 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=4 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=4 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=4 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=4 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=4 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=4 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=4 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=4 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=4 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=4 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=4 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=4 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=5 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=5 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=5 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=5 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=5 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=5 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=5 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=5 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=5 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=5 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=5 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=5 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=5 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=5 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=5 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=5 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=6 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=6 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=6 c=11&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=6 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=6 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=6 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=6 c=16&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=6 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=6 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=6 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=6 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=6 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=6 c=6&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=6 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11520 tl=0 rl=6 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=0 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=0 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=0 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=0 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=0 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=0 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=0 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=0 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=0 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=0 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=0 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=0 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=1 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=1 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=1 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=1 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=1 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=1 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=1 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=1 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=1 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=1 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=1 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=1 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=1 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=1 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=1 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=1 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=2 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=2 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=2 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=2 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=2 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=2 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=2 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=2 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=2 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=2 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=2 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=2 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=2 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=2 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=2 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=2 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=3 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=3 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=3 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=3 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=3 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=3 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=3 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=3 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=3 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=3 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=3 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=3 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=3 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=3 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=3 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=3 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=4 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=4 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=4 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=4 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=4 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=4 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=4 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=4 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=4 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=4 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=4 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=4 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=4 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=4 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=4 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=4 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=5 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=5 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=5 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=5 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=5 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=5 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=5 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=5 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=5 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=5 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=5 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=5 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=5 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=5 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=5 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=5 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=6 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=6 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=6 c=11&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=6 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=6 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=6 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=6 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=6 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=6 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=6 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=6 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=6 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=6 c=6&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=6 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=6 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=11776 tl=0 rl=6 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=12032 tl=0 rl=0 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=12032 tl=0 rl=0 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=12032 tl=0 rl=0 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=12032 tl=0 rl=0 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=12032 tl=0 rl=0 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=12032 tl=0 rl=0 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=12032 tl=0 rl=0 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=12032 tl=0 rl=0 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=12032 tl=0 rl=0 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=12032 tl=0 rl=0 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=12032 tl=0 rl=0 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=12032 tl=0 rl=0 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=12032 tl=0 rl=1 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=12032 tl=0 rl=1 c=10&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=12032 tl=0 rl=1 c=12&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=12032 tl=0 rl=1 c=13&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=12032 tl=0 rl=1 c=14&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=12032 tl=0 rl=1 c=15&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=12032 tl=0 rl=1 c=17&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=12032 tl=0 rl=1 c=18&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=12032 tl=0 rl=1 c=19&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=12032 tl=0 rl=1 c=2&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=12032 tl=0 rl=1 c=3&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=12032 tl=0 rl=1 c=4&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=12032 tl=0 rl=1 c=5&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=12032 tl=0 rl=1 c=7&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=12032 tl=0 rl=1 c=8&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=12032 tl=0 rl=1 c=9&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=12032 tl=0 rl=2 c=0&#39;,
+ &#39;ML_ADMCONSTRAINTS::H it=12032 tl=0 rl=2 c=10&#39;,
+ ...]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">print</span><span class="p">(</span><span class="n">var_hdf5</span><span class="o">.</span><span class="n">it</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -932,23 +2025,38 @@ Available grid function with z dimension:
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 <span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-9-f1d6014feca3&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>ds_hdf5 <span class="ansi-blue-fg">=</span> CarpetIOHDF5<span class="ansi-blue-fg">(</span>HDF5_file<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      2</span> print<span class="ansi-blue-fg">(</span>ds_hdf5<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      3</span> print<span class="ansi-blue-fg">(</span>ds_hdf5<span class="ansi-blue-fg">.</span>xy<span class="ansi-blue-fg">.</span>vars<span class="ansi-blue-fg">)</span>
+<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-22-2db4325cef86&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>print<span class="ansi-blue-fg">(</span>var_hdf5<span class="ansi-blue-fg">.</span>it<span class="ansi-blue-fg">)</span>
 
-<span class="ansi-red-fg">NameError</span>: name &#39;HDF5_file&#39; is not defined
+<span class="ansi-green-fg">~/Desktop/CactusTool/CactusTool/Carpet/HDF5.py</span> in <span class="ansi-cyan-fg">it</span><span class="ansi-blue-fg">(self)</span>
+<span class="ansi-green-intense-fg ansi-bold">    155</span>         iteration <span class="ansi-blue-fg">=</span> set<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    156</span>         <span class="ansi-green-fg">for</span> item <span class="ansi-green-fg">in</span> self<span class="ansi-blue-fg">.</span>header<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 157</span><span class="ansi-red-fg">             </span>iteration<span class="ansi-blue-fg">.</span>add<span class="ansi-blue-fg">(</span>int<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>header<span class="ansi-blue-fg">[</span>item<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;iteration&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    158</span>         <span class="ansi-green-fg">return</span> sorted<span class="ansi-blue-fg">(</span>list<span class="ansi-blue-fg">(</span>iteration<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    159</span>
+
+<span class="ansi-red-fg">TypeError</span>: list indices must be integers or slices, not str
 </pre></div></div>
 </div>
-<p>Then specify variables and their corresponding dim.</p>
-<p><strong>Note: When specify variable name, we just simple filter it by use string ``in`` method in python.</strong> So you can specify a vector or tensor like following.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">var_hdf5</span> <span class="o">=</span> <span class="n">ds_hdf5</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]</span>
+<span></span><span class="k">print</span><span class="p">(</span><span class="n">var_hdf5</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="AMR-grid">
+<h3>AMR grid<a class="headerlink" href="#AMR-grid" title="Permalink to this headline">¶</a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">AMRgrid_h5</span> <span class="o">=</span> <span class="n">var_hdf5</span><span class="o">.</span><span class="n">temporary</span><span class="p">(</span><span class="n">it</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -957,12 +2065,33 @@ Available grid function with z dimension:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="nb">file</span> <span class="o">=</span> <span class="s1">&#39;/Users/liuyu/simulations/BH/admbase-metric.4.x.asc&#39;</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="nb">file</span><span class="p">,</span> <span class="n">comments</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
+<span></span><span class="n">AMRgrid_h5</span><span class="o">.</span><span class="n">hierarchy</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">coords</span> <span class="o">=</span> <span class="n">AMRgrid_h5</span><span class="o">.</span><span class="n">coords</span><span class="p">()</span>
+<span class="n">coords</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 
-<span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;OK&quot;</span><span class="p">)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">AMRgrid_h5</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="c1"># ax.pcolormesh(*coords, f)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -974,14 +2103,6 @@ Available grid function with z dimension:
 <span></span>
 </pre></div>
 </div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
-</pre></div>
 </div>
 </div>
 </div>
@@ -1003,9 +2124,14 @@ Available grid function with z dimension:
 </li>
 <li><a class="reference internal" href="#CarpetIOASCII">CarpetIOASCII</a><ul>
 <li><a class="reference internal" href="#Dataset">Dataset</a></li>
+<li><a class="reference internal" href="#AMR-grid">AMR grid</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#CarpetIOHDF5">CarpetIOHDF5</a></li>
+<li><a class="reference internal" href="#CarpetIOHDF5">CarpetIOHDF5</a><ul>
+<li><a class="reference internal" href="#Dataset">Dataset</a></li>
+<li><a class="reference internal" href="#AMR-grid">AMR grid</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -1014,8 +2140,8 @@ Available grid function with z dimension:
   <p class="topless"><a href="CactusTool.html"
                         title="previous chapter">CactusTool</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="../API/CactusTool.html"
-                        title="next chapter">CactusTool package</a></p>
+  <p class="topless"><a href="widgets.html"
+                        title="next chapter">ipywidgets</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -1047,7 +2173,7 @@ Available grid function with z dimension:
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="../API/CactusTool.html" title="CactusTool package"
+          <a href="widgets.html" title="ipywidgets"
              >next</a> |</li>
         <li class="right" >
           <a href="CactusTool.html" title="CactusTool"

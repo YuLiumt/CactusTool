@@ -14,8 +14,6 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="../_static/language_data.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -54,13 +52,7 @@
 </div>
 <div class="section" id="module-CactusTool.Visualize.mesh">
 <span id="cactustool-visualize-mesh-module"></span><h2>CactusTool.Visualize.mesh module<a class="headerlink" href="#module-CactusTool.Visualize.mesh" title="Permalink to this headline">¶</a></h2>
-<p>A rectangular grid, supporting 
-common arithmetic operations. The standard mathematical unary
-functions, e.g. sin(), are implemented as member functions.
-Supports interpolation and resampling. The objects can also be used 
-as a function, mapping coordinate to interpolated data. Supports 
-numercial differentiation.
-:ivar data: The actual data (numpy array).</p>
+<p>This Class has all the routines for the imaging</p>
 <dl class="class">
 <dt id="CactusTool.Visualize.mesh.SlicePlot">
 <em class="property">class </em><code class="sig-prename descclassname">CactusTool.Visualize.mesh.</code><code class="sig-name descname">SlicePlot</code><span class="sig-paren">(</span><em class="sig-param">ax</em>, <em class="sig-param">ds</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Visualize/mesh.html#SlicePlot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Visualize.mesh.SlicePlot" title="Permalink to this definition">¶</a></dt>
@@ -75,7 +67,15 @@ numercial differentiation.
 <dt id="CactusTool.Visualize.profile.LinePlot">
 <em class="property">class </em><code class="sig-prename descclassname">CactusTool.Visualize.profile.</code><code class="sig-name descname">LinePlot</code><span class="sig-paren">(</span><em class="sig-param">ax</em>, <em class="sig-param">ds</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Visualize/profile.html#LinePlot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Visualize.profile.LinePlot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>1D profiles</p>
+<p>Plot 1-D profile.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ax</strong> – Which axes to use for the plot.</p></li>
+<li><p><strong>ds</strong> – Dataset</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -84,7 +84,7 @@ numercial differentiation.
 <p>This module provides various functions to plot time series.</p>
 <dl class="class">
 <dt id="CactusTool.Visualize.ts.TimeSeries">
-<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Visualize.ts.</code><code class="sig-name descname">TimeSeries</code><span class="sig-paren">(</span><em class="sig-param">ax</em>, <em class="sig-param">ds</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Visualize/ts.html#TimeSeries"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Visualize.ts.TimeSeries" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Visualize.ts.</code><code class="sig-name descname">TimeSeries</code><span class="sig-paren">(</span><em class="sig-param">ax</em>, <em class="sig-param">t</em>, <em class="sig-param">y</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Visualize/ts.html#TimeSeries"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Visualize.ts.TimeSeries" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Plot time series plot.</p>
 <dl class="field-list simple">
@@ -97,8 +97,14 @@ numercial differentiation.
 </dl>
 <dl class="method">
 <dt id="CactusTool.Visualize.ts.TimeSeries.plot">
-<code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param">var</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Visualize/ts.html#TimeSeries.plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Visualize.ts.TimeSeries.plot" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Visualize/ts.html#TimeSeries.plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Visualize.ts.TimeSeries.plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>line plot.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fields</strong> (<em>str</em>) – The name of the field(s) to be plotted.</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 

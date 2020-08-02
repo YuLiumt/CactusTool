@@ -14,8 +14,6 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="../_static/language_data.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -57,6 +55,7 @@
 <li class="toctree-l2"><a class="reference internal" href="CactusTool.Carpet.html#module-CactusTool.Carpet.ASCII">CactusTool.Carpet.ASCII module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="CactusTool.Carpet.html#module-CactusTool.Carpet.HDF5">CactusTool.Carpet.HDF5 module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="CactusTool.Carpet.html#module-CactusTool.Carpet.Scalar">CactusTool.Carpet.Scalar module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CactusTool.Carpet.html#module-CactusTool.Carpet.grid">CactusTool.Carpet.grid module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="CactusTool.Carpet.html#module-CactusTool.Carpet">Module contents</a></li>
 </ul>
 </li>
@@ -84,10 +83,12 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="CactusTool.funcs.html">CactusTool.funcs package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="CactusTool.funcs.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="CactusTool.funcs.html#module-CactusTool.funcs.Dataset">CactusTool.funcs.Dataset module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CactusTool.funcs.html#module-CactusTool.funcs.array">CactusTool.funcs.array module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="CactusTool.funcs.html#module-CactusTool.funcs.check">CactusTool.funcs.check module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="CactusTool.funcs.html#module-CactusTool.funcs.file">CactusTool.funcs.file module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CactusTool.funcs.html#module-CactusTool.funcs.interp">CactusTool.funcs.interp module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="CactusTool.funcs.html#module-CactusTool.funcs.json">CactusTool.funcs.json module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CactusTool.funcs.html#module-CactusTool.funcs.sys">CactusTool.funcs.sys module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="CactusTool.funcs.html#module-CactusTool.funcs.unit">CactusTool.funcs.unit module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="CactusTool.funcs.html#module-CactusTool.funcs">Module contents</a></li>
 </ul>
@@ -135,36 +136,6 @@
 </dd></dl>
 
 </div>
-<div class="section" id="module-CactusTool.outputfile">
-<span id="cactustool-outputfile-module"></span><h2>CactusTool.outputfile module<a class="headerlink" href="#module-CactusTool.outputfile" title="Permalink to this headline">¶</a></h2>
-<p>Carpet provides ASCII and HDF5-based output for Carpet. These I/O methods can output any type of CCTK grid variables (grid scalars, grid functions, and grid arrays of arbitrary dimension). The <a class="reference internal" href="#module-CactusTool.outputfile" title="CactusTool.outputfile"><code class="xref py py-mod docutils literal notranslate"><span class="pre">outputfile</span></code></a> module provides most of the functionality of functions to deal with these different type of output file.</p>
-<dl class="function">
-<dt id="CactusTool.outputfile.HDF5_gf">
-<code class="sig-prename descclassname">CactusTool.outputfile.</code><code class="sig-name descname">HDF5_gf</code><span class="sig-paren">(</span><em class="sig-param">file</em>, <em class="sig-param">slice</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/outputfile.html#HDF5_gf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.outputfile.HDF5_gf" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fetch data in .h5 file Given slice</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="CactusTool.outputfile.HDF5_header">
-<code class="sig-prename descclassname">CactusTool.outputfile.</code><code class="sig-name descname">HDF5_header</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/outputfile.html#HDF5_header"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.outputfile.HDF5_header" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a dictionary about header information</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="CactusTool.outputfile.read">
-<code class="sig-prename descclassname">CactusTool.outputfile.</code><code class="sig-name descname">read</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/outputfile.html#read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.outputfile.read" title="Permalink to this definition">¶</a></dt>
-<dd><p>Carpet output file type is completely different. This function provides different way to open it.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>file</strong> (<em>str</em>) – file in absolute path</p>
-</dd>
-</dl>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">read</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-</pre></div>
-</div>
-</dd></dl>
-
-</div>
 <div class="section" id="module-CactusTool">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-CactusTool" title="Permalink to this headline">¶</a></h2>
 </div>
@@ -182,7 +153,6 @@
 <li><a class="reference internal" href="#subpackages">Subpackages</a></li>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
 <li><a class="reference internal" href="#module-CactusTool.main">CactusTool.main module</a></li>
-<li><a class="reference internal" href="#module-CactusTool.outputfile">CactusTool.outputfile module</a></li>
 <li><a class="reference internal" href="#module-CactusTool">Module contents</a></li>
 </ul>
 </li>

@@ -14,8 +14,6 @@
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
     <script type="text/javascript" src="../../../_static/language_data.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -42,6 +40,7 @@
             
   <h1>Source code for CactusTool.funcs.file</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">.check</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">h5py</span>
 <span class="kn">import</span> <span class="nn">gzip</span>
 <span class="kn">import</span> <span class="nn">bz2</span>
@@ -68,70 +67,8 @@
     <span class="k">elif</span> <span class="n">file</span><span class="o">.</span><span class="n">endswith</span><span class="p">((</span><span class="s1">&#39;.par&#39;</span><span class="p">,</span> <span class="s1">&#39;.asc&#39;</span><span class="p">,</span> <span class="s1">&#39;.txt&#39;</span><span class="p">)):</span>
         <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;CarpetDataset can&#39;t handle this *</span><span class="si">{}</span><span class="s2"> type of file&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">file</span><span class="p">)[</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;CactusTool can&#39;t handle this *</span><span class="si">{}</span><span class="s2"> type of file&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">file</span><span class="p">)[</span><span class="mi">1</span><span class="p">]))</span>
     <span class="k">return</span> <span class="n">f</span></div>
-
-<div class="viewcode-block" id="fetch_all_file"><a class="viewcode-back" href="../../../API/CactusTool.funcs.html#CactusTool.funcs.file.fetch_all_file">[docs]</a><span class="k">def</span> <span class="nf">fetch_all_file</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Fetch all important file in path, especially `.par`, `.asc`, and `.h5` file.</span>
-
-<span class="sd">    :param str path: absolute path</span>
-<span class="sd">    :return: file list with absolute path.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">),</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> doesn&#39;t exist in your local computer.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-
-    <span class="n">exclude_dirs</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="s1">&#39;SIMFACTORY&#39;</span><span class="p">])</span> <span class="c1"># Exclude SIMFACTORY directory</span>
-
-    <span class="n">filelist</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">root</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">exclude_dirs</span><span class="p">:</span>  
-            <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
-                <span class="c1">#TODO Some data file may be end with .bz2 or .gz.</span>
-                <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">endswith</span><span class="p">((</span><span class="s1">&#39;.par&#39;</span><span class="p">,</span> <span class="s1">&#39;.asc&#39;</span><span class="p">,</span> <span class="s1">&#39;.h5&#39;</span><span class="p">)):</span>
-                    <span class="n">filelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">file</span><span class="p">))</span>
-
-    <span class="k">return</span> <span class="n">filelist</span></div>
-
-<div class="viewcode-block" id="rm_output_active"><a class="viewcode-back" href="../../../API/CactusTool.funcs.html#CactusTool.funcs.file.rm_output_active">[docs]</a><span class="k">def</span> <span class="nf">rm_output_active</span><span class="p">(</span><span class="n">files</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    output-\d\d\d\d-active/ is a copy from output-\d\d\d\d/, so we remove these file in output-\d\d\d\d-active/ to avoid duplicate.</span>
-
-<span class="sd">    :param list path: A list of file in absolute path.</span>
-<span class="sd">    :return: file list withnot the one in output-\d\d\d\d-active</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Avoid deal with empty files</span>
-    <span class="n">is_empty</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
-
-    <span class="n">files</span> <span class="o">=</span> <span class="n">ensure_list</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
-    <span class="n">active_pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;\S*/output-(\d\d\d\d)-active/\S*&quot;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">active_pat</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">f</span><span class="p">)]</span></div>
-
-<div class="viewcode-block" id="filter_file"><a class="viewcode-back" href="../../../API/CactusTool.funcs.html#CactusTool.funcs.file.filter_file">[docs]</a><span class="k">def</span> <span class="nf">filter_file</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">file_style</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Choose the file end with specified file_style</span>
-
-<span class="sd">    :param list path: A list of file in absolute path.</span>
-<span class="sd">    :param str file_style: There are few file_style you can choose:</span>
-
-<span class="sd">        * par: parameter file</span>
-<span class="sd">        * scalar file</span>
-<span class="sd">        * ASCII file</span>
-<span class="sd">        * HDF5 file</span>
-<span class="sd">        * checkpoints</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Avoid deal with empty files</span>
-    <span class="n">is_empty</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
-
-    <span class="n">files</span> <span class="o">=</span> <span class="n">ensure_list</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
-    <span class="n">re_pat</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;par&quot;</span><span class="p">:</span> <span class="s2">&quot;\S*\.par&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;scalar&quot;</span><span class="p">:</span> <span class="s2">&quot;\S*\.(minimum|maximum|norm1|norm2|norm_inf|average)?\.asc(\.(gz|bz2))?$&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;asc&quot;</span><span class="p">:</span> <span class="s2">&quot;\S*\.[xyz]*\.asc(\.(gz|bz2))?$&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;hdf5&quot;</span><span class="p">:</span> <span class="s2">&quot;\S*\.[xyz]*\.h5(\.(gz|bz2))?$&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;checkpoints&quot;</span> <span class="p">:</span> <span class="s2">&quot;\S*/checkpoints\S*&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;debug&quot;</span><span class="p">:</span> <span class="s2">&quot;\S*NaNmask\.\S*\.h5&quot;</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span> <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">re_pat</span><span class="p">[</span><span class="n">file_style</span><span class="p">])</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">f</span><span class="p">)]</span></div>
 
 <div class="viewcode-block" id="columns_asc"><a class="viewcode-back" href="../../../API/CactusTool.funcs.html#CactusTool.funcs.file.columns_asc">[docs]</a><span class="k">def</span> <span class="nf">columns_asc</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -155,6 +92,169 @@
         <span class="k">return</span> <span class="p">[</span><span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">columns</span><span class="p">)]</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;File: </span><span class="si">{}</span><span class="s2"> Header fail to identify.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">file</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="header_h5"><a class="viewcode-back" href="../../../API/CactusTool.funcs.html#CactusTool.funcs.file.header_h5">[docs]</a><span class="k">def</span> <span class="nf">header_h5</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return a dictionary about header information</span>
+
+<span class="sd">    :param str file: file in absolute path.</span>
+<span class="sd">    :return: a dictionary about header information</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;([^:]+)::(\S+) it=(\d+) tl=(\d+)( m=(\d+))? rl=(\d+)( c=(\d+))?&#39;</span><span class="p">)</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">with</span> <span class="n">read</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+            <span class="n">dset</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">dset</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">p</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s1">&#39;file&#39;</span><span class="p">:</span> <span class="n">file</span><span class="p">,</span>
+                <span class="s1">&#39;thorn&#39;</span><span class="p">:</span> <span class="n">dset</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> 
+                <span class="s1">&#39;varname&#39;</span><span class="p">:</span> <span class="n">dset</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
+                <span class="s1">&#39;iteration&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">dset</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">3</span><span class="p">)),</span>
+                <span class="s1">&#39;timelevel&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">dset</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">4</span><span class="p">)),</span>
+                <span class="s1">&#39;rl&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">dset</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">7</span><span class="p">))</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="n">dset</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">p</span><span class="p">[</span><span class="n">item</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;ml&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">dset</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">6</span><span class="p">))})</span>
+            <span class="k">if</span> <span class="n">dset</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">p</span><span class="p">[</span><span class="n">item</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">dset</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">9</span><span class="p">))})</span>
+
+    <span class="k">return</span> <span class="n">p</span></div>
+
+<div class="viewcode-block" id="select_header_h5"><a class="viewcode-back" href="../../../API/CactusTool.funcs.html#CactusTool.funcs.file.select_header_h5">[docs]</a><span class="k">def</span> <span class="nf">select_header_h5</span><span class="p">(</span><span class="n">header</span><span class="p">,</span> <span class="n">var</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">it</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">rl</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Select specified header in return of :py:func:`header_h5`.</span>
+
+<span class="sd">    :param str var: -1: all variable.</span>
+<span class="sd">    :param int it: -1: all iteration number.</span>
+<span class="sd">    :param int rl: -1: all refinement level.</span>
+<span class="sd">    :param int c: -1: all component.</span>
+<span class="sd">    :return: a list of header</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">header</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">var</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">or</span> <span class="n">header</span><span class="p">[</span><span class="n">item</span><span class="p">][</span><span class="s1">&#39;varname&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">var</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">it</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">or</span> <span class="n">header</span><span class="p">[</span><span class="n">item</span><span class="p">][</span><span class="s1">&#39;iteration&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">it</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">rl</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">or</span> <span class="n">header</span><span class="p">[</span><span class="n">item</span><span class="p">][</span><span class="s1">&#39;rl&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">rl</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">or</span> <span class="n">header</span><span class="p">[</span><span class="n">item</span><span class="p">][</span><span class="s1">&#39;c&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">c</span><span class="p">:</span>
+                        <span class="n">p</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">p</span></div>
+
+<div class="viewcode-block" id="dataset_h5"><a class="viewcode-back" href="../../../API/CactusTool.funcs.html#CactusTool.funcs.file.dataset_h5">[docs]</a><span class="k">def</span> <span class="nf">dataset_h5</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return a dictionary about dataset.</span>
+
+<span class="sd">    :param str file: file in absolute path.</span>
+<span class="sd">    :param str slice: header inf</span>
+<span class="sd">    :return: a dictionary about dataset</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+    
+    <span class="k">with</span> <span class="n">read</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">slice</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">f</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> not in </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">slice</span><span class="p">,</span> <span class="n">file</span><span class="p">))</span>
+        <span class="n">dset</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="nb">slice</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">dset</span><span class="o">.</span><span class="n">attrs</span><span class="p">):</span>
+            <span class="n">p</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">dset</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">p</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dset</span><span class="p">)</span>  
+    
+    <span class="k">return</span> <span class="n">p</span></div>
+
+<div class="viewcode-block" id="dataframe_h5"><a class="viewcode-back" href="../../../API/CactusTool.funcs.html#CactusTool.funcs.file.dataframe_h5">[docs]</a><span class="k">def</span> <span class="nf">dataframe_h5</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">axis</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    HDF5 to pandas DataFrame</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="n">axis</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">,</span> <span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="s1">&#39;xz&#39;</span><span class="p">,</span> <span class="s1">&#39;yz&#39;</span><span class="p">,</span> <span class="s1">&#39;xyz&#39;</span><span class="p">],</span> <span class="s2">&quot;Does not include </span><span class="si">{}</span><span class="s2"> axis on </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
+    <span class="n">pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;([^:]+)::(\S+) it=(\d+) tl=(\d+)( m=(\d+))? rl=(\d+)( c=(\d+))?&#39;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">read</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">tem</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+            <span class="n">header</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">header</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">dset</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+            <span class="n">var</span> <span class="o">=</span> <span class="n">header</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dset</span><span class="p">)</span>
+            <span class="n">origin</span> <span class="o">=</span> <span class="n">dset</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;origin&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="n">delta</span> <span class="o">=</span> <span class="n">dset</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;delta&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="n">size</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span>
+            <span class="n">dim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span>
+            <span class="n">coord</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">size</span><span class="p">[(</span><span class="n">dim</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">-</span><span class="n">i</span><span class="p">])</span><span class="o">*</span><span class="n">delta</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">origin</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dim</span><span class="p">))</span>
+            <span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="o">*</span><span class="n">coord</span><span class="p">)</span>
+            <span class="n">tem_c</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dim</span><span class="p">):</span>
+                <span class="n">tem_c</span><span class="p">[</span><span class="n">axis</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">grid</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+            <span class="n">tem_c</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+            <span class="n">tem_c</span><span class="p">[</span><span class="s1">&#39;rl&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">header</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">7</span><span class="p">))</span>
+            <span class="n">tem_c</span><span class="p">[</span><span class="s1">&#39;it&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">header</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+            <span class="n">tem_c</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dset</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">header</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">tem_c</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">header</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">9</span><span class="p">))</span>    
+            <span class="n">tem</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tem_c</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">tem</span><span class="p">)</span></div>
+
+<span class="c1">################### Folder ###################</span>
+<div class="viewcode-block" id="fetch_all_file"><a class="viewcode-back" href="../../../API/CactusTool.funcs.html#CactusTool.funcs.file.fetch_all_file">[docs]</a><span class="k">def</span> <span class="nf">fetch_all_file</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Fetch all important file in path, especially `.par`, `.asc`, and `.h5` file.</span>
+
+<span class="sd">    :param str path: absolute path</span>
+<span class="sd">    :return: file list with absolute path.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">),</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> doesn&#39;t exist in your local computer.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+    <span class="n">exclude_dirs</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="s1">&#39;SIMFACTORY&#39;</span><span class="p">])</span> <span class="c1"># Exclude SIMFACTORY directory</span>
+
+    <span class="n">filelist</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">root</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">exclude_dirs</span><span class="p">:</span>  
+            <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+                <span class="c1">#TODO Some data file may be end with .bz2 or .gz.</span>
+                <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">endswith</span><span class="p">((</span><span class="s1">&#39;.par&#39;</span><span class="p">,</span> <span class="s1">&#39;.asc&#39;</span><span class="p">,</span> <span class="s1">&#39;.h5&#39;</span><span class="p">)):</span>
+                    <span class="n">filelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">file</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">filelist</span></div>
+
+<div class="viewcode-block" id="rm_output_active"><a class="viewcode-back" href="../../../API/CactusTool.funcs.html#CactusTool.funcs.file.rm_output_active">[docs]</a><span class="k">def</span> <span class="nf">rm_output_active</span><span class="p">(</span><span class="n">files</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    output-\d\d\d\d-active/ is a copy from output-\d\d\d\d/, so we exclude it to avoid duplicate.</span>
+
+<span class="sd">    :param list files: A list of file in absolute path.</span>
+<span class="sd">    :return: file list withnot the one in output-\d\d\d\d-active</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">files</span> <span class="o">=</span> <span class="n">ensure_list</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
+    <span class="n">active_pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;\S*/output-(\d\d\d\d)-active/\S*&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">active_pat</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">f</span><span class="p">)]</span></div>
+
+<div class="viewcode-block" id="filter_file"><a class="viewcode-back" href="../../../API/CactusTool.funcs.html#CactusTool.funcs.file.filter_file">[docs]</a><span class="k">def</span> <span class="nf">filter_file</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">file_style</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Choose the file end with specified file_style</span>
+
+<span class="sd">    :param list files: A list of file in absolute path.</span>
+<span class="sd">    :param str file_style: There are few file_style you can choose:</span>
+
+<span class="sd">        * .par: parameter file</span>
+<span class="sd">        * .asc: scalar file</span>
+<span class="sd">        * .asc: ASCII file</span>
+<span class="sd">        * .h5: HDF5 file</span>
+<span class="sd">        * checkpoints</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">files</span> <span class="o">=</span> <span class="n">ensure_list</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
+    <span class="n">re_pat</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;par&quot;</span><span class="p">:</span> <span class="s2">&quot;\S*\.par&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;scalar&quot;</span><span class="p">:</span> <span class="s2">&quot;\S*\.(minimum|maximum|norm1|norm2|norm_inf|average)?\.asc(\.(gz|bz2))?$&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;asc&quot;</span><span class="p">:</span> <span class="s2">&quot;\S*\.[xyz]*\.asc(\.(gz|bz2))?$&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hdf5&quot;</span><span class="p">:</span> <span class="s2">&quot;\S*\.[xyz]*\.h5(\.(gz|bz2))?$&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;checkpoints&quot;</span> <span class="p">:</span> <span class="s2">&quot;\S*/checkpoints\S*&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;debug&quot;</span><span class="p">:</span> <span class="s2">&quot;\S*NaNmask\.\S*\.h5&quot;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span> <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">re_pat</span><span class="p">[</span><span class="n">file_style</span><span class="p">])</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">f</span><span class="p">)]</span></div>
+
+
+
 </pre></div>
 
           </div>

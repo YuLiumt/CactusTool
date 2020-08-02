@@ -31,7 +31,7 @@ def add_two_key(par, key_a, key_b, val):
 
 def add_three_key(par, key_a, key_b, key_c, val):
     if key_a in par:
-        if key_b in par:
+        if key_b in par[key_a]:
             par[key_a][key_b].update({key_c: val})
         else:
             par[key_a].update({key_b: {key_c: val}})

@@ -24,6 +24,8 @@ Once you’ve downloaded the source, you can navigate into the root source direc
 
     $ python setup.py install
 
+    $ pip install -e .
+
 Tests
 ------
 TODO:

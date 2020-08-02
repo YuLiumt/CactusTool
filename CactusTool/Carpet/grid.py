@@ -33,9 +33,9 @@ class AMRGrid:
         grid = tuple(np.sort(np.unique(slice[dim].values)) for dim in self.dim)
         return tuple(np.meshgrid(*grid))
 
-    def interpolate(self, coords):
+    def interpolate(self, coords, method='nearest'):
         points = tuple([self.dsets[dim].values for dim in self.dim])
-        return griddata(points, self.dsets[self.var].values, coords, method='nearest')
+        return griddata(points, self.dsets[self.var].values, coords, method=method)
 
 
 

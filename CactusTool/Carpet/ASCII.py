@@ -2,7 +2,7 @@
 Cactus dataset main produced by `Carpet <https://carpetcode.org>`_, which is an adaptive mesh refinement and multi-patch driver for the Cactus. This modular processes output of CarpetIOASCII.
 """
 
-from ..funcs import *
+from ..funcs import read, ensure_list, columns_asc
 from .grid import AMRGrid
 import pandas as pd
 import numpy as np
@@ -20,20 +20,8 @@ class CarpetIOASCII:
     """
     def __init__(self, files):
         self.files = ensure_list(files)
-        self.dims = ['x', 'y', 'z', 'xy', 'xz', 'yz', 'xyz']
-
-    @property
-    def available_dims(self):
-        """
-        available dimension in this dataset.
-
-        :return: list of available dimension
-        """
-        p = []
-        for dim in self.dims:
-            if str(self[dim]):
-                p.append(dim)
-        return p
+        pat_fn = re.compile("\S*\.([xyz]+)\.asc(\.(gz|bz2))?$")
+        self.dims = set(pat_fn.match(file).group(1) for file in self.files)
 
     def __getattr__(self, dim):
         """
@@ -42,7 +30,7 @@ class CarpetIOASCII:
         :param str dim: the dimension
         """
         assert dim in self.dims, "Does not include {} dim on ASCII".format(dim)
-        return Griddim(self.files, dim)
+        return self[dim]
 
     def __getitem__(self, dim):
         """
@@ -51,10 +39,9 @@ class CarpetIOASCII:
         :param str dim: the dimension
         """
         assert dim in self.dims, "Does not include {} dim on ASCII".format(dim)
-        return Griddim(self.files, dim)
+        files = [file for file in self.files if ".{}.".format(dim) in file]
+        return Griddim(files, dim)
 
-    def __str__(self):
-        return "%s%s%s%s%s%s%s" % (self.x, self.y, self.z, self.xy, self.xz, self.yz, self.xyz)
 
 class Griddim:
     """
@@ -65,36 +52,26 @@ class Griddim:
     """
     def __init__(self, files, dim):
         self.dim = dim
-        pat_fn = re.compile("\S*\.([xyz]*)\.asc(\.(gz|bz2))?$")
-        self.files = []
-        for file in files:
-            try: 
-                if pat_fn.match(file).group(1) == self.dim:
-                    self.files.append(file)
-            except AttributeError:
-                continue
+        self.files = files
+        self.vars = {}
 
-    @property
-    def vars(self):
-        """
-        All available variable in such dim.
-
-        :return: A dict. key is the variable name, value is corresponding files.
-        """
-        Vars = {}
-        for file in self.files:        
-            with read(file) as f:
-                vars=[]
-                for line in f.readlines():
-                    if "# data columns: " in line:
-                        vars = vars + line.split()[3:]
-                        break
+        result = map(self.var_info, self.files)
+        for key, values in dict(zip(self.files, result)).items():
+            for value in values:
+                self.vars.setdefault(value, []).append(key)
+        
+    @staticmethod
+    def var_info(file):
+        vars = set()
+        with read(file) as f:
+            for line in f.readlines():
+                if "# data columns: " in line:
+                    for var in line.split()[3:]:
+                        vars.add(var.split(":")[1]) 
+                    break
             assert len(vars) > 0, "{}'s header fail to identify.".format(os.path.basename(file))
 
-            for c, name in enumerate(vars):
-                Vars.setdefault(name.split(":")[1], []).append(file)
-
-        return Vars
+        return vars
 
     @property
     def available_variables(self):
@@ -164,7 +141,3 @@ class Variable:
             column += dim
         dset = pd.DataFrame(dataset, columns=column) 
         return AMRGrid(dset, self.dim, self.var)
-
-
-
-    
