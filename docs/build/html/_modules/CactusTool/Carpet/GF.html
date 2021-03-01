@@ -1,22 +1,22 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CactusTool.Carpet.GF &#8212; CactusTool 0.0.1 documentation</title>
     <link rel="stylesheet" href="../../../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
-    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
   </head><body>
@@ -30,7 +30,8 @@
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CactusTool.Carpet.GF</a></li> 
       </ul>
     </div>  
 
@@ -43,41 +44,62 @@
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Cactus dataset main produced by `Carpet &lt;https://carpetcode.org&gt;`_, which is an adaptive mesh refinement and multi-patch driver for the Cactus. This modular processes output of CarpetIOHDF5 or CarpetIOASCII.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">..funcs</span> <span class="k">import</span> <span class="n">header_h5</span><span class="p">,</span> <span class="n">select_header_h5</span><span class="p">,</span> <span class="n">read</span><span class="p">,</span> <span class="n">add_two_key</span>
+<span class="kn">from</span> <span class="nn">..funcs.file</span> <span class="kn">import</span> <span class="n">header_h5</span><span class="p">,</span> <span class="n">select_header_h5</span><span class="p">,</span> <span class="n">read</span><span class="p">,</span> <span class="n">columns_asc</span>
+<span class="kn">from</span> <span class="nn">..funcs.json</span> <span class="kn">import</span> <span class="n">Format</span><span class="p">,</span> <span class="n">add_two_key</span>
+<span class="kn">from</span> <span class="nn">..funcs.log</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">..Visualize.plot2D</span> <span class="kn">import</span> <span class="n">pcolormesh</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">animation</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">copy</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
 <div class="viewcode-block" id="CarpetGF"><a class="viewcode-back" href="../../../API/CactusTool.Carpet.html#CactusTool.Carpet.GF.CarpetGF">[docs]</a><span class="k">class</span> <span class="nc">CarpetGF</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="nb">format</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class representing grid function.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="n">ftype</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">files</span> <span class="o">=</span> <span class="n">files</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dim</span> <span class="o">=</span> <span class="n">dim</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="nb">format</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fname</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;^([a-zA-Z0-9_-]+)\.([xyz]*)(\.file_\d+)?\.(asc|h5)$&#39;</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
-            <span class="n">mp</span> <span class="o">=</span> <span class="n">pat</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">file</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ftype</span> <span class="o">=</span> <span class="n">ftype</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fname</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;^([a-zA-Z0-9_-]+)(\.\d+)?\.([xyz]*)(\.file_\d+)?\.(asc|h5)$&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+            <span class="n">mp</span> <span class="o">=</span> <span class="n">pat</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
             <span class="k">if</span> <span class="n">mp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">thorn_var</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">fname</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">thorn_var</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fname</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">thorn_var</span><span class="p">)</span>
     
-    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-        <span class="k">assert</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fname</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> is not exist&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-        <span class="n">files</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fname</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">format</span> <span class="o">==</span> <span class="s1">&#39;h5&#39;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">CarpetIOHDF5</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">format</span> <span class="o">==</span> <span class="s1">&#39;asc&#39;</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;CactusTool currently only support &#39;.h5&#39;!&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Read the dataset when given specified file name.</span>
 
-    <span class="k">def</span> <span class="nf">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fname</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span></div>
+<span class="sd">        :param str key: file name.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fname</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> is not exist&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="n">fileList</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">files</span> <span class="k">if</span> <span class="n">key</span><span class="o">+</span><span class="s1">&#39;.&#39;</span> <span class="ow">in</span> <span class="n">f</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ftype</span> <span class="o">==</span> <span class="s1">&#39;h5&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">CarpetIOHDF5</span><span class="p">(</span><span class="n">fileList</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">ftype</span> <span class="o">==</span> <span class="s1">&#39;asc&#39;</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;We do not recommend using ASCII to draw high-dimensional graphs&quot;</span>
+            <span class="k">return</span> <span class="n">CarpetIOASCII</span><span class="p">(</span><span class="n">fileList</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fname</span></div>
+
+
 
 <div class="viewcode-block" id="CarpetIOHDF5"><a class="viewcode-back" href="../../../API/CactusTool.Carpet.html#CactusTool.Carpet.GF.CarpetIOHDF5">[docs]</a><span class="k">class</span> <span class="nc">CarpetIOHDF5</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Thorn CarpetIOHDF5 provides I/O methods for outputting gird function in HDF5 format into files. This class can handle all CarpetIOHDF5 output. Read the dataset from files and return all useful information stored in these files. We recommend use CarpetIOHDF5 to output all 2-D and 3-D grid function.</span>
-
-<span class="sd">    :param str file: a single filename</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">dim</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">dim</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param list files: can either be a list of filenames or a single </span>
+<span class="sd">        :param str dim: dim</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dim</span> <span class="o">=</span> <span class="n">dim</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">header</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
@@ -99,25 +121,163 @@
                 <span class="n">iteration</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="n">file</span><span class="p">][</span><span class="n">item</span><span class="p">][</span><span class="s1">&#39;iteration&#39;</span><span class="p">]))</span>
         <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">iteration</span><span class="p">))</span>
 
-<div class="viewcode-block" id="CarpetIOHDF5.temporary"><a class="viewcode-back" href="../../../API/CactusTool.Carpet.html#CactusTool.Carpet.GF.CarpetIOHDF5.temporary">[docs]</a>    <span class="k">def</span> <span class="nf">temporary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">it</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<div class="viewcode-block" id="CarpetIOHDF5.dsets"><a class="viewcode-back" href="../../../API/CactusTool.Carpet.html#CactusTool.Carpet.GF.CarpetIOHDF5.dsets">[docs]</a>    <span class="k">def</span> <span class="nf">dsets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">it</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">rl</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
         <span class="n">p</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="p">:</span>
             <span class="k">with</span> <span class="n">read</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span> 
-                <span class="k">for</span> <span class="n">header</span> <span class="ow">in</span> <span class="n">select_header_h5</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="n">file</span><span class="p">],</span> <span class="n">var</span><span class="p">,</span> <span class="n">it</span><span class="o">=</span><span class="n">it</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">header</span> <span class="ow">in</span> <span class="n">select_header_h5</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="n">file</span><span class="p">],</span> <span class="n">var</span><span class="p">,</span> <span class="n">it</span><span class="o">=</span><span class="n">it</span><span class="p">,</span> <span class="n">rl</span><span class="o">=</span><span class="n">rl</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="p">):</span>
                     <span class="n">rl</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="n">file</span><span class="p">][</span><span class="n">header</span><span class="p">][</span><span class="s1">&#39;rl&#39;</span><span class="p">]</span>
                     <span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="n">file</span><span class="p">][</span><span class="n">header</span><span class="p">][</span><span class="s1">&#39;c&#39;</span><span class="p">]</span>
                     <span class="n">dset</span> <span class="o">=</span> <span class="p">{}</span>
                     <span class="n">mesh</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="n">header</span><span class="p">]</span>
-                    <span class="n">origin</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;origin&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-                    <span class="n">delta</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;delta&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-                    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mesh</span><span class="p">)</span>
-                    <span class="n">size</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">shape</span>
-                    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span>
-                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-                        <span class="n">dset</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">size</span><span class="p">[(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">-</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">delta</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">origin</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">delta</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span>
-                    <span class="n">dset</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span>
+                    <span class="n">dset</span><span class="p">[</span><span class="s1">&#39;origin&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;origin&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                    <span class="n">dset</span><span class="p">[</span><span class="s1">&#39;delta&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;delta&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                    <span class="n">dset</span><span class="p">[</span><span class="s1">&#39;ghostzones&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cctk_nghostzones&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                    <span class="n">dset</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                    <span class="n">dset</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mesh</span><span class="p">)</span> 
                     <span class="n">add_two_key</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">rl</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">dset</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">p</span></div></div>
+
+        <span class="k">return</span> <span class="n">p</span></div>
+
+<div class="viewcode-block" id="CarpetIOHDF5.animation"><a class="viewcode-back" href="../../../API/CactusTool.Carpet.html#CactusTool.Carpet.GF.CarpetIOHDF5.animation">[docs]</a>    <span class="k">def</span> <span class="nf">animation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">axlim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">reflevel</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;cactus&#39;</span><span class="p">,</span> <span class="n">saveto</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;viridis&quot;</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        plot 2D Carpet data, then animate it.</span>
+
+<span class="sd">        :param int interval: Pause between frames in ms</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div></div>
+        <span class="c1"># fig, ax = plt.subplots()</span>
+
+        <span class="c1"># if axlim is not None:</span>
+        <span class="c1">#     ax.set_xlim([-axlim, axlim])</span>
+        <span class="c1">#     ax.set_ylim([-axlim, axlim])</span>
+
+        <span class="c1"># it = self.it</span>
+        <span class="c1"># ims = pcolormesh(ax, self.dsets(var, it=it[0]))</span>
+
+        <span class="c1"># def animate(n):</span>
+        <span class="c1">#     now = it[n]</span>
+        <span class="c1">#     ims = pcolormesh(ax, self.dsets(var, it=now))</span>
+        <span class="c1">#     return ims</span>
+        <span class="c1">#     line.set_data([], [])</span>
+        <span class="c1">#     dsets = self.dsets(var, it=now)</span>
+        <span class="c1">#     for rl in sorted(dsets):</span>
+        <span class="c1">#         if reflevel != -1 and rl != reflevel:</span>
+        <span class="c1">#             continue</span>
+        <span class="c1">#         for c in sorted(dsets[rl]):</span>
+        <span class="c1">#             coord = dsets[rl][c][&#39;coord&#39;]</span>
+        <span class="c1">#             data = dsets[rl][c][&#39;data&#39;]</span>
+        <span class="c1">#             time = dsets[rl][c][&#39;time&#39;]</span>
+        <span class="c1">#             # Add the data to the line object</span>
+        <span class="c1">#             line.set_xdata(np.append(line.get_xdata(), coord))</span>
+        <span class="c1">#             line.set_ydata(np.append(line.get_ydata(), data))</span>
+        <span class="c1">#     # Sort points</span>
+        <span class="c1">#     indices = np.argsort(line.get_xdata())</span>
+        <span class="c1">#     line.set_xdata(line.get_xdata()[indices])</span>
+        <span class="c1">#     line.set_ydata(line.get_ydata()[indices])</span>
+        <span class="c1">#     # Adjust the axes</span>
+        <span class="c1">#     ax.relim()</span>
+        <span class="c1">#     ax.autoscale_view()</span>
+        <span class="c1">#     if unit == &#39;cactus&#39;:</span>
+        <span class="c1">#         ax.set_xlabel(&#39;Coord [M]&#39;)</span>
+        <span class="c1">#     ax.set_title(&quot;Time: {}&quot;.format(time))</span>
+        <span class="c1">#     return line,</span>
+
+        <span class="c1"># anim = animation.FuncAnimation(fig, animate, frames=len(it), interval=interval, blit=True, repeat=False)</span>
+        
+        <span class="c1"># if saveto is not None:</span>
+        <span class="c1">#     # writer = animation.FFMpegWriter(fps=15, metadata=dict(artist=&#39;Me&#39;), bitrate=1800)</span>
+        <span class="c1">#     anim.save(saveto)</span>
+        <span class="c1"># return anim</span>
+
+<div class="viewcode-block" id="CarpetIOASCII"><a class="viewcode-back" href="../../../API/CactusTool.Carpet.html#CactusTool.Carpet.GF.CarpetIOASCII">[docs]</a><span class="k">class</span> <span class="nc">CarpetIOASCII</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Thorn CarpetIOASCII provides I/O methods for outputting gird function in ASCII format into files. This class can handle all CarpetIOASCII output. Read the dataset from files and return all useful information stored in these files.</span>
+
+<span class="sd">    :param str files: a single filename</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">dim</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dim</span> <span class="o">=</span> <span class="n">dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">columns_asc</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vars</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">12</span><span class="p">:]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dsets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">comments</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">it</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">it</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dsets</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">it</span><span class="p">)))</span>
+
+<div class="viewcode-block" id="CarpetIOASCII.dsets"><a class="viewcode-back" href="../../../API/CactusTool.Carpet.html#CactusTool.Carpet.GF.CarpetIOASCII.dsets">[docs]</a>    <span class="k">def</span> <span class="nf">dsets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="n">it</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">dsets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dsets</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_dsets</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">it</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">rl</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">dsets</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]):</span>
+            <span class="n">dset</span> <span class="o">=</span> <span class="n">dsets</span><span class="p">[</span><span class="n">dsets</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="n">rl</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">dset</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">]):</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">dset</span><span class="p">[</span><span class="n">dset</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
+                <span class="n">p_tem</span> <span class="o">=</span> <span class="p">{}</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vars</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;data&#39;</span><span class="p">:</span>
+                    <span class="n">p_tem</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">12</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">assert</span> <span class="n">var</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">vars</span><span class="p">,</span> <span class="s2">&quot;Pick one from </span><span class="si">{}</span><span class="s2">, because one file per group.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vars</span><span class="p">)</span>
+                    <span class="n">p_tem</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">var</span><span class="p">)]</span>
+                <span class="n">p_tem</span><span class="p">[</span><span class="s1">&#39;coord&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)]</span>
+                <span class="n">p_tem</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">8</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">add_two_key</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">rl</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">p_tem</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">p</span></div>
+
+<div class="viewcode-block" id="CarpetIOASCII.animation"><a class="viewcode-back" href="../../../API/CactusTool.Carpet.html#CactusTool.Carpet.GF.CarpetIOASCII.animation">[docs]</a>    <span class="k">def</span> <span class="nf">animation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="n">reflevel</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;cactus&#39;</span><span class="p">,</span> <span class="n">saveto</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        plot 1D Carpet data, then animate it.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+        <span class="n">it</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">it</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([],</span> <span class="p">[],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">def</span> <span class="nf">animate</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="n">now</span> <span class="o">=</span> <span class="n">it</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
+            <span class="n">line</span><span class="o">.</span><span class="n">set_data</span><span class="p">([],</span> <span class="p">[])</span>
+            <span class="n">dsets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dsets</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">it</span><span class="o">=</span><span class="n">now</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">rl</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">dsets</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">reflevel</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">rl</span> <span class="o">!=</span> <span class="n">reflevel</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">dsets</span><span class="p">[</span><span class="n">rl</span><span class="p">]):</span>
+                    <span class="n">coord</span> <span class="o">=</span> <span class="n">dsets</span><span class="p">[</span><span class="n">rl</span><span class="p">][</span><span class="n">c</span><span class="p">][</span><span class="s1">&#39;coord&#39;</span><span class="p">]</span>
+                    <span class="n">data</span> <span class="o">=</span> <span class="n">dsets</span><span class="p">[</span><span class="n">rl</span><span class="p">][</span><span class="n">c</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
+                    <span class="n">time</span> <span class="o">=</span> <span class="n">dsets</span><span class="p">[</span><span class="n">rl</span><span class="p">][</span><span class="n">c</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">]</span>
+                    <span class="c1"># Add the data to the line object</span>
+                    <span class="n">line</span><span class="o">.</span><span class="n">set_xdata</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">get_xdata</span><span class="p">(),</span> <span class="n">coord</span><span class="p">))</span>
+                    <span class="n">line</span><span class="o">.</span><span class="n">set_ydata</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">get_ydata</span><span class="p">(),</span> <span class="n">data</span><span class="p">))</span>
+            <span class="c1"># Sort points</span>
+            <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">get_xdata</span><span class="p">())</span>
+            <span class="n">line</span><span class="o">.</span><span class="n">set_xdata</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">get_xdata</span><span class="p">()[</span><span class="n">indices</span><span class="p">])</span>
+            <span class="n">line</span><span class="o">.</span><span class="n">set_ydata</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">get_ydata</span><span class="p">()[</span><span class="n">indices</span><span class="p">])</span>
+            <span class="c1"># Adjust the axes</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">relim</span><span class="p">()</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">autoscale_view</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">unit</span> <span class="o">==</span> <span class="s1">&#39;cactus&#39;</span><span class="p">:</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Coord [M]&#39;</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Time: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">line</span><span class="p">,</span>
+
+        <span class="n">anim</span> <span class="o">=</span> <span class="n">animation</span><span class="o">.</span><span class="n">FuncAnimation</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">animate</span><span class="p">,</span> <span class="n">frames</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">it</span><span class="p">),</span> <span class="n">interval</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">blit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">saveto</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># writer = animation.FFMpegWriter(fps=15, metadata=dict(artist=&#39;Me&#39;), bitrate=1800)</span>
+            <span class="n">anim</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">saveto</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">anim</span></div></div>
+
+
+
+<span class="c1"># origin = mesh.attrs.get(&#39;origin&#39;, None)</span>
+<span class="c1"># delta = mesh.attrs.get(&#39;delta&#39;, None)</span>
+<span class="c1"># data = np.array(mesh)</span>
+<span class="c1"># size = mesh.shape</span>
+<span class="c1"># n = len(self.dim)</span>
+<span class="c1"># for i in range(n):</span>
+<span class="c1">#     dset[self.dim[i]] = np.arange(0, size[(n-1)-i]+1)*delta[i] + origin[i] - delta[i]/2</span>
+<span class="c1"># dset[&#39;data&#39;] = data        </span>
+
 
 <span class="c1">#     @property</span>
 <span class="c1">#     def rl(self):</span>
@@ -152,40 +312,66 @@
 <span class="c1">#                         dsets.append(p)</span>
 <span class="c1">#         return AMRGrid(dsets, self.dim, var)</span>
 
-<span class="c1"># class AMRGrid:</span>
-<span class="c1">#     def __init__(self, dsets, dim, var):</span>
-<span class="c1">#         self.dsets = dsets</span>
-<span class="c1">#         self.dim = dim</span>
-<span class="c1">#         self.var = var</span>
-    
-<span class="c1">#     def Preview(self, axlim=None, Normalize=None):</span>
-<span class="c1">#         import matplotlib.pyplot as plt</span>
-<span class="c1">#         import matplotlib.colors as colors</span>
+    <span class="c1"># def eval(self, expr, it):</span>
+    <span class="c1">#     var = None</span>
+    <span class="c1">#     if (&#39;gxx&#39; or &#39;gxy&#39; or &#39;gxz&#39; or&#39;gyy&#39; or&#39;gyz&#39; or&#39;gzz&#39;) in expr:</span>
+    <span class="c1">#         admbase_metric = self[&#39;admbase-metric&#39;]</span>
+    <span class="c1">#         gxx = admbase_metric.temporary(&#39;gxx&#39;, it=it)</span>
+    <span class="c1">#         gxy = admbase_metric.temporary(&#39;gxy&#39;, it=it)</span>
+    <span class="c1">#         gxz = admbase_metric.temporary(&#39;gxz&#39;, it=it)</span>
+    <span class="c1">#         gyy = admbase_metric.temporary(&#39;gyy&#39;, it=it)</span>
+    <span class="c1">#         gyz = admbase_metric.temporary(&#39;gyz&#39;, it=it)</span>
+    <span class="c1">#         gzz = admbase_metric.temporary(&#39;gzz&#39;, it=it)</span>
+    <span class="c1">#         expr = expr.replace(&#39;gxx&#39;, &quot;gxx[rl][c][&#39;data&#39;]&quot;).replace(&#39;gxy&#39;, &quot;gxy[rl][c][&#39;data&#39;]&quot;).replace(&#39;gxz&#39;, &quot;gxz[rl][c][&#39;data&#39;]&quot;).replace(&#39;gyy&#39;, &quot;gyy[rl][c][&#39;data&#39;]&quot;).replace(&#39;gyz&#39;, &quot;gyz[rl][c][&#39;data&#39;]&quot;).replace(&#39;gzz&#39;, &quot;gzz[rl][c][&#39;data&#39;]&quot;)</span>
+    <span class="c1">#         var = &#39;gxx&#39;</span>
+    <span class="c1">#     if &#39;alp&#39; in expr:</span>
+    <span class="c1">#         admbase_lapse = self[&#39;admbase-lapse&#39;]</span>
+    <span class="c1">#         alp = admbase_lapse.temporary(&#39;alp&#39;, it=it)</span>
+    <span class="c1">#         expr = expr.replace(&#39;alp&#39;, &quot;alp[rl][c][&#39;data&#39;]&quot;)</span>
+    <span class="c1">#         var = &#39;alp&#39;</span>
+    <span class="c1">#     if (&#39;betax&#39; or &#39;betay&#39; or &#39;betax&#39;) in expr:</span>
+    <span class="c1">#         admbase_shift = self[&#39;admbase-shift&#39;]</span>
+    <span class="c1">#         betax = admbase_shift.temporary(&#39;betax&#39;, it=it)</span>
+    <span class="c1">#         betay = admbase_shift.temporary(&#39;betay&#39;, it=it)</span>
+    <span class="c1">#         betaz = admbase_shift.temporary(&#39;betaz&#39;, it=it)</span>
+    <span class="c1">#         expr = expr.replace(&#39;betax&#39;, &quot;betax[rl][c][&#39;data&#39;]&quot;).replace(&#39;betay&#39;, &quot;betay[rl][c][&#39;data&#39;]&quot;).replace(&#39;betaz&#39;, &quot;betaz[rl][c][&#39;data&#39;]&quot;)</span>
+    <span class="c1">#         var = &#39;betax&#39;</span>
+    <span class="c1">#     if &#39;rho&#39; in expr:</span>
+    <span class="c1">#         hydrobase_rho = self[&#39;hydrobase-rho&#39;]</span>
+    <span class="c1">#         rho = hydrobase_rho.temporary(&#39;rho&#39;, it=it)</span>
+    <span class="c1">#         expr = expr.replace(&#39;rho&#39;, &quot;rho[rl][c][&#39;data&#39;]&quot;)</span>
+    <span class="c1">#         var = &#39;rho&#39;</span>
+    <span class="c1">#     if &#39;press&#39; in expr:</span>
+    <span class="c1">#         hydrobase_press = self[&#39;hydrobase-press&#39;]</span>
+    <span class="c1">#         press = hydrobase_press.temporary(&#39;press&#39;, it=it)</span>
+    <span class="c1">#         expr = expr.replace(&#39;press&#39;, &quot;press[rl][c][&#39;data&#39;]&quot;)</span>
+    <span class="c1">#         var = &#39;press&#39;</span>
+    <span class="c1">#     if &#39;eps&#39; in expr:</span>
+    <span class="c1">#         hydrobase_eps = self[&#39;hydrobase-eps&#39;]</span>
+    <span class="c1">#         eps = hydrobase_eps.temporary(&#39;eps&#39;, it=it)</span>
+    <span class="c1">#         expr = expr.replace(&#39;eps&#39;, &quot;eps[rl][c][&#39;data&#39;]&quot;)</span>
+    <span class="c1">#         var = &#39;eps&#39;</span>
+    <span class="c1">#     if &#39;w_lorentz&#39; in expr:</span>
+    <span class="c1">#         hydrobase_w_lorentz = self[&#39;hydrobase-w_lorentz&#39;]</span>
+    <span class="c1">#         w_lorentz = hydrobase_w_lorentz.temporary(&#39;w_lorentz&#39;, it=it)</span>
+    <span class="c1">#         expr = expr.replace(&#39;w_lorentz&#39;, &quot;w_lorentz[rl][c][&#39;data&#39;]&quot;)</span>
+    <span class="c1">#         var = &#39;w_lorentz&#39;</span>
+    <span class="c1">#     if (&#39;velx&#39; or &#39;vely&#39; or &#39;velz&#39;) in expr:</span>
+    <span class="c1">#         hydrobase_vel = self[&#39;hydrobase-vel&#39;]</span>
+    <span class="c1">#         velx = hydrobase_vel.temporary(&#39;vel[0]&#39;, it=it)</span>
+    <span class="c1">#         vely = hydrobase_vel.temporary(&#39;vel[1]&#39;, it=it)</span>
+    <span class="c1">#         velz = hydrobase_vel.temporary(&#39;vel[2]&#39;, it=it)</span>
+    <span class="c1">#         expr = expr.replace(&#39;velx&#39;, &quot;velx[rl][c][&#39;data&#39;]&quot;).replace(&#39;vely&#39;, &quot;vely[rl][c][&#39;data&#39;]&quot;).replace(&#39;velz&#39;, &quot;velz[rl][c][&#39;data&#39;]&quot;)</span>
+    <span class="c1">#         var = &#39;velx&#39;</span>
 
-<span class="c1">#         vmax = np.amax(self.dsets[0][&#39;data&#39;])</span>
-<span class="c1">#         vmin = np.amin(self.dsets[0][&#39;data&#39;])</span>
-<span class="c1">#         for item in self.dsets:</span>
-<span class="c1">#             if vmax &lt; np.amax(item[&#39;data&#39;]):</span>
-<span class="c1">#                 vmax = np.amax(item[&#39;data&#39;])</span>
-<span class="c1">#             if vmin &gt; np.amin(item[&#39;data&#39;]):</span>
-<span class="c1">#                 vmin = np.amin(item[&#39;data&#39;])</span>
-<span class="c1">#         for item in self.dsets:</span>
-<span class="c1">#             if Normalize is None:</span>
-<span class="c1">#                 plt.pcolormesh(item[self.dim[0]], item[self.dim[1]], item[&#39;data&#39;], vmin=vmin, vmax=vmax)</span>
-<span class="c1">#             elif Normalize == &#39;LogNorm&#39;:</span>
-<span class="c1">#                 assert vmin &gt; 0, &quot;values must all be positive&quot;</span>
-<span class="c1">#                 plt.pcolormesh(item[self.dim[0]], item[self.dim[1]], item[&#39;data&#39;], norm=colors.LogNorm(vmin=vmin, vmax=vmax))</span>
-
-<span class="c1">#         if axlim is not None:</span>
-<span class="c1">#             plt.xlim(axlim)</span>
-<span class="c1">#             plt.ylim(axlim)</span>
-<span class="c1">#         plt.xlabel(&#39;x&#39;)</span>
-<span class="c1">#         plt.ylabel(&#39;y&#39;)</span>
-<span class="c1">#         plt.title(self.var)</span>
-<span class="c1">#         plt.colorbar()</span>
-<span class="c1">#         plt.show()</span>
+    <span class="c1">#     p = copy.deepcopy(locals()[var])</span>
+    <span class="c1">#     for rl in p:</span>
+    <span class="c1">#         for c in p[rl]:</span>
+    <span class="c1">#             p[rl][c][&#39;data&#39;] = eval(expr)</span>
+    <span class="c1">#     return p</span>
 </pre></div>
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -200,7 +386,7 @@
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -215,12 +401,13 @@
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CactusTool.Carpet.GF</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, Yu Liu.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
     </div>
   </body>
 </html>

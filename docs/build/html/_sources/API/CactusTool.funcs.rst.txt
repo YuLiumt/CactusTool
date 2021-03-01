@@ -20,6 +20,14 @@ CactusTool.funcs.check module
    :undoc-members:
    :show-inheritance:
 
+CactusTool.funcs.equation module
+--------------------------------
+
+.. automodule:: CactusTool.funcs.equation
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 CactusTool.funcs.file module
 ----------------------------
 
@@ -52,6 +60,14 @@ CactusTool.funcs.log module
    :undoc-members:
    :show-inheritance:
 
+CactusTool.funcs.power module
+-----------------------------
+
+.. automodule:: CactusTool.funcs.power
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 CactusTool.funcs.ts module
 --------------------------
 
@@ -60,14 +76,13 @@ CactusTool.funcs.ts module
    :undoc-members:
    :show-inheritance:
 
-CactusTool.funcs.unit module
-----------------------------
+CactusTool.funcs.units module
+-----------------------------
 
-.. automodule:: CactusTool.funcs.unit
+.. automodule:: CactusTool.funcs.units
    :members:
    :undoc-members:
    :show-inheritance:
-
 
 Module contents
 ---------------

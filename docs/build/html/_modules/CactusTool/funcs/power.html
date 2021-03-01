@@ -1,0 +1,209 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CactusTool.funcs.power &#8212; CactusTool 0.0.1 documentation</title>
+    <link rel="stylesheet" href="../../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CactusTool.funcs.power</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for CactusTool.funcs.power</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (c) 2017 The Board of Trustees of the University of Illinois</span>
+<span class="c1"># All rights reserved.</span>
+<span class="c1">#</span>
+<span class="c1"># Developed by: Daniel Johnson, E. A. Huerta, Roland Haas</span>
+<span class="c1">#               NCSA Gravity Group</span>
+<span class="c1">#               National Center for Supercomputing Applications</span>
+<span class="c1">#               University of Illinois at Urbana-Champaign</span>
+<span class="c1">#               http://gravity.ncsa.illinois.edu/</span>
+
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy</span>
+
+<div class="viewcode-block" id="RadialToTortoise"><a class="viewcode-back" href="../../../API/CactusTool.funcs.html#CactusTool.funcs.power.RadialToTortoise">[docs]</a><span class="k">def</span> <span class="nf">RadialToTortoise</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">M</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert the radial coordinate to the tortoise coordinate</span>
+
+<span class="sd">    :param float r: radial coordinate</span>
+<span class="sd">    :param float M: ADMMass used to convert coordinate</span>
+<span class="sd">    :return: tortoise coordinate value</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">r</span> <span class="o">+</span> <span class="mf">2.</span> <span class="o">*</span> <span class="n">M</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">r</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.</span> <span class="o">*</span> <span class="n">M</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="psi4ToStrain"><a class="viewcode-back" href="../../../API/CactusTool.funcs.html#CactusTool.funcs.power.psi4ToStrain">[docs]</a><span class="k">def</span> <span class="nf">psi4ToStrain</span><span class="p">(</span><span class="n">mp_psi4</span><span class="p">,</span> <span class="n">f0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert the input mp_psi4 data to the strain of the gravitational wave</span>
+
+<span class="sd">    :param array mp_psi4: Weyl scalar result from simulation</span>
+<span class="sd">    :param float f0: cutoff frequency</span>
+<span class="sd">    :return: = strain (h) of the gravitational wave</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">t0</span> <span class="o">=</span> <span class="n">mp_psi4</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">list_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">t0</span><span class="p">)</span>
+    <span class="n">complexPsi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">list_len</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex_</span><span class="p">)</span>
+    <span class="n">complexPsi</span> <span class="o">=</span> <span class="n">mp_psi4</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">1.</span><span class="n">j</span><span class="o">*</span><span class="n">mp_psi4</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span>
+
+    <span class="n">freq</span><span class="p">,</span> <span class="n">psif</span> <span class="o">=</span> <span class="n">myFourierTransform</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">complexPsi</span><span class="p">)</span>
+    <span class="n">dhf</span> <span class="o">=</span> <span class="n">ffi</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">psif</span><span class="p">,</span> <span class="n">f0</span><span class="p">)</span>
+    <span class="n">hf</span> <span class="o">=</span> <span class="n">ffi</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">dhf</span><span class="p">,</span> <span class="n">f0</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">myFourierTransformInverse</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">hf</span><span class="p">,</span> <span class="n">t0</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="ffi"><a class="viewcode-back" href="../../../API/CactusTool.funcs.html#CactusTool.funcs.power.ffi">[docs]</a><span class="k">def</span> <span class="nf">ffi</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">f0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Fixed frequency integration. Integrates the data according to the input frequency and cutoff frequency. See https://arxiv.org/abs/1508.07250 for method</span>
+
+<span class="sd">    freq = fourier transform frequency</span>
+<span class="sd">    data = input on which ffi is performed</span>
+<span class="sd">    f0 = cutoff frequency</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">f1</span> <span class="o">=</span> <span class="n">f0</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+    <span class="n">fs</span> <span class="o">=</span> <span class="n">freq</span>
+    <span class="n">gs</span> <span class="o">=</span> <span class="n">data</span>
+    <span class="n">mask1</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">((</span><span class="n">fs</span><span class="o">/</span><span class="n">f1</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mf">2.</span>
+    <span class="n">mask2</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">((</span><span class="o">-</span><span class="n">fs</span><span class="o">/</span><span class="n">f1</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mf">2.</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">mask1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">mask2</span><span class="p">)</span>
+    <span class="n">fs2</span> <span class="o">=</span> <span class="n">mask</span> <span class="o">*</span> <span class="n">fs</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">mask</span><span class="p">)</span> <span class="o">*</span> <span class="n">f1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">fs</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span><span class="p">)</span>
+    <span class="n">new_gs</span> <span class="o">=</span> <span class="n">gs</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mf">1.</span><span class="n">j</span><span class="o">*</span><span class="n">fs2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">new_gs</span></div>
+
+<div class="viewcode-block" id="myFourierTransform"><a class="viewcode-back" href="../../../API/CactusTool.funcs.html#CactusTool.funcs.power.myFourierTransform">[docs]</a><span class="k">def</span> <span class="nf">myFourierTransform</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">complexPsi</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Transforms the complexPsi data to frequency space</span>
+
+<span class="sd">    t0 = time data points</span>
+<span class="sd">    complexPsi = data points of Psi to be transformed</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">psif</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">complexPsi</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="s2">&quot;ortho&quot;</span><span class="p">)</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">complexPsi</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">l</span><span class="o">/</span><span class="mf">2.</span><span class="p">))</span>
+    <span class="n">newpsif</span> <span class="o">=</span> <span class="n">psif</span><span class="p">[</span><span class="n">l</span><span class="o">-</span><span class="n">n</span><span class="p">:]</span>
+    <span class="n">newpsif</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">newpsif</span><span class="p">,</span> <span class="n">psif</span><span class="p">[:</span><span class="n">l</span><span class="o">-</span><span class="n">n</span><span class="p">])</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">amin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">t0</span><span class="p">))</span><span class="o">*</span><span class="n">l</span>
+    <span class="n">freq</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="n">n</span><span class="p">,</span> <span class="n">l</span><span class="o">-</span><span class="n">n</span><span class="p">)</span><span class="o">/</span><span class="n">T</span>
+    <span class="k">return</span> <span class="n">freq</span><span class="p">,</span> <span class="n">newpsif</span></div>
+
+<span class="c1">#Inverse Fourier Transform</span>
+<div class="viewcode-block" id="myFourierTransformInverse"><a class="viewcode-back" href="../../../API/CactusTool.funcs.html#CactusTool.funcs.power.myFourierTransformInverse">[docs]</a><span class="k">def</span> <span class="nf">myFourierTransformInverse</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">hf</span><span class="p">,</span> <span class="n">t0</span><span class="p">):</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">hf</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">l</span><span class="o">/</span><span class="mf">2.</span><span class="p">))</span>
+    <span class="n">newhf</span> <span class="o">=</span> <span class="n">hf</span><span class="p">[</span><span class="n">n</span><span class="p">:]</span>
+    <span class="n">newhf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">newhf</span><span class="p">,</span> <span class="n">hf</span><span class="p">[:</span><span class="n">n</span><span class="p">])</span>
+    <span class="n">amp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">ifft</span><span class="p">(</span><span class="n">newhf</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="s2">&quot;ortho&quot;</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">amin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">freq</span><span class="p">))</span>
+    <span class="n">time</span> <span class="o">=</span> <span class="n">t0</span> <span class="o">+</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">l</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">df</span><span class="o">*</span><span class="n">l</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">time</span><span class="p">,</span> <span class="n">amp</span></div>
+
+<div class="viewcode-block" id="InitModeArray"><a class="viewcode-back" href="../../../API/CactusTool.funcs.html#CactusTool.funcs.power.InitModeArray">[docs]</a><span class="k">def</span> <span class="nf">InitModeArray</span><span class="p">(</span><span class="n">lmax</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Creates an array with empty modes up to lmax&quot;&quot;&quot;</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">ll</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">lmax</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">([])</span>
+        <span class="k">for</span> <span class="n">mm</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="n">ll</span><span class="p">,</span> <span class="n">ll</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">res</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">([])</span>
+    <span class="k">return</span> <span class="n">res</span></div>
+
+<div class="viewcode-block" id="Extrapolate"><a class="viewcode-back" href="../../../API/CactusTool.funcs.html#CactusTool.funcs.power.Extrapolate">[docs]</a><span class="k">def</span> <span class="nf">Extrapolate</span><span class="p">(</span><span class="n">psi4</span><span class="p">,</span> <span class="n">distances</span><span class="p">,</span> <span class="n">f0</span><span class="p">,</span> <span class="n">ADMMass</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extrapolate to infinite.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">phase</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">amp</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">t_start</span> <span class="o">=</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+    <span class="n">t_end</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+    <span class="k">for</span> <span class="n">dist</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">distances</span><span class="p">):</span>
+        <span class="n">dset</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">psi4</span><span class="p">[</span><span class="n">dist</span><span class="p">],</span> <span class="n">comments</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
+        <span class="n">dset</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">-=</span> <span class="n">RadialToTortoise</span><span class="p">(</span><span class="n">dist</span><span class="p">,</span> <span class="n">ADMMass</span><span class="p">)</span>
+        <span class="n">dset</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*=</span> <span class="n">dist</span>
+        <span class="n">dset</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">*=</span> <span class="n">dist</span>      
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">dset</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">dset</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="c1"># Fixed-frequency integration twice to get strain</span>
+        <span class="n">time</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">psi4ToStrain</span><span class="p">(</span><span class="n">dset</span><span class="p">,</span> <span class="n">f0</span><span class="p">)</span>
+        <span class="c1"># Get phase and amplitude of strain</span>
+        <span class="n">phase</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">scipy</span><span class="o">.</span><span class="n">interpolate</span><span class="o">.</span><span class="n">interp1d</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">unwrap</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">h</span><span class="p">)),</span> <span class="n">kind</span><span class="o">=</span><span class="mi">9</span><span class="p">))</span>
+        <span class="n">amp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">scipy</span><span class="o">.</span><span class="n">interpolate</span><span class="o">.</span><span class="n">interp1d</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">h</span><span class="p">),</span> <span class="n">kind</span><span class="o">=</span><span class="mi">9</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">t_start</span><span class="p">:</span>
+            <span class="n">t_start</span> <span class="o">=</span> <span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">t_end</span><span class="p">:</span>
+            <span class="n">t_end</span> <span class="o">=</span> <span class="n">time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">t_start</span><span class="p">,</span> <span class="n">t_end</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">distances</span><span class="p">)):</span>
+        <span class="n">phase_resampled</span> <span class="o">=</span> <span class="n">phase</span><span class="p">[</span><span class="n">i</span><span class="p">](</span><span class="n">t</span><span class="p">)</span>
+        <span class="n">amp_resampled</span> <span class="o">=</span> <span class="n">amp</span><span class="p">[</span><span class="n">i</span><span class="p">](</span><span class="n">t</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">phase_resampled</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CactusTool.funcs.power</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Yu Liu.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+    </div>
+  </body>
+</html>

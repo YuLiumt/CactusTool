@@ -1,22 +1,22 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CactusTool.Analysis.CoM &#8212; CactusTool 0.0.1 documentation</title>
     <link rel="stylesheet" href="../../../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
-    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
   </head><body>
@@ -30,7 +30,8 @@
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CactusTool.Analysis.CoM</a></li> 
       </ul>
     </div>  
 
@@ -40,53 +41,110 @@
           <div class="body" role="main">
             
   <h1>Source code for CactusTool.Analysis.CoM</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">..Visualize.plot3d</span> <span class="k">import</span> <span class="n">plot_trajectory</span>
+<span></span><span class="kn">from</span> <span class="nn">..Visualize.plot3d</span> <span class="kn">import</span> <span class="n">plot_trajectory</span>
+<span class="kn">from</span> <span class="nn">..funcs.units</span> <span class="kn">import</span> <span class="n">UnitConversion</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <div class="viewcode-block" id="volumeintegrals_grmhd"><a class="viewcode-back" href="../../../API/CactusTool.Analysis.html#CactusTool.Analysis.CoM.volumeintegrals_grmhd">[docs]</a><span class="k">class</span> <span class="nc">volumeintegrals_grmhd</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class representing the output of the VolumeIntegrals_GRMHD thorn in a simulation.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">files</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">files</span><span class="p">):</span>
         <span class="n">dset</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">files</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">unpack</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">comments</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
+        <span class="c1"># Computational units CU to ms or km</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="n">dset</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">CoM_1</span> <span class="o">=</span> <span class="p">[</span><span class="n">dset</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">dset</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">dset</span><span class="p">[</span><span class="mi">4</span><span class="p">]]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x1</span> <span class="o">=</span> <span class="n">dset</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">/</span><span class="n">dset</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y1</span> <span class="o">=</span> <span class="n">dset</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">/</span><span class="n">dset</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">z1</span> <span class="o">=</span> <span class="n">dset</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">/</span><span class="n">dset</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">M_1</span> <span class="o">=</span> <span class="n">dset</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">CoM_2</span> <span class="o">=</span> <span class="p">[</span><span class="n">dset</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">dset</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="n">dset</span><span class="p">[</span><span class="mi">9</span><span class="p">]]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x2</span> <span class="o">=</span> <span class="n">dset</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span><span class="o">/</span><span class="n">dset</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y2</span> <span class="o">=</span> <span class="n">dset</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="o">/</span><span class="n">dset</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">z2</span> <span class="o">=</span> <span class="n">dset</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span><span class="o">/</span><span class="n">dset</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">M_2</span> <span class="o">=</span> <span class="n">dset</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ADM</span> <span class="o">=</span> <span class="n">dset</span><span class="p">[</span><span class="mi">12</span><span class="p">]</span>
 
-<div class="viewcode-block" id="volumeintegrals_grmhd.Preview"><a class="viewcode-back" href="../../../API/CactusTool.Analysis.html#CactusTool.Analysis.CoM.volumeintegrals_grmhd.Preview">[docs]</a>    <span class="k">def</span> <span class="nf">Preview</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tstart</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">tend</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">view_angle</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">axlim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="volumeintegrals_grmhd.Preview"><a class="viewcode-back" href="../../../API/CactusTool.Analysis.html#CactusTool.Analysis.CoM.volumeintegrals_grmhd.Preview">[docs]</a>    <span class="k">def</span> <span class="nf">Preview</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tstart</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">tend</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">view_angle</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">axlim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;ms&#39;</span><span class="p">,</span> <span class="s1">&#39;km&#39;</span><span class="p">)):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Plot NS/BH tracks in initial simulation frame</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-        <span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="k">import</span> <span class="n">Axes3D</span>
-
-        <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">z1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CoM_1</span>
-        <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">z2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CoM_2</span>
+        <span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">Axes3D</span>
 
         <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
         <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
 
-        <span class="n">plot_trajectory</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">x1</span><span class="p">[</span><span class="n">tstart</span><span class="p">:</span><span class="n">tend</span><span class="p">],</span> <span class="n">y1</span><span class="p">[</span><span class="n">tstart</span><span class="p">:</span><span class="n">tend</span><span class="p">],</span> <span class="n">z1</span><span class="p">[</span><span class="n">tstart</span><span class="p">:</span><span class="n">tend</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#0392ff&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$NR_1$&#39;</span><span class="p">)</span>
-        <span class="n">plot_trajectory</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">x2</span><span class="p">[</span><span class="n">tstart</span><span class="p">:</span><span class="n">tend</span><span class="p">],</span> <span class="n">y2</span><span class="p">[</span><span class="n">tstart</span><span class="p">:</span><span class="n">tend</span><span class="p">],</span> <span class="n">z1</span><span class="p">[</span><span class="n">tstart</span><span class="p">:</span><span class="n">tend</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#ff1c03&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$NR_2$&#39;</span><span class="p">)</span>
+        <span class="n">plot_trajectory</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">x1</span><span class="p">[</span><span class="n">tstart</span><span class="p">:</span><span class="n">tend</span><span class="p">]</span> <span class="o">*</span> <span class="n">UnitConversion</span><span class="p">(</span><span class="n">unit</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="bp">self</span><span class="o">.</span><span class="n">y1</span><span class="p">[</span><span class="n">tstart</span><span class="p">:</span><span class="n">tend</span><span class="p">]</span> <span class="o">*</span> <span class="n">UnitConversion</span><span class="p">(</span><span class="n">unit</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="bp">self</span><span class="o">.</span><span class="n">z1</span><span class="p">[</span><span class="n">tstart</span><span class="p">:</span><span class="n">tend</span><span class="p">]</span> <span class="o">*</span> <span class="n">UnitConversion</span><span class="p">(</span><span class="n">unit</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#0392ff&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$Star_1$&#39;</span><span class="p">)</span>
+        <span class="n">plot_trajectory</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">x2</span><span class="p">[</span><span class="n">tstart</span><span class="p">:</span><span class="n">tend</span><span class="p">]</span> <span class="o">*</span> <span class="n">UnitConversion</span><span class="p">(</span><span class="n">unit</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="bp">self</span><span class="o">.</span><span class="n">y2</span><span class="p">[</span><span class="n">tstart</span><span class="p">:</span><span class="n">tend</span><span class="p">]</span> <span class="o">*</span> <span class="n">UnitConversion</span><span class="p">(</span><span class="n">unit</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="bp">self</span><span class="o">.</span><span class="n">z2</span><span class="p">[</span><span class="n">tstart</span><span class="p">:</span><span class="n">tend</span><span class="p">]</span> <span class="o">*</span> <span class="n">UnitConversion</span><span class="p">(</span><span class="n">unit</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#ff1c03&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$Star_2$&#39;</span><span class="p">)</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;From </span><span class="si">{:.2f}</span><span class="s2"> to </span><span class="si">{:.2f}</span><span class="s2"> [ms]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">[</span><span class="n">tstart</span><span class="p">]</span> <span class="o">*</span> <span class="n">UnitConversion</span><span class="p">(</span><span class="n">unit</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">[</span><span class="n">tend</span><span class="p">]</span> <span class="o">*</span> <span class="n">UnitConversion</span><span class="p">(</span><span class="n">unit</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
 
         <span class="k">if</span> <span class="n">view_angle</span><span class="p">:</span>
             <span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">view_angle</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">view_angle</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">axis</span><span class="p">:</span>
             <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
-            <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">)</span>
-            <span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;Z&#39;</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;X [km]&#39;</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Y [km]&#39;</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;Z [km]&#39;</span><span class="p">)</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">axlim</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">axlim</span><span class="p">)</span>
             <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">axlim</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div></div>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">distance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Evolution of the coordinate distance between the star centers.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">distance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">x1</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">x2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y1</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">y2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">z1</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">z2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">,</span> <span class="n">distance</span><span class="p">))</span> 
+
+<div class="viewcode-block" id="volumeintegrals_grmhd.eccentricity"><a class="viewcode-back" href="../../../API/CactusTool.Analysis.html#CactusTool.Analysis.CoM.volumeintegrals_grmhd.eccentricity">[docs]</a>    <span class="k">def</span> <span class="nf">eccentricity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p0</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        $$</span>
+<span class="sd">        \dot{D}(t)=A_{0}+A_{1} t-e D_{0} \omega_{e} \sin \left(\omega_{e} t+\phi_{e}\right)</span>
+<span class="sd">        $$</span>
+<span class="sd">        where $e$ is the eccentricity and $D_{0}$ the initial coordinate interbinary distance.</span>
+
+<span class="sd">        arXiv:1605.03424</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">curve_fit</span>
+
+        <span class="n">dist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">distance</span>
+        <span class="n">dist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">dist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">UnitConversion</span><span class="p">(</span><span class="s1">&#39;ms&#39;</span><span class="p">)</span>
+        <span class="n">dist</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">dist</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">UnitConversion</span><span class="p">(</span><span class="s1">&#39;km&#39;</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">orbital_evolution</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">A0</span><span class="p">,</span> <span class="n">A1</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">we</span><span class="p">,</span> <span class="n">phie</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">A0</span> <span class="o">+</span> <span class="n">A1</span><span class="o">*</span><span class="n">t</span> <span class="o">-</span> <span class="n">e</span><span class="o">*</span><span class="n">dist</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">we</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">we</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="n">phie</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">tmerger</span> <span class="o">=</span> <span class="n">dist</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">dist</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mf">0.</span><span class="p">)][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Make sure BNS have merged&quot;</span><span class="p">)</span>
+
+        <span class="c1"># The fit is performed in the time interval between $t_{\mathrm{ret}}=3 \mathrm{ms}$ and $t_{\mathrm{ret}}=\frac{2}{3} t_{\mathrm{merger}}$ to avoid the initial spurious radiation and the plunge phase but having at least one eccentricity cycle included.</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">dist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">dist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="o">/</span><span class="mi">3</span> <span class="o">*</span> <span class="n">tmerger</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">dist</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">index</span><span class="p">]</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">dist</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dist</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="n">index</span><span class="p">]</span>
+
+        <span class="n">params</span><span class="p">,</span> <span class="n">params_covariance</span> <span class="o">=</span> <span class="n">curve_fit</span><span class="p">(</span><span class="n">orbital_evolution</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">p0</span><span class="o">=</span><span class="n">p0</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Orbital Eccentricity =&#39;</span><span class="p">,</span> <span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+            <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;time [ms]&#39;</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\dot</span><span class="si">{D}</span><span class="s1">$&#39;</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">orbital_evolution</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="mi">4</span><span class="p">]),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Fitted function&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">t</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div></div>
 </pre></div>
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -101,7 +159,7 @@
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -116,12 +174,13 @@
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CactusTool.Analysis.CoM</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, Yu Liu.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
     </div>
   </body>
 </html>

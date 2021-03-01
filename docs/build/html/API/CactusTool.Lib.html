@@ -1,26 +1,26 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CactusTool.Lib package &#8212; CactusTool 0.0.1 documentation</title>
     <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
-    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
-    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="CactusTool.Lib.pygwanalysis package" href="CactusTool.Lib.pygwanalysis.html" />
-    <link rel="prev" title="CactusTool.Debug package" href="CactusTool.Debug.html" /> 
+    <link rel="prev" title="CactusTool.Carpet package" href="CactusTool.Carpet.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -35,10 +35,11 @@
           <a href="CactusTool.Lib.pygwanalysis.html" title="CactusTool.Lib.pygwanalysis package"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="CactusTool.Debug.html" title="CactusTool.Debug package"
+          <a href="CactusTool.Carpet.html" title="CactusTool.Carpet package"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="CactusTool.html" accesskey="U">CactusTool package</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="CactusTool.html" accesskey="U">CactusTool package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CactusTool.Lib package</a></li> 
       </ul>
     </div>  
 
@@ -68,12 +69,110 @@
 </ul>
 </div>
 </div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-CactusTool.Lib.power">
+<span id="cactustool-lib-power-module"></span><h2>CactusTool.Lib.power module<a class="headerlink" href="#module-CactusTool.Lib.power" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="CactusTool.Lib.power.RadialToTortoise">
+<code class="sig-prename descclassname">CactusTool.Lib.power.</code><code class="sig-name descname">RadialToTortoise</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">r</span></em>, <em class="sig-param"><span class="n">M</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/power.html#RadialToTortoise"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.power.RadialToTortoise" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert the radial coordinate to the tortoise coordinate</p>
+<p>r = radial coordinate
+M = ADMMass used to convert coordinate
+return = tortoise coordinate value</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="CactusTool.Lib.power.angular_momentum">
+<code class="sig-prename descclassname">CactusTool.Lib.power.</code><code class="sig-name descname">angular_momentum</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">q</span></em>, <em class="sig-param"><span class="n">m</span></em>, <em class="sig-param"><span class="n">chi1</span></em>, <em class="sig-param"><span class="n">chi2</span></em>, <em class="sig-param"><span class="n">LInitNR</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/power.html#angular_momentum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.power.angular_momentum" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="CactusTool.Lib.power.ffi">
+<code class="sig-prename descclassname">CactusTool.Lib.power.</code><code class="sig-name descname">ffi</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">freq</span></em>, <em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">f0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/power.html#ffi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.power.ffi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Integrates the data according to the input frequency and cutoff frequency</p>
+<p>freq = fourier transform frequency
+data = input on which ffi is performed
+f0 = cutoff frequency</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="CactusTool.Lib.power.getCutoffFrequency">
+<code class="sig-prename descclassname">CactusTool.Lib.power.</code><code class="sig-name descname">getCutoffFrequency</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sim_name</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/power.html#getCutoffFrequency"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.power.getCutoffFrequency" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determine cutoff frequency of simulation</p>
+<p>sim_name = string of simulation
+return = cutoff frequency</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="CactusTool.Lib.power.get_angular_momentum">
+<code class="sig-prename descclassname">CactusTool.Lib.power.</code><code class="sig-name descname">get_angular_momentum</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">python_strain</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/power.html#get_angular_momentum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.power.get_angular_momentum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the energy radiated angular momentum
+sim = string of simulation</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="CactusTool.Lib.power.get_energy">
+<code class="sig-prename descclassname">CactusTool.Lib.power.</code><code class="sig-name descname">get_energy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sim</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/power.html#get_energy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.power.get_energy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the energy radiated energy
+sim = string of simulation</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="CactusTool.Lib.power.joinDsets">
+<code class="sig-prename descclassname">CactusTool.Lib.power.</code><code class="sig-name descname">joinDsets</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dsets</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/power.html#joinDsets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.power.joinDsets" title="Permalink to this definition">¶</a></dt>
+<dd><p>joints multiple datasets which each have a
+time like first column, eg iteration number of
+time. Removes overlapping segments, keeping the
+last segment.</p>
+<p>dsets = iterable of 2d array like objects with data</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="CactusTool.Lib.power.loadHDF5Series">
+<code class="sig-prename descclassname">CactusTool.Lib.power.</code><code class="sig-name descname">loadHDF5Series</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">nameglob</span></em>, <em class="sig-param"><span class="n">series</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/power.html#loadHDF5Series"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.power.loadHDF5Series" title="Permalink to this definition">¶</a></dt>
+<dd><p>load HDF5 timeseries data and concatenate the content of multiple files</p>
+<p>nameglob = a shell glob that matches all files to be loaded,
+files are sorted alphabetically
+series = HDF5 dataset name of dataset to load from files</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="CactusTool.Lib.power.myFourierTransform">
+<code class="sig-prename descclassname">CactusTool.Lib.power.</code><code class="sig-name descname">myFourierTransform</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t0</span></em>, <em class="sig-param"><span class="n">complexPsi</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/power.html#myFourierTransform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.power.myFourierTransform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transforms the complexPsi data to frequency space</p>
+<p>t0 = time data points
+complexPsi = data points of Psi to be transformed</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="CactusTool.Lib.power.myFourierTransformInverse">
+<code class="sig-prename descclassname">CactusTool.Lib.power.</code><code class="sig-name descname">myFourierTransformInverse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">freq</span></em>, <em class="sig-param"><span class="n">hf</span></em>, <em class="sig-param"><span class="n">t0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/power.html#myFourierTransformInverse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.power.myFourierTransformInverse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="CactusTool.Lib.power.psi4ToStrain">
+<code class="sig-prename descclassname">CactusTool.Lib.power.</code><code class="sig-name descname">psi4ToStrain</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mp_psi4</span></em>, <em class="sig-param"><span class="n">f0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/power.html#psi4ToStrain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.power.psi4ToStrain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert the input mp_psi4 data to the strain of the gravitational wave</p>
+<p>mp_psi4 = Weyl scalar result from simulation
+f0 = cutoff frequency
+return = strain (h) of the gravitational wave</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="CactusTool.Lib.power.to_bool">
+<code class="sig-prename descclassname">CactusTool.Lib.power.</code><code class="sig-name descname">to_bool</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">s</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Lib/power.html#to_bool"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Lib.power.to_bool" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
 <div class="section" id="module-CactusTool.Lib">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-CactusTool.Lib" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -83,14 +182,16 @@
   <ul>
 <li><a class="reference internal" href="#">CactusTool.Lib package</a><ul>
 <li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-CactusTool.Lib.power">CactusTool.Lib.power module</a></li>
 <li><a class="reference internal" href="#module-CactusTool.Lib">Module contents</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="CactusTool.Debug.html"
-                        title="previous chapter">CactusTool.Debug package</a></p>
+  <p class="topless"><a href="CactusTool.Carpet.html"
+                        title="previous chapter">CactusTool.Carpet package</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="CactusTool.Lib.pygwanalysis.html"
                         title="next chapter">CactusTool.Lib.pygwanalysis package</a></p>
@@ -110,7 +211,7 @@
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -128,15 +229,16 @@
           <a href="CactusTool.Lib.pygwanalysis.html" title="CactusTool.Lib.pygwanalysis package"
              >next</a> |</li>
         <li class="right" >
-          <a href="CactusTool.Debug.html" title="CactusTool.Debug package"
+          <a href="CactusTool.Carpet.html" title="CactusTool.Carpet package"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="CactusTool.html" >CactusTool package</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="CactusTool.html" >CactusTool package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CactusTool.Lib package</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, Yu Liu.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
     </div>
   </body>
 </html>

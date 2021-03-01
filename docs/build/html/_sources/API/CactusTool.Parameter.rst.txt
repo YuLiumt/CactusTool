@@ -4,6 +4,14 @@ CactusTool.Parameter package
 Submodules
 ----------
 
+CactusTool.Parameter.cclparse module
+------------------------------------
+
+.. automodule:: CactusTool.Parameter.cclparse
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 CactusTool.Parameter.parfile module
 -----------------------------------
 
@@ -11,7 +19,6 @@ CactusTool.Parameter.parfile module
    :members:
    :undoc-members:
    :show-inheritance:
-
 
 Module contents
 ---------------

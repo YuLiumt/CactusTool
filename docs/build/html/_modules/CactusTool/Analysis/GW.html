@@ -1,22 +1,22 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CactusTool.Analysis.GW &#8212; CactusTool 0.0.1 documentation</title>
     <link rel="stylesheet" href="../../../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
-    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
   </head><body>
@@ -30,7 +30,8 @@
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CactusTool.Analysis.GW</a></li> 
       </ul>
     </div>  
 
@@ -40,29 +41,92 @@
           <div class="body" role="main">
             
   <h1>Source code for CactusTool.Analysis.GW</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">..funcs</span> <span class="k">import</span> <span class="n">add_three_key</span><span class="p">,</span> <span class="n">logger</span>
-<span class="kn">from</span> <span class="nn">..Lib.pygwanalysis</span> <span class="k">import</span> <span class="n">InitModeArray</span><span class="p">,</span> <span class="n">WaveFunction</span><span class="p">,</span> <span class="n">GethFromPsi4</span><span class="p">,</span> <span class="n">SelecthPlus</span><span class="p">,</span> <span class="n">SelecthCross</span><span class="p">,</span> <span class="n">StrainToSI</span><span class="p">,</span> <span class="n">Spectrogram</span>
-<span class="c1"># , ReconFromsYlm, FStrainToSI</span>
+<span></span><span class="kn">from</span> <span class="nn">..funcs.log</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">..funcs</span> <span class="kn">import</span> <span class="n">read</span>
+<span class="c1"># from ..Lib.pygwanalysis import WaveFunction, GethFromPsi4,  Spectrogram , InitModeArray, SelecthPlus, SelecthCross</span>
+<span class="c1"># import matplotlib.pyplot as plt</span>
+<span class="kn">from</span> <span class="nn">..Lib.power</span> <span class="kn">import</span> <span class="n">RadialToTortoise</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">os</span>
+
+<div class="viewcode-block" id="load"><a class="viewcode-back" href="../../../API/CactusTool.Analysis.html#CactusTool.Analysis.GW.load">[docs]</a><span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="n">files</span><span class="p">):</span>
+    <span class="n">psi4</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[],</span> <span class="p">[],</span> <span class="p">[]])</span>
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+        <span class="n">tem</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">comments</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">,</span> <span class="n">unpack</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">psi4</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">psi4</span><span class="p">,</span> <span class="n">tem</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">psi4</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="multipole"><a class="viewcode-back" href="../../../API/CactusTool.Analysis.html#CactusTool.Analysis.GW.multipole">[docs]</a><span class="k">class</span> <span class="nc">multipole</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class representing the output of the Multipole thorn in a simulation。We store a dictionary {key: files} to be able to track the location of the data across the multiple files.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">files</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">vars</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;^mp_([a-zA-Z0-9\[\]_]+)_l(\d+)_m([-]?\d+)_r([0-9.]+).asc$&#39;</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
-            <span class="n">mp</span> <span class="o">=</span> <span class="n">pat</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">file</span><span class="p">))</span>
-            <span class="k">if</span> <span class="n">mp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">var</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-                <span class="n">l</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">mp</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
-                <span class="n">m</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">mp</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
-                <span class="n">distance</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">mp</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
-                <span class="n">add_three_key</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vars</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">),</span> <span class="n">distance</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">files</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Output a simple ASCII file for each mode at each radius.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">files</span> <span class="o">=</span> <span class="n">files</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dsets</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        
+        <span class="k">if</span> <span class="n">files</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.h5&#39;</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+                <span class="k">with</span> <span class="n">read</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">dset</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+                        <span class="n">mp</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;l(\d*)_m(-?\d*)_r(\d*\.\d)&#39;</span><span class="p">,</span> <span class="n">dset</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">mp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                            <span class="n">l</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">mp</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+                            <span class="n">m</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">mp</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+                            <span class="n">radius</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">mp</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+                            <span class="k">if</span> <span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dsets</span><span class="p">:</span>
+                                <span class="k">if</span> <span class="n">radius</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dsets</span><span class="p">[(</span><span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">)]:</span>
+                                    <span class="bp">self</span><span class="o">.</span><span class="n">dsets</span><span class="p">[(</span><span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">)][</span><span class="n">radius</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dset</span><span class="p">)</span>
+                                <span class="k">else</span><span class="p">:</span>
+                                    <span class="bp">self</span><span class="o">.</span><span class="n">dsets</span><span class="p">[(</span><span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">)][</span><span class="n">radius</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">dset</span><span class="p">]</span>
+                            <span class="k">else</span><span class="p">:</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">dsets</span><span class="p">[(</span><span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">)]</span> <span class="o">=</span> <span class="p">{</span><span class="n">radius</span><span class="p">:</span> <span class="p">[</span><span class="n">dset</span><span class="p">]}</span>
+        <span class="k">elif</span> <span class="n">files</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.asc&#39;</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+                <span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;^mp_([a-zA-Z0-9\[\]_]+)_l(\d+)_m([-]?\d+)_r([0-9.]+).asc$&#39;</span><span class="p">)</span>
+                <span class="n">mp</span> <span class="o">=</span> <span class="n">pat</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">file</span><span class="p">))</span>
+                <span class="k">if</span> <span class="n">mp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">var</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                    <span class="n">l</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">mp</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+                    <span class="n">m</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">mp</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+                    <span class="n">distance</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">mp</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+                    <span class="k">if</span> <span class="n">var</span> <span class="o">==</span> <span class="s1">&#39;psi4&#39;</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dsets</span><span class="p">:</span>
+                            <span class="k">if</span> <span class="n">distance</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dsets</span><span class="p">[(</span><span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">)]:</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">dsets</span><span class="p">[(</span><span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">)][</span><span class="n">distance</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+                            <span class="k">else</span><span class="p">:</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">dsets</span><span class="p">[(</span><span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">)][</span><span class="n">distance</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">file</span><span class="p">]</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">dsets</span><span class="p">[(</span><span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">)]</span> <span class="o">=</span> <span class="p">{</span><span class="n">distance</span><span class="p">:</span> <span class="p">[</span><span class="n">file</span><span class="p">]}</span>
+
+<div class="viewcode-block" id="multipole.Strain"><a class="viewcode-back" href="../../../API/CactusTool.Analysis.html#CactusTool.Analysis.GW.multipole.Strain">[docs]</a>    <span class="k">def</span> <span class="nf">Strain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">M_ADM</span><span class="p">,</span> <span class="n">f0</span><span class="p">,</span> <span class="n">modes</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">radius</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">mode</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dsets</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">modes</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">mode</span> <span class="o">!=</span> <span class="n">modes</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">for</span> <span class="n">radiu</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dsets</span><span class="p">[</span><span class="n">mode</span><span class="p">]):</span>
+                <span class="k">if</span> <span class="n">radius</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">radiu</span> <span class="o">!=</span> <span class="n">radius</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+                <span class="n">dset</span> <span class="o">=</span> <span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dsets</span><span class="p">[</span><span class="n">mode</span><span class="p">][</span><span class="n">radiu</span><span class="p">])</span>
+                <span class="n">t</span> <span class="o">=</span> <span class="n">dset</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">RadialToTortoise</span><span class="p">(</span><span class="n">radiu</span><span class="p">,</span> <span class="n">M_ADM</span><span class="p">)</span>
+                <span class="n">rpsi4</span> <span class="o">=</span> <span class="p">(</span><span class="n">dset</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">1.</span><span class="n">j</span><span class="o">*</span><span class="n">dset</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">*</span> <span class="n">radiu</span>
+                <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">rpsi4</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span><span class="p">:</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;The </span><span class="si">{}</span><span class="s2"> mode of psi4 amplitude at </span><span class="si">{}</span><span class="s2">[M] is near zero. The phase is ill-defined.&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">radiu</span><span class="p">)</span> 
+                <span class="n">p</span> <span class="o">=</span> <span class="n">WaveFunction</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">rpsi4</span><span class="p">)</span>
+                <span class="n">rh</span> <span class="o">=</span> <span class="n">GethFromPsi4</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">f0</span><span class="o">*</span><span class="n">mode</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+                <span class="c1"># if radius == -1:</span>
+                <span class="c1">#     # Extrapolate</span>
+                <span class="c1">#     t = rh.x</span>
+                <span class="c1">#     phase = np.unwrap(np.angle(rh.f))</span>
+                <span class="c1">#     amp = np.absolute(rh.f)</span>
+                    
+
+                <span class="k">return</span> <span class="n">rh</span>                    </div>
 
 <div class="viewcode-block" id="multipole.Psi4ToStrain"><a class="viewcode-back" href="../../../API/CactusTool.Analysis.html#CactusTool.Analysis.GW.multipole.Psi4ToStrain">[docs]</a>    <span class="k">def</span> <span class="nf">Psi4ToStrain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f0</span><span class="p">,</span> <span class="n">lmax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">distance</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -103,7 +167,7 @@
 
 <div class="viewcode-block" id="GravitationalWave"><a class="viewcode-back" href="../../../API/CactusTool.Analysis.html#CactusTool.Analysis.GW.GravitationalWave">[docs]</a><span class="k">class</span> <span class="nc">GravitationalWave</span><span class="p">:</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WF</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">WF</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">WF</span> <span class="o">=</span> <span class="n">WF</span>
     
     <span class="c1"># def hplus(self):</span>
@@ -134,13 +198,14 @@
         <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$h$&#39;</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div></div>
 
-    <span class="c1"># def Spectrogram(self, tau t0, t1, n):</span>
+    <span class="c1"># def Spectrogram(self, tau, t0, t1, n):</span>
     <span class="c1">#     def hamming(t, sigma):</span>
     <span class="c1">#         return 0.54 - 0.46*cos(2.0*pi*n/(M-1))</span>
 
     <span class="c1">#     return Spectrogram(self.WF, kernel, tau, sigma, t0, t1, n)</span>
 </pre></div>
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -155,7 +220,7 @@
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -170,12 +235,13 @@
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CactusTool.Analysis.GW</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, Yu Liu.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
     </div>
   </body>
 </html>

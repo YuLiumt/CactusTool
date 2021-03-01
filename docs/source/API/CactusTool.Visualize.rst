@@ -4,10 +4,26 @@ CactusTool.Visualize package
 Submodules
 ----------
 
-CactusTool.Visualize.plot2d module
+CactusTool.Visualize.plot0D module
 ----------------------------------
 
-.. automodule:: CactusTool.Visualize.plot2d
+.. automodule:: CactusTool.Visualize.plot0D
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+CactusTool.Visualize.plot1D module
+----------------------------------
+
+.. automodule:: CactusTool.Visualize.plot1D
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+CactusTool.Visualize.plot2D module
+----------------------------------
+
+.. automodule:: CactusTool.Visualize.plot2D
    :members:
    :undoc-members:
    :show-inheritance:
@@ -28,14 +44,6 @@ CactusTool.Visualize.profile module
    :undoc-members:
    :show-inheritance:
 
-CactusTool.Visualize.ts module
-------------------------------
-
-.. automodule:: CactusTool.Visualize.ts
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 CactusTool.Visualize.visualize module
 -------------------------------------
 
@@ -51,7 +59,6 @@ CactusTool.Visualize.volume module
    :members:
    :undoc-members:
    :show-inheritance:
-
 
 Module contents
 ---------------

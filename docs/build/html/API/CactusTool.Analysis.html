@@ -1,22 +1,22 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CactusTool.Analysis package &#8212; CactusTool 0.0.1 documentation</title>
     <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
-    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
-    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="CactusTool.Carpet package" href="CactusTool.Carpet.html" />
@@ -38,7 +38,8 @@
           <a href="CactusTool.html" title="CactusTool package"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="CactusTool.html" accesskey="U">CactusTool package</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="CactusTool.html" accesskey="U">CactusTool package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CactusTool.Analysis package</a></li> 
       </ul>
     </div>  
 
@@ -52,20 +53,80 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-CactusTool.Analysis.AH">
-<span id="cactustool-analysis-ah-module"></span><h2>CactusTool.Analysis.AH module<a class="headerlink" href="#module-CactusTool.Analysis.AH" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-CactusTool.Analysis.BH">
+<span id="cactustool-analysis-bh-module"></span><h2>CactusTool.Analysis.BH module<a class="headerlink" href="#module-CactusTool.Analysis.BH" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="CactusTool.Analysis.BH.puncturetracker">
+<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Analysis.BH.</code><code class="sig-name descname">puncturetracker</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">files</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Analysis/BH.html#puncturetracker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Analysis.BH.puncturetracker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="CactusTool.Analysis.BH.puncturetracker.Preview">
+<code class="sig-name descname">Preview</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tstart</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">tend</span><span class="o">=</span><span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">view_angle</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">axlim</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">grid</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Analysis/BH.html#puncturetracker.Preview"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Analysis.BH.puncturetracker.Preview" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot BH tracks in initial simulation frame</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="CactusTool.Analysis.BH.puncturetracker.distance">
+<em class="property">property </em><code class="sig-name descname">distance</code><a class="headerlink" href="#CactusTool.Analysis.BH.puncturetracker.distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evolution of the coordinate distance between the star centers.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="CactusTool.Analysis.BH.puncturetracker.eccentricity">
+<code class="sig-name descname">eccentricity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">p0</span><span class="o">=</span><span class="default_value">[0, 0, 0.01, 0.002, 0]</span></em>, <em class="sig-param"><span class="n">show</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Analysis/BH.html#puncturetracker.eccentricity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Analysis.BH.puncturetracker.eccentricity" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><p>$$
+dot{D}(t)=A_{0}+A_{1} t-e D_{0} omega_{e} sin left(omega_{e} t+phi_{e}</p>
+</div></blockquote>
+<dl>
+<dt>ight)</dt><dd><p>$$
+where $e$ is the eccentricity and $D_{0}$ the initial coordinate interbinary distance.</p>
+<p>arXiv:1605.03424</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="CactusTool.Analysis.BH.twopunctures">
+<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Analysis.BH.</code><code class="sig-name descname">twopunctures</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">files</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Analysis/BH.html#twopunctures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Analysis.BH.twopunctures" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
 </div>
 <div class="section" id="module-CactusTool.Analysis.CoM">
 <span id="cactustool-analysis-com-module"></span><h2>CactusTool.Analysis.CoM module<a class="headerlink" href="#module-CactusTool.Analysis.CoM" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="CactusTool.Analysis.CoM.volumeintegrals_grmhd">
-<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Analysis.CoM.</code><code class="sig-name descname">volumeintegrals_grmhd</code><span class="sig-paren">(</span><em class="sig-param">files</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Analysis/CoM.html#volumeintegrals_grmhd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Analysis.CoM.volumeintegrals_grmhd" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Analysis.CoM.</code><code class="sig-name descname">volumeintegrals_grmhd</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">files</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Analysis/CoM.html#volumeintegrals_grmhd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Analysis.CoM.volumeintegrals_grmhd" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A class representing the output of the VolumeIntegrals_GRMHD thorn in a simulation.</p>
-<dl class="method">
+<dl class="py method">
 <dt id="CactusTool.Analysis.CoM.volumeintegrals_grmhd.Preview">
-<code class="sig-name descname">Preview</code><span class="sig-paren">(</span><em class="sig-param">tstart=0</em>, <em class="sig-param">tend=-1</em>, <em class="sig-param">view_angle=None</em>, <em class="sig-param">axlim=None</em>, <em class="sig-param">axis=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Analysis/CoM.html#volumeintegrals_grmhd.Preview"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Analysis.CoM.volumeintegrals_grmhd.Preview" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">Preview</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tstart</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">tend</span><span class="o">=</span><span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">view_angle</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">axlim</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">axis</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">unit</span><span class="o">=</span><span class="default_value">'ms', 'km'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Analysis/CoM.html#volumeintegrals_grmhd.Preview"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Analysis.CoM.volumeintegrals_grmhd.Preview" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot NS/BH tracks in initial simulation frame</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="CactusTool.Analysis.CoM.volumeintegrals_grmhd.distance">
+<em class="property">property </em><code class="sig-name descname">distance</code><a class="headerlink" href="#CactusTool.Analysis.CoM.volumeintegrals_grmhd.distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evolution of the coordinate distance between the star centers.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="CactusTool.Analysis.CoM.volumeintegrals_grmhd.eccentricity">
+<code class="sig-name descname">eccentricity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">p0</span><span class="o">=</span><span class="default_value">[0, 0, 0.01, 1, 0]</span></em>, <em class="sig-param"><span class="n">show</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Analysis/CoM.html#volumeintegrals_grmhd.eccentricity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Analysis.CoM.volumeintegrals_grmhd.eccentricity" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><p>$$
+dot{D}(t)=A_{0}+A_{1} t-e D_{0} omega_{e} sin left(omega_{e} t+phi_{e}</p>
+</div></blockquote>
+<dl>
+<dt>ight)</dt><dd><p>$$
+where $e$ is the eccentricity and $D_{0}$ the initial coordinate interbinary distance.</p>
+<p>arXiv:1605.03424</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -73,25 +134,30 @@
 </div>
 <div class="section" id="module-CactusTool.Analysis.GW">
 <span id="cactustool-analysis-gw-module"></span><h2>CactusTool.Analysis.GW module<a class="headerlink" href="#module-CactusTool.Analysis.GW" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="CactusTool.Analysis.GW.GravitationalWave">
-<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Analysis.GW.</code><code class="sig-name descname">GravitationalWave</code><span class="sig-paren">(</span><em class="sig-param">WF</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Analysis/GW.html#GravitationalWave"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Analysis.GW.GravitationalWave" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Analysis.GW.</code><code class="sig-name descname">GravitationalWave</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">WF</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Analysis/GW.html#GravitationalWave"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Analysis.GW.GravitationalWave" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="method">
+<dl class="py method">
 <dt id="CactusTool.Analysis.GW.GravitationalWave.Preview">
-<code class="sig-name descname">Preview</code><span class="sig-paren">(</span><em class="sig-param">M</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Analysis/GW.html#GravitationalWave.Preview"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Analysis.GW.GravitationalWave.Preview" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">Preview</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">M</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Analysis/GW.html#GravitationalWave.Preview"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Analysis.GW.GravitationalWave.Preview" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py function">
+<dt id="CactusTool.Analysis.GW.load">
+<code class="sig-prename descclassname">CactusTool.Analysis.GW.</code><code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">files</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Analysis/GW.html#load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Analysis.GW.load" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
 <dt id="CactusTool.Analysis.GW.multipole">
-<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Analysis.GW.</code><code class="sig-name descname">multipole</code><span class="sig-paren">(</span><em class="sig-param">files</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Analysis/GW.html#multipole"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Analysis.GW.multipole" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Analysis.GW.</code><code class="sig-name descname">multipole</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">files</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Analysis/GW.html#multipole"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Analysis.GW.multipole" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A class representing the output of the Multipole thorn in a simulation。We store a dictionary {key: files} to be able to track the location of the data across the multiple files.</p>
-<dl class="method">
+<dl class="py method">
 <dt id="CactusTool.Analysis.GW.multipole.Psi4ToStrain">
-<code class="sig-name descname">Psi4ToStrain</code><span class="sig-paren">(</span><em class="sig-param">f0</em>, <em class="sig-param">lmax=None</em>, <em class="sig-param">distance=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Analysis/GW.html#multipole.Psi4ToStrain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Analysis.GW.multipole.Psi4ToStrain" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">Psi4ToStrain</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">f0</span></em>, <em class="sig-param"><span class="n">lmax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">distance</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Analysis/GW.html#multipole.Psi4ToStrain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Analysis.GW.multipole.Psi4ToStrain" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class is used to obtain GW signal multipole components from <span class="math notranslate nohighlight">\(\Psi_4\)</span> Weyl scalar multipole components extracted at various distances.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -104,45 +170,47 @@
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt id="CactusTool.Analysis.GW.multipole.Strain">
+<code class="sig-name descname">Strain</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">M_ADM</span></em>, <em class="sig-param"><span class="n">f0</span></em>, <em class="sig-param"><span class="n">modes</span><span class="o">=</span><span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">radius</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Analysis/GW.html#multipole.Strain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Analysis.GW.multipole.Strain" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </div>
 <div class="section" id="module-CactusTool.Analysis.HMNS">
 <span id="cactustool-analysis-hmns-module"></span><h2>CactusTool.Analysis.HMNS module<a class="headerlink" href="#module-CactusTool.Analysis.HMNS" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="CactusTool.Analysis.HMNS.hmns">
-<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Analysis.HMNS.</code><code class="sig-name descname">hmns</code><span class="sig-paren">(</span><em class="sig-param">files</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Analysis/HMNS.html#hmns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Analysis.HMNS.hmns" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Analysis.HMNS.</code><code class="sig-name descname">hmns</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">files</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Analysis/HMNS.html#hmns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Analysis.HMNS.hmns" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="method">
+<dl class="py method">
 <dt id="CactusTool.Analysis.HMNS.hmns.Omega">
-<code class="sig-name descname">Omega</code><span class="sig-paren">(</span><em class="sig-param">it=0</em>, <em class="sig-param">ax=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Analysis/HMNS.html#hmns.Omega"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Analysis.HMNS.hmns.Omega" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">Omega</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">it</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">ax</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Analysis/HMNS.html#hmns.Omega"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Analysis.HMNS.hmns.Omega" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="CactusTool.Analysis.HMNS.hmns.RotationProfile">
-<code class="sig-name descname">RotationProfile</code><span class="sig-paren">(</span><em class="sig-param">it=0</em>, <em class="sig-param">r_c=True</em>, <em class="sig-param">ax=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Analysis/HMNS.html#hmns.RotationProfile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Analysis.HMNS.hmns.RotationProfile" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">RotationProfile</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">it</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">r_c</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">ax</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Analysis/HMNS.html#hmns.RotationProfile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Analysis.HMNS.hmns.RotationProfile" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="CactusTool.Analysis.HMNS.hmns.RotationProfile_2D">
-<code class="sig-name descname">RotationProfile_2D</code><span class="sig-paren">(</span><em class="sig-param">ax=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Analysis/HMNS.html#hmns.RotationProfile_2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Analysis.HMNS.hmns.RotationProfile_2D" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">RotationProfile_2D</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ax</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Analysis/HMNS.html#hmns.RotationProfile_2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Analysis.HMNS.hmns.RotationProfile_2D" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="CactusTool.Analysis.HMNS.hmns.it">
 <em class="property">property </em><code class="sig-name descname">it</code><a class="headerlink" href="#CactusTool.Analysis.HMNS.hmns.it" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="CactusTool.Analysis.HMNS.hmns.load">
-<code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param">fname</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Analysis/HMNS.html#hmns.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Analysis.HMNS.hmns.load" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fname</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Analysis/HMNS.html#hmns.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Analysis.HMNS.hmns.load" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-</div>
-<div class="section" id="module-CactusTool.Analysis.thorn_inf">
-<span id="cactustool-analysis-thorn-inf-module"></span><h2>CactusTool.Analysis.thorn_inf module<a class="headerlink" href="#module-CactusTool.Analysis.thorn_inf" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-CactusTool.Analysis">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-CactusTool.Analysis" title="Permalink to this headline">¶</a></h2>
@@ -150,6 +218,7 @@
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -159,11 +228,10 @@
   <ul>
 <li><a class="reference internal" href="#">CactusTool.Analysis package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-CactusTool.Analysis.AH">CactusTool.Analysis.AH module</a></li>
+<li><a class="reference internal" href="#module-CactusTool.Analysis.BH">CactusTool.Analysis.BH module</a></li>
 <li><a class="reference internal" href="#module-CactusTool.Analysis.CoM">CactusTool.Analysis.CoM module</a></li>
 <li><a class="reference internal" href="#module-CactusTool.Analysis.GW">CactusTool.Analysis.GW module</a></li>
 <li><a class="reference internal" href="#module-CactusTool.Analysis.HMNS">CactusTool.Analysis.HMNS module</a></li>
-<li><a class="reference internal" href="#module-CactusTool.Analysis.thorn_inf">CactusTool.Analysis.thorn_inf module</a></li>
 <li><a class="reference internal" href="#module-CactusTool.Analysis">Module contents</a></li>
 </ul>
 </li>
@@ -191,7 +259,7 @@
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -212,12 +280,13 @@
           <a href="CactusTool.html" title="CactusTool package"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="CactusTool.html" >CactusTool package</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="CactusTool.html" >CactusTool package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CactusTool.Analysis package</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, Yu Liu.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
     </div>
   </body>
 </html>

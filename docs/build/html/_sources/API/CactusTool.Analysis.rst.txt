@@ -4,10 +4,10 @@ CactusTool.Analysis package
 Submodules
 ----------
 
-CactusTool.Analysis.AH module
+CactusTool.Analysis.BH module
 -----------------------------
 
-.. automodule:: CactusTool.Analysis.AH
+.. automodule:: CactusTool.Analysis.BH
    :members:
    :undoc-members:
    :show-inheritance:
@@ -35,15 +35,6 @@ CactusTool.Analysis.HMNS module
    :members:
    :undoc-members:
    :show-inheritance:
-
-CactusTool.Analysis.thorn\_inf module
--------------------------------------
-
-.. automodule:: CactusTool.Analysis.thorn_inf
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 
 Module contents
 ---------------

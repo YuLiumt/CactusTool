@@ -1,0 +1,234 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CactusTool.Parameter.cclparse &#8212; CactusTool 0.0.1 documentation</title>
+    <link rel="stylesheet" href="../../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CactusTool.Parameter.cclparse</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for CactusTool.Parameter.cclparse</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<div class="viewcode-block" id="parse_deps"><a class="viewcode-back" href="../../../API/CactusTool.Parameter.html#CactusTool.Parameter.cclparse.parse_deps">[docs]</a><span class="k">def</span> <span class="nf">parse_deps</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parse the Cactus CCL files and generate dictionary of dependencies</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Files</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">Dependencies</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">TimeBins</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;recover_parameters&#39;</span><span class="p">,</span> <span class="s1">&#39;startup&#39;</span><span class="p">,</span> <span class="s1">&#39;wragh&#39;</span><span class="p">,</span> <span class="s1">&#39;paramcheck&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;preregridinitial&#39;</span><span class="p">,</span> <span class="s1">&#39;postregridinitial&#39;</span><span class="p">,</span> <span class="s1">&#39;basegrid&#39;</span><span class="p">,</span> 
+                <span class="s1">&#39;initial&#39;</span><span class="p">,</span> <span class="s1">&#39;postinitial&#39;</span><span class="p">,</span> <span class="s1">&#39;postrestrictinitial&#39;</span><span class="p">,</span> 
+                <span class="s1">&#39;postpostinitial&#39;</span><span class="p">,</span> <span class="s1">&#39;recover_variables&#39;</span><span class="p">,</span> 
+                <span class="s1">&#39;post_recover_variables&#39;</span><span class="p">,</span> <span class="s1">&#39;cpinitial&#39;</span><span class="p">,</span> <span class="s1">&#39;checkpoint&#39;</span><span class="p">,</span> 
+                <span class="s1">&#39;preregrid&#39;</span><span class="p">,</span> <span class="s1">&#39;postregrid&#39;</span><span class="p">,</span> <span class="s1">&#39;prestep&#39;</span><span class="p">,</span> <span class="s1">&#39;evol&#39;</span><span class="p">,</span> <span class="s1">&#39;postrestrict&#39;</span><span class="p">,</span> 
+                <span class="s1">&#39;poststep&#39;</span><span class="p">,</span> <span class="s1">&#39;analysis&#39;</span><span class="p">,</span> <span class="s1">&#39;terminate&#39;</span><span class="p">,</span> <span class="s1">&#39;shutdown&#39;</span><span class="p">]</span>
+
+    <span class="n">implement_re</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;implements:\s*(\w+)&#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">)</span>
+    <span class="n">inherit_re</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;inherits:\s*(.+)&#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">)</span>
+    <span class="n">provides_function_re</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;PROVIDES\s+FUNCTION\s+(\w+)&#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">)</span>
+    <span class="n">uses_function_re</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;USES\s+FUNCTION\s+(\w+)&#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">)</span>
+    <span class="n">requires_function_re</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;REQUIRES\s+FUNCTION\s+(\w+)&#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">)</span>
+    <span class="n">shares_re</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;shares:\s*(\w+)&#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">)</span>
+    <span class="n">requires_thorn_re</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;REQUIRES\s+(?!FUNCTION\s*)(\w+)&#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">)</span>
+    <span class="n">schedules_function_re</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;schedule\s+(?:group\s+)?(\w+)\s+(?:in|at)\s+(\w+)&#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">)</span>
+
+    <span class="c1"># find all interface.ccl and param.ccl files in cwd</span>
+    <span class="n">Cactus_Path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">&#39;~/Cactus/&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">dirpath</span><span class="p">,</span> <span class="n">dirnames</span><span class="p">,</span> <span class="n">filenames</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">Cactus_Path</span> <span class="o">+</span> <span class="s1">&#39;arrangements&#39;</span><span class="p">,</span> <span class="n">followlinks</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">file</span> <span class="o">==</span> <span class="s1">&#39;interface.ccl&#39;</span><span class="p">:</span>
+                <span class="n">Files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirpath</span><span class="p">,</span> <span class="n">file</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">Files</span><span class="p">:</span>
+        <span class="c1"># first parse interface.ccl</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">fptr</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">IOError</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Could not open </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">file</span><span class="p">)</span> 
+
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">fptr</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">fptr</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">IOError</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Could not close </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">file</span><span class="p">)</span> 
+
+        <span class="c1"># then parse param.ccl</span>
+        <span class="n">file</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;interface.ccl&#39;</span><span class="p">,</span> <span class="s1">&#39;param.ccl&#39;</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">fptr</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">IOError</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Could not open </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">file</span><span class="p">)</span> 
+
+        <span class="n">lines</span> <span class="o">+=</span> <span class="n">fptr</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">fptr</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">IOError</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Could not close </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">file</span><span class="p">)</span> 
+
+        <span class="c1"># then configuration.ccl</span>
+        <span class="n">file</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;param.ccl&#39;</span><span class="p">,</span> <span class="s1">&#39;configuration.ccl&#39;</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">fptr</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+            <span class="n">lines</span> <span class="o">+=</span> <span class="n">fptr</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+            <span class="n">fptr</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">IOError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="c1"># then schedule.ccl</span>
+        <span class="n">file</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;configuration.ccl&#39;</span><span class="p">,</span> <span class="s1">&#39;schedule.ccl&#39;</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">fptr</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+            <span class="n">lines</span> <span class="o">+=</span> <span class="n">fptr</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+            <span class="n">fptr</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">IOError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="c1"># get the thorn dir and its parent</span>
+        <span class="n">thornname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">file</span><span class="p">))</span>
+        <span class="n">parentdir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">file</span><span class="p">)))</span>
+        <span class="n">thornname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">parentdir</span><span class="p">,</span> <span class="n">thornname</span><span class="p">)</span>
+        <span class="n">file_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span> <span class="p">:</span> <span class="n">thornname</span><span class="o">.</span><span class="n">lower</span><span class="p">()}</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">implement_re</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">m</span><span class="p">:</span>
+                <span class="n">file_dict</span><span class="p">[</span><span class="s1">&#39;implements&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+            <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">inherit_re</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">m</span><span class="p">:</span>
+                <span class="n">inheritance</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;\W+&#39;</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+                <span class="n">file_dict</span><span class="p">[</span><span class="s1">&#39;inherits&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">inheritance</span>
+
+            <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">provides_function_re</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">m</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">file_dict</span><span class="p">[</span><span class="s1">&#39;provides_function&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                    <span class="n">file_dict</span><span class="p">[</span><span class="s1">&#39;provides_function&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+
+            <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">uses_function_re</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">m</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">file_dict</span><span class="p">[</span><span class="s1">&#39;uses_function&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                    <span class="n">file_dict</span><span class="p">[</span><span class="s1">&#39;uses_function&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+
+            <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">requires_function_re</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">m</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">file_dict</span><span class="p">[</span><span class="s1">&#39;requires_function&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                    <span class="n">file_dict</span><span class="p">[</span><span class="s1">&#39;requires_function&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+
+            <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">requires_thorn_re</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">m</span><span class="p">:</span>
+                <span class="n">requires</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;\W+&#39;</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+                <span class="c1"># sometimes we have &#39;REQUIRES THORNS&#39; instead of &#39;REQUIRES&#39;</span>
+                <span class="k">if</span> <span class="n">requires</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;thorns&#39;</span><span class="p">:</span>
+                    <span class="k">del</span> <span class="n">requires</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">file_dict</span><span class="p">[</span><span class="s1">&#39;requires_thorn&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">requires</span>
+
+            <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">shares_re</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">m</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">file_dict</span><span class="p">[</span><span class="s1">&#39;shares&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                    <span class="n">file_dict</span><span class="p">[</span><span class="s1">&#39;shares&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+
+            <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">schedules_function_re</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">m</span><span class="p">:</span>
+                <span class="nb">bin</span><span class="p">,</span> <span class="n">func</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                <span class="k">if</span> <span class="nb">bin</span> <span class="ow">in</span> <span class="n">TimeBins</span><span class="p">:</span>
+                    <span class="nb">bin</span> <span class="o">=</span> <span class="s1">&#39;cctk_&#39;</span> <span class="o">+</span> <span class="nb">bin</span>
+                <span class="n">func_dict</span> <span class="o">=</span> <span class="p">{</span><span class="nb">bin</span> <span class="p">:</span> <span class="n">func</span><span class="p">}</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">file_dict</span><span class="p">[</span><span class="s1">&#39;schedules_function&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">func_dict</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                    <span class="n">file_dict</span><span class="p">[</span><span class="s1">&#39;schedules_function&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">func_dict</span><span class="p">]</span>
+
+
+        <span class="n">Dependencies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file_dict</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">Dependencies</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CactusTool.Parameter.cclparse</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Yu Liu.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+    </div>
+  </body>
+</html>

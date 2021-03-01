@@ -1,25 +1,25 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CactusTool.Carpet package &#8212; CactusTool 0.0.1 documentation</title>
     <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
-    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
-    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="CactusTool.Debug package" href="CactusTool.Debug.html" />
+    <link rel="next" title="CactusTool.Lib package" href="CactusTool.Lib.html" />
     <link rel="prev" title="CactusTool.Analysis package" href="CactusTool.Analysis.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -32,13 +32,14 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="CactusTool.Debug.html" title="CactusTool.Debug package"
+          <a href="CactusTool.Lib.html" title="CactusTool.Lib package"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="CactusTool.Analysis.html" title="CactusTool.Analysis package"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="CactusTool.html" accesskey="U">CactusTool package</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="CactusTool.html" accesskey="U">CactusTool package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CactusTool.Carpet package</a></li> 
       </ul>
     </div>  
 
@@ -55,9 +56,9 @@
 <div class="section" id="module-CactusTool.Carpet.ASCII">
 <span id="cactustool-carpet-ascii-module"></span><h2>CactusTool.Carpet.ASCII module<a class="headerlink" href="#module-CactusTool.Carpet.ASCII" title="Permalink to this headline">¶</a></h2>
 <p>Cactus dataset main produced by <a class="reference external" href="https://carpetcode.org">Carpet</a>, which is an adaptive mesh refinement and multi-patch driver for the Cactus. This modular processes output of CarpetIOASCII.</p>
-<dl class="class">
+<dl class="py class">
 <dt id="CactusTool.Carpet.ASCII.CarpetIOASCII">
-<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Carpet.ASCII.</code><code class="sig-name descname">CarpetIOASCII</code><span class="sig-paren">(</span><em class="sig-param">files</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/ASCII.html#CarpetIOASCII"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.ASCII.CarpetIOASCII" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Carpet.ASCII.</code><code class="sig-name descname">CarpetIOASCII</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">files</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/ASCII.html#CarpetIOASCII"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.ASCII.CarpetIOASCII" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Thorn CarpetIOASCII provides I/O methods for outputting gird function in ASCII format into files. This class can handle all CarpetIOASCII output. Read the dataset from files and return all useful information stored in these files.</p>
 <p><a class="reference internal" href="#CactusTool.Carpet.ASCII.CarpetIOASCII" title="CactusTool.Carpet.ASCII.CarpetIOASCII"><code class="xref py py-class docutils literal notranslate"><span class="pre">CarpetIOASCII</span></code></a> itself do nothing. You need specify the dimensions of gird function. This will pointer to <a class="reference internal" href="#CactusTool.Carpet.ASCII.Griddim" title="CactusTool.Carpet.ASCII.Griddim"><code class="xref py py-class docutils literal notranslate"><span class="pre">Griddim</span></code></a>.</p>
@@ -68,9 +69,9 @@
 </dl>
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="CactusTool.Carpet.ASCII.Griddim">
-<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Carpet.ASCII.</code><code class="sig-name descname">Griddim</code><span class="sig-paren">(</span><em class="sig-param">files</em>, <em class="sig-param">dim</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/ASCII.html#Griddim"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.ASCII.Griddim" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Carpet.ASCII.</code><code class="sig-name descname">Griddim</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">files</span></em>, <em class="sig-param"><span class="n">dim</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/ASCII.html#Griddim"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.ASCII.Griddim" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>For gird function, We need choose the dimension of the gird function. Then choose the variable we want to processes, this will pointer to <a class="reference internal" href="#CactusTool.Carpet.ASCII.Variable" title="CactusTool.Carpet.ASCII.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a>.</p>
 <dl class="field-list simple">
@@ -81,7 +82,7 @@
 </ul>
 </dd>
 </dl>
-<dl class="method">
+<dl class="py method">
 <dt id="CactusTool.Carpet.ASCII.Griddim.available_variables">
 <em class="property">property </em><code class="sig-name descname">available_variables</code><a class="headerlink" href="#CactusTool.Carpet.ASCII.Griddim.available_variables" title="Permalink to this definition">¶</a></dt>
 <dd><p>All available variables in a given dimension.</p>
@@ -92,16 +93,16 @@
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="CactusTool.Carpet.ASCII.Griddim.var_info">
-<em class="property">static </em><code class="sig-name descname">var_info</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/ASCII.html#Griddim.var_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.ASCII.Griddim.var_info" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="sig-name descname">var_info</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/ASCII.html#Griddim.var_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.ASCII.Griddim.var_info" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="CactusTool.Carpet.ASCII.Variable">
-<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Carpet.ASCII.</code><code class="sig-name descname">Variable</code><span class="sig-paren">(</span><em class="sig-param">var</em>, <em class="sig-param">files</em>, <em class="sig-param">dim</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/ASCII.html#Variable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.ASCII.Variable" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Carpet.ASCII.</code><code class="sig-name descname">Variable</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">var</span></em>, <em class="sig-param"><span class="n">files</span></em>, <em class="sig-param"><span class="n">dim</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/ASCII.html#Variable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.ASCII.Variable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>In most case, the variable data have refined grid hirachies and may store in different files. We need combine them as needed. Sometimes you want to process a vector or a tensor. <a class="reference internal" href="#CactusTool.Carpet.ASCII.Variable" title="CactusTool.Carpet.ASCII.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a> can also handel it.</p>
 <dl class="field-list simple">
@@ -115,17 +116,17 @@
 <ul class="simple">
 <li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">Variable.Table</span></code> source data</p></li>
 </ul>
-<dl class="method">
+<dl class="py method">
 <dt id="CactusTool.Carpet.ASCII.Variable.it">
 <em class="property">property </em><code class="sig-name descname">it</code><a class="headerlink" href="#CactusTool.Carpet.ASCII.Variable.it" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="CactusTool.Carpet.ASCII.Variable.temporary">
-<code class="sig-name descname">temporary</code><span class="sig-paren">(</span><em class="sig-param">it=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/ASCII.html#Variable.temporary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.ASCII.Variable.temporary" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">temporary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">it</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/ASCII.html#Variable.temporary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.ASCII.Variable.temporary" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="CactusTool.Carpet.ASCII.Variable.time">
 <em class="property">property </em><code class="sig-name descname">time</code><a class="headerlink" href="#CactusTool.Carpet.ASCII.Variable.time" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -135,9 +136,9 @@
 </div>
 <div class="section" id="module-CactusTool.Carpet.Array">
 <span id="cactustool-carpet-array-module"></span><h2>CactusTool.Carpet.Array module<a class="headerlink" href="#module-CactusTool.Carpet.Array" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="CactusTool.Carpet.Array.IOArray">
-<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Carpet.Array.</code><code class="sig-name descname">IOArray</code><span class="sig-paren">(</span><em class="sig-param">files</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/Array.html#IOArray"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.Array.IOArray" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Carpet.Array.</code><code class="sig-name descname">IOArray</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">files</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/Array.html#IOArray"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.Array.IOArray" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 </dd></dl>
 
@@ -145,33 +146,68 @@
 <div class="section" id="module-CactusTool.Carpet.GF">
 <span id="cactustool-carpet-gf-module"></span><h2>CactusTool.Carpet.GF module<a class="headerlink" href="#module-CactusTool.Carpet.GF" title="Permalink to this headline">¶</a></h2>
 <p>Cactus dataset main produced by <a class="reference external" href="https://carpetcode.org">Carpet</a>, which is an adaptive mesh refinement and multi-patch driver for the Cactus. This modular processes output of CarpetIOHDF5 or CarpetIOASCII.</p>
-<dl class="class">
+<dl class="py class">
 <dt id="CactusTool.Carpet.GF.CarpetGF">
-<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Carpet.GF.</code><code class="sig-name descname">CarpetGF</code><span class="sig-paren">(</span><em class="sig-param">files</em>, <em class="sig-param">dim</em>, <em class="sig-param">format</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/GF.html#CarpetGF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.GF.CarpetGF" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Carpet.GF.</code><code class="sig-name descname">CarpetGF</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">files</span></em>, <em class="sig-param"><span class="n">dim</span></em>, <em class="sig-param"><span class="n">ftype</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/GF.html#CarpetGF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.GF.CarpetGF" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class representing grid function.</p>
 </dd></dl>
 
-<dl class="class">
-<dt id="CactusTool.Carpet.GF.CarpetIOHDF5">
-<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Carpet.GF.</code><code class="sig-name descname">CarpetIOHDF5</code><span class="sig-paren">(</span><em class="sig-param">files</em>, <em class="sig-param">dim</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/GF.html#CarpetIOHDF5"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.GF.CarpetIOHDF5" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt id="CactusTool.Carpet.GF.CarpetIOASCII">
+<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Carpet.GF.</code><code class="sig-name descname">CarpetIOASCII</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em>, <em class="sig-param"><span class="n">dim</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/GF.html#CarpetIOASCII"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.GF.CarpetIOASCII" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Thorn CarpetIOHDF5 provides I/O methods for outputting gird function in HDF5 format into files. This class can handle all CarpetIOHDF5 output. Read the dataset from files and return all useful information stored in these files. We recommend use CarpetIOHDF5 to output all 2-D and 3-D grid function.</p>
+<p>Thorn CarpetIOASCII provides I/O methods for outputting gird function in ASCII format into files. This class can handle all CarpetIOASCII output. Read the dataset from files and return all useful information stored in these files.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>file</strong> (<em>str</em>) – a single filename</p>
+<dd class="field-odd"><p><strong>files</strong> (<em>str</em>) – a single filename</p>
 </dd>
 </dl>
-<dl class="method">
+<dl class="py method">
+<dt id="CactusTool.Carpet.GF.CarpetIOASCII.animation">
+<code class="sig-name descname">animation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'data'</span></em>, <em class="sig-param"><span class="n">reflevel</span><span class="o">=</span><span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">unit</span><span class="o">=</span><span class="default_value">'cactus'</span></em>, <em class="sig-param"><span class="n">saveto</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/GF.html#CarpetIOASCII.animation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.GF.CarpetIOASCII.animation" title="Permalink to this definition">¶</a></dt>
+<dd><p>plot 1D Carpet data, then animate it.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="CactusTool.Carpet.GF.CarpetIOASCII.dsets">
+<code class="sig-name descname">dsets</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'data'</span></em>, <em class="sig-param"><span class="n">it</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/GF.html#CarpetIOASCII.dsets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.GF.CarpetIOASCII.dsets" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="CactusTool.Carpet.GF.CarpetIOASCII.it">
+<em class="property">property </em><code class="sig-name descname">it</code><a class="headerlink" href="#CactusTool.Carpet.GF.CarpetIOASCII.it" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="CactusTool.Carpet.GF.CarpetIOHDF5">
+<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Carpet.GF.</code><code class="sig-name descname">CarpetIOHDF5</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">files</span></em>, <em class="sig-param"><span class="n">dim</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/GF.html#CarpetIOHDF5"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.GF.CarpetIOHDF5" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Thorn CarpetIOHDF5 provides I/O methods for outputting gird function in HDF5 format into files. This class can handle all CarpetIOHDF5 output. Read the dataset from files and return all useful information stored in these files. We recommend use CarpetIOHDF5 to output all 2-D and 3-D grid function.</p>
+<dl class="py method">
+<dt id="CactusTool.Carpet.GF.CarpetIOHDF5.animation">
+<code class="sig-name descname">animation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">var</span></em>, <em class="sig-param"><span class="n">axlim</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">reflevel</span><span class="o">=</span><span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">unit</span><span class="o">=</span><span class="default_value">'cactus'</span></em>, <em class="sig-param"><span class="n">saveto</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">cmap</span><span class="o">=</span><span class="default_value">'viridis'</span></em>, <em class="sig-param"><span class="n">interval</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/GF.html#CarpetIOHDF5.animation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.GF.CarpetIOHDF5.animation" title="Permalink to this definition">¶</a></dt>
+<dd><p>plot 2D Carpet data, then animate it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>interval</strong> (<em>int</em>) – Pause between frames in ms</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="CactusTool.Carpet.GF.CarpetIOHDF5.dsets">
+<code class="sig-name descname">dsets</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">var</span></em>, <em class="sig-param"><span class="n">it</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">rl</span><span class="o">=</span><span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">c</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/GF.html#CarpetIOHDF5.dsets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.GF.CarpetIOHDF5.dsets" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt id="CactusTool.Carpet.GF.CarpetIOHDF5.it">
 <em class="property">property </em><code class="sig-name descname">it</code><a class="headerlink" href="#CactusTool.Carpet.GF.CarpetIOHDF5.it" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="CactusTool.Carpet.GF.CarpetIOHDF5.temporary">
-<code class="sig-name descname">temporary</code><span class="sig-paren">(</span><em class="sig-param">var</em>, <em class="sig-param">it=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/GF.html#CarpetIOHDF5.temporary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.GF.CarpetIOHDF5.temporary" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
+<dl class="py method">
 <dt id="CactusTool.Carpet.GF.CarpetIOHDF5.vars">
 <em class="property">property </em><code class="sig-name descname">vars</code><a class="headerlink" href="#CactusTool.Carpet.GF.CarpetIOHDF5.vars" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -184,35 +220,30 @@
 </div>
 <div class="section" id="module-CactusTool.Carpet.Scalar">
 <span id="cactustool-carpet-scalar-module"></span><h2>CactusTool.Carpet.Scalar module<a class="headerlink" href="#module-CactusTool.Carpet.Scalar" title="Permalink to this headline">¶</a></h2>
-<p>Cactus dataset main produced by <a class="reference external" href="https://carpetcode.org">Carpet</a>, which is an adaptive mesh refinement and multi-patch driver for the Cactus. This modular processes output of CarpetIOScalar.</p>
-<dl class="class">
+<dl class="py class">
 <dt id="CactusTool.Carpet.Scalar.CarpetIOScalar">
-<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Carpet.Scalar.</code><code class="sig-name descname">CarpetIOScalar</code><span class="sig-paren">(</span><em class="sig-param">files</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/Scalar.html#CarpetIOScalar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.Scalar.CarpetIOScalar" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Carpet.Scalar.</code><code class="sig-name descname">CarpetIOScalar</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">files</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/Scalar.html#CarpetIOScalar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.Scalar.CarpetIOScalar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Thorn CarpetIOScalar provides I/O methods for outputting scalar values in ASCII format into files. This class can handle all CarpetIOScalar output. Read the dataset from files when given specified reduction operation.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>files</strong> (<em>list</em>) – A list of file in absolute path.</p></li>
-<li><p><strong>kind</strong> (<em>str</em>) – Type of reduction operations.</p></li>
-</ul>
-</dd>
-</dl>
 </dd></dl>
 
-<dl class="class">
-<dt id="CactusTool.Carpet.Scalar.Variable">
-<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Carpet.Scalar.</code><code class="sig-name descname">Variable</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/Scalar.html#Variable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.Scalar.Variable" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt id="CactusTool.Carpet.Scalar.Scalar">
+<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Carpet.Scalar.</code><code class="sig-name descname">Scalar</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">files</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/Scalar.html#Scalar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.Scalar.Scalar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>For scalar, we don’t need consider grid structure. Sometimes you want to process a vector or a tensor. <a class="reference internal" href="#CactusTool.Carpet.Scalar.Variable" title="CactusTool.Carpet.Scalar.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a> can also handel it.</p>
+<p>For scalar, we don’t need consider grid structure.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>varfiles</strong> (<em>list</em>) – A dict about variable and its file, this variable may be a vector or tensor.</p>
+<dd class="field-odd"><p><strong>files</strong> (<em>list</em>) – Absolute path to the data file.</p>
 </dd>
 </dl>
-<dl class="method">
-<dt id="CactusTool.Carpet.Scalar.Variable.Preview">
-<code class="sig-name descname">Preview</code><span class="sig-paren">(</span><em class="sig-param">var=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/Scalar.html#Variable.Preview"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.Scalar.Variable.Preview" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt id="CactusTool.Carpet.Scalar.Scalar.dsets">
+<code class="sig-name descname">dsets</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'data'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/Scalar.html#Scalar.dsets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.Scalar.Scalar.dsets" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="CactusTool.Carpet.Scalar.Scalar.vars">
+<em class="property">property </em><code class="sig-name descname">vars</code><a class="headerlink" href="#CactusTool.Carpet.Scalar.Scalar.vars" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -220,32 +251,32 @@
 </div>
 <div class="section" id="module-CactusTool.Carpet.grid">
 <span id="cactustool-carpet-grid-module"></span><h2>CactusTool.Carpet.grid module<a class="headerlink" href="#module-CactusTool.Carpet.grid" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="CactusTool.Carpet.grid.AMRGrid">
-<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Carpet.grid.</code><code class="sig-name descname">AMRGrid</code><span class="sig-paren">(</span><em class="sig-param">dsets</em>, <em class="sig-param">dim</em>, <em class="sig-param">var</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/grid.html#AMRGrid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.grid.AMRGrid" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Carpet.grid.</code><code class="sig-name descname">AMRGrid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dsets</span></em>, <em class="sig-param"><span class="n">dim</span></em>, <em class="sig-param"><span class="n">var</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/grid.html#AMRGrid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.grid.AMRGrid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="method">
+<dl class="py method">
 <dt id="CactusTool.Carpet.grid.AMRGrid.coords">
-<code class="sig-name descname">coords</code><span class="sig-paren">(</span><em class="sig-param">rl=-1</em>, <em class="sig-param">c=-1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/grid.html#AMRGrid.coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.grid.AMRGrid.coords" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">coords</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rl</span><span class="o">=</span><span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">c</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/grid.html#AMRGrid.coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.grid.AMRGrid.coords" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="CactusTool.Carpet.grid.AMRGrid.hierarchy">
 <em class="property">property </em><code class="sig-name descname">hierarchy</code><a class="headerlink" href="#CactusTool.Carpet.grid.AMRGrid.hierarchy" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="CactusTool.Carpet.grid.AMRGrid.interpolate">
-<code class="sig-name descname">interpolate</code><span class="sig-paren">(</span><em class="sig-param">coords</em>, <em class="sig-param">method='nearest'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/grid.html#AMRGrid.interpolate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.grid.AMRGrid.interpolate" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">interpolate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">coords</span></em>, <em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">'nearest'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/grid.html#AMRGrid.interpolate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.grid.AMRGrid.interpolate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="CactusTool.Carpet.grid.UniformGrid">
-<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Carpet.grid.</code><code class="sig-name descname">UniformGrid</code><span class="sig-paren">(</span><em class="sig-param">grid</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/grid.html#UniformGrid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.grid.UniformGrid" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">CactusTool.Carpet.grid.</code><code class="sig-name descname">UniformGrid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">grid</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/grid.html#UniformGrid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.grid.UniformGrid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="method">
+<dl class="py method">
 <dt id="CactusTool.Carpet.grid.UniformGrid.dv">
 <em class="property">property </em><code class="sig-name descname">dv</code><a class="headerlink" href="#CactusTool.Carpet.grid.UniformGrid.dv" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
@@ -258,19 +289,19 @@
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="CactusTool.Carpet.grid.UniformGrid.index">
-<code class="sig-name descname">index</code><span class="sig-paren">(</span><em class="sig-param">position</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/grid.html#UniformGrid.index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.grid.UniformGrid.index" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">index</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">position</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/grid.html#UniformGrid.index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.grid.UniformGrid.index" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="CactusTool.Carpet.grid.UniformGrid.position">
-<code class="sig-name descname">position</code><span class="sig-paren">(</span><em class="sig-param">index</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/grid.html#UniformGrid.position"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.grid.UniformGrid.position" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">position</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">index</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/grid.html#UniformGrid.position"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.grid.UniformGrid.position" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="CactusTool.Carpet.grid.UniformGrid.scale_coords">
-<code class="sig-name descname">scale_coords</code><span class="sig-paren">(</span><em class="sig-param">scale</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/grid.html#UniformGrid.scale_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.grid.UniformGrid.scale_coords" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">scale_coords</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scale</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/grid.html#UniformGrid.scale_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.grid.UniformGrid.scale_coords" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rescale all coordinates.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -279,9 +310,9 @@
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="CactusTool.Carpet.grid.UniformGrid.shift_coords">
-<code class="sig-name descname">shift_coords</code><span class="sig-paren">(</span><em class="sig-param">shift</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/grid.html#UniformGrid.shift_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.grid.UniformGrid.shift_coords" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">shift_coords</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">shift</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CactusTool/Carpet/grid.html#UniformGrid.shift_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CactusTool.Carpet.grid.UniformGrid.shift_coords" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shift all coordinates.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -290,7 +321,7 @@
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="CactusTool.Carpet.grid.UniformGrid.volume">
 <em class="property">property </em><code class="sig-name descname">volume</code><a class="headerlink" href="#CactusTool.Carpet.grid.UniformGrid.volume" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
@@ -312,6 +343,7 @@
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -336,8 +368,8 @@
   <p class="topless"><a href="CactusTool.Analysis.html"
                         title="previous chapter">CactusTool.Analysis package</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="CactusTool.Debug.html"
-                        title="next chapter">CactusTool.Debug package</a></p>
+  <p class="topless"><a href="CactusTool.Lib.html"
+                        title="next chapter">CactusTool.Lib package</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -354,7 +386,7 @@
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -369,18 +401,19 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="CactusTool.Debug.html" title="CactusTool.Debug package"
+          <a href="CactusTool.Lib.html" title="CactusTool.Lib package"
              >next</a> |</li>
         <li class="right" >
           <a href="CactusTool.Analysis.html" title="CactusTool.Analysis package"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="CactusTool.html" >CactusTool package</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="CactusTool.html" >CactusTool package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CactusTool.Carpet package</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, Yu Liu.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
     </div>
   </body>
 </html>

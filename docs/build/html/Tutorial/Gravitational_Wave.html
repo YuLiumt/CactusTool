@@ -1,0 +1,662 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gravitational Wave &#8212; CactusTool 0.0.1 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Par File" href="initial_location.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="density_2D.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="initial_location.html" title="Par File"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="density_2D.html" title="&lt;no title&gt;"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="main.html" accesskey="U">Tutorial</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Gravitational Wave</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="section" id="Gravitational-Wave">
+<h1>Gravitational Wave<a class="headerlink" href="#Gravitational-Wave" title="Permalink to this headline">¶</a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">CactusTool</span>
+<span class="kn">from</span> <span class="nn">CactusTool</span> <span class="kn">import</span> <span class="n">Units</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;HMNS_long&#39;</span>
+<span class="n">sim</span> <span class="o">=</span> <span class="n">CactusTool</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<span class="n">strains</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">Analysis</span><span class="p">(</span><span class="s1">&#39;multipole&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">dsets</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">math</span>
+
+<span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="n">files</span><span class="p">):</span>
+    <span class="n">psi4</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[],</span> <span class="p">[],</span> <span class="p">[]])</span>
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+        <span class="n">tem</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">comments</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">,</span> <span class="n">unpack</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">psi4</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">psi4</span><span class="p">,</span> <span class="n">tem</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">psi4</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">RadialToTortoise</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">M</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert the radial coordinate to the tortoise coordinate</span>
+
+<span class="sd">    r = radial coordinate</span>
+<span class="sd">    M = ADMMass used to convert coordinate</span>
+<span class="sd">    return = tortoise coordinate value</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">r</span> <span class="o">+</span> <span class="mf">2.</span> <span class="o">*</span> <span class="n">M</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">r</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.</span> <span class="o">*</span> <span class="n">M</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.</span><span class="p">)</span>
+
+<span class="c1"># POWER</span>
+<span class="k">def</span> <span class="nf">psi4ToStrain</span><span class="p">(</span><span class="n">mp_psi4</span><span class="p">,</span> <span class="n">f0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert the input mp_psi4 data to the strain of the gravitational wave</span>
+
+<span class="sd">        mp_psi4 = Weyl scalar result from simulation</span>
+<span class="sd">        f0 = cutoff frequency</span>
+<span class="sd">        return = strain (h) of the gravitational wave</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1">#TODO: Check for uniform spacing in time</span>
+        <span class="n">t0</span> <span class="o">=</span> <span class="n">mp_psi4</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">list_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">t0</span><span class="p">)</span>
+        <span class="n">complexPsi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">list_len</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex_</span><span class="p">)</span>
+        <span class="n">complexPsi</span> <span class="o">=</span> <span class="n">mp_psi4</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">1.</span><span class="n">j</span><span class="o">*</span><span class="n">mp_psi4</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span>
+
+        <span class="n">freq</span><span class="p">,</span> <span class="n">psif</span> <span class="o">=</span> <span class="n">myFourierTransform</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">complexPsi</span><span class="p">)</span>
+        <span class="n">dhf</span> <span class="o">=</span> <span class="n">ffi</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">psif</span><span class="p">,</span> <span class="n">f0</span><span class="p">)</span>
+        <span class="n">hf</span> <span class="o">=</span> <span class="n">ffi</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">dhf</span><span class="p">,</span> <span class="n">f0</span><span class="p">)</span>
+
+        <span class="n">time</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">myFourierTransformInverse</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">hf</span><span class="p">,</span> <span class="n">t0</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">hTable</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">time</span><span class="p">,</span> <span class="n">h</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">hTable</span>
+
+<span class="c1">#Fixed frequency integration</span>
+<span class="c1"># See https://arxiv.org/abs/1508.07250 for method</span>
+<span class="k">def</span> <span class="nf">ffi</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">f0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Integrates the data according to the input frequency and cutoff frequency</span>
+
+<span class="sd">        freq = fourier transform frequency</span>
+<span class="sd">        data = input on which ffi is performed</span>
+<span class="sd">        f0 = cutoff frequency</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">f1</span> <span class="o">=</span> <span class="n">f0</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+        <span class="n">fs</span> <span class="o">=</span> <span class="n">freq</span>
+        <span class="n">gs</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="n">mask1</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">((</span><span class="n">fs</span><span class="o">/</span><span class="n">f1</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mf">2.</span>
+        <span class="n">mask2</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">((</span><span class="o">-</span><span class="n">fs</span><span class="o">/</span><span class="n">f1</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mf">2.</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">mask1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">mask2</span><span class="p">)</span>
+        <span class="n">fs2</span> <span class="o">=</span> <span class="n">mask</span> <span class="o">*</span> <span class="n">fs</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">mask</span><span class="p">)</span> <span class="o">*</span> <span class="n">f1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">fs</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span><span class="p">)</span>
+        <span class="n">new_gs</span> <span class="o">=</span> <span class="n">gs</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mf">1.</span><span class="n">j</span><span class="o">*</span><span class="n">fs2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">new_gs</span>
+
+<span class="c1">#Fourier Transform</span>
+<span class="k">def</span> <span class="nf">myFourierTransform</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">complexPsi</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Transforms the complexPsi data to frequency space</span>
+
+<span class="sd">        t0 = time data points</span>
+<span class="sd">        complexPsi = data points of Psi to be transformed</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">psif</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">complexPsi</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="s2">&quot;ortho&quot;</span><span class="p">)</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">complexPsi</span><span class="p">)</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">l</span><span class="o">/</span><span class="mf">2.</span><span class="p">))</span>
+        <span class="n">newpsif</span> <span class="o">=</span> <span class="n">psif</span><span class="p">[</span><span class="n">l</span><span class="o">-</span><span class="n">n</span><span class="p">:]</span>
+        <span class="n">newpsif</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">newpsif</span><span class="p">,</span> <span class="n">psif</span><span class="p">[:</span><span class="n">l</span><span class="o">-</span><span class="n">n</span><span class="p">])</span>
+        <span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">amin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">t0</span><span class="p">))</span><span class="o">*</span><span class="n">l</span>
+        <span class="n">freq</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="n">n</span><span class="p">,</span> <span class="n">l</span><span class="o">-</span><span class="n">n</span><span class="p">)</span><span class="o">/</span><span class="n">T</span>
+        <span class="k">return</span> <span class="n">freq</span><span class="p">,</span> <span class="n">newpsif</span>
+
+<span class="c1">#Inverse Fourier Transform</span>
+<span class="k">def</span> <span class="nf">myFourierTransformInverse</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">hf</span><span class="p">,</span> <span class="n">t0</span><span class="p">):</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">hf</span><span class="p">)</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">l</span><span class="o">/</span><span class="mf">2.</span><span class="p">))</span>
+        <span class="n">newhf</span> <span class="o">=</span> <span class="n">hf</span><span class="p">[</span><span class="n">n</span><span class="p">:]</span>
+        <span class="n">newhf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">newhf</span><span class="p">,</span> <span class="n">hf</span><span class="p">[:</span><span class="n">n</span><span class="p">])</span>
+        <span class="n">amp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">ifft</span><span class="p">(</span><span class="n">newhf</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="s2">&quot;ortho&quot;</span><span class="p">)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">amin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">freq</span><span class="p">))</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="n">t0</span> <span class="o">+</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">l</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">df</span><span class="o">*</span><span class="n">l</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">time</span><span class="p">,</span> <span class="n">amp</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">radius</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">M_ADM</span> <span class="o">=</span> <span class="mf">2.7175403613730</span>
+<span class="n">files</span> <span class="o">=</span> <span class="n">strains</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)][</span><span class="n">radius</span><span class="p">]</span>
+<span class="n">psi4</span> <span class="o">=</span> <span class="n">load</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
+<span class="n">psi4</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-=</span> <span class="n">RadialToTortoise</span><span class="p">(</span><span class="n">radius</span><span class="p">,</span> <span class="n">M_ADM</span><span class="p">)</span>
+<span class="n">psi4</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*=</span> <span class="n">radius</span>
+<span class="n">psi4</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*=</span> <span class="n">radius</span>
+<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">psi4</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">psi4</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span><span class="p">,</span> <span class="s2">&quot;The psi4 amplitude is near zero. The phase is ill-defined.&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">psi4</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">psi4</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;real&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">psi4</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">psi4</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;imag&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$t [M]$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$r \times \psi_</span><span class="si">{4}</span><span class="s1">$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/Tutorial_Gravitational_Wave_4_0.png" src="../_images/Tutorial_Gravitational_Wave_4_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">Omega</span> <span class="o">=</span> <span class="mf">1188.0320786509524</span> <span class="c1"># rad/s</span>
+<span class="n">f0</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">Omega</span> <span class="o">*</span> <span class="n">Units</span><span class="p">(</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;cutoff frequence:&#39;</span><span class="p">,</span> <span class="n">f0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+cutoff frequence: 0.011703282497805409
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">h_power</span> <span class="o">=</span> <span class="n">psi4ToStrain</span><span class="p">(</span><span class="n">psi4</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">f0</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">h_power</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">real</span><span class="o">*</span><span class="n">Units</span><span class="p">(</span><span class="s1">&#39;ms&#39;</span><span class="p">),</span> <span class="n">h_power</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">real</span><span class="o">*</span><span class="n">Units</span><span class="p">(</span><span class="s1">&#39;km&#39;</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$h_{+}$&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="c1"># ax.plot(h_power[0].real*Units(&#39;ms&#39;), h_power[1].imag*Units(&#39;km&#39;), label=&#39;imag&#39;)</span>
+<span class="n">h_amp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">h_power</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">h_power</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">real</span><span class="o">*</span><span class="n">Units</span><span class="p">(</span><span class="s1">&#39;ms&#39;</span><span class="p">),</span> <span class="n">h_amp</span><span class="o">*</span><span class="n">Units</span><span class="p">(</span><span class="s1">&#39;km&#39;</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$t \; [ms]$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$r h^{+}_</span><span class="si">{22}</span><span class="s1"> \; [km]$&#39;</span><span class="p">)</span>
+<span class="c1"># plt.title(&#39;POWER&#39;)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/Tutorial_Gravitational_Wave_6_0.png" src="../_images/Tutorial_Gravitational_Wave_6_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">h_phase</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unwrap</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">h_power</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+<span class="n">h_amp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">h_power</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">h_power</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">real</span><span class="o">*</span><span class="n">Units</span><span class="p">(</span><span class="s1">&#39;ms&#39;</span><span class="p">),</span> <span class="n">h_amp</span><span class="o">*</span><span class="n">Units</span><span class="p">(</span><span class="s1">&#39;km&#39;</span><span class="p">))</span>
+<span class="c1"># ax.plot(h_power[0].real, h_power[1].imag, label=&#39;imag&#39;)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$t [ms]$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;POWER&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/Tutorial_Gravitational_Wave_7_0.png" src="../_images/Tutorial_Gravitational_Wave_7_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">CactusTool.Lib.pygwanalysis</span> <span class="kn">import</span> <span class="n">WaveFunction</span><span class="p">,</span> <span class="n">GethFromPsi4</span>
+
+<span class="n">p</span> <span class="o">=</span> <span class="n">WaveFunction</span><span class="p">(</span><span class="n">psi4</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">psi4</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">1.</span><span class="n">j</span><span class="o">*</span><span class="n">psi4</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">h_pygwanalysis</span> <span class="o">=</span> <span class="n">GethFromPsi4</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">f0</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">h_pygwanalysis</span><span class="o">.</span><span class="n">x</span><span class="o">*</span><span class="n">Units</span><span class="p">(</span><span class="s1">&#39;ms&#39;</span><span class="p">),</span> <span class="n">h_pygwanalysis</span><span class="o">.</span><span class="n">f</span><span class="o">.</span><span class="n">real</span><span class="o">*</span><span class="n">Units</span><span class="p">(</span><span class="s1">&#39;km&#39;</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;real&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">h_pygwanalysis</span><span class="o">.</span><span class="n">x</span><span class="o">*</span><span class="n">Units</span><span class="p">(</span><span class="s1">&#39;ms&#39;</span><span class="p">),</span> <span class="n">h_pygwanalysis</span><span class="o">.</span><span class="n">f</span><span class="o">.</span><span class="n">imag</span><span class="o">*</span><span class="n">Units</span><span class="p">(</span><span class="s1">&#39;km&#39;</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;imag&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$t \; [ms]$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$r h \; [km]$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;pygwanalysis&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/Tutorial_Gravitational_Wave_8_0.png" src="../_images/Tutorial_Gravitational_Wave_8_0.png" />
+</div>
+</div>
+<div class="section" id="Par-File">
+<h2>Par File<a class="headerlink" href="#Par-File" title="Permalink to this headline">¶</a></h2>
+<p>Add following parameter in your parfile.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ActiveThorns</span> <span class="o">=</span> <span class="s2">&quot;Multipole WeylScal4&quot;</span>
+
+<span class="n">Multipole</span><span class="p">::</span><span class="n">nradii</span>       <span class="o">=</span>
+<span class="n">Multipole</span><span class="p">::</span><span class="n">radius</span>       <span class="o">=</span>
+<span class="n">Multipole</span><span class="p">::</span><span class="n">variables</span>    <span class="o">=</span> <span class="s2">&quot;WeylScal4::Psi4r{sw=-2 cmplx=&#39;WeylScal4::Psi4i&#39; name=&#39;psi4&#39;}&quot;</span>
+<span class="n">Multipole</span><span class="p">::</span><span class="n">out_every</span>    <span class="o">=</span>
+<span class="n">Multipole</span><span class="p">::</span><span class="n">l_max</span>        <span class="o">=</span>
+<span class="n">Multipole</span><span class="p">::</span><span class="n">ntheta</span>       <span class="o">=</span>
+<span class="n">Multipole</span><span class="p">::</span><span class="n">nphi</span>         <span class="o">=</span>
+<span class="n">Multipole</span><span class="p">::</span><span class="n">output_ascii</span> <span class="o">=</span> <span class="s2">&quot;yes&quot;</span> <span class="c1"># Output a simple ASCII file for each mode at each radius</span>
+
+<span class="n">WeylScal4</span><span class="p">::</span><span class="n">fd_order</span>     <span class="o">=</span>
+</pre></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">CactusTool.funcs.equation</span> <span class="kn">import</span> <span class="n">chirp_mass</span><span class="p">,</span> <span class="n">mass_ratio</span>
+<span class="n">m1</span> <span class="o">=</span> <span class="mf">1.4430155414391</span>
+<span class="n">m2</span> <span class="o">=</span> <span class="mf">1.2277390388913</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The chirp mass of the binary:&#39;</span><span class="p">,</span> <span class="n">chirp_mass</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span> <span class="n">m2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The binary mass ratio:&#39;</span><span class="p">,</span> <span class="n">mass_ratio</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span> <span class="n">m2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+The chirp mass of the binary: 1.1579757057802578
+The binary mass ratio: 0.8508148413057925
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Gravitational Wave</a><ul>
+<li><a class="reference internal" href="#Par-File">Par File</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="density_2D.html"
+                        title="previous chapter">&lt;no title&gt;</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="initial_location.html"
+                        title="next chapter">Par File</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/Tutorial/Gravitational_Wave.ipynb.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="initial_location.html" title="Par File"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="density_2D.html" title="&lt;no title&gt;"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="main.html" >Tutorial</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Gravitational Wave</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Yu Liu.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+    </div>
+  </body>
+</html>

@@ -52,7 +52,6 @@ CactusTool.Carpet.grid module
    :undoc-members:
    :show-inheritance:
 
-
 Module contents
 ---------------
 

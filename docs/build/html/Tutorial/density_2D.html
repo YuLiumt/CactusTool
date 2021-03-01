@@ -1,0 +1,706 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>&lt;no title&gt; &#8212; CactusTool 0.0.1 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Gravitational Wave" href="Gravitational_Wave.html" />
+    <link rel="prev" title="neutron drip" href="maximum_density.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="Gravitational_Wave.html" title="Gravitational Wave"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="maximum_density.html" title="neutron drip"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="main.html" accesskey="U">Tutorial</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">&lt;no title&gt;</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="k">as</span> <span class="nn">widgets</span>
+<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interactive_output</span><span class="p">,</span> <span class="n">HBox</span><span class="p">,</span> <span class="n">VBox</span>
+<span class="c1"># from IPython.display import clear_output</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">CactusTool</span> <span class="kn">import</span> <span class="n">pcolormesh</span>
+<span class="kn">import</span> <span class="nn">CactusTool</span>
+
+<span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;HMNS_long&#39;</span>
+<span class="n">sim</span> <span class="o">=</span> <span class="n">CactusTool</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">rho</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">GF</span><span class="p">(</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="s1">&#39;h5&#39;</span><span class="p">)[</span><span class="s1">&#39;hydrobase-rho&#39;</span><span class="p">]</span>
+
+<span class="n">it</span> <span class="o">=</span> <span class="n">rho</span><span class="o">.</span><span class="n">it</span>
+<span class="c1"># it_item = widgets.IntSlider(description=&#39;it:&#39;, value=0, min=it[0], max=it[-1], step=it[1] - it[0], continuous_update=False)</span>
+<span class="n">it_item</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Play</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s1">&#39;it:&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="n">it</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">max</span><span class="o">=</span><span class="n">it</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">step</span><span class="o">=</span><span class="n">it</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">it</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">interval</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">disabled</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">slider</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">IntSlider</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="n">it</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">max</span><span class="o">=</span><span class="n">it</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">step</span><span class="o">=</span><span class="n">it</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">it</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">widgets</span><span class="o">.</span><span class="n">jslink</span><span class="p">((</span><span class="n">it_item</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">),</span> <span class="p">(</span><span class="n">slider</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">))</span>
+
+<span class="n">axlim_item</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Text</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;-50,50,-50,50&#39;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;axlim:&#39;</span><span class="p">,</span> <span class="n">disabled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">continuous_update</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">unit_item</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Text</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;km, g/cm^3&#39;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;units:&#39;</span><span class="p">,</span> <span class="n">disabled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">continuous_update</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">norm_item</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Checkbox</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Logarithmic:&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">log</span><span class="p">,</span> <span class="n">axlim</span><span class="p">,</span> <span class="n">unit</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">rho</span><span class="o">.</span><span class="n">dsets</span><span class="p">(</span><span class="s1">&#39;rho&#39;</span><span class="p">,</span> <span class="n">it</span><span class="p">)</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+    <span class="n">axlim</span> <span class="o">=</span> <span class="n">axlim</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">axlim</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">axlim</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">axlim</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">axlim</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span>
+    <span class="n">unit</span> <span class="o">=</span> <span class="n">unit</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="c1">#     ax.set_title(&quot;Time: {}&quot;.format(p[0][0][&#39;time&#39;]))</span>
+    <span class="k">if</span> <span class="n">log</span><span class="p">:</span>
+        <span class="n">im</span> <span class="o">=</span> <span class="n">pcolormesh</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="p">(</span><span class="n">unit</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">unit</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">im</span> <span class="o">=</span> <span class="n">pcolormesh</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="n">unit</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+
+
+
+<span class="n">output</span> <span class="o">=</span> <span class="n">interactive_output</span><span class="p">(</span><span class="n">execute</span><span class="p">,</span>
+                            <span class="p">{</span>
+                                <span class="s1">&#39;it&#39;</span><span class="p">:</span> <span class="n">it_item</span><span class="p">,</span>
+                                <span class="s1">&#39;log&#39;</span><span class="p">:</span> <span class="n">norm_item</span><span class="p">,</span>
+                                <span class="s1">&#39;axlim&#39;</span><span class="p">:</span> <span class="n">axlim_item</span><span class="p">,</span>
+                                <span class="s1">&#39;unit&#39;</span><span class="p">:</span> <span class="n">unit_item</span><span class="p">,</span>
+                            <span class="p">})</span>
+
+
+<span class="n">VBox</span><span class="p">([</span>
+    <span class="n">HBox</span><span class="p">([</span>
+        <span class="n">axlim_item</span><span class="p">,</span>
+        <span class="n">unit_item</span><span class="p">,</span>
+        <span class="n">norm_item</span><span class="p">,</span>
+    <span class="p">]),</span>
+    <span class="n">output</span><span class="p">,</span>
+    <span class="n">HBox</span><span class="p">([</span><span class="n">it_item</span><span class="p">,</span> <span class="n">slider</span><span class="p">])</span>
+<span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "d4c92145485c4a70b32e637e09035b95", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">CactusTool</span> <span class="kn">import</span> <span class="n">Units</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$\rho$&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">rho</span><span class="o">.</span><span class="n">dsets</span><span class="p">(</span><span class="s1">&#39;rho&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mi">45</span><span class="p">,</span> <span class="o">-</span><span class="mi">45</span><span class="p">,</span> <span class="s1">&#39;t=</span><span class="si">{:.2f}</span><span class="s1"> ms&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">10</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">Units</span><span class="p">(</span><span class="s1">&#39;ms&#39;</span><span class="p">)),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">pcolormesh</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;km&#39;</span><span class="p">,</span> <span class="s1">&#39;g/cm^3&#39;</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">cubehelix_r</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">rho</span><span class="o">.</span><span class="n">dsets</span><span class="p">(</span><span class="s1">&#39;rho&#39;</span><span class="p">,</span> <span class="mi">15232</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="s1">&#39;t=</span><span class="si">{:.2f}</span><span class="s1"> ms&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">10</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">Units</span><span class="p">(</span><span class="s1">&#39;ms&#39;</span><span class="p">)),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">pcolormesh</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;km&#39;</span><span class="p">,</span> <span class="s1">&#39;g/cm^3&#39;</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">cubehelix_r</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">rho</span><span class="o">.</span><span class="n">dsets</span><span class="p">(</span><span class="s1">&#39;rho&#39;</span><span class="p">,</span> <span class="mi">53248</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="s1">&#39;t=</span><span class="si">{:.2f}</span><span class="s1"> ms&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">10</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">Units</span><span class="p">(</span><span class="s1">&#39;ms&#39;</span><span class="p">)),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">pcolormesh</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;km&#39;</span><span class="p">,</span> <span class="s1">&#39;g/cm^3&#39;</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">cubehelix_r</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">rho</span><span class="o">.</span><span class="n">dsets</span><span class="p">(</span><span class="s1">&#39;rho&#39;</span><span class="p">,</span> <span class="mi">55040</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">150</span><span class="p">,</span> <span class="mi">150</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">150</span><span class="p">,</span> <span class="mi">150</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mi">135</span><span class="p">,</span> <span class="o">-</span><span class="mi">135</span><span class="p">,</span> <span class="s1">&#39;t=</span><span class="si">{:.2f}</span><span class="s1"> ms&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">10</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">Units</span><span class="p">(</span><span class="s1">&#39;ms&#39;</span><span class="p">)),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">pcolormesh</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;km&#39;</span><span class="p">,</span> <span class="s1">&#39;g/cm^3&#39;</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">cubehelix_r</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">rho</span><span class="o">.</span><span class="n">dsets</span><span class="p">(</span><span class="s1">&#39;rho&#39;</span><span class="p">,</span> <span class="mi">58880</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">150</span><span class="p">,</span> <span class="mi">150</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">150</span><span class="p">,</span> <span class="mi">150</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mi">135</span><span class="p">,</span> <span class="o">-</span><span class="mi">135</span><span class="p">,</span> <span class="s1">&#39;t=</span><span class="si">{:.2f}</span><span class="s1"> ms&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">10</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">Units</span><span class="p">(</span><span class="s1">&#39;ms&#39;</span><span class="p">)),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">pcolormesh</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;km&#39;</span><span class="p">,</span> <span class="s1">&#39;g/cm^3&#39;</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">cubehelix_r</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">rho</span><span class="o">.</span><span class="n">dsets</span><span class="p">(</span><span class="s1">&#39;rho&#39;</span><span class="p">,</span> <span class="mi">85888</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">150</span><span class="p">,</span> <span class="mi">150</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">150</span><span class="p">,</span> <span class="mi">150</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mi">135</span><span class="p">,</span> <span class="o">-</span><span class="mi">135</span><span class="p">,</span> <span class="s1">&#39;t=</span><span class="si">{:.2f}</span><span class="s1"> ms&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">10</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">Units</span><span class="p">(</span><span class="s1">&#39;ms&#39;</span><span class="p">)),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">pcolormesh</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;km&#39;</span><span class="p">,</span> <span class="s1">&#39;g/cm^3&#39;</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">cubehelix_r</span><span class="p">)</span>
+
+
+<span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.colorbar.Colorbar at 0x7fe30dfd45c0&gt;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[83]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">help</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Help on method colorbar in module matplotlib.figure:
+
+colorbar(mappable, cax=None, ax=None, use_gridspec=True, **kw) method of matplotlib.figure.Figure instance
+    Create a colorbar for a ScalarMappable instance, *mappable*.
+
+    Documentation for the pyplot thin wrapper:
+
+
+    Add a colorbar to a plot.
+
+    Function signatures for the :mod:`~matplotlib.pyplot` interface; all
+    but the first are also method signatures for the
+    :meth:`~matplotlib.figure.Figure.colorbar` method::
+
+      colorbar(**kwargs)
+      colorbar(mappable, **kwargs)
+      colorbar(mappable, cax=cax, **kwargs)
+      colorbar(mappable, ax=ax, **kwargs)
+
+    Parameters
+    ----------
+    mappable
+        The `matplotlib.cm.ScalarMappable` (i.e., `~matplotlib.image.Image`,
+        `~matplotlib.contour.ContourSet`, etc.) described by this colorbar.
+        This argument is mandatory for the `.Figure.colorbar` method but optional
+        for the `.pyplot.colorbar` function, which sets the default to the current
+        image.
+
+        Note that one can create a `ScalarMappable` &#34;on-the-fly&#34; to generate
+        colorbars not attached to a previously drawn artist, e.g. ::
+
+            fig.colorbar(cm.ScalarMappable(norm=norm, cmap=cmap), ax=ax)
+
+    cax : :class:`~matplotlib.axes.Axes` object, optional
+        Axes into which the colorbar will be drawn.
+
+    ax : :class:`~matplotlib.axes.Axes`, list of Axes, optional
+        Parent axes from which space for a new colorbar axes will be stolen.
+        If a list of axes is given they will all be resized to make room for the
+        colorbar axes.
+
+    use_gridspec : bool, optional
+        If *cax* is ``None``, a new *cax* is created as an instance of Axes.  If
+        *ax* is an instance of Subplot and *use_gridspec* is ``True``, *cax* is
+        created as an instance of Subplot using the :mod:`~.gridspec` module.
+
+    Returns
+    -------
+    colorbar : `~matplotlib.colorbar.Colorbar`
+        See also its base class, `~matplotlib.colorbar.ColorbarBase`.  Use
+        `~.ColorbarBase.set_label` to label the colorbar.
+
+    Notes
+    -----
+    Additional keyword arguments are of two kinds:
+
+      axes properties:
+
+
+        ============= ====================================================
+        Property      Description
+        ============= ====================================================
+        *orientation* vertical or horizontal
+        *fraction*    0.15; fraction of original axes to use for colorbar
+        *pad*         0.05 if vertical, 0.15 if horizontal; fraction
+                      of original axes between colorbar and new image axes
+        *shrink*      1.0; fraction by which to multiply the size of the colorbar
+        *aspect*      20; ratio of long to short dimensions
+        *anchor*      (0.0, 0.5) if vertical; (0.5, 1.0) if horizontal;
+                      the anchor point of the colorbar axes
+        *panchor*     (1.0, 0.5) if vertical; (0.5, 0.0) if horizontal;
+                      the anchor point of the colorbar parent axes. If
+                      False, the parent axes&#39; anchor will be unchanged
+        ============= ====================================================
+
+
+      colorbar properties:
+
+
+        ============  ====================================================
+        Property      Description
+        ============  ====================================================
+        *extend*      [ &#39;neither&#39; | &#39;both&#39; | &#39;min&#39; | &#39;max&#39; ]
+                      If not &#39;neither&#39;, make pointed end(s) for out-of-
+                      range values.  These are set for a given colormap
+                      using the colormap set_under and set_over methods.
+        *extendfrac*  [ *None* | &#39;auto&#39; | length | lengths ]
+                      If set to *None*, both the minimum and maximum
+                      triangular colorbar extensions with have a length of
+                      5% of the interior colorbar length (this is the
+                      default setting). If set to &#39;auto&#39;, makes the
+                      triangular colorbar extensions the same lengths as
+                      the interior boxes (when *spacing* is set to
+                      &#39;uniform&#39;) or the same lengths as the respective
+                      adjacent interior boxes (when *spacing* is set to
+                      &#39;proportional&#39;). If a scalar, indicates the length
+                      of both the minimum and maximum triangular colorbar
+                      extensions as a fraction of the interior colorbar
+                      length. A two-element sequence of fractions may also
+                      be given, indicating the lengths of the minimum and
+                      maximum colorbar extensions respectively as a
+                      fraction of the interior colorbar length.
+        *extendrect*  bool
+                      If *False* the minimum and maximum colorbar extensions
+                      will be triangular (the default). If *True* the
+                      extensions will be rectangular.
+        *spacing*     [ &#39;uniform&#39; | &#39;proportional&#39; ]
+                      Uniform spacing gives each discrete color the same
+                      space; proportional makes the space proportional to
+                      the data interval.
+        *ticks*       [ None | list of ticks | Locator object ]
+                      If None, ticks are determined automatically from the
+                      input.
+        *format*      [ None | format string | Formatter object ]
+                      If None, the
+                      :class:`~matplotlib.ticker.ScalarFormatter` is used.
+                      If a format string is given, e.g., &#39;%.3f&#39;, that is
+                      used. An alternative
+                      :class:`~matplotlib.ticker.Formatter` object may be
+                      given instead.
+        *drawedges*   bool
+                      Whether to draw lines at color boundaries.
+        ============  ====================================================
+
+        The following will probably be useful only in the context of
+        indexed colors (that is, when the mappable has norm=NoNorm()),
+        or other unusual circumstances.
+
+        ============   ===================================================
+        Property       Description
+        ============   ===================================================
+        *boundaries*   None or a sequence
+        *values*       None or a sequence which must be of length 1 less
+                       than the sequence of *boundaries*. For each region
+                       delimited by adjacent entries in *boundaries*, the
+                       color mapped to the corresponding value in values
+                       will be used.
+        ============   ===================================================
+
+
+
+    If *mappable* is a :class:`~matplotlib.contours.ContourSet`, its *extend*
+    kwarg is included automatically.
+
+    The *shrink* kwarg provides a simple way to scale the colorbar with respect
+    to the axes. Note that if *cax* is specified, it determines the size of the
+    colorbar and *shrink* and *aspect* kwargs are ignored.
+
+    For more precise control, you can manually specify the positions of
+    the axes objects in which the mappable and the colorbar are drawn.  In
+    this case, do not use any of the axes properties kwargs.
+
+    It is known that some vector graphics viewers (svg and pdf) renders white gaps
+    between segments of the colorbar.  This is due to bugs in the viewers, not
+    Matplotlib.  As a workaround, the colorbar can be rendered with overlapping
+    segments::
+
+        cbar = colorbar()
+        cbar.solids.set_edgecolor(&#34;face&#34;)
+        draw()
+
+    However this has negative consequences in other circumstances, e.g. with
+    semi-transparent images (alpha &lt; 1) and colorbar extensions; therefore, this
+    workaround is not used by default (see issue #1188).
+
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[76]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[76]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+12078.0
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="maximum_density.html"
+                        title="previous chapter">neutron drip</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Gravitational_Wave.html"
+                        title="next chapter">Gravitational Wave</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/Tutorial/density_2D.ipynb.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="Gravitational_Wave.html" title="Gravitational Wave"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="maximum_density.html" title="neutron drip"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="main.html" >Tutorial</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">&lt;no title&gt;</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Yu Liu.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+    </div>
+  </body>
+</html>

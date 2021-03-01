@@ -60,7 +60,6 @@ CactusTool.Lib.pygwanalysis.harmonics module
    :undoc-members:
    :show-inheritance:
 
-
 Module contents
 ---------------
 

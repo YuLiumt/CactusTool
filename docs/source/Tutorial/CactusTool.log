@@ -1,0 +1,590 @@
+2021-01-28 at 21:48:59 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/puncturetracker-pt_loc..asc']
+2021-01-28 at 21:49:37 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/puncturetracker-pt_loc..asc']
+2021-01-28 at 21:50:05 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-28 at 21:50:06 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-28 at 21:50:12 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/carpet-timing..asc']
+2021-01-28 at 21:50:13 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/carpet-timing..asc']
+2021-01-28 at 21:50:18 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/carpet-timing..asc']
+2021-01-28 at 21:50:19 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/carpet-timing..asc']
+2021-01-28 at 21:50:20 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/carpet-timing..asc']
+2021-01-28 at 21:58:58 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/carpet-timing..asc']
+2021-01-29 at 09:42:49 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/simulations/GW150914_28/output-0001/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0000/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0002/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0005/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0004/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0003/GW150914_28/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-29 at 09:42:49 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/simulations/GW150914_28/output-0001/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0000/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0002/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0005/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0004/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0003/GW150914_28/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-29 at 09:43:19 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/simulations/GW150914_28/output-0001/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0000/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0002/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0005/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0004/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0003/GW150914_28/carpet-timing..asc']
+2021-01-29 at 09:43:19 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/simulations/GW150914_28/output-0001/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0000/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0002/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0005/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0004/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0003/GW150914_28/carpet-timing..asc']
+2021-01-29 at 09:43:19 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/simulations/GW150914_28/output-0001/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0000/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0002/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0005/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0004/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0003/GW150914_28/carpet-timing..asc']
+2021-01-29 at 09:43:19 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/simulations/GW150914_28/output-0001/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0000/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0002/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0005/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0004/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0003/GW150914_28/carpet-timing..asc']
+2021-01-29 at 09:43:40 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/simulations/GW150914_28/output-0001/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0000/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0002/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0005/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0004/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0003/GW150914_28/carpet-timing..asc']
+2021-01-29 at 09:46:33 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/simulations/GW150914_28/output-0001/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0000/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0002/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0005/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0004/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0003/GW150914_28/carpet-timing..asc']
+2021-01-29 at 09:46:36 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/simulations/GW150914_28/output-0001/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0000/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0002/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0005/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0004/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0003/GW150914_28/carpet-timing..asc']
+2021-01-29 at 09:47:38 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/simulations/GW150914_28/output-0001/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0000/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0002/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0005/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0004/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0003/GW150914_28/carpet-timing..asc']
+2021-01-29 at 09:47:48 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/simulations/GW150914_28/output-0001/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0000/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0002/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0005/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0004/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0003/GW150914_28/carpet-timing..asc']
+2021-01-29 at 09:50:58 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/simulations/GW150914_28/output-0001/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0000/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0002/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0005/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0004/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0003/GW150914_28/carpet-timing..asc']
+2021-01-29 at 09:51:00 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/carpet-timing..asc']
+2021-01-29 at 09:52:48 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/simulations/GW150914_28/output-0001/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0000/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0002/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0005/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0004/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0003/GW150914_28/carpet-timing..asc']
+2021-01-29 at 09:53:33 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/carpet-timing..asc']
+2021-01-29 at 09:53:36 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/carpet-timing..asc']
+2021-01-29 at 09:53:51 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/simulations/GW150914_28/output-0001/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0000/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0002/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0005/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0004/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0003/GW150914_28/carpet-timing..asc']
+2021-01-29 at 09:53:51 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/carpet-timing..asc']
+2021-01-29 at 09:54:37 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/simulations/GW150914_28/output-0001/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0000/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0002/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0005/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0004/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0003/GW150914_28/carpet-timing..asc']
+2021-01-29 at 09:54:45 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/simulations/GW150914_28/output-0001/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0000/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0002/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0005/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0004/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0003/GW150914_28/carpet-timing..asc']
+2021-01-29 at 09:54:52 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/simulations/GW150914_28/output-0001/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0000/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0002/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0005/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0004/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0003/GW150914_28/carpet-timing..asc']
+2021-01-29 at 09:55:00 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/simulations/GW150914_28/output-0001/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0000/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0002/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0005/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0004/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0003/GW150914_28/carpet-timing..asc']
+2021-01-29 at 09:55:08 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/simulations/GW150914_28/output-0001/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0000/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0002/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0005/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0004/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0003/GW150914_28/carpet-timing..asc']
+2021-01-29 at 09:55:12 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/simulations/GW150914_28/output-0001/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0000/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0002/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0005/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0004/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0003/GW150914_28/carpet-timing..asc']
+2021-01-29 at 09:55:24 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/simulations/GW150914_28/output-0001/GW150914_28/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/simulations/GW150914_28/output-0000/GW150914_28/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/simulations/GW150914_28/output-0002/GW150914_28/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/simulations/GW150914_28/output-0005/GW150914_28/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/simulations/GW150914_28/output-0004/GW150914_28/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/simulations/GW150914_28/output-0003/GW150914_28/quasilocalmeasures-qlm_scalars..asc']
+2021-01-29 at 09:55:24 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/simulations/GW150914_28/output-0001/GW150914_28/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/simulations/GW150914_28/output-0000/GW150914_28/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/simulations/GW150914_28/output-0002/GW150914_28/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/simulations/GW150914_28/output-0005/GW150914_28/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/simulations/GW150914_28/output-0004/GW150914_28/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/simulations/GW150914_28/output-0003/GW150914_28/quasilocalmeasures-qlm_scalars..asc']
+2021-01-29 at 09:55:24 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/simulations/GW150914_28/output-0001/GW150914_28/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/simulations/GW150914_28/output-0000/GW150914_28/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/simulations/GW150914_28/output-0002/GW150914_28/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/simulations/GW150914_28/output-0005/GW150914_28/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/simulations/GW150914_28/output-0004/GW150914_28/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/simulations/GW150914_28/output-0003/GW150914_28/quasilocalmeasures-qlm_scalars..asc']
+2021-01-29 at 09:55:37 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/simulations/GW150914_28/output-0001/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0000/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0002/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0005/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0004/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0003/GW150914_28/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-29 at 09:55:37 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/simulations/GW150914_28/output-0001/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0000/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0002/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0005/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0004/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0003/GW150914_28/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-29 at 09:55:37 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/simulations/GW150914_28/output-0001/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0000/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0002/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0005/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0004/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0003/GW150914_28/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-29 at 09:55:37 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/simulations/GW150914_28/output-0001/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0000/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0002/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0005/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0004/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0003/GW150914_28/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-29 at 09:57:46 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-29 at 09:57:59 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/simulations/GW150914_28/output-0001/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0000/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0002/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0005/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0004/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0003/GW150914_28/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-29 at 09:57:59 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-29 at 09:59:30 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/simulations/GW150914_28/output-0001/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0000/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0002/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0005/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0004/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0003/GW150914_28/carpet-timing..asc']
+2021-01-29 at 09:59:30 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/simulations/GW150914_28/output-0001/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0000/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0002/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0005/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0004/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0003/GW150914_28/carpet-timing..asc']
+2021-01-29 at 09:59:30 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/simulations/GW150914_28/output-0001/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0000/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0002/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0005/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0004/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0003/GW150914_28/carpet-timing..asc']
+2021-01-29 at 09:59:31 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/simulations/GW150914_28/output-0001/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0000/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0002/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0005/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0004/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0003/GW150914_28/carpet-timing..asc']
+2021-01-29 at 09:59:45 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/simulations/GW150914_28/output-0001/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0000/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0002/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0005/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0004/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0003/GW150914_28/carpet-timing..asc']
+2021-01-29 at 09:59:54 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/simulations/GW150914_28/output-0001/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0000/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0002/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0005/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0004/GW150914_28/carpet-timing..asc', '/Users/liuyu/simulations/GW150914_28/output-0003/GW150914_28/carpet-timing..asc']
+2021-01-29 at 10:00:41 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/puncturetracker-pt_loc..asc']
+2021-01-29 at 17:09:50 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/puncturetracker-pt_loc..asc']
+2021-01-29 at 17:10:27 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/puncturetracker-pt_loc..asc']
+2021-01-29 at 17:11:01 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/simulations/GW150914_28/output-0001/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0000/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0002/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0005/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0004/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0003/GW150914_28/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-29 at 17:11:01 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/simulations/GW150914_28/output-0001/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0000/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0002/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0005/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0004/GW150914_28/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/simulations/GW150914_28/output-0003/GW150914_28/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-29 at 17:11:22 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-29 at 17:11:23 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-29 at 17:11:30 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/puncturetracker-pt_loc..asc']
+2021-01-29 at 17:11:30 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/puncturetracker-pt_loc..asc']
+2021-01-29 at 17:11:35 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/puncturetracker-pt_loc..asc']
+2021-01-29 at 17:11:37 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/puncturetracker-pt_loc..asc']
+2021-01-29 at 17:11:38 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/carpet-timing..asc']
+2021-01-29 at 17:11:39 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/carpet-timing..asc']
+2021-01-29 at 17:11:48 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/carpet-timing..asc']
+2021-01-29 at 17:11:50 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/carpet-timing..asc']
+2021-01-30 at 09:01:39 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-30 at 09:01:39 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-30 at 09:01:52 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/carpet-timing..asc']
+2021-01-30 at 09:01:52 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/carpet-timing..asc']
+2021-01-30 at 09:01:58 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/carpet-timing..asc']
+2021-01-30 at 09:02:01 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/carpet-timing..asc']
+2021-01-30 at 09:02:01 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/carpet-timing..asc']
+2021-01-30 at 16:25:33 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-30 at 16:25:33 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-30 at 16:25:43 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/carpet-timing..asc']
+2021-01-30 at 16:25:44 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/carpet-timing..asc']
+2021-01-30 at 16:25:51 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/carpet-timing..asc']
+2021-01-30 at 16:25:53 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/carpet-timing..asc']
+2021-01-30 at 16:25:55 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/carpet-timing..asc']
+2021-01-30 at 17:40:48 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/GW150914_28/output-0001/GW150914_28/puncturetracker-pt_loc..asc', '/Volumes/simulations/GW150914_28/output-0000/GW150914_28/puncturetracker-pt_loc..asc', '/Volumes/simulations/GW150914_28/output-0002/GW150914_28/puncturetracker-pt_loc..asc', '/Volumes/simulations/GW150914_28/output-0005/GW150914_28/puncturetracker-pt_loc..asc', '/Volumes/simulations/GW150914_28/output-0004/GW150914_28/puncturetracker-pt_loc..asc', '/Volumes/simulations/GW150914_28/output-0003/GW150914_28/puncturetracker-pt_loc..asc']
+2021-01-30 at 19:54:00 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-30 at 22:54:30 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/puncturetracker-pt_loc..asc']
+2021-01-30 at 22:54:43 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-30 at 22:55:33 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-30 at 22:55:33 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-30 at 22:55:43 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/carpet-timing..asc']
+2021-01-30 at 22:55:43 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/carpet-timing..asc']
+2021-01-30 at 22:56:02 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/carpet-timing..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/carpet-timing..asc']
+2021-01-30 at 22:57:38 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-30 at 22:57:38 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-30 at 22:57:39 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-30 at 22:57:40 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-30 at 22:57:45 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-30 at 22:57:47 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-30 at 22:58:28 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 10:37:38 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/GW150914_28/output-0001/GW150914_28/puncturetracker-pt_loc..asc', '/Volumes/simulations/GW150914_28/output-0000/GW150914_28/puncturetracker-pt_loc..asc', '/Volumes/simulations/GW150914_28/output-0002/GW150914_28/puncturetracker-pt_loc..asc', '/Volumes/simulations/GW150914_28/output-0005/GW150914_28/puncturetracker-pt_loc..asc', '/Volumes/simulations/GW150914_28/output-0004/GW150914_28/puncturetracker-pt_loc..asc', '/Volumes/simulations/GW150914_28/output-0003/GW150914_28/puncturetracker-pt_loc..asc']
+2021-01-31 at 10:37:39 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 10:37:53 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/GW150914_28/output-0001/GW150914_28/puncturetracker-pt_loc..asc', '/Volumes/simulations/GW150914_28/output-0000/GW150914_28/puncturetracker-pt_loc..asc', '/Volumes/simulations/GW150914_28/output-0002/GW150914_28/puncturetracker-pt_loc..asc', '/Volumes/simulations/GW150914_28/output-0005/GW150914_28/puncturetracker-pt_loc..asc', '/Volumes/simulations/GW150914_28/output-0004/GW150914_28/puncturetracker-pt_loc..asc', '/Volumes/simulations/GW150914_28/output-0003/GW150914_28/puncturetracker-pt_loc..asc']
+2021-01-31 at 10:37:53 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 10:38:00 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/GW150914_28/output-0001/GW150914_28/puncturetracker-pt_loc..asc', '/Volumes/simulations/GW150914_28/output-0000/GW150914_28/puncturetracker-pt_loc..asc', '/Volumes/simulations/GW150914_28/output-0002/GW150914_28/puncturetracker-pt_loc..asc', '/Volumes/simulations/GW150914_28/output-0005/GW150914_28/puncturetracker-pt_loc..asc', '/Volumes/simulations/GW150914_28/output-0004/GW150914_28/puncturetracker-pt_loc..asc', '/Volumes/simulations/GW150914_28/output-0003/GW150914_28/puncturetracker-pt_loc..asc']
+2021-01-31 at 10:38:00 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 16:39:39 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-31 at 16:39:40 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-31 at 16:39:45 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 16:39:46 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 16:39:51 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 16:39:52 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 16:39:53 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 16:39:53 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 16:40:07 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 16:42:11 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 16:43:33 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 16:44:24 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 16:45:23 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 16:45:39 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 16:48:12 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-31 at 16:48:13 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-31 at 16:48:48 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-31 at 16:48:48 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-31 at 16:48:57 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 16:48:58 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 16:49:02 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 16:49:03 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 16:49:04 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 16:49:05 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 16:49:18 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 16:49:19 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 16:49:49 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 16:53:21 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-31 at 16:53:21 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-31 at 16:53:26 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 16:53:27 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 16:53:31 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 16:53:32 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 16:53:33 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 16:53:34 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 16:53:47 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 16:53:48 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 16:55:19 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 16:56:04 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-31 at 16:56:05 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-31 at 16:56:34 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 16:56:36 | WARNING | Make sure all files have the same columns.
+['/Users/liuyu/Desktop/Remote/BBH001/output-0002/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Users/liuyu/Desktop/Remote/BBH001/output-0001/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 16:59:24 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Volumes/simulations/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-31 at 16:59:24 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Volumes/simulations/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-31 at 16:59:27 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 16:59:27 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 16:59:28 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 16:59:28 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 16:59:32 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 16:59:32 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 16:59:32 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 16:59:38 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:00:06 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:01:49 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:02:34 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Volumes/simulations/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-31 at 17:02:34 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Volumes/simulations/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-31 at 17:02:38 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 17:02:38 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 17:02:38 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 17:02:39 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 17:02:40 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:02:40 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:02:41 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:02:45 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:02:54 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:03:11 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:03:22 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:04:10 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Volumes/simulations/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-31 at 17:04:10 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Volumes/simulations/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-31 at 17:04:14 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 17:04:14 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 17:04:14 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 17:04:15 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 17:04:16 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:04:16 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:04:17 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:04:22 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:04:30 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:04:34 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:04:53 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Volumes/simulations/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-31 at 17:04:53 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Volumes/simulations/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-31 at 17:04:57 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 17:04:57 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 17:04:57 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 17:04:57 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 17:04:59 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:04:59 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:04:59 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:05:06 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:05:18 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:06:04 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:06:35 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Volumes/simulations/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-31 at 17:06:35 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Volumes/simulations/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-31 at 17:06:40 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 17:06:40 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 17:06:40 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 17:06:40 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 17:06:42 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:06:42 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:06:42 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:06:47 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:07:14 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:07:25 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Volumes/simulations/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-31 at 17:07:25 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Volumes/simulations/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-31 at 17:07:30 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 17:07:30 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 17:07:30 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 17:07:30 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 17:07:32 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:07:32 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:07:32 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:07:37 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:08:21 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:08:32 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:08:37 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:09:03 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Volumes/simulations/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-31 at 17:09:03 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Volumes/simulations/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-31 at 17:09:06 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 17:09:06 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 17:09:07 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 17:09:07 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 17:09:08 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:09:08 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:09:08 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:09:14 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:09:43 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:09:59 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:15:15 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Volumes/simulations/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-31 at 17:15:15 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Volumes/simulations/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-31 at 17:15:18 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 17:15:18 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 17:15:18 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 17:15:18 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 17:15:20 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:15:20 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:15:20 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:15:26 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:15:36 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:15:39 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:15:45 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:15:49 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:16:04 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:16:11 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:16:15 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:16:39 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Volumes/simulations/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-31 at 17:16:39 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Volumes/simulations/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-31 at 17:16:43 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 17:16:43 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 17:16:43 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 17:16:43 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 17:16:44 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:16:44 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:16:45 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:16:53 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:34:04 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Volumes/simulations/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-31 at 17:34:04 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/systemstatistics-process_memory_mb.maximum.asc', '/Volumes/simulations/BBH001/output-0003/BBH001/systemstatistics-process_memory_mb.maximum.asc']
+2021-01-31 at 17:34:08 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 17:34:08 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 17:34:09 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 17:34:09 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/puncturetracker-pt_loc..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/puncturetracker-pt_loc..asc']
+2021-01-31 at 17:34:10 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:34:10 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:34:11 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:34:21 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-01-31 at 17:34:29 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/quasilocalmeasures-qlm_scalars..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/quasilocalmeasures-qlm_scalars..asc']
+2021-02-02 at 08:41:22 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/carpet-timing..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/carpet-timing..asc', '/Volumes/simulations/BBH001/output-0004/BBH001/carpet-timing..asc']
+2021-02-02 at 08:45:10 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/carpet-timing..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/carpet-timing..asc', '/Volumes/simulations/BBH001/output-0004/BBH001/carpet-timing..asc']
+2021-02-02 at 08:45:17 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/carpet-timing..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/carpet-timing..asc', '/Volumes/simulations/BBH001/output-0004/BBH001/carpet-timing..asc']
+2021-02-02 at 08:46:25 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/carpet-timing..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/carpet-timing..asc', '/Volumes/simulations/BBH001/output-0004/BBH001/carpet-timing..asc']
+2021-02-02 at 08:46:36 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/carpet-timing..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/carpet-timing..asc', '/Volumes/simulations/BBH001/output-0004/BBH001/carpet-timing..asc']
+2021-02-02 at 08:47:11 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/carpet-timing..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/carpet-timing..asc', '/Volumes/simulations/BBH001/output-0004/BBH001/carpet-timing..asc']
+2021-02-02 at 08:47:23 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/carpet-timing..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/carpet-timing..asc', '/Volumes/simulations/BBH001/output-0004/BBH001/carpet-timing..asc']
+2021-02-02 at 08:48:58 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/carpet-timing..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/carpet-timing..asc', '/Volumes/simulations/BBH001/output-0004/BBH001/carpet-timing..asc']
+2021-02-02 at 08:49:38 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/carpet-timing..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/carpet-timing..asc', '/Volumes/simulations/BBH001/output-0004/BBH001/carpet-timing..asc']
+2021-02-02 at 08:51:03 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/carpet-timing..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/carpet-timing..asc', '/Volumes/simulations/BBH001/output-0004/BBH001/carpet-timing..asc']
+2021-02-02 at 08:51:03 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/GW150914_28/output-0001/GW150914_28/carpet-timing..asc', '/Volumes/simulations/GW150914_28/output-0000/GW150914_28/carpet-timing..asc', '/Volumes/simulations/GW150914_28/output-0002/GW150914_28/carpet-timing..asc', '/Volumes/simulations/GW150914_28/output-0005/GW150914_28/carpet-timing..asc', '/Volumes/simulations/GW150914_28/output-0004/GW150914_28/carpet-timing..asc', '/Volumes/simulations/GW150914_28/output-0003/GW150914_28/carpet-timing..asc']
+2021-02-02 at 08:52:21 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/carpet-timing..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/carpet-timing..asc', '/Volumes/simulations/BBH001/output-0004/BBH001/carpet-timing..asc']
+2021-02-02 at 08:52:21 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/GW150914_28/output-0001/GW150914_28/carpet-timing..asc', '/Volumes/simulations/GW150914_28/output-0000/GW150914_28/carpet-timing..asc', '/Volumes/simulations/GW150914_28/output-0002/GW150914_28/carpet-timing..asc', '/Volumes/simulations/GW150914_28/output-0005/GW150914_28/carpet-timing..asc', '/Volumes/simulations/GW150914_28/output-0004/GW150914_28/carpet-timing..asc', '/Volumes/simulations/GW150914_28/output-0003/GW150914_28/carpet-timing..asc']
+2021-02-02 at 08:52:42 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/BBH001/output-0000/BBH001/carpet-timing..asc', '/Volumes/simulations/BBH001/output-0003/BBH001/carpet-timing..asc', '/Volumes/simulations/BBH001/output-0004/BBH001/carpet-timing..asc']
+2021-02-02 at 08:52:42 | WARNING | Make sure all files have the same columns.
+['/Volumes/simulations/GW150914_28/output-0001/GW150914_28/carpet-timing..asc', '/Volumes/simulations/GW150914_28/output-0000/GW150914_28/carpet-timing..asc', '/Volumes/simulations/GW150914_28/output-0002/GW150914_28/carpet-timing..asc', '/Volumes/simulations/GW150914_28/output-0005/GW150914_28/carpet-timing..asc', '/Volumes/simulations/GW150914_28/output-0004/GW150914_28/carpet-timing..asc', '/Volumes/simulations/GW150914_28/output-0003/GW150914_28/carpet-timing..asc']
+2021-02-28 at 16:35:45 | WARNING | The (0, 0) mode of psi4 amplitude at 100.0[M] is near zero. The phase is ill-defined.
+2021-02-28 at 16:35:45 | WARNING | The (0, 0) mode of psi4 amplitude at 115.0[M] is near zero. The phase is ill-defined.
+2021-02-28 at 16:35:45 | WARNING | The (0, 0) mode of psi4 amplitude at 136.0[M] is near zero. The phase is ill-defined.
+2021-02-28 at 16:35:45 | WARNING | The (0, 0) mode of psi4 amplitude at 167.0[M] is near zero. The phase is ill-defined.
+2021-02-28 at 16:35:45 | WARNING | The (0, 0) mode of psi4 amplitude at 214.0[M] is near zero. The phase is ill-defined.
+2021-02-28 at 16:35:45 | WARNING | The (0, 0) mode of psi4 amplitude at 300.0[M] is near zero. The phase is ill-defined.
+2021-02-28 at 16:35:45 | WARNING | The (0, 0) mode of psi4 amplitude at 500.0[M] is near zero. The phase is ill-defined.
+2021-02-28 at 16:35:45 | WARNING | The (1, -1) mode of psi4 amplitude at 100.0[M] is near zero. The phase is ill-defined.
+2021-02-28 at 16:35:45 | WARNING | The (1, -1) mode of psi4 amplitude at 115.0[M] is near zero. The phase is ill-defined.
+2021-02-28 at 16:35:45 | WARNING | The (1, -1) mode of psi4 amplitude at 136.0[M] is near zero. The phase is ill-defined.
+2021-02-28 at 16:35:45 | WARNING | The (1, -1) mode of psi4 amplitude at 167.0[M] is near zero. The phase is ill-defined.
+2021-02-28 at 16:35:45 | WARNING | The (1, -1) mode of psi4 amplitude at 214.0[M] is near zero. The phase is ill-defined.
+2021-02-28 at 16:35:45 | WARNING | The (1, -1) mode of psi4 amplitude at 300.0[M] is near zero. The phase is ill-defined.
+2021-02-28 at 16:35:45 | WARNING | The (1, -1) mode of psi4 amplitude at 500.0[M] is near zero. The phase is ill-defined.
+2021-02-28 at 16:35:45 | WARNING | The (1, 0) mode of psi4 amplitude at 100.0[M] is near zero. The phase is ill-defined.
+2021-02-28 at 16:35:45 | WARNING | The (1, 0) mode of psi4 amplitude at 115.0[M] is near zero. The phase is ill-defined.
+2021-02-28 at 16:35:45 | WARNING | The (1, 0) mode of psi4 amplitude at 136.0[M] is near zero. The phase is ill-defined.
+2021-02-28 at 16:35:45 | WARNING | The (1, 0) mode of psi4 amplitude at 167.0[M] is near zero. The phase is ill-defined.
+2021-02-28 at 16:35:45 | WARNING | The (1, 0) mode of psi4 amplitude at 214.0[M] is near zero. The phase is ill-defined.
+2021-02-28 at 16:35:45 | WARNING | The (1, 0) mode of psi4 amplitude at 300.0[M] is near zero. The phase is ill-defined.
+2021-02-28 at 16:35:45 | WARNING | The (1, 0) mode of psi4 amplitude at 500.0[M] is near zero. The phase is ill-defined.
+2021-02-28 at 16:35:45 | WARNING | The (1, 1) mode of psi4 amplitude at 100.0[M] is near zero. The phase is ill-defined.
+2021-02-28 at 16:35:45 | WARNING | The (1, 1) mode of psi4 amplitude at 115.0[M] is near zero. The phase is ill-defined.
+2021-02-28 at 16:35:45 | WARNING | The (1, 1) mode of psi4 amplitude at 136.0[M] is near zero. The phase is ill-defined.
+2021-02-28 at 16:35:45 | WARNING | The (1, 1) mode of psi4 amplitude at 167.0[M] is near zero. The phase is ill-defined.
+2021-02-28 at 16:35:45 | WARNING | The (1, 1) mode of psi4 amplitude at 214.0[M] is near zero. The phase is ill-defined.
+2021-02-28 at 16:35:45 | WARNING | The (1, 1) mode of psi4 amplitude at 300.0[M] is near zero. The phase is ill-defined.
+2021-02-28 at 16:35:45 | WARNING | The (1, 1) mode of psi4 amplitude at 500.0[M] is near zero. The phase is ill-defined.

@@ -12,7 +12,7 @@ def plot_trajectory(ax, x, y, z, color=None, label=None, plot_end=True, lw=1, nm
         if k+1 == nmasks-1:
             enddex = len(x)
             
-    alpha_min = 0.1
+    alpha_min = 0.2
     alpha_max = 0.99
     for k, mask in enumerate(masks):
         alpha = alpha_min+k*(alpha_max-alpha_min)/(len(masks)-1)

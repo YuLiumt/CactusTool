@@ -12,7 +12,6 @@ CactusTool.Debug.NaN module
    :undoc-members:
    :show-inheritance:
 
-
 Module contents
 ---------------
 

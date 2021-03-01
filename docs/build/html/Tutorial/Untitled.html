@@ -1,20 +1,22 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>&lt;no title&gt; &#8212; CactusTool 0.0.1 documentation</title>
     <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
-    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" /> 
   </head><body>
@@ -27,7 +29,8 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">CactusTool 0.0.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">&lt;no title&gt;</a></li> 
       </ul>
     </div>  
 
@@ -41,21 +44,35 @@
 /* CSS for nbsphinx extension */
 
 /* remove conflicting styling from Sphinx themes */
-div.nbinput.container,
-div.nbinput.container div.prompt,
-div.nbinput.container div.input_area,
-div.nbinput.container div[class*=highlight],
-div.nbinput.container div[class*=highlight] pre,
-div.nboutput.container,
-div.nboutput.container div.prompt,
-div.nboutput.container div.output_area,
-div.nboutput.container div[class*=highlight],
-div.nboutput.container div[class*=highlight] pre {
-    background: none;
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
     border: none;
-    padding: 0 0;
+    padding: 0;
     margin: 0;
     box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
 }
 
 /* avoid gaps between output lines */
@@ -102,20 +119,33 @@ div.nboutput.container div.prompt pre {
 /* all prompts */
 div.nbinput.container div.prompt,
 div.nboutput.container div.prompt {
-    min-width: 5ex;
-    padding-top: 0.4em;
-    padding-right: 0.4em;
-    text-align: right;
-    flex: 0;
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
 }
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
 @media (max-width: 540px) {
     div.nbinput.container div.prompt,
     div.nboutput.container div.prompt {
+        width: unset;
         text-align: left;
         padding: 0.4em;
     }
     div.nboutput.container div.prompt.empty {
         padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
     }
 }
 
@@ -128,7 +158,6 @@ div.nboutput.container div.prompt pre {
 /* input/output area */
 div.nbinput.container div.input_area,
 div.nboutput.container div.output_area {
-    padding: 0.4em;
     -webkit-flex: 1;
     flex: 1;
     overflow: auto;
@@ -144,7 +173,7 @@ div.nboutput.container div.output_area {
 div.nbinput.container div.input_area {
     border: 1px solid #e0e0e0;
     border-radius: 2px;
-    background: #f5f5f5;
+    /*background: #f5f5f5;*/
 }
 
 /* override MathJax center alignment in output cells */
@@ -202,6 +231,28 @@ div.nboutput.container div.output_area.stderr {
 .ansi-bold { font-weight: bold; }
 .ansi-underline { text-decoration: underline; }
 
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
 /* Some additional styling taken form the Jupyter notebook CSS */
 div.rendered_html table {
   border: none;
@@ -236,378 +287,156 @@ div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
 </style>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">CactusTool</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span></span><span class="kn">import</span> <span class="nn">h5py</span>
+<span class="kn">import</span> <span class="nn">glob</span>
 
-<span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;/Users/liuyu/simulations/BH/&#39;</span>
-<span class="n">sim</span> <span class="o">=</span> <span class="n">CactusTool</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;/Volumes/simulations/BBH001/output-????/BBH001/&quot;</span>
+<span class="n">fn</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">path</span><span class="o">+</span><span class="s2">&quot;mp_[Pp]si4.h5&quot;</span><span class="p">)</span>
+<span class="n">fn</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;/Volumes/simulations/BBH001/output-0000/BBH001/mp_psi4.h5&#39;,
+ &#39;/Volumes/simulations/BBH001/output-0001/BBH001/mp_psi4.h5&#39;,
+ &#39;/Volumes/simulations/BBH001/output-0002/BBH001/mp_psi4.h5&#39;,
+ &#39;/Volumes/simulations/BBH001/output-0003/BBH001/mp_psi4.h5&#39;,
+ &#39;/Volumes/simulations/BBH001/output-0004/BBH001/mp_psi4.h5&#39;]
+</pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">dset</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">ASCII</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;H&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dataset</span>
+<span></span><span class="kn">import</span> <span class="nn">math</span>
+<span class="k">def</span> <span class="nf">joinDsets</span><span class="p">(</span><span class="n">dsets</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;joints multiple datasets which each have a</span>
+<span class="sd">        time like first column, eg iteration number of</span>
+<span class="sd">        time. Removes overlapping segments, keeping the</span>
+<span class="sd">        last segment.</span>
+
+<span class="sd">        dsets = iterable of 2d array like objects with data&quot;&quot;&quot;</span>
+        <span class="c1"># joins multiple datasets of which the first column is assumed to be &quot;time&quot;</span>
+        <span class="k">if</span><span class="p">(</span><span class="ow">not</span> <span class="n">dsets</span><span class="p">):</span>
+                <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">length</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dsets</span><span class="p">:</span>
+                <span class="n">length</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+        <span class="n">newshape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">dsets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">newshape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">length</span>
+        <span class="n">dset</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">newshape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dsets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="n">usedlength</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dsets</span><span class="p">:</span>
+                <span class="n">insertpointidx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">dset</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">usedlength</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">insertpointidx</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
+                        <span class="n">insertpoint</span> <span class="o">=</span> <span class="n">insertpointidx</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                        <span class="n">insertpoint</span> <span class="o">=</span> <span class="n">usedlength</span>
+                <span class="n">newlength</span> <span class="o">=</span> <span class="n">insertpoint</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+                <span class="n">dset</span><span class="p">[</span><span class="n">insertpoint</span><span class="p">:</span><span class="n">newlength</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span>
+                <span class="n">usedlength</span> <span class="o">=</span> <span class="n">newlength</span>
+        <span class="k">return</span> <span class="n">dset</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">usedlength</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">loadHDF5Series</span><span class="p">(</span><span class="n">nameglob</span><span class="p">,</span> <span class="n">series</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;load HDF5 timeseries data and concatenate the content of multiple files</span>
+
+<span class="sd">        nameglob = a shell glob that matches all files to be loaded,</span>
+<span class="sd">        files are sorted alphabetically</span>
+<span class="sd">        series = HDF5 dataset name of dataset to load from files&quot;&quot;&quot;</span>
+        <span class="n">dsets</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">nameglob</span><span class="p">)):</span>
+                <span class="n">fh</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+                <span class="n">dsets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fh</span><span class="p">[</span><span class="n">series</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">joinDsets</span><span class="p">(</span><span class="n">dsets</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">RadialToTortoise</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">M</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert the radial coordinate to the tortoise coordinate</span>
+
+<span class="sd">        r = radial coordinate</span>
+<span class="sd">        M = ADMMass used to convert coordinate</span>
+<span class="sd">        return = tortoise coordinate value</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">r</span> <span class="o">+</span> <span class="mf">2.</span> <span class="o">*</span> <span class="n">M</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">r</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.</span> <span class="o">*</span> <span class="n">M</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput docutils container">
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">dset</span> <span class="o">=</span> <span class="n">dset</span><span class="p">[</span><span class="n">dset</span><span class="o">.</span><span class="n">time</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
-<span class="n">dset</span> <span class="o">=</span> <span class="n">dset</span><span class="p">[</span><span class="n">dset</span><span class="o">.</span><span class="n">rl</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
-<span class="c1"># dset = dset[dset.c == 5]</span>
-<span class="n">dset</span>
+<span></span><span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">radii</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+<span class="n">modes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+<span class="n">dsets</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
+<span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">fn</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">dset</span> <span class="ow">in</span> <span class="n">fh</span><span class="p">:</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;l(\d*)_m(-?\d*)_r(\d*\.\d)&#39;</span><span class="p">,</span> <span class="n">dset</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">m</span><span class="p">:</span>
+            <span class="n">radius</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+            <span class="n">mode</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)),</span> <span class="nb">int</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)))</span>
+            <span class="n">modes</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">mode</span><span class="p">)</span>
+            <span class="n">radii</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">radius</span><span class="p">)</span>
+            <span class="n">dsets</span><span class="p">[(</span><span class="n">radius</span><span class="p">,</span> <span class="n">mode</span><span class="p">)]</span> <span class="o">=</span> <span class="n">dset</span>
+
+
+<span class="n">mp_psi4_vars_500</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">psi4dsetname_500</span> <span class="o">=</span> <span class="n">dsets</span><span class="p">[(</span><span class="mi">500</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))]</span>
+<span class="n">mp_psi4_500</span> <span class="o">=</span> <span class="n">loadHDF5Series</span><span class="p">(</span><span class="s2">&quot;/Volumes/simulations/BBH001/output-0000/BBH001/mp_[Pp]si4.h5&quot;</span><span class="p">,</span> <span class="n">psi4dsetname_500</span><span class="p">)</span>
+<span class="n">mp_psi4_vars_500</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mp_psi4_500</span><span class="p">)</span>
+
+<span class="n">mp_psi4_vars_100</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">psi4dsetname_100</span> <span class="o">=</span> <span class="n">dsets</span><span class="p">[(</span><span class="mi">100</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))]</span>
+<span class="n">mp_psi4_100</span> <span class="o">=</span> <span class="n">loadHDF5Series</span><span class="p">(</span><span class="s2">&quot;/Volumes/simulations/BBH001/output-0000/BBH001/mp_[Pp]si4.h5&quot;</span><span class="p">,</span> <span class="n">psi4dsetname_100</span><span class="p">)</span>
+<span class="n">mp_psi4_vars_100</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mp_psi4_100</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
-</pre></div>
-</div>
-<div class="output_area rendered_html docutils container">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>it</th>
-      <th>tl</th>
-      <th>rl</th>
-      <th>c</th>
-      <th>ml</th>
-      <th>ix</th>
-      <th>iy</th>
-      <th>iz</th>
-      <th>time</th>
-      <th>x</th>
-      <th>y</th>
-      <th>z</th>
-      <th>H</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>116</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>2.0</td>
-      <td>0.0</td>
-      <td>1152.0</td>
-      <td>5888.0</td>
-      <td>768.0</td>
-      <td>0.0</td>
-      <td>-185.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>-9.470388e-10</td>
-    </tr>
-    <tr>
-      <td>117</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>2.0</td>
-      <td>0.0</td>
-      <td>1280.0</td>
-      <td>5888.0</td>
-      <td>768.0</td>
-      <td>0.0</td>
-      <td>-180.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>-9.484779e-10</td>
-    </tr>
-    <tr>
-      <td>118</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>2.0</td>
-      <td>0.0</td>
-      <td>1408.0</td>
-      <td>5888.0</td>
-      <td>768.0</td>
-      <td>0.0</td>
-      <td>-175.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>-9.227513e-10</td>
-    </tr>
-    <tr>
-      <td>119</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>2.0</td>
-      <td>0.0</td>
-      <td>1536.0</td>
-      <td>5888.0</td>
-      <td>768.0</td>
-      <td>0.0</td>
-      <td>-170.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>-8.599406e-10</td>
-    </tr>
-    <tr>
-      <td>120</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>2.0</td>
-      <td>0.0</td>
-      <td>1664.0</td>
-      <td>5888.0</td>
-      <td>768.0</td>
-      <td>0.0</td>
-      <td>-165.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>-7.506501e-10</td>
-    </tr>
-    <tr>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <td>204</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>17.0</td>
-      <td>0.0</td>
-      <td>10112.0</td>
-      <td>5888.0</td>
-      <td>768.0</td>
-      <td>0.0</td>
-      <td>165.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>5.222360e-11</td>
-    </tr>
-    <tr>
-      <td>205</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>17.0</td>
-      <td>0.0</td>
-      <td>10240.0</td>
-      <td>5888.0</td>
-      <td>768.0</td>
-      <td>0.0</td>
-      <td>170.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>4.553519e-11</td>
-    </tr>
-    <tr>
-      <td>206</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>17.0</td>
-      <td>0.0</td>
-      <td>10368.0</td>
-      <td>5888.0</td>
-      <td>768.0</td>
-      <td>0.0</td>
-      <td>175.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>3.991600e-11</td>
-    </tr>
-    <tr>
-      <td>207</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>17.0</td>
-      <td>0.0</td>
-      <td>10496.0</td>
-      <td>5888.0</td>
-      <td>768.0</td>
-      <td>0.0</td>
-      <td>180.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>3.491569e-11</td>
-    </tr>
-    <tr>
-      <td>208</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>17.0</td>
-      <td>0.0</td>
-      <td>10624.0</td>
-      <td>5888.0</td>
-      <td>768.0</td>
-      <td>0.0</td>
-      <td>185.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>3.013912e-11</td>
-    </tr>
-  </tbody>
-</table>
-<p>93 rows × 13 columns</p>
-</div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">griddata</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
-<span class="n">f</span> <span class="o">=</span> <span class="n">griddata</span><span class="p">(</span><span class="n">dset</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">dset</span><span class="o">.</span><span class="n">M2</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
+<span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
 
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mp_psi4_500</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">RadialToTortoise</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span><span class="n">mp_psi4_500</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mi">500</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Recent Run&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mp_psi4_100</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">RadialToTortoise</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span><span class="n">mp_psi4_100</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span><span class="s1">&#39;b--&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Recent Run&#39;</span><span class="p">)</span>
+<span class="c1"># ax.set_xlim(1500,2000)</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&lt;matplotlib.lines.Line2D at 0x123364880&gt;]
+</pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<div class="highlight"><pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">AttributeError</span>                            Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-4-3b8fd7969200&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-green-fg">from</span> scipy<span class="ansi-blue-fg">.</span>interpolate <span class="ansi-green-fg">import</span> griddata
-<span class="ansi-green-intense-fg ansi-bold">      2</span> x <span class="ansi-blue-fg">=</span> np<span class="ansi-blue-fg">.</span>linspace<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">-</span><span class="ansi-cyan-fg">10</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">10</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">1000</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">----&gt; 3</span><span class="ansi-red-fg"> </span>f <span class="ansi-blue-fg">=</span> griddata<span class="ansi-blue-fg">(</span>dset<span class="ansi-blue-fg">.</span>x<span class="ansi-blue-fg">,</span> dset<span class="ansi-blue-fg">.</span>M2<span class="ansi-blue-fg">,</span> x<span class="ansi-blue-fg">,</span> method<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;nearest&#39;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      4</span>
-<span class="ansi-green-intense-fg ansi-bold">      5</span> <span class="ansi-green-fg">import</span> matplotlib<span class="ansi-blue-fg">.</span>pyplot <span class="ansi-green-fg">as</span> plt
-
-<span class="ansi-green-fg">/usr/local/lib/python3.7/site-packages/pandas/core/generic.py</span> in <span class="ansi-cyan-fg">__getattr__</span><span class="ansi-blue-fg">(self, name)</span>
-<span class="ansi-green-intense-fg ansi-bold">   5177</span>             <span class="ansi-green-fg">if</span> self<span class="ansi-blue-fg">.</span>_info_axis<span class="ansi-blue-fg">.</span>_can_hold_identifiers_and_holds_name<span class="ansi-blue-fg">(</span>name<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">   5178</span>                 <span class="ansi-green-fg">return</span> self<span class="ansi-blue-fg">[</span>name<span class="ansi-blue-fg">]</span>
-<span class="ansi-green-fg">-&gt; 5179</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">return</span> object<span class="ansi-blue-fg">.</span>__getattribute__<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> name<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   5180</span>
-<span class="ansi-green-intense-fg ansi-bold">   5181</span>     <span class="ansi-green-fg">def</span> __setattr__<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> name<span class="ansi-blue-fg">,</span> value<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-red-fg">AttributeError</span>: &#39;DataFrame&#39; object has no attribute &#39;M2&#39;
-</pre></div></div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">a</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">])</span>
-<span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">101j</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">101j</span><span class="p">]</span>
-<span class="n">positions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">X</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">Y</span><span class="o">.</span><span class="n">ravel</span><span class="p">()])</span>
-<span class="k">print</span><span class="p">(</span><span class="n">positions</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">!</span>ls /Users/liuyu/Downloads/
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">h5py</span>
-
-<span class="k">def</span> <span class="nf">GWdata</span><span class="p">(</span><span class="nb">file</span><span class="p">):</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="nb">file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">timeseries</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;strain&#39;</span><span class="p">]</span>
-        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
-            <span class="k">print</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">timeseries</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;/Users/liuyu/Downloads/&#39;</span>
-<span class="nb">file</span> <span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="s1">&#39;H-H1_LOSC_4_V2-1126259446-32.hdf5&#39;</span>
-<span class="n">ts</span> <span class="o">=</span> <span class="n">GWdata</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;/Users/liuyu/Downloads/&#39;</span>
-<span class="nb">file</span> <span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="s1">&#39;H-H1_LOSC_4_V2-1126259446-32.hdf5&#39;</span>
-<span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="nb">file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="n">dset</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;strain&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">dset</span><span class="p">)</span>
-<span class="c1">#     print(np.array(dset))</span>
-<span class="c1">#     print(f[&#39;strain&#39;])</span>
-<span class="c1">#     dset = f[&#39;strain&#39;]</span>
-<span class="c1">#     print(np.array(dset))</span>
-<span class="c1">#     for item in list(dset.attrs):</span>
-<span class="c1">#         print(item)</span>
-</pre></div>
+<img alt="../_images/Tutorial_Untitled_3_1.png" src="../_images/Tutorial_Untitled_3_1.png" />
 </div>
 </div>
 <div class="nbinput nblast docutils container">
@@ -615,421 +444,127 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
+<span></span><span class="n">radii</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+<span class="n">modes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+<span class="n">dsets</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
+<span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">fn</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">dset</span> <span class="ow">in</span> <span class="n">fh</span><span class="p">:</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;l(\d*)_m(-?\d*)_r(\d*\.\d)&#39;</span><span class="p">,</span> <span class="n">dset</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">m</span><span class="p">:</span>
+            <span class="n">radius</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+            <span class="n">mode</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)),</span> <span class="nb">int</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)))</span>
+            <span class="n">modes</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">mode</span><span class="p">)</span>
+            <span class="n">radii</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">radius</span><span class="p">)</span>
+            <span class="n">dsets</span><span class="p">[(</span><span class="n">radius</span><span class="p">,</span> <span class="n">mode</span><span class="p">)]</span> <span class="o">=</span> <span class="n">dset</span>
+
+
+<span class="n">mp_psi4_vars_500_a</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">psi4dsetname_500_a</span> <span class="o">=</span> <span class="n">dsets</span><span class="p">[(</span><span class="mi">500</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))]</span>
+<span class="n">mp_psi4_500_a</span> <span class="o">=</span> <span class="n">loadHDF5Series</span><span class="p">(</span><span class="s2">&quot;/Volumes/simulations/BBH001/output-0003/BBH001/mp_[Pp]si4.h5&quot;</span><span class="p">,</span> <span class="n">psi4dsetname_500_a</span><span class="p">)</span>
+<span class="n">mp_psi4_vars_500_a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mp_psi4_500_a</span><span class="p">)</span>
+
+<span class="n">mp_psi4_vars_100_a</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">psi4dsetname_100_a</span> <span class="o">=</span> <span class="n">dsets</span><span class="p">[(</span><span class="mi">100</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))]</span>
+<span class="n">mp_psi4_100_a</span> <span class="o">=</span> <span class="n">loadHDF5Series</span><span class="p">(</span><span class="s2">&quot;/Volumes/simulations/BBH001/output-0003/BBH001/mp_[Pp]si4.h5&quot;</span><span class="p">,</span> <span class="n">psi4dsetname_100_a</span><span class="p">)</span>
+<span class="n">mp_psi4_vars_100_a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mp_psi4_100_a</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">gwpy.timeseries</span> <span class="kn">import</span> <span class="n">TimeSeries</span>
-<span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;/Users/liuyu/Downloads/&#39;</span>
-<span class="nb">file</span> <span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="s1">&#39;H-H1_LOSC_4_V2-1126259446-32.hdf5&#39;</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">TimeSeries</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="nb">file</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s1">&#39;hdf5.losc&#39;</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mp_psi4_500_a</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">RadialToTortoise</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span><span class="n">mp_psi4_500_a</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mi">500</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Recent Run&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mp_psi4_100_a</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">RadialToTortoise</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span><span class="n">mp_psi4_100_a</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span><span class="s1">&#39;b--&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Recent Run&#39;</span><span class="p">)</span>
+<span class="c1"># ax.set_xlim(1000,1350)</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-TimeSeries([2.17704028e-19, 2.08763900e-19, 2.39681183e-19, ...,
-            3.55365541e-20, 6.33533516e-20, 7.58121195e-20]
-           unit: dimensionless,
-           t0: 1126259446.0 s,
-           dt: 0.000244140625 s,
-           name: Strain,
-           channel: None)
-</pre></div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">scipy.integrate</span> <span class="kn">import</span> <span class="n">odeint</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
-
-<span class="c1"># function that returns dz/dt</span>
-<span class="k">def</span> <span class="nf">model</span><span class="p">(</span><span class="n">z</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">z</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">z</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">dxdt</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">x</span> <span class="o">+</span> <span class="n">u</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span>
-    <span class="n">dydt</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">y</span> <span class="o">+</span> <span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="mf">5.0</span>
-    <span class="n">dzdt</span> <span class="o">=</span> <span class="p">[</span><span class="n">dxdt</span><span class="p">,</span><span class="n">dydt</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">dzdt</span>
-
-<span class="c1"># initial condition</span>
-<span class="n">z0</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
-
-<span class="c1"># number of time points</span>
-<span class="n">n</span> <span class="o">=</span> <span class="mi">400</span>
-
-<span class="c1"># time points</span>
-<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">400</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
-
-<span class="c1"># step input</span>
-<span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-<span class="c1"># change to 2.0 at time = 5.0</span>
-<span class="n">u</span><span class="p">[</span><span class="mi">50</span><span class="p">:]</span> <span class="o">=</span> <span class="mf">2.0</span>
-
-<span class="c1"># store solution</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-<span class="c1"># record initial conditions</span>
-<span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">z0</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">z0</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-
-<span class="c1"># solve ODE</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
-    <span class="c1"># span for next time step</span>
-    <span class="n">tspan</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
-    <span class="c1"># solve for next step</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="n">odeint</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="n">z0</span><span class="p">,</span><span class="n">tspan</span><span class="p">,</span><span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="mi">0</span><span class="p">))</span>
-    <span class="c1"># store solution for plotting</span>
-    <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">z</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">z</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
-    <span class="c1"># next initial condition</span>
-    <span class="n">z0</span> <span class="o">=</span> <span class="n">z</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-
-<span class="c1"># plot results</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">u</span><span class="p">,</span><span class="s1">&#39;g:&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;u(t)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="s1">&#39;b-&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;x(t)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="s1">&#39;r--&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;y(t)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;values&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="n">PDE</span> <span class="o">-&gt;</span> <span class="n">ODE</span> <span class="o">-&gt;</span> <span class="n">odeint</span><span class="o">/</span><span class="n">solve_ivp</span><span class="o">/</span><span class="n">ode</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/Tutorial_Untitled_12_0.png" src="../_images/Tutorial_Untitled_12_0.png" />
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">help</span><span class="p">(</span><span class="n">odeint</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Help on function odeint in module scipy.integrate.odepack:
-
-odeint(func, y0, t, args=(), Dfun=None, col_deriv=0, full_output=0, ml=None, mu=None, rtol=None, atol=None, tcrit=None, h0=0.0, hmax=0.0, hmin=0.0, ixpr=0, mxstep=0, mxhnil=0, mxordn=12, mxords=5, printmessg=0, tfirst=False)
-    Integrate a system of ordinary differential equations.
-
-    .. note:: For new code, use `scipy.integrate.solve_ivp` to solve a
-              differential equation.
-
-    Solve a system of ordinary differential equations using lsoda from the
-    FORTRAN library odepack.
-
-    Solves the initial value problem for stiff or non-stiff systems
-    of first order ode-s::
-
-        dy/dt = func(y, t, ...)  [or func(t, y, ...)]
-
-    where y can be a vector.
-
-    .. note:: By default, the required order of the first two arguments of
-              `func` are in the opposite order of the arguments in the system
-              definition function used by the `scipy.integrate.ode` class and
-              the function `scipy.integrate.solve_ivp`.  To use a function with
-              the signature ``func(t, y, ...)``, the argument `tfirst` must be
-              set to ``True``.
-
-    Parameters
-    ----------
-    func : callable(y, t, ...) or callable(t, y, ...)
-        Computes the derivative of y at t.
-        If the signature is ``callable(t, y, ...)``, then the argument
-        `tfirst` must be set ``True``.
-    y0 : array
-        Initial condition on y (can be a vector).
-    t : array
-        A sequence of time points for which to solve for y.  The initial
-        value point should be the first element of this sequence.
-        This sequence must be monotonically increasing or monotonically
-        decreasing; repeated values are allowed.
-    args : tuple, optional
-        Extra arguments to pass to function.
-    Dfun : callable(y, t, ...) or callable(t, y, ...)
-        Gradient (Jacobian) of `func`.
-        If the signature is ``callable(t, y, ...)``, then the argument
-        `tfirst` must be set ``True``.
-    col_deriv : bool, optional
-        True if `Dfun` defines derivatives down columns (faster),
-        otherwise `Dfun` should define derivatives across rows.
-    full_output : bool, optional
-        True if to return a dictionary of optional outputs as the second output
-    printmessg : bool, optional
-        Whether to print the convergence message
-    tfirst: bool, optional
-        If True, the first two arguments of `func` (and `Dfun`, if given)
-        must ``t, y`` instead of the default ``y, t``.
-
-        .. versionadded:: 1.1.0
-
-    Returns
-    -------
-    y : array, shape (len(t), len(y0))
-        Array containing the value of y for each desired time in t,
-        with the initial value `y0` in the first row.
-    infodict : dict, only returned if full_output == True
-        Dictionary containing additional output information
-
-        =======  ============================================================
-        key      meaning
-        =======  ============================================================
-        &#39;hu&#39;     vector of step sizes successfully used for each time step.
-        &#39;tcur&#39;   vector with the value of t reached for each time step.
-                 (will always be at least as large as the input times).
-        &#39;tolsf&#39;  vector of tolerance scale factors, greater than 1.0,
-                 computed when a request for too much accuracy was detected.
-        &#39;tsw&#39;    value of t at the time of the last method switch
-                 (given for each time step)
-        &#39;nst&#39;    cumulative number of time steps
-        &#39;nfe&#39;    cumulative number of function evaluations for each time step
-        &#39;nje&#39;    cumulative number of jacobian evaluations for each time step
-        &#39;nqu&#39;    a vector of method orders for each successful step.
-        &#39;imxer&#39;  index of the component of largest magnitude in the
-                 weighted local error vector (e / ewt) on an error return, -1
-                 otherwise.
-        &#39;lenrw&#39;  the length of the double work array required.
-        &#39;leniw&#39;  the length of integer work array required.
-        &#39;mused&#39;  a vector of method indicators for each successful time step:
-                 1: adams (nonstiff), 2: bdf (stiff)
-        =======  ============================================================
-
-    Other Parameters
-    ----------------
-    ml, mu : int, optional
-        If either of these are not None or non-negative, then the
-        Jacobian is assumed to be banded.  These give the number of
-        lower and upper non-zero diagonals in this banded matrix.
-        For the banded case, `Dfun` should return a matrix whose
-        rows contain the non-zero bands (starting with the lowest diagonal).
-        Thus, the return matrix `jac` from `Dfun` should have shape
-        ``(ml + mu + 1, len(y0))`` when ``ml &gt;=0`` or ``mu &gt;=0``.
-        The data in `jac` must be stored such that ``jac[i - j + mu, j]``
-        holds the derivative of the `i`th equation with respect to the `j`th
-        state variable.  If `col_deriv` is True, the transpose of this
-        `jac` must be returned.
-    rtol, atol : float, optional
-        The input parameters `rtol` and `atol` determine the error
-        control performed by the solver.  The solver will control the
-        vector, e, of estimated local errors in y, according to an
-        inequality of the form ``max-norm of (e / ewt) &lt;= 1``,
-        where ewt is a vector of positive error weights computed as
-        ``ewt = rtol * abs(y) + atol``.
-        rtol and atol can be either vectors the same length as y or scalars.
-        Defaults to 1.49012e-8.
-    tcrit : ndarray, optional
-        Vector of critical points (e.g. singularities) where integration
-        care should be taken.
-    h0 : float, (0: solver-determined), optional
-        The step size to be attempted on the first step.
-    hmax : float, (0: solver-determined), optional
-        The maximum absolute step size allowed.
-    hmin : float, (0: solver-determined), optional
-        The minimum absolute step size allowed.
-    ixpr : bool, optional
-        Whether to generate extra printing at method switches.
-    mxstep : int, (0: solver-determined), optional
-        Maximum number of (internally defined) steps allowed for each
-        integration point in t.
-    mxhnil : int, (0: solver-determined), optional
-        Maximum number of messages printed.
-    mxordn : int, (0: solver-determined), optional
-        Maximum order to be allowed for the non-stiff (Adams) method.
-    mxords : int, (0: solver-determined), optional
-        Maximum order to be allowed for the stiff (BDF) method.
-
-    See Also
-    --------
-    solve_ivp : Solve an initial value problem for a system of ODEs.
-    ode : a more object-oriented integrator based on VODE.
-    quad : for finding the area under a curve.
-
-    Examples
-    --------
-    The second order differential equation for the angle `theta` of a
-    pendulum acted on by gravity with friction can be written::
-
-        theta&#39;&#39;(t) + b*theta&#39;(t) + c*sin(theta(t)) = 0
-
-    where `b` and `c` are positive constants, and a prime (&#39;) denotes a
-    derivative.  To solve this equation with `odeint`, we must first convert
-    it to a system of first order equations.  By defining the angular
-    velocity ``omega(t) = theta&#39;(t)``, we obtain the system::
-
-        theta&#39;(t) = omega(t)
-        omega&#39;(t) = -b*omega(t) - c*sin(theta(t))
-
-    Let `y` be the vector [`theta`, `omega`].  We implement this system
-    in python as:
-
-    &gt;&gt;&gt; def pend(y, t, b, c):
-    ...     theta, omega = y
-    ...     dydt = [omega, -b*omega - c*np.sin(theta)]
-    ...     return dydt
-    ...
-
-    We assume the constants are `b` = 0.25 and `c` = 5.0:
-
-    &gt;&gt;&gt; b = 0.25
-    &gt;&gt;&gt; c = 5.0
-
-    For initial conditions, we assume the pendulum is nearly vertical
-    with `theta(0)` = `pi` - 0.1, and is initially at rest, so
-    `omega(0)` = 0.  Then the vector of initial conditions is
-
-    &gt;&gt;&gt; y0 = [np.pi - 0.1, 0.0]
-
-    We will generate a solution at 101 evenly spaced samples in the interval
-    0 &lt;= `t` &lt;= 10.  So our array of times is:
-
-    &gt;&gt;&gt; t = np.linspace(0, 10, 101)
-
-    Call `odeint` to generate the solution.  To pass the parameters
-    `b` and `c` to `pend`, we give them to `odeint` using the `args`
-    argument.
-
-    &gt;&gt;&gt; from scipy.integrate import odeint
-    &gt;&gt;&gt; sol = odeint(pend, y0, t, args=(b, c))
-
-    The solution is an array with shape (101, 2).  The first column
-    is `theta(t)`, and the second is `omega(t)`.  The following code
-    plots both components.
-
-    &gt;&gt;&gt; import matplotlib.pyplot as plt
-    &gt;&gt;&gt; plt.plot(t, sol[:, 0], &#39;b&#39;, label=&#39;theta(t)&#39;)
-    &gt;&gt;&gt; plt.plot(t, sol[:, 1], &#39;g&#39;, label=&#39;omega(t)&#39;)
-    &gt;&gt;&gt; plt.legend(loc=&#39;best&#39;)
-    &gt;&gt;&gt; plt.xlabel(&#39;t&#39;)
-    &gt;&gt;&gt; plt.grid()
-    &gt;&gt;&gt; plt.show()
-
-</pre></div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">400</span>
-<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
-<span class="n">t</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([ 0. ,  0.1,  0.2,  0.3,  0.4,  0.5,  0.6,  0.7,  0.8,  0.9,  1. ,
-        1.1,  1.2,  1.3,  1.4,  1.5,  1.6,  1.7,  1.8,  1.9,  2. ,  2.1,
-        2.2,  2.3,  2.4,  2.5,  2.6,  2.7,  2.8,  2.9,  3. ,  3.1,  3.2,
-        3.3,  3.4,  3.5,  3.6,  3.7,  3.8,  3.9,  4. ,  4.1,  4.2,  4.3,
-        4.4,  4.5,  4.6,  4.7,  4.8,  4.9,  5. ,  5.1,  5.2,  5.3,  5.4,
-        5.5,  5.6,  5.7,  5.8,  5.9,  6. ,  6.1,  6.2,  6.3,  6.4,  6.5,
-        6.6,  6.7,  6.8,  6.9,  7. ,  7.1,  7.2,  7.3,  7.4,  7.5,  7.6,
-        7.7,  7.8,  7.9,  8. ,  8.1,  8.2,  8.3,  8.4,  8.5,  8.6,  8.7,
-        8.8,  8.9,  9. ,  9.1,  9.2,  9.3,  9.4,  9.5,  9.6,  9.7,  9.8,
-        9.9, 10. , 10.1, 10.2, 10.3, 10.4, 10.5, 10.6, 10.7, 10.8, 10.9,
-       11. , 11.1, 11.2, 11.3, 11.4, 11.5, 11.6, 11.7, 11.8, 11.9, 12. ,
-       12.1, 12.2, 12.3, 12.4, 12.5, 12.6, 12.7, 12.8, 12.9, 13. , 13.1,
-       13.2, 13.3, 13.4, 13.5, 13.6, 13.7, 13.8, 13.9, 14. , 14.1, 14.2,
-       14.3, 14.4, 14.5, 14.6, 14.7, 14.8, 14.9, 15. , 15.1, 15.2, 15.3,
-       15.4, 15.5, 15.6, 15.7, 15.8, 15.9, 16. , 16.1, 16.2, 16.3, 16.4,
-       16.5, 16.6, 16.7, 16.8, 16.9, 17. , 17.1, 17.2, 17.3, 17.4, 17.5,
-       17.6, 17.7, 17.8, 17.9, 18. , 18.1, 18.2, 18.3, 18.4, 18.5, 18.6,
-       18.7, 18.8, 18.9, 19. , 19.1, 19.2, 19.3, 19.4, 19.5, 19.6, 19.7,
-       19.8, 19.9, 20. , 20.1, 20.2, 20.3, 20.4, 20.5, 20.6, 20.7, 20.8,
-       20.9, 21. , 21.1, 21.2, 21.3, 21.4, 21.5, 21.6, 21.7, 21.8, 21.9,
-       22. , 22.1, 22.2, 22.3, 22.4, 22.5, 22.6, 22.7, 22.8, 22.9, 23. ,
-       23.1, 23.2, 23.3, 23.4, 23.5, 23.6, 23.7, 23.8, 23.9, 24. , 24.1,
-       24.2, 24.3, 24.4, 24.5, 24.6, 24.7, 24.8, 24.9, 25. , 25.1, 25.2,
-       25.3, 25.4, 25.5, 25.6, 25.7, 25.8, 25.9, 26. , 26.1, 26.2, 26.3,
-       26.4, 26.5, 26.6, 26.7, 26.8, 26.9, 27. , 27.1, 27.2, 27.3, 27.4,
-       27.5, 27.6, 27.7, 27.8, 27.9, 28. , 28.1, 28.2, 28.3, 28.4, 28.5,
-       28.6, 28.7, 28.8, 28.9, 29. , 29.1, 29.2, 29.3, 29.4, 29.5, 29.6,
-       29.7, 29.8, 29.9, 30. , 30.1, 30.2, 30.3, 30.4, 30.5, 30.6, 30.7,
-       30.8, 30.9, 31. , 31.1, 31.2, 31.3, 31.4, 31.5, 31.6, 31.7, 31.8,
-       31.9, 32. , 32.1, 32.2, 32.3, 32.4, 32.5, 32.6, 32.7, 32.8, 32.9,
-       33. , 33.1, 33.2, 33.3, 33.4, 33.5, 33.6, 33.7, 33.8, 33.9, 34. ,
-       34.1, 34.2, 34.3, 34.4, 34.5, 34.6, 34.7, 34.8, 34.9, 35. , 35.1,
-       35.2, 35.3, 35.4, 35.5, 35.6, 35.7, 35.8, 35.9, 36. , 36.1, 36.2,
-       36.3, 36.4, 36.5, 36.6, 36.7, 36.8, 36.9, 37. , 37.1, 37.2, 37.3,
-       37.4, 37.5, 37.6, 37.7, 37.8, 37.9, 38. , 38.1, 38.2, 38.3, 38.4,
-       38.5, 38.6, 38.7, 38.8, 38.9, 39. , 39.1, 39.2, 39.3, 39.4, 39.5,
-       39.6, 39.7, 39.8, 39.9, 40. ])
+[&lt;matplotlib.lines.Line2D at 0x12345e5b0&gt;]
 </pre></div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">scipy.integrate</span> <span class="kn">import</span> <span class="n">odeint</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
-
-<span class="c1"># function that returns dz/dt</span>
-<span class="k">def</span> <span class="nf">model</span><span class="p">(</span><span class="n">z</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">t</span><span class="o">&lt;</span><span class="mi">5</span><span class="p">:</span>
-        <span class="n">u</span><span class="o">=</span><span class="mi">0</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">u</span><span class="o">=</span><span class="mi">2</span>
-    <span class="n">dxdt</span> <span class="o">=</span> <span class="o">.</span><span class="mi">5</span> <span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="n">z</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">u</span><span class="p">)</span>
-    <span class="n">dydt</span> <span class="o">=</span> <span class="o">.</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="n">z</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">z</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="n">dzdt</span> <span class="o">=</span> <span class="p">[</span><span class="n">dxdt</span><span class="p">,</span><span class="n">dydt</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">dzdt</span>
-
-<span class="c1"># initial condition</span>
-<span class="n">z0</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
-
-<span class="c1"># time points</span>
-<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">1000</span><span class="p">)</span>
-
-<span class="c1"># solve ODE</span>
-<span class="n">z</span> <span class="o">=</span> <span class="n">odeint</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="n">z0</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
-
-<span class="c1"># plot results</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">z</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="s1">&#39;b-&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\frac{dx}{dt}=3 \; \exp(-t)$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">z</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;r--&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\frac{dy}{dt}=-y+3$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;response&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/Tutorial_Untitled_15_0.png" src="../_images/Tutorial_Untitled_15_0.png" />
+<img alt="../_images/Tutorial_Untitled_5_1.png" src="../_images/Tutorial_Untitled_5_1.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">radii</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+<span class="n">modes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+<span class="n">dsets</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
+<span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">fn</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">dset</span> <span class="ow">in</span> <span class="n">fh</span><span class="p">:</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;l(\d*)_m(-?\d*)_r(\d*\.\d)&#39;</span><span class="p">,</span> <span class="n">dset</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">m</span><span class="p">:</span>
+            <span class="n">radius</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+            <span class="n">mode</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)),</span> <span class="nb">int</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)))</span>
+            <span class="n">modes</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">mode</span><span class="p">)</span>
+            <span class="n">radii</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">radius</span><span class="p">)</span>
+            <span class="n">dsets</span><span class="p">[(</span><span class="n">radius</span><span class="p">,</span> <span class="n">mode</span><span class="p">)]</span> <span class="o">=</span> <span class="n">dset</span>
+
+
+<span class="n">mp_psi4_vars_500_a</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">psi4dsetname_500_a</span> <span class="o">=</span> <span class="n">dsets</span><span class="p">[(</span><span class="mi">500</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))]</span>
+<span class="n">mp_psi4_500_a</span> <span class="o">=</span> <span class="n">loadHDF5Series</span><span class="p">(</span><span class="s2">&quot;/Volumes/simulations/BBH001/output-0004/BBH001/mp_[Pp]si4.h5&quot;</span><span class="p">,</span> <span class="n">psi4dsetname_500_a</span><span class="p">)</span>
+<span class="n">mp_psi4_vars_500_a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mp_psi4_500_a</span><span class="p">)</span>
+
+<span class="n">mp_psi4_vars_100_a</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">psi4dsetname_100_a</span> <span class="o">=</span> <span class="n">dsets</span><span class="p">[(</span><span class="mi">100</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))]</span>
+<span class="n">mp_psi4_100_a</span> <span class="o">=</span> <span class="n">loadHDF5Series</span><span class="p">(</span><span class="s2">&quot;/Volumes/simulations/BBH001/output-0004/BBH001/mp_[Pp]si4.h5&quot;</span><span class="p">,</span> <span class="n">psi4dsetname_100_a</span><span class="p">)</span>
+<span class="n">mp_psi4_vars_100_a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mp_psi4_100_a</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mp_psi4_500_a</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">RadialToTortoise</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span><span class="n">mp_psi4_500_a</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mi">500</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Recent Run&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mp_psi4_100_a</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">RadialToTortoise</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span><span class="n">mp_psi4_100_a</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Recent Run&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.0001</span><span class="p">,</span><span class="mf">0.0001</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(-0.0001, 0.0001)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/Tutorial_Untitled_7_1.png" src="../_images/Tutorial_Untitled_7_1.png" />
 </div>
 </div>
 <div class="nbinput nblast docutils container">
@@ -1043,6 +578,7 @@ array([ 0. ,  0.1,  0.2,  0.3,  0.4,  0.5,  0.6,  0.7,  0.8,  0.9,  1. ,
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -1064,7 +600,7 @@ array([ 0. ,  0.1,  0.2,  0.3,  0.4,  0.5,  0.6,  0.7,  0.8,  0.9,  1. ,
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -1078,12 +614,13 @@ array([ 0. ,  0.1,  0.2,  0.3,  0.4,  0.5,  0.6,  0.7,  0.8,  0.9,  1. ,
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">CactusTool 0.0.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">&lt;no title&gt;</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, Yu Liu.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
     </div>
   </body>
 </html>

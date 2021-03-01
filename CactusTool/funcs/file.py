@@ -103,15 +103,14 @@ def columns_asc(file):
     """
     with read(file) as f:
         columns=[]
-        for line in f.readlines():
+        for line in f.readlines(10000):
             if "# 1:iteration 2:time 3:data" in line:
                 columns = columns + line.split()[1:]
             if "# column format:" in line:
                 columns = line.split()[3:]
-            if "# data columns: " in line:
+            if "# data columns:" in line:
                 del columns[-1]
                 columns = columns + line.split()[3:]
-                break
     if len(columns) > 0:
         return [name.split(":")[1] for c, name in enumerate(columns)]
     else:
@@ -240,3 +239,10 @@ def dataframe_h5(file, axis):
             tem.append(tem_c)
 
     return pd.concat(tem)
+
+def dataset_asc(files, usecols):
+    p = np.empty((len(usecols), 0))
+    for f in files:
+        tem = np.loadtxt(f, comments="#", usecols=usecols, unpack=True)
+        p = np.append(p, tem, axis=1)
+    return np.unique(p, axis=1)

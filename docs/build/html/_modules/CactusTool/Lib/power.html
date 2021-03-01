@@ -1,0 +1,476 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CactusTool.Lib.power &#8212; CactusTool 0.0.1 documentation</title>
+    <link rel="stylesheet" href="../../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CactusTool.Lib.power</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for CactusTool.Lib.power</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (c) 2017 The Board of Trustees of the University of Illinois</span>
+<span class="c1"># All rights reserved.</span>
+<span class="c1">#</span>
+<span class="c1"># Developed by: Daniel Johnson, E. A. Huerta, Roland Haas</span>
+<span class="c1">#               NCSA Gravity Group</span>
+<span class="c1">#               National Center for Supercomputing Applications</span>
+<span class="c1">#               University of Illinois at Urbana-Champaign</span>
+<span class="c1">#               http://gravity.ncsa.illinois.edu/</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">h5py</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">string</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">scipy.optimize</span>
+<span class="kn">import</span> <span class="nn">scipy.interpolate</span>
+
+<span class="c1">#-----Function Definitions-----#</span>
+
+<span class="c1">#Function used in getting psi4 from simulation</span>
+<div class="viewcode-block" id="joinDsets"><a class="viewcode-back" href="../../../API/CactusTool.Lib.html#CactusTool.Lib.power.joinDsets">[docs]</a><span class="k">def</span> <span class="nf">joinDsets</span><span class="p">(</span><span class="n">dsets</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;joints multiple datasets which each have a</span>
+<span class="sd">        time like first column, eg iteration number of</span>
+<span class="sd">        time. Removes overlapping segments, keeping the</span>
+<span class="sd">        last segment.</span>
+
+<span class="sd">        dsets = iterable of 2d array like objects with data&quot;&quot;&quot;</span>
+        <span class="c1"># joins multiple datasets of which the first column is assumed to be &quot;time&quot;</span>
+        <span class="k">if</span><span class="p">(</span><span class="ow">not</span> <span class="n">dsets</span><span class="p">):</span>
+                <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">length</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dsets</span><span class="p">:</span>
+                <span class="n">length</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+        <span class="n">newshape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">dsets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">newshape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">length</span>
+        <span class="n">dset</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">newshape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dsets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="n">usedlength</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dsets</span><span class="p">:</span>
+                <span class="n">insertpointidx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">dset</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">usedlength</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">insertpointidx</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
+                        <span class="n">insertpoint</span> <span class="o">=</span> <span class="n">insertpointidx</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                        <span class="n">insertpoint</span> <span class="o">=</span> <span class="n">usedlength</span>
+                <span class="n">newlength</span> <span class="o">=</span> <span class="n">insertpoint</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+                <span class="n">dset</span><span class="p">[</span><span class="n">insertpoint</span><span class="p">:</span><span class="n">newlength</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span>
+                <span class="n">usedlength</span> <span class="o">=</span> <span class="n">newlength</span>
+        <span class="k">return</span> <span class="n">dset</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">usedlength</span><span class="p">]</span></div>
+
+<span class="c1">#Function used in getting psi4 from simulation</span>
+<div class="viewcode-block" id="loadHDF5Series"><a class="viewcode-back" href="../../../API/CactusTool.Lib.html#CactusTool.Lib.power.loadHDF5Series">[docs]</a><span class="k">def</span> <span class="nf">loadHDF5Series</span><span class="p">(</span><span class="n">nameglob</span><span class="p">,</span> <span class="n">series</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;load HDF5 timeseries data and concatenate the content of multiple files</span>
+
+<span class="sd">        nameglob = a shell glob that matches all files to be loaded,</span>
+<span class="sd">        files are sorted alphabetically</span>
+<span class="sd">        series = HDF5 dataset name of dataset to load from files&quot;&quot;&quot;</span>
+        <span class="n">dsets</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">nameglob</span><span class="p">)):</span>
+                <span class="n">fh</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+                <span class="n">dsets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fh</span><span class="p">[</span><span class="n">series</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">joinDsets</span><span class="p">(</span><span class="n">dsets</span><span class="p">)</span></div>
+
+<span class="c1">#Convert radial to tortoise coordinates</span>
+<div class="viewcode-block" id="RadialToTortoise"><a class="viewcode-back" href="../../../API/CactusTool.Lib.html#CactusTool.Lib.power.RadialToTortoise">[docs]</a><span class="k">def</span> <span class="nf">RadialToTortoise</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">M</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert the radial coordinate to the tortoise coordinate</span>
+
+<span class="sd">        r = radial coordinate</span>
+<span class="sd">        M = ADMMass used to convert coordinate</span>
+<span class="sd">        return = tortoise coordinate value</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">r</span> <span class="o">+</span> <span class="mf">2.</span> <span class="o">*</span> <span class="n">M</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">r</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.</span> <span class="o">*</span> <span class="n">M</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.</span><span class="p">)</span></div>
+
+<span class="c1">#Convert modified psi4 to strain</span>
+<div class="viewcode-block" id="psi4ToStrain"><a class="viewcode-back" href="../../../API/CactusTool.Lib.html#CactusTool.Lib.power.psi4ToStrain">[docs]</a><span class="k">def</span> <span class="nf">psi4ToStrain</span><span class="p">(</span><span class="n">mp_psi4</span><span class="p">,</span> <span class="n">f0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert the input mp_psi4 data to the strain of the gravitational wave</span>
+
+<span class="sd">        mp_psi4 = Weyl scalar result from simulation</span>
+<span class="sd">        f0 = cutoff frequency</span>
+<span class="sd">        return = strain (h) of the gravitational wave</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1">#TODO: Check for uniform spacing in time</span>
+        <span class="n">t0</span> <span class="o">=</span> <span class="n">mp_psi4</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">list_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">t0</span><span class="p">)</span>
+        <span class="n">complexPsi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">list_len</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex_</span><span class="p">)</span>
+        <span class="n">complexPsi</span> <span class="o">=</span> <span class="n">mp_psi4</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">1.</span><span class="n">j</span><span class="o">*</span><span class="n">mp_psi4</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span>
+
+        <span class="n">freq</span><span class="p">,</span> <span class="n">psif</span> <span class="o">=</span> <span class="n">myFourierTransform</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">complexPsi</span><span class="p">)</span>
+        <span class="n">dhf</span> <span class="o">=</span> <span class="n">ffi</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">psif</span><span class="p">,</span> <span class="n">f0</span><span class="p">)</span>
+        <span class="n">hf</span> <span class="o">=</span> <span class="n">ffi</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">dhf</span><span class="p">,</span> <span class="n">f0</span><span class="p">)</span>
+
+        <span class="n">time</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">myFourierTransformInverse</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">hf</span><span class="p">,</span> <span class="n">t0</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">hTable</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">time</span><span class="p">,</span> <span class="n">h</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">hTable</span></div>
+
+<span class="c1">#Fixed frequency integration</span>
+<span class="c1"># See https://arxiv.org/abs/1508.07250 for method</span>
+<div class="viewcode-block" id="ffi"><a class="viewcode-back" href="../../../API/CactusTool.Lib.html#CactusTool.Lib.power.ffi">[docs]</a><span class="k">def</span> <span class="nf">ffi</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">f0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Integrates the data according to the input frequency and cutoff frequency</span>
+
+<span class="sd">        freq = fourier transform frequency</span>
+<span class="sd">        data = input on which ffi is performed</span>
+<span class="sd">        f0 = cutoff frequency</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">f1</span> <span class="o">=</span> <span class="n">f0</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+        <span class="n">fs</span> <span class="o">=</span> <span class="n">freq</span>
+        <span class="n">gs</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="n">mask1</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">((</span><span class="n">fs</span><span class="o">/</span><span class="n">f1</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mf">2.</span>
+        <span class="n">mask2</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">((</span><span class="o">-</span><span class="n">fs</span><span class="o">/</span><span class="n">f1</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mf">2.</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">mask1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">mask2</span><span class="p">)</span>
+        <span class="n">fs2</span> <span class="o">=</span> <span class="n">mask</span> <span class="o">*</span> <span class="n">fs</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">mask</span><span class="p">)</span> <span class="o">*</span> <span class="n">f1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">fs</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span><span class="p">)</span>
+        <span class="n">new_gs</span> <span class="o">=</span> <span class="n">gs</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mf">1.</span><span class="n">j</span><span class="o">*</span><span class="n">fs2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">new_gs</span></div>
+
+<span class="c1">#Fourier Transform</span>
+<div class="viewcode-block" id="myFourierTransform"><a class="viewcode-back" href="../../../API/CactusTool.Lib.html#CactusTool.Lib.power.myFourierTransform">[docs]</a><span class="k">def</span> <span class="nf">myFourierTransform</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">complexPsi</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Transforms the complexPsi data to frequency space</span>
+
+<span class="sd">        t0 = time data points</span>
+<span class="sd">        complexPsi = data points of Psi to be transformed</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">psif</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">complexPsi</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="s2">&quot;ortho&quot;</span><span class="p">)</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">complexPsi</span><span class="p">)</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">l</span><span class="o">/</span><span class="mf">2.</span><span class="p">))</span>
+        <span class="n">newpsif</span> <span class="o">=</span> <span class="n">psif</span><span class="p">[</span><span class="n">l</span><span class="o">-</span><span class="n">n</span><span class="p">:]</span>
+        <span class="n">newpsif</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">newpsif</span><span class="p">,</span> <span class="n">psif</span><span class="p">[:</span><span class="n">l</span><span class="o">-</span><span class="n">n</span><span class="p">])</span>
+        <span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">amin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">t0</span><span class="p">))</span><span class="o">*</span><span class="n">l</span>
+        <span class="n">freq</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="n">n</span><span class="p">,</span> <span class="n">l</span><span class="o">-</span><span class="n">n</span><span class="p">)</span><span class="o">/</span><span class="n">T</span>
+        <span class="k">return</span> <span class="n">freq</span><span class="p">,</span> <span class="n">newpsif</span></div>
+
+<span class="c1">#Inverse Fourier Transform</span>
+<div class="viewcode-block" id="myFourierTransformInverse"><a class="viewcode-back" href="../../../API/CactusTool.Lib.html#CactusTool.Lib.power.myFourierTransformInverse">[docs]</a><span class="k">def</span> <span class="nf">myFourierTransformInverse</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">hf</span><span class="p">,</span> <span class="n">t0</span><span class="p">):</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">hf</span><span class="p">)</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">l</span><span class="o">/</span><span class="mf">2.</span><span class="p">))</span>
+        <span class="n">newhf</span> <span class="o">=</span> <span class="n">hf</span><span class="p">[</span><span class="n">n</span><span class="p">:]</span>
+        <span class="n">newhf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">newhf</span><span class="p">,</span> <span class="n">hf</span><span class="p">[:</span><span class="n">n</span><span class="p">])</span>
+        <span class="n">amp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">ifft</span><span class="p">(</span><span class="n">newhf</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="s2">&quot;ortho&quot;</span><span class="p">)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">amin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">freq</span><span class="p">))</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="n">t0</span> <span class="o">+</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">l</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">df</span><span class="o">*</span><span class="n">l</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">time</span><span class="p">,</span> <span class="n">amp</span></div>
+
+<div class="viewcode-block" id="angular_momentum"><a class="viewcode-back" href="../../../API/CactusTool.Lib.html#CactusTool.Lib.power.angular_momentum">[docs]</a><span class="k">def</span> <span class="nf">angular_momentum</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">chi1</span><span class="p">,</span> <span class="n">chi2</span><span class="p">,</span> <span class="n">LInitNR</span><span class="p">):</span>
+        <span class="n">eta</span> <span class="o">=</span> <span class="n">q</span><span class="o">/</span><span class="p">(</span><span class="mf">1.</span><span class="o">+</span><span class="n">q</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+        <span class="n">m1</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.</span><span class="o">+</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">1.</span><span class="o">-</span><span class="mf">4.</span><span class="o">*</span><span class="n">eta</span><span class="p">))</span><span class="o">/</span><span class="mf">2.</span>
+        <span class="n">m2</span> <span class="o">=</span> <span class="n">m</span> <span class="o">-</span> <span class="n">m1</span>
+        <span class="n">S1</span> <span class="o">=</span> <span class="n">m1</span><span class="o">**</span><span class="mf">2.</span> <span class="o">*</span> <span class="n">chi1</span>
+        <span class="n">S2</span> <span class="o">=</span> <span class="n">m2</span><span class="o">**</span><span class="mf">2.</span> <span class="o">*</span> <span class="n">chi2</span>
+        <span class="n">Sl</span> <span class="o">=</span> <span class="n">S1</span><span class="o">+</span><span class="n">S2</span>
+        <span class="n">Sigmal</span> <span class="o">=</span> <span class="n">S2</span><span class="o">/</span><span class="n">m2</span> <span class="o">-</span> <span class="n">S1</span><span class="o">/</span><span class="n">m1</span>
+        <span class="n">DeltaM</span> <span class="o">=</span> <span class="n">m1</span> <span class="o">-</span> <span class="n">m2</span>
+        <span class="n">mu</span> <span class="o">=</span> <span class="n">eta</span>
+        <span class="n">nu</span> <span class="o">=</span> <span class="n">eta</span>
+        <span class="n">GammaE</span> <span class="o">=</span> <span class="mf">0.5772156649</span><span class="p">;</span>
+        <span class="n">e4</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="mf">123671.</span><span class="o">/</span><span class="mf">5760.</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="mf">9037.</span><span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="o">**</span><span class="mf">2.</span><span class="p">)</span><span class="o">/</span><span class="mf">1536.</span><span class="o">+</span><span class="p">(</span><span class="mf">896.</span><span class="o">*</span><span class="n">GammaE</span><span class="p">)</span><span class="o">/</span><span class="mf">15.</span><span class="o">+</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="mf">498449.</span><span class="o">/</span><span class="mf">3456.</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="mf">3157.</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="o">**</span><span class="mf">2.</span><span class="p">)</span><span class="o">/</span><span class="mf">576.</span><span class="p">)</span><span class="o">*</span><span class="n">nu</span><span class="o">+</span><span class="p">(</span><span class="mf">301.</span> <span class="o">*</span> <span class="n">nu</span><span class="o">**</span><span class="mf">2.</span><span class="p">)</span><span class="o">/</span><span class="mf">1728.</span><span class="o">+</span><span class="p">(</span><span class="mf">77.</span><span class="o">*</span><span class="n">nu</span><span class="o">**</span><span class="mf">3.</span><span class="p">)</span><span class="o">/</span><span class="mf">31104.</span><span class="o">+</span><span class="p">(</span><span class="mf">1792.</span> <span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">2.</span><span class="p">))</span><span class="o">/</span><span class="mf">15.</span>
+        <span class="n">e5</span> <span class="o">=</span> <span class="o">-</span><span class="mf">55.13</span>
+        <span class="n">j4</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="mf">5.</span><span class="o">/</span><span class="mf">7.</span><span class="p">)</span><span class="o">*</span><span class="n">e4</span><span class="o">+</span><span class="mf">64.</span><span class="o">/</span><span class="mf">35.</span>
+        <span class="n">j5</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="mf">2.</span><span class="o">/</span><span class="mf">3.</span><span class="p">)</span><span class="o">*</span><span class="n">e5</span><span class="o">-</span><span class="mf">4988.</span><span class="o">/</span><span class="mf">945.</span><span class="o">-</span><span class="mf">656.</span><span class="o">/</span><span class="mf">135.</span> <span class="o">*</span> <span class="n">eta</span><span class="p">;</span>
+        <span class="n">a1</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.18522</span><span class="p">;</span>
+        <span class="n">a2</span> <span class="o">=</span> <span class="mf">1.05185</span><span class="p">;</span>
+        <span class="n">a3</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.43395</span><span class="p">;</span>
+        <span class="n">a4</span> <span class="o">=</span> <span class="mf">0.400665</span><span class="p">;</span>
+        <span class="n">a5</span> <span class="o">=</span> <span class="o">-</span><span class="mf">5.9991</span><span class="p">;</span>
+        <span class="n">CapitalDelta</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.</span><span class="o">-</span><span class="mf">4.</span><span class="o">*</span><span class="n">eta</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span>
+
+        <span class="n">l</span> <span class="o">=</span> <span class="p">(</span><span class="n">eta</span><span class="o">/</span><span class="n">x</span><span class="o">**</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span><span class="o">*</span><span class="p">(</span>
+                <span class="mf">1.</span> <span class="o">+</span>
+                <span class="n">x</span><span class="o">*</span><span class="p">(</span><span class="mf">3.</span><span class="o">/</span><span class="mf">2.</span> <span class="o">+</span> <span class="mf">1.</span><span class="o">/</span><span class="mf">6.</span><span class="o">*</span><span class="n">eta</span><span class="p">)</span> <span class="o">+</span>
+        <span class="n">x</span><span class="o">**</span><span class="mf">2.</span> <span class="o">*</span><span class="p">(</span><span class="mf">27.</span><span class="o">/</span><span class="mf">8.</span> <span class="o">-</span> <span class="mf">19.</span><span class="o">/</span><span class="mf">8.</span><span class="o">*</span><span class="n">eta</span> <span class="o">+</span> <span class="mf">1.</span><span class="o">/</span><span class="mf">24.</span><span class="o">*</span><span class="n">eta</span><span class="o">**</span><span class="mf">2.</span><span class="p">)</span> <span class="o">+</span> 
+        <span class="n">x</span><span class="o">**</span><span class="mf">3.</span> <span class="o">*</span><span class="p">(</span><span class="mf">135.</span><span class="o">/</span><span class="mf">16.</span> <span class="o">+</span> <span class="p">(</span><span class="o">-</span><span class="mf">6889.</span><span class="o">/</span><span class="mf">144.</span> <span class="o">+</span> <span class="mf">41.</span><span class="o">/</span><span class="mf">24.</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="o">**</span><span class="mf">2.</span><span class="p">)</span><span class="o">*</span><span class="n">eta</span> <span class="o">+</span> <span class="mf">31.</span><span class="o">/</span><span class="mf">24.</span><span class="o">*</span><span class="n">eta</span><span class="o">**</span><span class="mf">2.</span> <span class="o">+</span> <span class="mf">7.</span><span class="o">/</span><span class="mf">1296.</span><span class="o">*</span><span class="n">eta</span><span class="o">**</span><span class="mf">3.</span><span class="p">)</span> <span class="o">+</span> 
+        <span class="n">x</span><span class="o">**</span><span class="mf">4.</span> <span class="o">*</span><span class="p">((</span><span class="mf">2835.</span><span class="o">/</span><span class="mf">128.</span><span class="p">)</span> <span class="o">+</span> <span class="n">eta</span><span class="o">*</span><span class="n">j4</span> <span class="o">-</span> <span class="p">(</span><span class="mf">64.</span><span class="o">*</span><span class="n">eta</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="mf">3.</span><span class="p">))</span><span class="o">+</span> 
+        <span class="n">x</span><span class="o">**</span><span class="mf">5.</span> <span class="o">*</span><span class="p">((</span><span class="mf">15309.</span><span class="o">/</span><span class="mf">256.</span><span class="p">)</span> <span class="o">+</span> <span class="n">eta</span><span class="o">*</span><span class="n">j5</span> <span class="o">+</span> <span class="p">((</span><span class="mf">9976.</span><span class="o">/</span><span class="mf">105.</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mf">1312.</span><span class="o">*</span><span class="n">eta</span><span class="o">/</span><span class="mf">15.</span><span class="p">))</span><span class="o">*</span><span class="n">eta</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">+</span>
+        <span class="n">x</span><span class="o">**</span><span class="p">(</span><span class="mf">3.</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="mf">35.</span><span class="o">/</span><span class="mf">6.</span><span class="p">)</span><span class="o">*</span><span class="n">Sl</span> <span class="o">-</span> <span class="mf">5.</span><span class="o">/</span><span class="mf">2.</span><span class="o">*</span><span class="n">DeltaM</span><span class="o">*</span> <span class="n">Sigmal</span><span class="p">)</span> <span class="o">+</span> 
+        <span class="n">x</span><span class="o">**</span><span class="p">(</span><span class="mf">5.</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span><span class="o">*</span><span class="p">((</span><span class="o">-</span><span class="p">(</span><span class="mf">77.</span><span class="o">/</span><span class="mf">8.</span><span class="p">)</span> <span class="o">+</span> <span class="mf">427.</span><span class="o">/</span><span class="mf">72.</span><span class="o">*</span><span class="n">eta</span><span class="p">)</span><span class="o">*</span><span class="n">Sl</span> <span class="o">+</span> <span class="n">DeltaM</span><span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="mf">21.</span><span class="o">/</span><span class="mf">8.</span><span class="p">)</span> <span class="o">+</span> <span class="mf">35.</span><span class="o">/</span><span class="mf">12.</span><span class="o">*</span><span class="n">eta</span><span class="p">)</span><span class="o">*</span><span class="n">Sigmal</span><span class="p">)</span> <span class="o">+</span> 
+        <span class="n">x</span><span class="o">**</span><span class="p">(</span><span class="mf">7.</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span><span class="o">*</span><span class="p">((</span><span class="o">-</span><span class="p">(</span><span class="mf">405.</span><span class="o">/</span><span class="mf">16.</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1101.</span><span class="o">/</span><span class="mf">16.</span><span class="o">*</span><span class="n">eta</span> <span class="o">-</span> <span class="mf">29.</span><span class="o">/</span><span class="mf">16.</span><span class="o">*</span><span class="n">eta</span><span class="o">**</span><span class="mf">2.</span><span class="p">)</span><span class="o">*</span><span class="n">Sl</span> <span class="o">+</span> <span class="n">DeltaM</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="mf">81.</span><span class="o">/</span><span class="mf">16.</span><span class="p">)</span> <span class="o">+</span> <span class="mf">117.</span><span class="o">/</span><span class="mf">4.</span><span class="o">*</span><span class="n">eta</span> <span class="o">-</span> <span class="mf">15.</span><span class="o">/</span><span class="mf">16.</span><span class="o">*</span><span class="n">eta</span><span class="o">**</span><span class="mf">2.</span><span class="p">)</span><span class="o">*</span><span class="n">Sigmal</span><span class="p">)</span> <span class="o">+</span> 
+        <span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="mf">2.</span> <span class="o">+</span> <span class="p">(</span><span class="n">m1</span> <span class="o">-</span> <span class="n">m2</span><span class="p">)</span><span class="o">/</span><span class="mf">2.</span> <span class="o">-</span> <span class="n">eta</span><span class="p">)</span><span class="o">*</span> <span class="n">chi1</span><span class="o">**</span><span class="mf">2.</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mf">2.</span> <span class="o">+</span>
+        <span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="mf">2.</span> <span class="o">+</span> <span class="p">(</span><span class="n">m2</span> <span class="o">-</span> <span class="n">m1</span><span class="p">)</span><span class="o">/</span><span class="mf">2.</span> <span class="o">-</span> <span class="n">eta</span><span class="p">)</span><span class="o">*</span> <span class="n">chi2</span><span class="o">**</span><span class="mf">2.</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mf">2.</span> <span class="o">+</span> 
+        <span class="mf">2.</span><span class="o">*</span><span class="n">eta</span><span class="o">*</span><span class="n">chi1</span><span class="o">*</span><span class="n">chi2</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mf">2.</span> <span class="o">+</span>
+        <span class="p">((</span><span class="mf">13.</span><span class="o">*</span><span class="n">chi1</span><span class="o">**</span><span class="mf">2.</span><span class="p">)</span><span class="o">/</span><span class="mf">9.</span> <span class="o">+</span>
+        <span class="p">(</span><span class="mf">13.</span><span class="o">*</span><span class="n">CapitalDelta</span><span class="o">*</span><span class="n">chi1</span><span class="o">**</span><span class="mf">2.</span><span class="p">)</span><span class="o">/</span><span class="mf">9.</span> <span class="o">-</span>
+        <span class="p">(</span><span class="mf">55.</span><span class="o">*</span><span class="n">nu</span><span class="o">*</span><span class="n">chi1</span><span class="o">**</span><span class="mf">2.</span><span class="p">)</span><span class="o">/</span><span class="mf">9.</span> <span class="o">-</span> 
+        <span class="mf">29.</span><span class="o">/</span><span class="mf">9.</span><span class="o">*</span><span class="n">CapitalDelta</span><span class="o">*</span><span class="n">nu</span><span class="o">*</span><span class="n">chi1</span><span class="o">**</span><span class="mf">2.</span> <span class="o">+</span> 
+        <span class="p">(</span><span class="mf">14.</span><span class="o">*</span><span class="n">nu</span><span class="o">**</span><span class="mf">2.</span> <span class="o">*</span><span class="n">chi1</span><span class="o">**</span><span class="mf">2.</span><span class="p">)</span><span class="o">/</span><span class="mf">9.</span> <span class="o">+</span>
+        <span class="p">(</span><span class="mf">7.</span><span class="o">*</span><span class="n">nu</span><span class="o">*</span><span class="n">chi1</span><span class="o">*</span><span class="n">chi2</span><span class="p">)</span><span class="o">/</span><span class="mf">3.</span> <span class="o">+</span>
+        <span class="mf">17.</span><span class="o">/</span><span class="mf">18.</span><span class="o">*</span> <span class="n">nu</span><span class="o">**</span><span class="mf">2.</span> <span class="o">*</span> <span class="n">chi1</span> <span class="o">*</span> <span class="n">chi2</span> <span class="o">+</span> 
+        <span class="p">(</span><span class="mf">13.</span><span class="o">*</span> <span class="n">chi2</span><span class="o">**</span><span class="mf">2.</span><span class="p">)</span><span class="o">/</span><span class="mf">9.</span> <span class="o">-</span>
+        <span class="p">(</span><span class="mf">13.</span><span class="o">*</span><span class="n">CapitalDelta</span><span class="o">*</span><span class="n">chi2</span><span class="o">**</span><span class="mf">2.</span><span class="p">)</span><span class="o">/</span><span class="mf">9.</span> <span class="o">-</span>
+        <span class="p">(</span><span class="mf">55.</span><span class="o">*</span><span class="n">nu</span><span class="o">*</span><span class="n">chi2</span><span class="o">**</span><span class="mf">2.</span><span class="p">)</span><span class="o">/</span><span class="mf">9.</span> <span class="o">+</span>
+        <span class="mf">29.</span><span class="o">/</span><span class="mf">9.</span><span class="o">*</span><span class="n">CapitalDelta</span><span class="o">*</span><span class="n">nu</span><span class="o">*</span><span class="n">chi2</span><span class="o">**</span><span class="mf">2.</span> <span class="o">+</span>
+        <span class="p">(</span><span class="mf">14.</span><span class="o">*</span><span class="n">nu</span><span class="o">**</span><span class="mf">2.</span> <span class="o">*</span> <span class="n">chi2</span><span class="o">**</span><span class="mf">2.</span><span class="p">)</span><span class="o">/</span><span class="mf">9.</span><span class="p">)</span>
+        <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mf">3.</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">l</span> <span class="o">-</span> <span class="n">LInitNR</span></div>
+
+<span class="c1"># Convert Cacus truth values to python&#39;s</span>
+<div class="viewcode-block" id="to_bool"><a class="viewcode-back" href="../../../API/CactusTool.Lib.html#CactusTool.Lib.power.to_bool">[docs]</a><span class="k">def</span> <span class="nf">to_bool</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">s</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;true&quot;</span><span class="p">,</span> <span class="s2">&quot;yes&quot;</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">elif</span> <span class="n">s</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;false&quot;</span><span class="p">,</span> <span class="s2">&quot;no&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Not a boolean values: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">s</span><span class="p">))</span></div>
+
+<span class="c1">#Get cutoff frequency</span>
+<div class="viewcode-block" id="getCutoffFrequency"><a class="viewcode-back" href="../../../API/CactusTool.Lib.html#CactusTool.Lib.power.getCutoffFrequency">[docs]</a><span class="k">def</span> <span class="nf">getCutoffFrequency</span><span class="p">(</span><span class="n">sim_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Determine cutoff frequency of simulation</span>
+
+<span class="sd">        sim_name = string of simulation</span>
+<span class="sd">        return = cutoff frequency</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">center_offset</span> <span class="o">=</span> <span class="mf">0.</span>
+        <span class="n">par_b</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="n">pyp</span> <span class="o">=</span> <span class="mf">0.</span>
+        <span class="n">pym</span> <span class="o">=</span> <span class="mf">0.</span>
+        <span class="n">target_m1</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="n">target_m2</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="n">give_bare_mass</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">S1</span> <span class="o">=</span> <span class="mf">0.</span>
+        <span class="n">S2</span> <span class="o">=</span> <span class="mf">0.</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">main_dir</span><span class="o">+</span><span class="s2">&quot;/output-0000/</span><span class="si">%s</span><span class="s2">.par&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">sim_name</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+                <span class="n">contents</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">contents</span><span class="p">:</span>
+                        <span class="n">line_elems</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;#.*&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+                        <span class="k">if</span><span class="p">(</span><span class="n">line_elems</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;TwoPunctures::par_b&quot;</span><span class="p">):</span>
+                                <span class="n">par_b</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line_elems</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                        <span class="k">if</span><span class="p">(</span><span class="n">line_elems</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;TwoPunctures::center_offset[0]&quot;</span><span class="p">):</span>
+                                <span class="n">center_offset</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line_elems</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                        <span class="k">if</span><span class="p">(</span><span class="n">line_elems</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;TwoPunctures::par_P_plus[1]&quot;</span><span class="p">):</span>
+                                <span class="n">pyp</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line_elems</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                        <span class="k">if</span><span class="p">(</span><span class="n">line_elems</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;TwoPunctures::par_P_minus[1]&quot;</span><span class="p">):</span>
+                                <span class="n">pym</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line_elems</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                        <span class="k">if</span><span class="p">(</span><span class="n">line_elems</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;TwoPunctures::target_M_plus&quot;</span><span class="p">):</span>
+                                <span class="n">target_m1</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line_elems</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                        <span class="k">if</span><span class="p">(</span><span class="n">line_elems</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;TwoPunctures::target_M_minus&quot;</span><span class="p">):</span>
+                                <span class="n">target_m2</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line_elems</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                        <span class="k">if</span><span class="p">(</span><span class="n">line_elems</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;TwoPunctures::par_S_plus[2]&quot;</span><span class="p">):</span>
+                                <span class="n">S1</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line_elems</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                        <span class="k">if</span><span class="p">(</span><span class="n">line_elems</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;TwoPunctures::par_S_minus[2]&quot;</span><span class="p">):</span>
+                                <span class="n">S2</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line_elems</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                        <span class="k">if</span><span class="p">(</span><span class="n">line_elems</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;TwoPunctures::give_bare_mass&quot;</span><span class="p">):</span>
+                                <span class="n">give_bare_mass</span> <span class="o">=</span> <span class="n">to_bool</span><span class="p">(</span><span class="n">line_elems</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">adm_m1</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">adm_m2</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">two_punctures_files</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">main_dir</span><span class="o">+</span><span class="s2">&quot;/output-????/</span><span class="si">%s</span><span class="s2">/TwoPunctures.bbh&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">sim</span><span class="p">)))</span>
+        <span class="n">out_files</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">main_dir</span><span class="o">+</span><span class="s2">&quot;/output-????/</span><span class="si">%s</span><span class="s2">.out&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">sim</span><span class="p">)))</span>
+        <span class="n">par_files</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">main_dir</span><span class="o">+</span><span class="s2">&quot;/output-????/</span><span class="si">%s</span><span class="s2">.par&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">sim</span><span class="p">)))</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">two_punctures_files</span><span class="p">):</span>
+          <span class="n">two_punctures_file</span> <span class="o">=</span> <span class="n">two_punctures_files</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+          <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">two_punctures_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+                <span class="n">contents</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">contents</span><span class="p">:</span>
+                        <span class="n">line_elems</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;#.*&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+                        <span class="k">if</span><span class="p">(</span><span class="n">line_elems</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;initial-bh-puncture-adm-mass1&quot;</span><span class="p">):</span>
+                                <span class="n">adm_m1</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line_elems</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                        <span class="k">if</span><span class="p">(</span><span class="n">line_elems</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;initial-bh-puncture-adm-mass2&quot;</span><span class="p">):</span>
+                                <span class="n">adm_m2</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line_elems</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">elif</span><span class="p">(</span><span class="n">out_files</span><span class="p">):</span>
+          <span class="n">out_file</span> <span class="o">=</span> <span class="n">out_files</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+          <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">out_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+                <span class="n">contents</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">contents</span><span class="p">:</span>
+                         <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s2">&quot;INFO \(TwoPunctures\): Puncture 1 ADM mass is (.*)&quot;</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
+                         <span class="k">if</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+                            <span class="n">adm_m1</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+                         <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s2">&quot;INFO \(TwoPunctures\): Puncture 2 ADM mass is (.*)&quot;</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
+                         <span class="k">if</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+                            <span class="n">adm_m2</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+        <span class="k">elif</span><span class="p">(</span><span class="ow">not</span> <span class="n">give_bare_mass</span><span class="p">):</span>
+                <span class="n">adm_m1</span> <span class="o">=</span> <span class="n">target_m1</span>
+                <span class="n">adm_m2</span> <span class="o">=</span> <span class="n">target_m2</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cannot determine ADM masses of punctures&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span>
+
+        <span class="n">xp</span> <span class="o">=</span> <span class="n">par_b</span> <span class="o">+</span> <span class="n">center_offset</span>
+        <span class="n">xm</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">par_b</span> <span class="o">+</span> <span class="n">center_offset</span>
+        <span class="n">LInitNR</span> <span class="o">=</span> <span class="n">xp</span><span class="o">*</span><span class="n">pyp</span> <span class="o">+</span> <span class="n">xm</span><span class="o">*</span><span class="n">pym</span>
+        <span class="n">M</span> <span class="o">=</span> <span class="n">adm_m1</span><span class="o">+</span><span class="n">adm_m2</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">adm_m1</span><span class="o">/</span><span class="n">adm_m2</span>
+        <span class="n">chi1</span> <span class="o">=</span> <span class="n">S1</span><span class="o">/</span><span class="n">adm_m1</span><span class="o">**</span><span class="mi">2</span>
+        <span class="n">chi2</span> <span class="o">=</span> <span class="n">S2</span><span class="o">/</span><span class="n">adm_m2</span><span class="o">**</span><span class="mi">2</span>
+        <span class="c1"># .014 is the initial guess for cutoff frequency</span>
+        <span class="n">omOrbPN</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">fsolve</span><span class="p">(</span><span class="n">angular_momentum</span><span class="p">,</span> <span class="o">.</span><span class="mi">014</span><span class="p">,</span> <span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">chi1</span><span class="p">,</span> <span class="n">chi2</span><span class="p">,</span> <span class="n">LInitNR</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">omOrbPN</span> <span class="o">=</span> <span class="n">omOrbPN</span><span class="o">**</span><span class="p">(</span><span class="mf">3.</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span>
+        <span class="n">omGWPN</span> <span class="o">=</span> <span class="mf">2.</span> <span class="o">*</span> <span class="n">omOrbPN</span>
+        <span class="n">omCutoff</span> <span class="o">=</span> <span class="mf">0.75</span> <span class="o">*</span> <span class="n">omGWPN</span>
+        <span class="k">return</span> <span class="n">omCutoff</span></div>
+
+<span class="c1">#Get Energy</span>
+<div class="viewcode-block" id="get_energy"><a class="viewcode-back" href="../../../API/CactusTool.Lib.html#CactusTool.Lib.power.get_energy">[docs]</a><span class="k">def</span> <span class="nf">get_energy</span><span class="p">(</span><span class="n">sim</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Save the energy radiated energy</span>
+<span class="sd">        sim = string of simulation</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">python_strain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;./Extrapolated_Strain/&quot;</span><span class="o">+</span><span class="n">sim</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="n">sim</span><span class="o">+</span><span class="s2">&quot;_radially_extrapolated_strain_l2_m2.dat&quot;</span><span class="p">)</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">python_strain</span><span class="p">))</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">complex_</span><span class="p">)</span>
+        <span class="n">cur_max_time</span> <span class="o">=</span> <span class="n">python_strain</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">cur_max_amp</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">pow</span><span class="p">(</span><span class="n">python_strain</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="c1"># TODO: rewrite as array operations (use numpy.argmax)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">python_strain</span><span class="p">[:]:</span>
+                <span class="n">cur_time</span> <span class="o">=</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">cur_amp</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">pow</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">2</span><span class="p">))</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">cur_amp</span><span class="o">&gt;</span><span class="n">cur_max_amp</span><span class="p">):</span>
+                        <span class="n">cur_max_amp</span> <span class="o">=</span> <span class="n">cur_amp</span>
+                        <span class="n">cur_max_time</span> <span class="o">=</span> <span class="n">cur_time</span>
+
+        <span class="n">max_idx</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">python_strain</span><span class="p">[:])):</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">python_strain</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">python_strain</span><span class="p">[</span><span class="n">max_idx</span><span class="p">][</span><span class="mi">1</span><span class="p">]):</span>
+                        <span class="n">max_idx</span> <span class="o">=</span> <span class="n">i</span>
+
+        <span class="n">paths</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;./Extrapolated_Strain/&quot;</span><span class="o">+</span><span class="n">sim</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="n">sim</span><span class="o">+</span><span class="s2">&quot;_radially_extrapolated_strain_l[2-4]_m*.dat&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
+                <span class="n">python_strain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+                <span class="n">t</span> <span class="o">=</span> <span class="n">python_strain</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+                <span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">complex_</span><span class="p">)</span>
+                <span class="n">h</span> <span class="o">=</span> <span class="n">python_strain</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">python_strain</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span>
+                <span class="n">dh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex_</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                        <span class="n">dh</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="n">h</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">h</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+                <span class="n">dh</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">dh</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+
+                <span class="n">dh_conj</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">dh</span><span class="p">)</span>
+                <span class="n">prod</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">dh</span><span class="p">,</span> <span class="n">dh_conj</span><span class="p">)</span>
+                <span class="n">local_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+                <span class="n">local_val</span> <span class="o">=</span> <span class="n">local_val</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">complex_</span><span class="p">)</span>
+                <span class="c1"># TODO: rewrite as array notation using numpy.cumtrapz</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)):</span>
+                        <span class="n">local_val</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="n">prod</span><span class="p">[:</span><span class="n">i</span><span class="p">],</span> <span class="n">x</span><span class="o">=</span><span class="p">(</span><span class="n">t</span><span class="p">[:</span><span class="n">i</span><span class="p">]))</span>
+                <span class="n">val</span> <span class="o">+=</span> <span class="n">local_val</span>
+
+        <span class="n">val</span> <span class="o">*=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">16</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s2">&quot;./Extrapolated_Strain/&quot;</span><span class="o">+</span><span class="n">sim</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="n">sim</span><span class="o">+</span><span class="s2">&quot;_radially_extrapolated_energy.dat&quot;</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span></div>
+
+<span class="c1">#Get angular momentum</span>
+<div class="viewcode-block" id="get_angular_momentum"><a class="viewcode-back" href="../../../API/CactusTool.Lib.html#CactusTool.Lib.power.get_angular_momentum">[docs]</a><span class="k">def</span> <span class="nf">get_angular_momentum</span><span class="p">(</span><span class="n">python_strain</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Save the energy radiated angular momentum</span>
+<span class="sd">        sim = string of simulation</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">python_strain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;./Extrapolated_Strain/&quot;</span><span class="o">+</span><span class="n">sim</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="n">sim</span><span class="o">+</span><span class="s2">&quot;_radially_extrapolated_strain_l2_m2.dat&quot;</span><span class="p">)</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">python_strain</span><span class="p">))</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">complex_</span><span class="p">)</span>
+        <span class="n">cur_max_time</span> <span class="o">=</span> <span class="n">python_strain</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">cur_max_amp</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">pow</span><span class="p">(</span><span class="n">python_strain</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="c1"># TODO: rewrite as array operations (use numpy.argmax)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">python_strain</span><span class="p">[:]:</span>
+                <span class="n">cur_time</span> <span class="o">=</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">cur_amp</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">pow</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">2</span><span class="p">))</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">cur_amp</span><span class="o">&gt;</span><span class="n">cur_max_amp</span><span class="p">):</span>
+                        <span class="n">cur_max_amp</span> <span class="o">=</span> <span class="n">cur_amp</span>
+                        <span class="n">cur_max_time</span> <span class="o">=</span> <span class="n">cur_time</span>
+
+        <span class="n">max_idx</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">python_strain</span><span class="p">[:])):</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">python_strain</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">python_strain</span><span class="p">[</span><span class="n">max_idx</span><span class="p">][</span><span class="mi">1</span><span class="p">]):</span>
+                        <span class="n">max_idx</span> <span class="o">=</span> <span class="n">i</span>
+
+        <span class="n">paths</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;./Extrapolated_Strain/&quot;</span><span class="o">+</span><span class="n">sim</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="n">sim</span><span class="o">+</span><span class="s2">&quot;_radially_extrapolated_strain_l[2-4]_m*.dat&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
+                <span class="n">python_strain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+                <span class="n">t</span> <span class="o">=</span> <span class="n">python_strain</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+                <span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">complex_</span><span class="p">)</span>
+                <span class="n">h</span> <span class="o">=</span> <span class="n">python_strain</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">python_strain</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span>
+                <span class="n">dh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex_</span><span class="p">)</span>
+                <span class="c1"># TODO: rewrite using array notation</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                        <span class="n">dh</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="n">h</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">h</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+                <span class="n">dh</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">dh</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+
+                <span class="n">dh_conj</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">dh</span><span class="p">)</span>
+                <span class="n">prod</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">dh_conj</span><span class="p">)</span>
+                <span class="n">local_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+                <span class="n">local_val</span> <span class="o">=</span> <span class="n">local_val</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">complex_</span><span class="p">)</span>
+                <span class="c1"># TODO: rewrite as array notation using numpy.cumtrapz. Move atoi call out of inner loop.</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)):</span>
+                        <span class="n">local_val</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="n">prod</span><span class="p">[:</span><span class="n">i</span><span class="p">],</span> <span class="n">x</span><span class="o">=</span><span class="p">(</span><span class="n">t</span><span class="p">[:</span><span class="n">i</span><span class="p">]))</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(((</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;m&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">val</span> <span class="o">+=</span> <span class="n">local_val</span>
+
+        <span class="n">val</span> <span class="o">*=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">16</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s2">&quot;./Extrapolated_Strain/&quot;</span><span class="o">+</span><span class="n">sim</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="n">sim</span><span class="o">+</span><span class="s2">&quot;_radially_extrapolated_angular_momentum.dat&quot;</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">CactusTool 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CactusTool.Lib.power</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Yu Liu.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+    </div>
+  </body>
+</html>

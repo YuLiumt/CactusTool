@@ -1,136 +1,144 @@
-"""
-This is the main modular. Everything start from it.
-"""
-
 from .funcs.log import logger
 from .funcs.file import is_simfactory
-# fetch_all_file, rm_dir_in_filelist, filter_file, 
-# from .Parameter import ParFile
-from .Carpet.Scalar import CarpetIOScalar
-from .Carpet.GF import CarpetGF
-# from .Carpet import CarpetIOASCII
-# from .Debug import NaNCheck
-# from loguru import logger
+from .funcs.check import ensure_list
 import os
-import re
+# import re
 import glob
 
 
 class load:
+    """
+    This is the main modular. Everything start from it.
+    """
 
-    def __init__(self, simname, basedir=None):
+    def __init__(self, simname, basedir='~/simulations/', output=-1):
         """
-        Load Cactus simulation name.
+        Load a Einstein Toolkit simulation.
 
-        :param str simname: simulation name.
-        :param str basedir: Basis directory. The default is '~/simulations/'.
+        :param str simname: simulationname
+        :param str basedir: basedir
+        :param output: Specify the desired output segments.
         """
+        if simname.endswith(os.path.sep):
+            simname = simname[:-1]
         self.simname = simname
-        # Make sure basis directory exists.
-        if basedir is None:
-            self.SourceDir = os.path.expanduser('~/simulations/')
-            assert os.path.exists(self.SourceDir), "The default basis directory ~/simulations/ not exists.'"
-        else:
-            if not basedir.endswith('/'):
-                basedir += '/'
-            self.SourceDir = basedir
-            assert os.path.exists(self.SourceDir), "Basis directory '{}' not exists.".format(self.SourceDir)
+        basedir = os.path.expanduser(basedir)
+        self.simpath = os.path.join(basedir, simname)
         # Make sure simulation directory exists.
-        self.simpath = self.SourceDir + self.simname
-        assert os.path.exists(self.simpath), "simulation name '{}' not in your '{}'.".format(self.simname, self.SourceDir)
-        if not self.simpath.endswith('/'):
-            self.simpath += '/'
+        assert os.path.exists(self.simpath), "simulation name '{}' does not exist at path '{}'.".format(self.simname, basedir)
         # The directory structure of SimFactory is different from the traditional one.
         self._simfactory = is_simfactory(self.simpath)
-
-        """
-        # Fetch all file under directory of simpath
-        self._allfiles = fetch_all_file(self.simpath)
-
-        # CactusTool is currently unable to deal with the following folder.
+        # output number
         if self._simfactory:
-            self._allfiles = rm_dir_in_filelist(self._allfiles, 'SIMFACTORY')
-            self._allfiles = rm_dir_in_filelist(self._allfiles, 'output-(\d\d\d\d)-active')
-            self._allfiles = rm_dir_in_filelist(self._allfiles, 'cactus-source')
-        self._allfiles = rm_dir_in_filelist(self._allfiles, 'checkpoints')
+            if output == -1:
+                self.output = [i for i in os.listdir(self.simpath) if i[-4:].isdigit()]
+            else:
+                self.output = ensure_list(output)
+
+
+    def Scalar(self, ftype='maximum'):
         """
+        CarpetIOScalar output
 
-    # def Parfile(self, file=None):
-    #     """
-    #     Load parameter file if it exist. You can change the default file by use ‘Parfile(<parameter file>)’.
+        :param str ftype: reduction operation
+        """
+        from .Carpet.Scalar import CarpetIOScalar
 
-    #     :param str file: parameter file in absolute path.
-    #     """
-    #     if file:
-    #         assert os.path.exists(file), "parameter file '{}' not exists. Make sure it‘s an absolute path.".format(file)
-    #         assert file.endswith('.par'), "parameter file '{}' should end with '.par'.".format(file)
-    #         self.parfile = file
-    #     else:
-    #         parfiles = filter_file(self._allfiles, "parfile")
+        assert ftype in ['', 'minimum', 'maximum', 'norm1', 'norm2', 'average']
 
-    #         # In some cases, it may contain more than one parfile.
-    #         if len(parfiles) == 1:
-    #             self.parfile = parfiles[0]
-    #         else:
-    #             # Guess parfile you want to load
-    #             if self._simfactory:
-    #                 self.parfile = self.simpath + '/output-0000/' + self.simname + '.par'
-    #             else:
-    #                 self.parfile = self.simpath + '/' + self.simname + '.par'
-    #             assert self.parfile in parfiles, "Make sure `IO::out_dir = $parfile` in your parfile, or you can input the one you want to load."
-
-    #         logger.info("Use the default parameter file '{}'.", self.parfile)
-
-    #     return ParFile(self.parfile)
-
-    def Scalar(self, type='maximum'):
-        assert type in ['', 'minimum', 'maximum', 'norm1', 'norm2', 'average']
-        if self._simfactory: 
-            raise Exception("CactusTool currently cannot handle simfactory!")
+        if self._simfactory:
+            # Data file is stored in multiple folders for SimFactory.
+            fileList = []
+            for n in self.output:
+                path = os.path.join(self.simpath, n, self.simname)
+                fileList += glob.glob(path+os.path.sep+'*.{}.asc'.format(ftype))
         else:
-            fileList = glob.glob(self.simpath + '*.{}.asc'.format(type))
-        assert bool(fileList), "{} don't have '{}' operation on scalar".format(self.simname, type)
-        return CarpetIOScalar(fileList)  
-        
-    def GF(self, dim='xy', format='h5'):
+            fileList = glob.glob(self.simpath+os.path.sep+'*.{}.asc'.format(ftype))
+        return CarpetIOScalar(fileList)
+
+
+    def GF(self, dim='xy', ftype='h5'):
+        """
+        CarpetIOHDF5 or CarpetIOASCII output
+
+        :param str dim: dimension
+        :param str ftype: endwith
+        """
+        from .Carpet.GF import CarpetGF
         assert dim in ['x', 'y', 'z', 'xy', 'xz', 'yz', 'xyz']
-        assert format in ['asc', 'h5']
+        assert ftype in ['asc', 'h5']
         if self._simfactory: 
-            raise Exception("CactusTool currently cannot handle simfactory!")
+            fileList = glob.glob(self.simpath+'output-????/'+self.simname+'/*.{}.{}'.format(dim, ftype))
         else:
-            fileList = glob.glob(self.simpath + '*.{}.{}'.format(dim, format))
-        assert bool(fileList), "{} don't have '{}' dim in '.{}' format".format(self.simname, dim, format)
-        return CarpetGF(fileList, dim, format)
+            fileList = glob.glob(self.simpath + '*.{}.{}'.format(dim, ftype))
+        assert bool(fileList), "{} don't have '{}' dim in '.{}' ftype".format(self.simname, dim, ftype)
+        return CarpetGF(fileList, dim, ftype)
 
-    # @property
-    # def ASCII(self):
-    #     self.ascfiles = filter_file(self._allfiles, "ascii")
-    #     if bool(self.ascfiles):
-    #         return CarpetIOASCII(self.ascfiles)
-    #     else:
-    #         raise Exception("No ASCII variable in {}:".format(self.simname))        
 
-    def Analysis(self, Thorn):
+    def Parfile(self, file=None):
         """
-        Analysis thorn's output.
+        Load parameter file if it exist. You can change the default file by use ‘Parfile(<parameter file>)’.
+
+        :param str file: parameter file in absolute path.
+        """
+        from .Parameter.parfile import ParFile
+
+        if file:
+            assert os.path.exists(file), "parameter file '{}' not exists. Make sure it‘s an absolute path.".format(file)
+            assert file.endswith('.par'), "parameter file '{}' should end with '.par'.".format(file)
+            self.parfile = file
+        else:
+            if self._simfactory: 
+                raise Exception("CactusTool currently cannot handle simfactory!")
+            else:
+                fileList = glob.glob(self.simpath + '*.par')
+                if len(fileList) == 1:
+                    self.parfile = fileList[0]
+                else:
+                    # Guess parfile you want to load
+                    self.parfile = self.simpath + self.simname + '.par'
+                    assert self.parfile in fileList, "Make sure `IO::out_dir = $parfile` in your parfile, or you can input the one you want to load."
+
+            logger.info("Use the default parameter file '{}'.", self.parfile)
+        return ParFile(self.parfile)
+
+
+    def Analysis(self, Thorn, fname=None):
+        """
+        Analysis thorn's output. 
+
+        The current support is as follows:
+        [multipole, volumeintegrals_grmhd, puncturetracker]
 
         :param str thorn: thorn name
+        :param str fname: file name
         """
-        from .Analysis import ThornFile, hmns, multipole, volumeintegrals_grmhd
+        from . import Analysis
 
         thorn = Thorn.lower()
-        assert thorn in ThornFile.keys(), "CactusTool currently not support {}".format(Thorn)
-        if self._simfactory: 
-            raise Exception("CactusTool currently cannot handle simfactory!")
-        else:
-            fileList = glob.glob(self.simpath + ThornFile[thorn])
-        assert bool(fileList), "There are no data files about {}".format(Thorn)
-        return locals()[thorn](fileList)
 
-    # @property
-    # def NaN(self):
-    #     self.debug  = filter_file(self.allfiles, "debug")
-    #     if bool(self.debugfiles):
-    #         return NaNCheck(self)
-    #     else:
-    #         raise Exception("No NaNCheck in {}:".format(self.simname))
+        ThornFile = {
+            'hmns': 'HMNS_*.asc',
+            'multipole': 'mp_*',
+            'volumeintegrals_grmhd': 'volume_integrals-GRMHD.asc',
+            'twopunctures': 'TwoPunctures.bbh',
+            'puncturetracker': 'puncturetracker-pt_loc..asc',
+        }
+        if fname is None:
+            assert thorn in ThornFile.keys(), "Use fname param"
+            fname = ThornFile[thorn]
+        
+        if self._simfactory:
+            # Data file is stored in multiple folders for SimFactory.
+            fileList = []
+            for n in self.output:
+                path = os.path.join(self.simpath, n, self.simname)
+                fileList += glob.glob(path+os.path.sep+fname)
+        else:
+            fileList = glob.glob(self.simpath+os.path.sep+fname)
+        assert bool(fileList), "There are no data files about {}".format(Thorn)
+
+        try:
+            return getattr(Analysis, thorn)(fileList)
+        except AttributeError:
+            print("CactusTool currently not support %s thorn" % (Thorn))

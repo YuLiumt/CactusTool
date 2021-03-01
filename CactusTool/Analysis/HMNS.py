@@ -7,14 +7,14 @@ class hmns:
 
     def __init__(self, files):
         self.files = files
-        self.dests = {}
+        self.dsets = {}
     
     @property
     def it(self):
-        if 'Omega' not in self.dests:
-            self.dests['Omega'] = self.load('HMNS_Omega.asc')
-        time = self.dests['Omega'].T[0].astype(np.int)
-        return sorted(list(set(time)))
+        if 'Omega' not in self.dsets:
+            self.dsets['Omega'] = self.load('HMNS_Omega.asc')
+        it = self.dsets['Omega'].T[0].astype(np.int)
+        return sorted(list(set(it)))
 
     def load(self, fname):
         file = [file for file in self.files if os.path.basename(file) == fname]
@@ -22,13 +22,13 @@ class hmns:
         return np.loadtxt(file[0], comments="#")
 
     def Omega(self, it=0, ax=None):
-        if 'Omega' not in self.dests:
-            self.dests['Omega'] = self.load('HMNS_Omega.asc')
+        if 'Omega' not in self.dsets:
+            self.dsets['Omega'] = self.load('HMNS_Omega.asc')
 
         if ax is None:
             fig, ax = plt.subplots(subplot_kw=dict(projection='polar'))
 
-        dset = self.dests['Omega'][self.dests['Omega'][:, 0] == it].T
+        dset = self.dsets['Omega'][self.dsets['Omega'][:, 0] == it].T
         time = dset[1][0]
         r = dset[3]
         theta = dset[4]
@@ -42,13 +42,13 @@ class hmns:
         ax.set_title('Time: {}'.format(time), fontsize=12)
 
     def RotationProfile(self, it=0, r_c=True, ax=None):
-        if 'Omega_r' not in self.dests:
-            self.dests['Omega_r'] = self.load('HMNS_Omega_r.asc')
+        if 'Omega_r' not in self.dsets:
+            self.dsets['Omega_r'] = self.load('HMNS_Omega_r.asc')
         if r_c:
-            if 'r_c' not in self.dests:
-                self.dests['r_c'] = self.load('HMNS_r_c.asc')
+            if 'r_c' not in self.dsets:
+                self.dsets['r_c'] = self.load('HMNS_r_c.asc')
 
-        dset = self.dests['Omega_r'][self.dests['Omega_r'][:, 0] == it].T
+        dset = self.dsets['Omega_r'][self.dsets['Omega_r'][:, 0] == it].T
         time = dset[1][0]
         r = dset[3]
         data = dset[4]
@@ -57,7 +57,7 @@ class hmns:
             fig, ax = plt.subplots()
 
         if r_c:
-            dset_r = self.dests['r_c'][self.dests['r_c'][:, 0] == it].T
+            dset_r = self.dsets['r_c'][self.dsets['r_c'][:, 0] == it].T
             R_c = dset_r[4]
             ax.plot(R_c, data)
         else:
@@ -69,10 +69,10 @@ class hmns:
         if ax is None:
             fig, ax = plt.subplots()
 
-        if 'Omega_r' not in self.dests:
-            self.dests['Omega_r'] = self.load('HMNS_Omega_r.asc')
+        if 'Omega_r' not in self.dsets:
+            self.dsets['Omega_r'] = self.load('HMNS_Omega_r.asc')
         
-        dset = self.dests['Omega_r'].T
+        dset = self.dsets['Omega_r'].T
         time = dset[1]
         r = dset[3]
         data = dset[4]
