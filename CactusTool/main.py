@@ -1,6 +1,6 @@
-from .funcs.log import logger
-from .funcs.file import is_simfactory
-from .funcs.check import ensure_list
+from .utils.log import logger
+from .utils.file import is_simfactory
+from .utils.check import ensure_list
 import os
 # import re
 import glob
@@ -36,15 +36,15 @@ class load:
                 self.output = ensure_list(output)
 
 
-    def Scalar(self, ftype='maximum'):
+    def Scalar(self, ftype):
         """
-        CarpetIOScalar output
+        Scalar output
 
         :param str ftype: reduction operation
         """
         from .Carpet.Scalar import CarpetIOScalar
 
-        assert ftype in ['', 'minimum', 'maximum', 'norm1', 'norm2', 'average']
+        assert ftype in ['', 'minimum', 'maximum', 'norm1', 'norm2', 'average', 'scalars']
 
         if self._simfactory:
             # Data file is stored in multiple folders for SimFactory.
@@ -54,7 +54,8 @@ class load:
                 fileList += glob.glob(path+os.path.sep+'*.{}.asc'.format(ftype))
         else:
             fileList = glob.glob(self.simpath+os.path.sep+'*.{}.asc'.format(ftype))
-        return CarpetIOScalar(fileList)
+        assert bool(fileList), "No file endwith '.{}.asc'".format(ftype)
+        return CarpetIOScalar(fileList, ftype)
 
 
     def GF(self, dim='xy', ftype='h5'):
@@ -68,11 +69,58 @@ class load:
         assert dim in ['x', 'y', 'z', 'xy', 'xz', 'yz', 'xyz']
         assert ftype in ['asc', 'h5']
         if self._simfactory: 
-            fileList = glob.glob(self.simpath+'output-????/'+self.simname+'/*.{}.{}'.format(dim, ftype))
+            # Data file is stored in multiple folders for SimFactory.
+            fileList = []
+            for n in self.output:
+                path = os.path.join(self.simpath, n, self.simname)
+                fileList += glob.glob(path+os.path.sep+'*.{}.*{}'.format(dim, ftype))
         else:
-            fileList = glob.glob(self.simpath + '*.{}.{}'.format(dim, ftype))
+            fileList = glob.glob(self.simpath+os.path.sep+'*.{}.*{}'.format(dim, ftype))
         assert bool(fileList), "{} don't have '{}' dim in '.{}' ftype".format(self.simname, dim, ftype)
         return CarpetGF(fileList, dim, ftype)
+
+
+    def ThornOutput(self, Thorn, fname=None, **kwargs):
+        """
+        Other thorn's output. 
+
+        The current support is as follows:
+        [multipole, volumeintegrals_grmhd, puncturetracker]
+
+        :param str thorn: thorn name
+        :param str fname: file name
+        """
+        from .Carpet import ThornOutput
+
+        thorn = Thorn.lower()
+
+        ThornFile = {
+            'hmns': 'HMNS_*.asc',
+            'multipole': 'mp_*',
+            'volumeintegrals_grmhd': 'volume_integrals-GRMHD.asc',
+            'twopunctures': 'TwoPunctures.bbh',
+            'puncturetracker': 'puncturetracker-pt_loc..asc',
+            'quasilocalmeasures': 'quasilocalmeasures-qlm_scalars..asc',
+            'nanchecker': 'NaNmask.file_*.h5',
+        }
+        if fname is None:
+            assert thorn in ThornFile.keys(), "Use fname param"
+            fname = ThornFile[thorn]
+        
+        if self._simfactory:
+            # Data file is stored in multiple folders for SimFactory.
+            fileList = []
+            for n in self.output:
+                path = os.path.join(self.simpath, n, self.simname)
+                fileList += glob.glob(path+os.path.sep+fname)
+        else:
+            fileList = glob.glob(self.simpath+os.path.sep+fname)
+        assert bool(fileList), "There are no data files about {}".format(Thorn)
+
+        try:
+            return getattr(ThornOutput, thorn)(fileList, **kwargs)
+        except AttributeError:
+            print("CactusTool currently not support %s thorn" % (Thorn))
 
 
     def Parfile(self, file=None):
@@ -102,43 +150,3 @@ class load:
             logger.info("Use the default parameter file '{}'.", self.parfile)
         return ParFile(self.parfile)
 
-
-    def Analysis(self, Thorn, fname=None):
-        """
-        Analysis thorn's output. 
-
-        The current support is as follows:
-        [multipole, volumeintegrals_grmhd, puncturetracker]
-
-        :param str thorn: thorn name
-        :param str fname: file name
-        """
-        from . import Analysis
-
-        thorn = Thorn.lower()
-
-        ThornFile = {
-            'hmns': 'HMNS_*.asc',
-            'multipole': 'mp_*',
-            'volumeintegrals_grmhd': 'volume_integrals-GRMHD.asc',
-            'twopunctures': 'TwoPunctures.bbh',
-            'puncturetracker': 'puncturetracker-pt_loc..asc',
-        }
-        if fname is None:
-            assert thorn in ThornFile.keys(), "Use fname param"
-            fname = ThornFile[thorn]
-        
-        if self._simfactory:
-            # Data file is stored in multiple folders for SimFactory.
-            fileList = []
-            for n in self.output:
-                path = os.path.join(self.simpath, n, self.simname)
-                fileList += glob.glob(path+os.path.sep+fname)
-        else:
-            fileList = glob.glob(self.simpath+os.path.sep+fname)
-        assert bool(fileList), "There are no data files about {}".format(Thorn)
-
-        try:
-            return getattr(Analysis, thorn)(fileList)
-        except AttributeError:
-            print("CactusTool currently not support %s thorn" % (Thorn))

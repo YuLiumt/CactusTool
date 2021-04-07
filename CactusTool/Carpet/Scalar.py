@@ -1,26 +1,22 @@
-from ..funcs.file import columns_asc
-from ..funcs.log import logger
-import numpy as np
+from ..utils.file import columns_asc, dataset_asc
+from ..Analysis import DataFrameSeries
+# from ..utils.log import logger
+import pandas as pd
 import os
-import re
 
 
 class CarpetIOScalar:
 
-    def __init__(self, files):
+    def __init__(self, files, ftype):
         """
         Thorn CarpetIOScalar provides I/O methods for outputting scalar values in ASCII format into files. This modular processes output of CarpetIOScalar.
 
         :param list files: Absolute path to the data file.
         """
         self.files = files
-        self.fname = set()
-        pat = re.compile('^([a-zA-Z0-9_-]+)\.(minimum|maximum|norm1|norm2|average)?\.asc$')
-        for f in files:
-            mp = pat.match(os.path.basename(f))
-            if mp is not None:
-                thorn_var = mp.group(1)
-                self.fname.add(thorn_var)
+        self.endwith = ".{}.asc".format(ftype)
+        self.fname = set(os.path.basename(f).replace(self.endwith, '') for f in self.files)
+
 
     def __getitem__(self, key):
         """
@@ -28,8 +24,8 @@ class CarpetIOScalar:
 
         :param str key: file name.
         """
-        assert key in self.fname, "{} is not exist".format(key)
-        fileList = [f for f in self.files if key in f]
+        assert key in self.fname, "File {}{} is not exist".format(key, self.endwith)
+        fileList = [f for f in self.files if os.path.basename(f).split(".")[0] == key]
         return Scalar(fileList)
 
     def __contains__(self, key):
@@ -47,8 +43,7 @@ class Scalar:
         self.files = files
         self.columns = columns_asc(files[0])
         for file in files:
-            assert self.columns == columns_asc(file), "Check why the columns are different."
-
+            assert self.columns == columns_asc(file), "Variable:\n{}:\n{}\n-----------\n{}:\n{}".format(files[0], self.columns, file, columns_asc(file))
     
     @property
     def vars(self):
@@ -60,15 +55,11 @@ class Scalar:
         else:
             raise Exception("File: {} Header fail to identify.".format(self.files[0]))
 
-    def dsets(self, var='data'):
-        p = np.array([[], []])
+    def dsets(self, vars='data'):
+        if not isinstance(vars, list):
+            vars = [vars]
+        vars.insert(0, 'time')
+        ivar = [self.columns.index(v) for v in vars]
+        df = pd.DataFrame(dataset_asc(self.files, ivar).T, columns=vars)
+        return DataFrameSeries(df.set_index('time'))
 
-        itime = self.columns.index('time')
-        ivar = self.columns.index(var)
-
-        for f in self.files:
-            tem = np.loadtxt(f, usecols=(itime, ivar), comments="#", unpack=True)
-            p = np.append(p, tem, axis=1)
-
-        # the sorted unique array
-        return np.unique(p, axis=1)

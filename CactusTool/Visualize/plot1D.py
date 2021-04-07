@@ -2,7 +2,7 @@
 plot 1D Carpet data at a given iteration.
 """
 import matplotlib.pyplot as plt
-# from ..funcs.unit import 
+# from ..utils.unit import 
 import numpy as np
 
 def LinePlot(ax, dsets, fmt=None, reflevel=-1, unit='cactus', **kwargs):

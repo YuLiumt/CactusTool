@@ -1,4 +1,4 @@
-from ..funcs.array import list_bounds
+from ..utils.array import list_bounds
 import matplotlib.pyplot as plt
 import numpy as np
 import os

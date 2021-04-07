@@ -1,5 +1,5 @@
 from ..Visualize.plot3d import plot_trajectory
-from ..funcs.units import UnitConversion
+from ..utils.units import UnitConversion
 import numpy as np
 
 class volumeintegrals_grmhd:

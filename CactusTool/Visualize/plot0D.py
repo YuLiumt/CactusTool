@@ -2,7 +2,7 @@
 This module provides various functions to plot time series.
 """
 import matplotlib.pyplot as plt
-from ..funcs.units import UnitConversion
+from ..utils.units import UnitConversion
 import numpy as np
 
 def TimeSeries(ax, dsets, scale=None, unit=('1', '1'), label=None, **kwargs):

@@ -1,8 +1,8 @@
 """
 Makes a 2D color plot
 """
-from ..funcs.log import logger
-from ..funcs.units import UnitConversion
+from ..utils.log import logger
+from ..utils.units import UnitConversion
 import matplotlib.pyplot as plt
 import matplotlib.colors as colors
 import numpy as np

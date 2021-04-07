@@ -1,11 +1,4 @@
 # Copyright (c) 2017 The Board of Trustees of the University of Illinois
-# All rights reserved.
-#
-# Developed by: Daniel Johnson, E. A. Huerta, Roland Haas
-#               NCSA Gravity Group
-#               National Center for Supercomputing Applications
-#               University of Illinois at Urbana-Champaign
-#               http://gravity.ncsa.illinois.edu/
 
 import numpy as np
 import glob
