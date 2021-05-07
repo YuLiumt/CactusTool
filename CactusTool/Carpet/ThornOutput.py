@@ -1,7 +1,7 @@
 from ..utils.log import logger
 from ..utils.file import columns_asc, dataset_asc, header_h5, select_header_h5, dataset_h5, read
-from ..Analysis import ComplexSeries, TimeSeries, GravitationalWave, VectorSeries
-from ..Analysis import Trajectory, BlackHoleBinary
+from ..Analysis import TimeSeries, GravitationalWave, VectorSeries
+from ..Analysis import Trajectory, BlackHoleBinary, BHDiags
 from ..Lib.power import RadialToTortoise, psi4ToStrain, Extrapolate, angular_momentum
 from ..Lib.pygwanalysis import InitModeArray
 from ..Lib.surrkick import coeffs
@@ -84,7 +84,7 @@ class multipole:
         rpsi4 = (psi4[1]+1.j*psi4[2]) * radiu
         if np.absolute(rpsi4).min() <= np.finfo(float).eps and l >= 2:
             logger.warning("The psi4 amplitude of mode ({}, {}) at radiu {} is near zero. The phase is ill-defined.", l, m, radiu) 
-        return ComplexSeries(t, rpsi4)
+        return TimeSeries(t, rpsi4)
 
     def Strain(self, M_ADM, f0, mode, radiu=-1, phase_extrapolation_order=1, amp_extrapolation_order=2):
         """
@@ -184,7 +184,7 @@ class multipole:
 
     def RadiatedEnergy(self, E0, **kwargs):
         self.RadiatedEnergyFlux(**kwargs)
-        Eoft = self._dEdt.cumtrapz()
+        Eoft = self._dEdt.integrate()
         Eoft.y += E0
         return Eoft
 
@@ -224,12 +224,12 @@ class multipole:
 
     def RadiatedLinMom(self, **kwargs):
         self.RadiatedLinMomFlux(**kwargs)
-        Poft = self._dPdt.cumtrapz()
+        Poft = self._dPdt.integrate()
         # Eliminate unphysical drift due to the starting point of the integration. Integrate for tbuffer and substract the mean.
         tbuffer=1000
         tstart = self._t[0]
         tend= tstart + tbuffer
-        P0 = Poft.cumtrapz().clip(tstart, tend).y[-1]/tbuffer
+        P0 = Poft.integrate().clip(tstart, tend).y[-1]/tbuffer
         Poft.y -= P0
         return Poft
 
@@ -273,7 +273,7 @@ class multipole:
 
     def RadiatedAngMom(self, **kwargs):
         self.RadiatedAngMomFlux(**kwargs)
-        Joft = self._dJdt.cumtrapz()
+        Joft = self._dJdt.integrate()
         return Joft
 
 class puncturetracker(Trajectory):
@@ -302,9 +302,15 @@ class quasilocalmeasures(BlackHoleBinary):
         index = []
         vars = [
             'qlm_time[0]',
+            'qlm_area[0]',
+            'qlm_area[1]',
+            'qlm_area[2]',
             'qlm_mass[0]',
             'qlm_mass[1]',
             'qlm_mass[2]',
+            'qlm_spin[0]',
+            'qlm_spin[1]',
+            'qlm_spin[2]',
             'qlm_coordspinx[0]', 
             'qlm_coordspiny[0]', 
             'qlm_coordspinz[0]', 
@@ -318,10 +324,6 @@ class quasilocalmeasures(BlackHoleBinary):
         for var in vars:
             index.append(columns.index(var))
         super().__init__(*dataset_asc(files, index))
-        # label = ['t', 'm1', 'm2', 'J1', 'J2', 'spin1x', 'spin2x', 'spin1y', 'spin2y', 'spin1z', 'spin2z']
-        # BlackHoleBinary
-        # self.dsets = dict(zip(label, dataset_asc(files, index))) 
-
 
 class twopunctures:
     
@@ -473,3 +475,60 @@ class nanchecker:
 
         header = select_header_h5(self.header, -1, it, ml, rl, c)
         return dataset_h5(header)
+
+class ahfinderdirect(BHDiags):
+
+    def __init__(self, files):
+        dsets = {}
+        pat = re.compile(r'BH_diagnostics.(ah\d+).gp')
+        for file in files:
+            mp = pat.search(os.path.basename(file))
+            if (mp is not None):
+                ahidx = mp.group(1)
+                dsets.setdefault(ahidx,[]).append(file)
+        idx = [1, 2, 3, 4, 7, 20, 21, 22, 26]
+        for k, v in dsets.items():
+            dsets[k] = dataset_asc(v, idx)
+            
+        super().__init__(dsets)
+
+class carpet:
+
+    def __init__(self, files):
+        self.files = files
+
+    def coordinates(self, it=0):
+        # '^[\t ]*([^\s=:"\'#!\]\[]+)::([^\s=:"\'#!\]\[]+)[\t ]*=[\t ]*([^\s=:"\'#!]+)[\t ]*(?:!|#|\n|\r\n)'
+        p = {}
+        pat = re.compile('(\d) (\d) (\d+) (\d)[\t ]*\(([\-\d\:\/\,\.\]\[]+)\)')
+        match = False
+        for file in self.files:
+            with read(file) as f:
+                for line in f.readlines():
+                    if "iteration" in line:
+                        if int(line[10:]) == it:
+                            match = True
+                        else:
+                            match = False
+                    if match:
+                        m = pat.match(line)
+                        if m is not None:
+                            map = int(m.group(1))
+                            if map not in p:
+                                p[map] = {}
+                            rl = int(m.group(3))
+                            if rl not in p[map]:
+                                p[map][rl] = {}
+                            c = int(m.group(4))
+                            v = m.group(5).split('/')[0]
+                            p[map][rl][c] = v
+
+        return p
+
+    @property
+    def dx(self):
+        map0 = self.coordinates()[0]
+        p = {}
+        for rl in map0:
+            p[rl] = eval(map0[rl][0].split(':')[-1]) 
+        return p

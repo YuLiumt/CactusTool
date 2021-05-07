@@ -1,13 +1,13 @@
 from numpy.core.einsumfunc import _parse_einsum_input
-from . import ComplexSeries
+from . import TimeSeries
 import numpy as np
 
-class GravitationalWave(ComplexSeries):
+class GravitationalWave(TimeSeries):
     """
     Class describing discrete 1d wave functions
     """
 
-    def __init__(self, t, y):
+    def __init__(self, t, y, CU=True):
         """
         Initialize the `GravitationalWave` class.
 
@@ -16,7 +16,7 @@ class GravitationalWave(ComplexSeries):
         :param y: values
         :type y: array_like
         """
-        super().__init__(t, y)
+        super().__init__(t, y, CU)
 
     @property
     def frequency(self):
@@ -26,9 +26,9 @@ class GravitationalWave(ComplexSeries):
         """
         return self.phase.gradient()
 
-    def ShiftToZero(self):
-        idx = self.absolute.y.argmax()
-        return self.shift(-self.t[idx])
+    # def ShiftToZero(self):
+    #     idx = self.abs().y.argmax()
+    #     return self.shift(-self.t[idx])
         
 
 class Match:

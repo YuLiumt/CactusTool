@@ -14,4 +14,5 @@ setup(
         "h5py",
         "matplotlib",
         "pandas",
+        "functools",
     ])

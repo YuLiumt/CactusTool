@@ -1,6 +1,6 @@
 """
 This module provides a class Units representing unit systems or unit 
-conversions. All expressed in SI units.
+conversions. Units can be used to convert from geometrized units to SI.
 """
 import numpy as np
 import re
@@ -32,7 +32,7 @@ eV_SI         = 1.602176634e-19       # electron volt [J]
 # The following constants are all given in CU units c = G = M_sun = 1
 c_CU          = 1                     # Vacuum speed of light
 G_CU          = 1                     # Gravitational constant
-M_sun_CU      = 1                     # Solar mass 
+M_CU      = 1                     # Solar mass 
 MeV_CU        = 1                     # MeV
 
 # The following convertion factors are all from CU to SI

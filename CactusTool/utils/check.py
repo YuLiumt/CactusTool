@@ -4,6 +4,16 @@ import re
 
 ################### File name ###################
 
+def ensure_list(obj):
+    """
+    This function ensures that `obj` is a list. Typically used to convert a string to a list.
+    """
+    if obj is None:
+        return [obj]
+    if not isinstance(obj, list):
+        return [obj]
+    return obj
+
 def hdf5_filename_check(file):
     pat_fn = re.compile("\S*\.([xyz]*)\.h5$")
     m = pat_fn.match(file)
@@ -18,16 +28,6 @@ def is_empty(obj):
     """
     if not obj:
         print("Please check why {} is None".format(obj))
-
-def ensure_list(obj):
-    """
-    This function ensures that `obj` is a list. Typically used to convert a string to a list.
-    """
-    if obj is None:
-        return [obj]
-    if not isinstance(obj, list):
-        return [obj]
-    return obj
 
 def ensure_numpy_array(obj):
     """

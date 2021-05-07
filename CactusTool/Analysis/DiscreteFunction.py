@@ -1,79 +1,178 @@
-from scipy import integrate, interpolate
+from ..utils.units import UnitConversion
+from ..Lib.kuibit import BaseSeries
+from functools import cached_property
+from scipy import integrate, interpolate, signal
 import numpy as np
 import pandas as pd
 
 
-class TimeSeries:
+class TimeSeries(BaseSeries):
     """
-    Class describing discrete functions
+    This class represents real or complex valued time series.
     """
 
-    def __init__(self, t, y):
+    def __init__(self, t, y, CU=True):
         """Initialise a 1D transformation function
 
-        :param t: time series
-        :type t: array_like
-        :param y: values
-        :type y: array_like
+        :param array_like t: Sampling times, need to be strictly increasing.
+        :param array_like y: values
+        :param bool CU: Cactus Units
         """
-        if len(y) < 1:
-            raise ValueError('initial_array must contain at least one sample.')
-        assert len(t) == len(y), "Times and Values length mismatch"
+        super().__init__(t, y)
+        # Cactus Unit
+        self._CU = CU
 
-        self.t = np.array(t)
-        self.y = np.array(y)
+    @cached_property
+    def t(self):
+        """
+        Return the time.
+        """
+        return self.x
 
-    @property
-    def tstart(self):
-        return self.t[0]
+    @cached_property
+    def tmin(self):
+        """
+        Return the starting time.
+        """
+        return self.xmin
 
-    @property
-    def tend(self):
-        return self.t[-1]
+    @cached_property
+    def tmax(self):
+        """
+        Return the final time.
+        """
+        return self.xmax
 
-    @property
+    @cached_property
     def dt(self):
-        return self.t[1] - self.t[0]
+        """
+        Return the timestep if the series is regularly sampled,
+        otherwise raise error.
+        """
+        assert self.is_regularly_sampled(), "Timeseries is not regularly sampled"
+        return self.x[1] - self.x[0]
 
-    def __len__(self):
-        return len(self.t)
+    @property
+    def time_length(self):
+        """
+        Return the length of the covered time interval (tmax - tmin).
+        """
+        return self.xmax - self.xmin
 
-    def __getitem__(self, idx):
-        return self.y[idx]
+    duration = time_length
 
-    def shift(self, tshift):
-        return self.__class__(self.t + tshift, self.y)     
+    def NearestTimeIndex(self, v):
+        """Find nearest neighboring point (index) to t
+
+        :param float t: nearest time
+        """
+        return (np.abs(self.x-v)).argmin()
+
+    def NearestValueIndex(self, v):
+        """Find nearest neighboring point (index) to y
+
+        :param float v: nearest y
+        """
+        return (np.abs(self.y-v)).argmin()
+
+    def redshift(self, z):
+        """Apply redshift to the data by rescaling the time so that the frequencies are redshifted by ``1 + z``.
+        """
+        factor = 1 / (1 + z)
+        return self.__class__(self.x*factor, self.y, False)
+
+    def align_at_minimum(self):
+        """
+        Return a new timeseries with absolute minimum at t=0.
+        """
+        t = self.x[np.argmin(np.abs(self.y))]
+        return self.shift(-t)
+
+    def align_at_maximum(self):
+        """
+        Return a new timeseries with absolute maximum is at t=0.
+        """
+        t = self.x[np.argmax(np.abs(self.y))]
+        return self.shift(-t)
+
+    def phase_shift(self, pshift):
+        """
+        Shift the complex phase timeseries by ``pshift``. If the signal is real, it is turned complex with phase of ``pshift``.
+        """
+        return self.__class__(self.x, self.y * np.exp(1j * pshift), self._CU)
+
+    def phase_angular_velocity(self, window_size, order=3):
+        """
+        Compute the phase angular velocity, i.e. the time derivative of the complex phase.
+        """
+        ret_value = self.phase.gradient()
+        return ret_value.savgol_smooth(window_size, order)
+
+    def phase_frequency(self, window_size, order=3):
+        """
+        Compute the phase frequency, i.e. the time derivative
+        of the complex phase divided by 2 pi.
+        """
+        return self.phase_angular_velocity(window_size, order=3) / (2 * np.pi)
+
+    # @property
+    # def remove_nan(self):
+    #     """Filter out nans/infinite values. Return a new series with finite values only.
+    #     """
+    #     msk = np.isfinite(self.y)
+    #     return self.__class__(self.t[msk], self.y[msk], self._CU)
 
     def remove_mean(self):
         """
         Remove the mean value from the data.
         """
         f = self.y - self.y.mean()
-        return self.__class__(self.t, f)
+        return self.__class__(self.x, f, self._CU)
 
-    def clip(self, tmin, tmax):
-        """Throws away data outside the time intarval [tmin, tmax].
-
-        :param tmin: Left boundary cut interval
-        :type tmin: float
-        :param tmax: Right boundary cut interval
-        :type tmax: float
+    def resample(self, t, **kwargs):
         """
-        t = self.t
-        index = np.where((t >= tmin) & (t <= tmax))
-        return self.__class__(t[index], self.y[index])
+        Return a new series resampled from this to new t using :py:class:`scipy.interpolate.interp1d`. Default is 'cubic'.
+
+        :param array_like t: New timeseries
+        """
+        if 'kind' not in kwargs:
+            kwargs['kind'] = 'cubic'
+        f = interpolate.interp1d(self.x, self.y, **kwargs)
+        return self.__class__(t, f(t), self._CU)
+
+    def regular_resample(self):
+        """
+        Resample the timeseries to regularly spaced times,
+        with the same number of points.
+        """
+        t = np.linspace(self.xmin, self.xmax, len(self))
+        return self.resample(t)
+
+    def integrate(self, **kwargs):
+        """
+        Return a series that is the integral computed with method of :py:class:`scipy.integrate.cumtrapz`.
+        """
+        if 'initial' not in kwargs:
+            kwargs['initial'] = 0
+        f = integrate.cumtrapz(self.y, self.x, **kwargs)
+        return self.__class__(self.x, f, self._CU)
+
+    def gradient(self, **kwargs):
+        """
+        Return a series that is the derivative of the current one using :py:class:`numpy.gradient` (second order accurate central differences in the interior points and either first or second order accurate one-sides differences at the boundaries).
+        """
+        f = np.gradient(self.y, self.x, **kwargs)
+        return self.__class__(self.x, f, self._CU)
 
     def smooth(self, window_len=11, window='hanning'):
         """Smooth the data by convoluting with a window function.
 
-        :param window_len: Smoothing length, defaults to 11
-        :type window_len: int, optional
-        :param window: The window function, defaults to 'hanning'
-        :type window: str, optional
+        :param int window_len: Smoothing length, defaults to 11
+        :param str window: The window function, defaults to 'hanning'
         """
         assert window in ['flat', 'hanning', 'hamming', 'bartlett', 'blackman'], "Window is one of 'flat', 'hanning', 'hamming', 'bartlett', 'blackman'"
         if window_len < 3:
-            return self.__class__(self.t, self.y)
+            return self.__class__(self.x, self.y)
         assert window_len % 2 == 1, "windowLen should be an odd integer"
 
         x = self.y
@@ -87,133 +186,89 @@ class TimeSeries:
         
         y = np.convolve(w / w.sum(), s, mode='valid')
         return self.__class__(self.t, y[(window_len // 2):-(window_len // 2)])
-
-    def NearestTimeIndex(self, v):
-        """Find nearest neighboring point (index) to t
-
-        :param t: nearest time
-        :type t: float
-        """
-        return (np.abs(self.t-v)).argmin()
-
-    def NearestValueIndex(self, v):
-        """Find nearest neighboring point (index) to y
-
-        :param t: nearest time
-        :type t: float
-        """
-        return (np.abs(self.y-v)).argmin()
-
-    def resample(self, t, **kwargs):
-        """Resample field to new timeseries using :py:class:`scipy.interpolate.interp1d`. Default is 'cubic'.
-
-        :param t: timeseries
-        :type t: array_like
-        """
-        if 'kind' not in kwargs:
-            kwargs['kind'] = 'cubic'
-        f = interpolate.interp1d(self.t, self.y, **kwargs)
-        return self.__class__(t, f(t))
-
-    def cumtrapz(self, **kwargs):
-        """
-        :return: Cumulatively integrate is computed using :py:class:`scipy.integrate.cumtrapz`.
-        :rtype: :py:class:`DiscreteFunction`
-        """
-        if 'initial' not in kwargs:
-            kwargs['initial'] = 0
-        f = integrate.cumtrapz(self.y, self.t, **kwargs)
-        return self.__class__(self.t, f)
-
-    def gradient(self, **kwargs):
-        """
-        :return: The gradient is computed using :py:class:`numpy.gradient` (second order accurate central differences in the interior points and either first or second order accurate one-sides differences at the boundaries).
-        :rtype: :py:class:`DiscreteFunction`
-        """
-        f = np.gradient(self.y, self.t, **kwargs)
-        return self.__class__(self.t, f)
         
-    def psd(self):
-        """ Calculate the power spectral density of this time series.
+    def savgol_smooth(self, window_size, order=3):
+        """Return a smoothed series with a Savitzky-Golay filter with window of size ``window_size`` and order ``order``.
 
-        Use the `pycbc.psd.welch` method to estimate the psd of this time segment.
-        For more complete options, please see that function.
-
-        Parameters
-        ----------
-        segment_duration: float
-            Duration in seconds to use for each sample of the spectrum.
-        kwds : keywords
-            Additional keyword arguments are passed on to the `pycbc.psd.welch` method.
-
-        Returns
-        -------
-        psd : FrequencySeries
-            Frequency series containing the estimated PSD.
+        :param int window_size: Number of points of the smoothing window (needs to be odd).
+        :param int order: Order of the filter.
         """
-        pass
+        if self.is_complex:
+            f = signal.savgol_filter(self.y.real, window_size, order) + 1j * signal.savgol_filter(self.y.imag, window_size, order)
+        else:
+            f = signal.savgol_filter(self.y, window_size, order)
+        return self.__class__(self.x, f, self._CU)
 
-    def preview(self, mode='lines+markers'):
+    def window(self, window_function, *args, **kwargs):
         """
-        Plot by :py:class:`plotly.graph_objects.go`
+        Apply window_function to the data.
+
+        ``window_function`` can be a string with the name of the window
+        function that takes as first argument the number of points of the signal.
         """
-        try:
+        assert window_function in ['tukey', 'hamming', 'blackman'], "Window is one of 'tukey', 'hamming', 'blackman'"
+        window_array = eval('signal.'+window_function+'(len(self), *args, **kwargs)')
+        return self.__class__(self.t, self.y * window_array)
+
+    def polyfit(self, deg, **kwargs):
+        return np.polyfit(self.x, self.y, deg, **kwargs)
+
+    def to_FrequencySeries(self):
+        """
+        Fourier transform of the timeseries. If the signal is not complex, only positive frequencies are kept. It will be resampled before transforming.
+
+        To have meaningful results, you should consider removing the mean and windowing the signal before calling this method!
+        """
+        regular_ts = self.regular_resample()
+        dt = regular_ts.dt
+
+        if self.is_complex:
+            frequencies = np.fft.fftfreq(len(regular_ts), d=dt)
+            fft = np.fft.fft(regular_ts.y)
+
+            f = np.fft.fftshift(frequencies)
+            fft = np.fft.fftshift(fft)
+        else:
+            # Note the "r"
+            f = np.fft.rfftfreq(len(regular_ts), d=dt)
+            fft = np.fft.rfft(regular_ts.y)
+
+        return FrequencySeries(f, fft * dt)
+
+    def plot(self, fig, label='y', **kwargs):
+        """
+        Plot by :py:class:`matplotlib` or :py:class:`plotly.graph_objects.go`.
+        """
+        if hasattr(fig, 'plot'):
+            if self.is_complex:
+                fig.plot(self.x, self.y.real, label=f'Re[{label}]', **kwargs)
+                fig.plot(self.x, self.y.imag, label=f'Im[{label}]', **kwargs)
+            else:
+                fig.plot(self.x, self.y, label=label, **kwargs)
+        elif hasattr(fig, 'add_trace'):
             import plotly.graph_objects as go
-        except:
-            print("Package plotly not found. Install plotly to get nice plot.")
-
-        fig = go.Figure(data=go.Scatter(
-            x=self.t, 
-            y=self.y,
-            mode=mode,
-        ))
-        fig.show()
-
-    def save(self, fname):
-        """
-        Saves into simple ascii format with 2 collumns (t,y) for real valued data.
-
-        :param str fname: File name.
-        """
-        np.savetxt(fname, np.transpose((self.t, self.y)))
-
-
-class ComplexSeries(TimeSeries):
-    """
-    Class describing discrete complex functions
-    """
-
-    def __init__(self, t ,y):
-        """
-        Initialise a 1D transformation function
-
-        :param t: time series
-        :type t: array_like
-        :param y: complex number
-        :type y: array_like
-        """
-        assert np.iscomplex(y).any(), "Discrete functions is not a complex number."
-        super().__init__(t, y)
-
-    @property
-    def real(self):
-        return TimeSeries(self.t, self.y.real)
-
-    @property
-    def imag(self):
-        return TimeSeries(self.t, self.y.imag)
-
-    @property
-    def conjugate(self):
-        return self.__class__(self.t, self.y.conjugate())
-
-    @property
-    def absolute(self):      
-        return TimeSeries(self.t, np.absolute(self.y))
-
-    @property
-    def phase(self):
-        return TimeSeries(self.t, np.unwrap(np.angle(self.y)))
+            if self.is_complex:
+                fig.add_trace(go.Scatter(
+                    x=self.x, 
+                    y=self.y.real,
+                    name =f'Re[{label}]',
+                    **kwargs,
+                ))
+                fig.add_trace(go.Scatter(
+                    x=self.x, 
+                    y=self.y.imag,
+                    name=f'Im[{label}]',
+                    **kwargs,
+                ))
+            else:
+                fig.add_trace(go.Scatter(
+                    x=self.x, 
+                    y=self.y,
+                    name=label, 
+                    **kwargs,
+                ))
+        else:
+            raise RuntimeError("fig must be 'plotly.graph_objects.go' or 'matplotlib.axes._subplots.AxesSubplot'")
 
     def preview(self, mode='lines+markers'):
         """
@@ -225,88 +280,96 @@ class ComplexSeries(TimeSeries):
             print("Package plotly not found. Install plotly to get nice plot.")
 
         fig = go.Figure()
-
-        fig.add_trace(go.Scatter(
-            x=self.t, 
-            y=self.y.real,
-            mode=mode,
-            name ='real',
-        ))
-        fig.add_trace(go.Scatter(
-            x=self.t, 
-            y=self.y.imag,
-            mode=mode,
-            name='imag',
-        ))
-
+        self.plot(fig, mode=mode)
         fig.show()
 
-    def save(self, fname):
+    def to(self, unitt, unity):
+        assert self._CU, "Only from Cactus Units to other"
+        t = self.x * UnitConversion(unitt)
+        y = self.y * UnitConversion(unity)
+        return self.__class__(t, y, False)     
+
+    def copy(self):
         """
-        Saves into simple ascii format with 3 collumns (t, Re(y), Im(y)) for complex valued data.
+        Return a deep copy.
+        """
+        return self.__class__(self.x, self.y, self._CU)
+
+    def save(self, fname, *args, **kwargs):
+        """
+        Saves into simple ascii format with 2 collumns (t,y) for real valued data.
 
         :param str fname: File name.
         """
-        np.savetxt(fname, np.transpose((self.t, self.y.real, self.y.imag)))
+        if self.is_complex:
+            np.savetxt(fname, np.transpose((self.x, self.y.real, self.y.imag)), *args, **kwargs)
+        else:
+            np.savetxt(fname, np.transpose((self.x, self.y)), *args, **kwargs)
 
 
-class VectorSeries:
+class VectorSeries(BaseSeries):
     """
     Class describing discrete vector functions
     """
 
-    def __init__(self, t ,y):
-        self._vnum = y.shape[1]
-        self.t = t
-        self.y = y
+    def __init__(self, t ,y, CU=True):
+        super().__init__(t, y)
+        # Cactus Unit
+        self._CU = CU
+        self.dim = self.y.shape[1]
 
-    @property
-    def tstart(self):
-        return self.t[0]
+    @cached_property
+    def t(self):
+        """
+        Return the time.
+        """
+        return self.x
 
-    @property
-    def tend(self):
-        return self.t[-1]
+    @cached_property
+    def tmin(self):
+        """
+        Return the starting time.
+        """
+        return self.xmin
 
-    @property
+    @cached_property
+    def tmax(self):
+        """
+        Return the final time.
+        """
+        return self.xmax
+
+    @cached_property
     def dt(self):
-        return self.t[1] - self.t[0]
+        """
+        Return the timestep if the series is regularly sampled,
+        otherwise raise error.
+        """
+        assert self.is_regularly_sampled(), "Timeseries is not regularly sampled"
+        return self.x[1] - self.x[0]
 
-    def __len__(self):
-        return len(self.t)
+    @property
+    def time_length(self):
+        """
+        Return the length of the covered time interval (tmax - tmin).
+        """
+        return self.xmax - self.xmin
 
-    def __getitem__(self, idx):
-        return self.y[idx]
+    duration = time_length
 
-    def shift(self, tshift):
-        return self.__class__(self.t + tshift, self.y)   
+    def NearestTimeIndex(self, v):
+        """Find nearest neighboring point (index) to t
+
+        :param float t: nearest time
+        """
+        return (np.abs(self.x-v)).argmin()
 
     def remove_mean(self):
         """
         Remove the mean value from the data.
         """
         f = self.y - self.y.mean(axis=0)
-        return self.__class__(self.t, f)
-
-    def clip(self, tmin, tmax):
-        """Throws away data outside the time intarval [tmin, tmax].
-
-        :param tmin: Left boundary cut interval
-        :type tmin: float
-        :param tmax: Right boundary cut interval
-        :type tmax: float
-        """
-        t = self.t
-        index = np.where((t >= tmin) & (t <= tmax))
-        return self.__class__(t[index], self.y[index])
-
-    def NearestTimeIndex(self, v):
-        """Find nearest neighboring point (index) to t
-
-        :param t: nearest time
-        :type t: float
-        """
-        return (np.abs(self.t-v)).argmin()
+        return self.__class__(self.x, f, self._CU)
 
     def resample(self, t, **kwargs):
         """Resample field to new timeseries using :py:class:`scipy.interpolate.interp1d`. Default is 'cubic'.
@@ -318,12 +381,20 @@ class VectorSeries:
             kwargs['kind'] = 'cubic'
 
         foft = []
-        for i in range(self._vnum):
-            f = interpolate.interp1d(self.t, self.y[:, i], **kwargs)
+        for i in range(self.dim):
+            f = interpolate.interp1d(self.x, self.y[:, i], **kwargs)
             foft.append(f(t))
-        return self.__class__(t, np.stack(foft, axis=1))
+        return self.__class__(t, np.stack(foft, axis=1), self._CU)
 
-    def cumtrapz(self, **kwargs):
+    def regular_resample(self):
+        """
+        Resample the timeseries to regularly spaced times,
+        with the same number of points.
+        """
+        t = np.linspace(self.xmin, self.xmax, len(self))
+        return self.resample(t)
+
+    def integrate(self, **kwargs):
         """
         :return: Cumulatively integrate is computed using :py:class:`scipy.integrate.cumtrapz`.
         :rtype: :py:class:`DiscreteFunction`
@@ -332,9 +403,9 @@ class VectorSeries:
             kwargs['initial'] = 0
 
         foft = []
-        for i in range(self._vnum):
-            foft.append(integrate.cumtrapz(self.y[:, i], self.t, **kwargs))
-        return self.__class__(self.t, np.stack(foft, axis=1))
+        for i in range(self.dim):
+            foft.append(integrate.cumtrapz(self.y[:, i], self.x, **kwargs))
+        return self.__class__(self.x, np.stack(foft, axis=1), self._CU)
 
     def gradient(self, **kwargs):
         """
@@ -342,14 +413,80 @@ class VectorSeries:
         :rtype: :py:class:`DiscreteFunction`
         """
         foft = []
-        for i in range(self._vnum):
-            foft.append(np.gradient(self.y[:, i], self.t, **kwargs))
-        return self.__class__(self.t, np.stack(foft, axis=1))
+        for i in range(self.dim):
+            foft.append(np.gradient(self.y[:, i], self.x, **kwargs))
+        return self.__class__(self.x, np.stack(foft, axis=1), self._CU)
 
     @property
     def norm(self):
         f = np.linalg.norm(self.y, axis=1)
-        return TimeSeries(self.t, f)
+        return TimeSeries(self.x, f, self._CU)
+
+    def __getitem__(self, n):
+        assert self.dim > n
+        return TimeSeries(self.x, self.y[:, n], self._CU)
+
+    def plot(self, fig, **kwargs):
+        """
+        Plot by :py:class:`matplotlib` or :py:class:`plotly.graph_objects.go`.
+        """
+        if hasattr(fig, 'plot'):
+            for i in range(self.dim):
+                fig.plot(self.x, self.y[:, i], **kwargs, label='{} component'.format(i))
+        elif hasattr(fig, 'add_trace'):
+            import plotly.graph_objects as go
+
+            for i in range(self.dim):
+                fig.add_trace(go.Scatter(
+                    x=self.x, 
+                    y=self.y[:, i],
+                    name ='{} component'.format(i),
+                    **kwargs,
+                ))
+        else:
+            raise RuntimeError("fig must be 'plotly.graph_objects.go' or 'matplotlib.axes._subplots.AxesSubplot'")
+
+    def preview(self, mode='lines+markers'):
+        """
+        Plot by :py:class:`plotly.graph_objects.go`
+        """
+        try:
+            import plotly.graph_objects as go
+        except:
+            print("Package plotly not found. Install plotly to get nice plot.")
+
+        fig = go.Figure()
+        self.plot(fig, mode=mode)
+        fig.show()
+
+    def copy(self):
+        """
+        Return a deep copy.
+        """
+        return self.__class__(self.x, self.y, self._CU)
+
+    def save(self, fname):
+        """
+        Saves into simple ascii format with 2 collumns (t,y) for real valued data.
+
+        :param str fname: File name.
+        """
+        np.savetxt(fname, np.vstack((self.x, self.y.T)).T)
+
+class DataSeries(VectorSeries):
+    """
+    Class describing discrete DataFrame
+    """
+
+    def __init__(self, t, y, columns, CU=True):
+        super().__init__(t, y, CU)
+        assert self.dim == len(columns)
+        self.columns = columns
+
+    def __getitem__(self, var):
+        assert var in self.columns
+        idx = self.columns.index(var)
+        return TimeSeries(self.t, self.y[:, idx], self._CU)
 
     def preview(self, mode='lines+markers'):
         """
@@ -360,94 +497,152 @@ class VectorSeries:
         except:
             print("Package plotly not found. Install plotly to get nice plot.")
         
-        y = self.y
-
         fig = go.Figure()
 
-        for i in range(self._vnum):
+        for i in range(self.dim):
             fig.add_trace(go.Scatter(
-                x=self.t, 
+                x=self.x, 
                 y=self.y[:, i],
                 mode=mode,
-                name ='{} component'.format(i),
+                name ='{}'.format(self.columns[i]),
             ))
 
         fig.show()
 
-    def save(self, fname):
+    def copy(self):
         """
-        Saves into simple ascii format with 2 collumns (t,y) for real valued data.
-
-        :param str fname: File name.
+        Return a deep copy.
         """
-        np.savetxt(fname, np.vstack((self.t, self.y.T)).T)
+        return self.__class__(self.x, self.y, self.columns, self._CU)
 
-class DataFrameSeries:
-    """
-    Class describing discrete DataFrame
-    """
+    @property
+    def DataFrame(self):
+        return pd.DataFrame(self.y, index=self.x, columns=self.columns)
 
-    def __init__(self, df):
-        self.df = df
-
-    def preview(self, mode='lines+markers'):
-        """
-        Plot by :py:class:`plotly.graph_objects.go`
-        """
-        try:
-            pd.options.plotting.backend = "plotly"
-        except:
-            print("Package plotly not found. Install plotly to get nice plot.")
-        
-        fig = self.df.plot()
-        fig.show()
 
 class FrequencySeries:
     """
-    Models a frequency series consisting of uniformly sampled scalar values.
+    Class representing a Fourier spectrum.
     """
-    def __init__(self, f, y):
-        """AI is creating summary for __init__
-
-        :param f: [description]
-        :type f: [type]
-        :param y: [description]
-        :type y: [type]
-        :raises ValueError: [description]
+    def __init__(self, f, y, CU=True):
         """
-        if len(y) < 1:
-            raise ValueError('initial_array must contain at least one sample.')
-        assert len(t) == len(y), "Frequency and Values length mismatch"
+        :param array_like f: Frequencies.
+        :param array_like y: 
+        """
+        assert len(f) >= 1, "initial_array must contain at least one sample."
+        assert len(f) == len(y), "Frequencies and Values length mismatch"
+        assert np.diff(f).min() >= 0, "Frequencies is not monotonically increasing"
         self.f = f
         self.y = y
 
-    # @property
-    # def tstart(self):
-    #     return self.t[0]
+        self._CU = CU
 
-    # @property
-    # def tend(self):
-    #     return self.t[-1]
-
-    @property
-    def df(self):
-        return self.f[1] - self.f[0]
-
-    def to_timeseries(self, delta_t=None):
-        """ Return the Fourier transform of this time series.
-
-        Note that this assumes even length time series!
-
-        Parameters
-        ----------
-        delta_t : {None, float}, optional
-            The time resolution of the returned series. By default the
-        resolution is determined by length and delta_f of this frequency
-        series.
-
-        Returns
-        -------
-        TimeSeries:
-            The inverse fourier transform of this frequency series.
+    @cached_property
+    def fmin(self):
         """
-        pass
+        Return the minimum frequency.
+        """
+        return self.f[0]
+
+    @cached_property
+    def fmax(self):
+        """
+        Return the maximum frequency.
+        """
+        return self.f[-1]
+
+    @cached_property
+    def frange(self):
+        """
+        Return the range of frequencies.
+        """
+        return self.fmax - self.fmin
+
+    @cached_property
+    def df(self):
+        df = np.diff(self.f)
+        assert np.allclose(df, df[0], atol=1e-14), "Timeseries is not is regularly sampled"
+        return df[0]
+
+    def __len__(self):
+        """The number of data points."""
+        return len(self.f)
+
+    def __iter__(self):
+        for f, y in zip(self.f, self.y):
+            yield f, y
+
+    def low_pass(self, f):
+        """Remove frequencies higher or equal than the given.
+
+        :param float f: Frequency above which the series will be zeroed.
+        """
+        msk = np.abs(self.f) <= f
+        return self.__class__(self.f[msk], self.y[msk], self._CU)
+
+    def high_pass(self, f):
+        """Remove all the frequencies smaller than f
+
+        :param float f: Frequency below which series will be zeroed.
+        """
+        msk = np.abs(self.f) >= f
+        return self.__class__(self.f[msk], self.y[msk], self._CU)
+
+    def band_pass(self, fmin, fmax):
+        """Remove all the frequencies below ``fmin`` and above ``fmax``.
+
+        :param float fmin: Minimum frequency.
+        :param float fmax: Maximum frequency.
+        """
+        ret = self.low_passed(fmax)
+        return ret.high_passed(fmin)
+
+#TODO
+# def sample_common(series):
+#     """Take a list of series and return new ones so that they are all defined on the same points.
+
+#     :param list series: The series to resample or redefine on the common points.
+#     """
+#     s1, *s_others = series
+#     if s1.is_regularly_sampled():
+#         for s in s_others:
+#             if not (len(s) == len(s1)):
+#                 break
+#             if not np.allclose(s1.x, s.x, atol=1e-14):
+#                 break
+#             # This is an else to the for loop
+#         else:
+#             # We have to copy, otherwise one can accidentally modify input data
+#             return [ss.copy() for ss in series]
+
+#     if resample:
+#         # Find the series with max xmin
+#         s_xmin = max(series, key=lambda x: x.xmin)
+#         # Find the series with min xmax
+#         s_xmax = min(series, key=lambda x: x.xmax)
+#         # Find the series with min number of points
+#         s_ns = min(series, key=len)
+#         x = np.linspace(s_xmin.xmin, s_xmax.xmax, len(s_ns))
+#         return [
+#             s.resampled(x, piecewise_constant=piecewise_constant)
+#             for s in series
+#         ]
+
+#     def float_intersection(array_1, array_2):
+#         """Here we find the intersection between the two arrays also
+#         considering the floating points.
+#         """
+#         # https://stackoverflow.com/a/32516182
+#         return array_2[
+#             np.isclose(array_1[:, None], array_2, atol=1e-14).any(0)
+#         ]
+
+#     # Here we find the common intersection between all the x, starting with
+#     # the first one
+#     x = s1.x
+#     for s in s_others:
+#         x = float_intersection(x, s.x)
+#         if len(x) == 0:
+#             raise ValueError("Series do not have any point in common")
+
+#     return [s.resampled(x) for s in series]

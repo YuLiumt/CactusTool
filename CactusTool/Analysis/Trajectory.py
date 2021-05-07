@@ -1,7 +1,7 @@
-from re import A
+from ..utils.log import logger
 from .DiscreteFunction import VectorSeries
-from ..Lib.EccRed import tCoal0PN, m_omega_r35SPN, make_ansatz1, make_ansatz2a, make_ansatz2, lambda_r1PNResSum, lambda_t1PNResSum, Pr35PN, delta_rmas
 from scipy.optimize import curve_fit
+from functools import cached_property
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -16,16 +16,29 @@ class Trajectory:
         self.y2 = y2
         self.z2 = z2
 
-    @property
+    @cached_property
     def r(self):
         return VectorSeries(self.t, np.stack([self.x1-self.x2, self.y1-self.y2, self.z1-self.z2], axis=1))
 
+    def CoM(self, m1, m2):
+        """
+        Newtonian expression for the center-of-mass,
+
+        \vec{x}=\frac{m_{a}}{M} \overrightarrow{x_{a}}+\frac{m_{b}}{M} \overrightarrow{x_{b}}
+        """
+        M = m1 + m2
+        x1 = VectorSeries(self.t, np.stack([self.x1, self.y1, self.z1], axis=1))
+        x2 = VectorSeries(self.t, np.stack([self.x2, self.y2, self.z2], axis=1))
+        return (m1*x1 + m2*x2)/M
+
     @property
     def init_separation(self):
-        return self.r.y[0][0]
+        return np.linalg.norm(self.r.y[0])
     
     def tmerger(self, eps=1e-2):
-        index = self.r.norm.NearestValueIndex(eps)
+        r = self.r.norm
+        assert r.y[-1] == 0, "Binary has not yet merged."
+        index = r.NearestValueIndex(eps)
         return self.t[index]
 
     @property
@@ -36,10 +49,12 @@ class Trajectory:
         n = len(r)
         omega = np.zeros((n, 3))
         for i in range(n):
-            omega[i] = np.cross(r[i], v[i])/(r_norm[i]**2)
-        return VectorSeries(r.t, omega)
+            omega[i] = np.cross(r.y[i], v.y[i])/(r_norm.y[i]**2)
+        return VectorSeries(r.x, omega)
 
     def e_Omega(self, ADM_Mass, eta, chi_1, chi_2, MinTime=100, MaxTime=800):
+        from ..Lib.EccRed import tCoal0PN, m_omega_r35SPN, make_ansatz1, make_ansatz2a, make_ansatz2, lambda_r1PNResSum, lambda_t1PNResSum, Pr35PN, delta_rmas
+
         q = (1 + np.sqrt(1 - 4*eta) - 2*eta)/(2*eta)
         D0 = self.init_separation
         s1z = chi_1[2]
@@ -83,35 +98,61 @@ class Trajectory:
         self.lambda_T = 1/lambda_t1PNResSum(amp, t_1, m_omega_r35SPN(D0,q,chi_1,chi_2,1.),D0,eta,1.) #tangential factor
         self.delta_R = delta_rmas(amp,D0,m_omega_r35SPN(D0,q,chi_1,chi_2,1.),q,1.) #radius correction
 
-    # def eccentricity(self, p0=[0, 0, 0.01, 0.002, 0]):
-    #     """
-    #     $$
-    #     \dot{D}(t)=A_{0}+A_{1} t-e D_{0} \omega_{e} \sin \left(\omega_{e} t+\phi_{e}\right)
-    #     $$
-    #     where $e$ is the eccentricity and $D_{0}$ the initial coordinate interbinary distance.
+    def eccentricity(self, p0=[0, 0, 0.01, 0.002, 0]):
+        """
+        $$
+        \dot{D}(t)=A_{0}+A_{1} t-e D_{0} \omega_{e} \sin \left(\omega_{e} t+\phi_{e}\right)
+        $$
+        where $e$ is the eccentricity and $D_{0}$ the initial coordinate interbinary distance.
 
-    #     arXiv:1605.03424
-    #     """
-    #     def orbital_evolution(t, A0, A1, e, w, phi):
-    #         return A0 + A1*t - e*self.init_separation*w*np.sin(w*t + phi)
+        arXiv:1605.03424
+        """
+        def orbital_evolution(t, A0, A1, e, w, phi):
+            return A0 + A1*t - e*self.init_separation*w*np.sin(w*t + phi)
         
-    #     # The fit is performed in the time interval between $t_{\mathrm{ret}}=50 \mathrm{M}$ and $t_{\mathrm{ret}}=\frac{2}{3} t_{\mathrm{merger}}$ to avoid the initial spurious radiation and the plunge phase but having at least one eccentricity cycle included.
-    #     ddot = self.r.norm.gradient().clip(50, 2/3 * self.tmerger())
-    #     t = ddot.t
-    #     y = ddot.y
+        # The fit is performed in the time interval between $t_{\mathrm{ret}}=50 \mathrm{M}$ and $t_{\mathrm{ret}}=\frac{2}{3} t_{\mathrm{merger}}$ to avoid the initial spurious radiation and the plunge phase but having at least one eccentricity cycle included.
+        ddot = self.r.norm.gradient().clip(50, 2/3 * self.tmerger())
+        t = ddot.t
+        y = ddot.y
         
-    #     params, params_covariance = curve_fit(orbital_evolution, t, y, p0=p0)
-    #     print('Orbital Eccentricity =', params[2])
+        params, params_covariance = curve_fit(orbital_evolution, t, y, p0=p0)
+        print('Orbital Eccentricity =', params[2])
 
-    #     fig, ax = plt.subplots()
-    #     ax.plot(t, y)
-    #     ax.set_xlabel('time [M]')
-    #     ax.set_ylabel(r'$\dot{D}$')
-    #     ax.plot(t, orbital_evolution(t, params[0], params[1], params[2], params[3], params[4]), '--', label='Fitted function')
-    #     plt.legend(loc='best')
-    #     plt.show()
+        fig, ax = plt.subplots()
+        ax.plot(t, y)
+        ax.set_xlabel('time [M]')
+        ax.set_ylabel(r'$\dot{D}$')
+        ax.plot(t, orbital_evolution(t, params[0], params[1], params[2], params[3], params[4]), '--', label='Fitted function')
+        plt.legend(loc='best')
+        plt.show()
 
-    def preview(self):
+    @property
+    def vf(self):
+        """
+        remnant kick velocity.
+        """
+        tmerger = self.tmerger()
+        tend = self.t[-1]
+        tstart = tmerger + 2/3*(tend - tmerger)
+        BHf = VectorSeries(self.t, np.stack([self.x1, self.y1, self.z1], axis=1)).clip(tstart, tend)
+        vf = []
+        for i in range(BHf.dim):
+            vi, res, rank, singular, threshold = BHf[i].to('s', 'km').polyfit(1, full=True)
+            if res > 1e-2:
+                logger.warning("Residuals of the least-squares fit may be too large: {}",format(res))
+            vf.append(vi[0])
+        
+        return vf
+
+    def plot2d(self):
+        plt.plot(self.x1, self.y1, label='BH 1')
+        plt.plot(self.x2, self.y2, label='BH 2')
+        plt.legend()
+        plt.xlabel('X [M]')
+        plt.ylabel('Y [M]')
+        plt.axis('equal') 
+
+    def plot3d(self):
         try:
             import plotly.graph_objects as go
         except:
